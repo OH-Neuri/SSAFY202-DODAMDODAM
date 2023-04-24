@@ -12,6 +12,10 @@ module.exports = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      colors: {
+        b_yellow : '#FFF1A1',
+        m_yellow : '#F8CF1C',
+      },
       fontFamily: {
         preBl : ['preBl'],
         preB : ['preB'],
@@ -22,6 +26,7 @@ module.exports = {
         preR : ['preR'],
         preSB : ['preSB'],
         preT : ['preT'],
+        KCC : ['KCC'],
       }
     },
   },
