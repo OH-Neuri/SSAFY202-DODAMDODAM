@@ -44,3 +44,7 @@
   font-family: 'preT';
   src: url("../assets/fonts/Pretendard-Thin.ttf");
 }
+@font-face {
+  font-family: 'KCC';
+  src: url('../assets/fonts/KCC-Ganpan.ttf')
+}
