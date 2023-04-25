@@ -1,7 +1,7 @@
 export type oneDayType = {
-  [index: string]: string | Date;
-  date: Date;
-  content: string;
+  [index: string]: string[] | number;
+  date: number;
+  content: string[];
 };
 
 export type calendarMonthType = {
