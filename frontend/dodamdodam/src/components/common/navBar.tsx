@@ -9,7 +9,7 @@ export default function NavBar(props: {target: string}) {
     }
 
   return (
-    <div className='flex flex-col w-full h-screen bg-b_yellow'>
+    <div className=' flex flex-col w-full h-screen bg-b_yellow'>
         <div className='flex justify-center w-full my-10'>
             <img onClick={()=>{router.push('/')}} className='w-1/2 cursor-pointer' src="/images/logo.png" alt="" />
         </div>

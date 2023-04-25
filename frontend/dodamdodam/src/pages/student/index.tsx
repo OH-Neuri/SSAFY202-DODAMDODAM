@@ -1,61 +1,68 @@
 import React from 'react'
-import Image from 'next/image'
 import Divider from '@mui/material/Divider';
-import StudentCard from '@/components/studentCard';
+import UserCard from '@/components/user/userCard';
 import { student } from '@/types/DataTypes';
+import NavBar from '@/components/common/navBar';
+import Image from 'next/image';
+import StudentRegisterModal from '@/components/student/studentRegisterModal';
+
 export default function index() {
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
     const studentList:student []= [
         {
-            Image:"https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzAzMjdfMTM3%2FMDAxNjc5ODk4NTIzNzM3.xEf48fNa0V0QslABtxDPF-zf18D1wRzRfnBYC_SSvLcg.ABbfBy5tGWrYz5NMqiRrGelbRVmgEtqNdpK9nwX7SEwg.PNG.rawebi1503%2F20230321_134448.png&type=l340_165",
+            image:"/images/student/dog1.jpg",
             name: "여니",
             age: 5,
             gender: "w",
             class: "꽃님반"
         },
         {
-            Image:"https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzAzMjdfMTM3%2FMDAxNjc5ODk4NTIzNzM3.xEf48fNa0V0QslABtxDPF-zf18D1wRzRfnBYC_SSvLcg.ABbfBy5tGWrYz5NMqiRrGelbRVmgEtqNdpK9nwX7SEwg.PNG.rawebi1503%2F20230321_134448.png&type=l340_165",
+            image:"/images/student/squirrel.jpg",
             name: "느리스키",
             age: 6,
             gender: "m",
             class: "햇살반"
         },
         {
-            Image:"https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzAzMjdfMTM3%2FMDAxNjc5ODk4NTIzNzM3.xEf48fNa0V0QslABtxDPF-zf18D1wRzRfnBYC_SSvLcg.ABbfBy5tGWrYz5NMqiRrGelbRVmgEtqNdpK9nwX7SEwg.PNG.rawebi1503%2F20230321_134448.png&type=l340_165",
+            image:"/images/student/dog1.jpg",
             name: "줼레나",
             age: 5,
             gender: "w",
             class: "나무반"
         },
         {
-            Image:"https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzAzMjdfMTM3%2FMDAxNjc5ODk4NTIzNzM3.xEf48fNa0V0QslABtxDPF-zf18D1wRzRfnBYC_SSvLcg.ABbfBy5tGWrYz5NMqiRrGelbRVmgEtqNdpK9nwX7SEwg.PNG.rawebi1503%2F20230321_134448.png&type=l340_165",
+            image:"/images/student/squirrel.jpg",
             name: "줼레나",
             age: 5,
             gender: "w",
             class: "나무반"
         },
         {
-            Image:"https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzAzMjdfMTM3%2FMDAxNjc5ODk4NTIzNzM3.xEf48fNa0V0QslABtxDPF-zf18D1wRzRfnBYC_SSvLcg.ABbfBy5tGWrYz5NMqiRrGelbRVmgEtqNdpK9nwX7SEwg.PNG.rawebi1503%2F20230321_134448.png&type=l340_165",
+            image:"/images/student/European_otter.jpg",
             name: "줼레나",
             age: 5,
             gender: "w",
             class: "나무반"
         },
         {
-            Image:"https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzAzMjdfMTM3%2FMDAxNjc5ODk4NTIzNzM3.xEf48fNa0V0QslABtxDPF-zf18D1wRzRfnBYC_SSvLcg.ABbfBy5tGWrYz5NMqiRrGelbRVmgEtqNdpK9nwX7SEwg.PNG.rawebi1503%2F20230321_134448.png&type=l340_165",
+            image:"/images/student/squirrel.jpg",
             name: "줼레나",
             age: 5,
             gender: "w",
             class: "나무반"
         },
         {
-            Image:"https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzAzMjdfMTM3%2FMDAxNjc5ODk4NTIzNzM3.xEf48fNa0V0QslABtxDPF-zf18D1wRzRfnBYC_SSvLcg.ABbfBy5tGWrYz5NMqiRrGelbRVmgEtqNdpK9nwX7SEwg.PNG.rawebi1503%2F20230321_134448.png&type=l340_165",
+            image:"/images/student/squirrel.jpg",
             name: "줼레나",
             age: 5,
             gender: "w",
             class: "나무반"
         },
         {
-            Image:"https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzAzMjdfMTM3%2FMDAxNjc5ODk4NTIzNzM3.xEf48fNa0V0QslABtxDPF-zf18D1wRzRfnBYC_SSvLcg.ABbfBy5tGWrYz5NMqiRrGelbRVmgEtqNdpK9nwX7SEwg.PNG.rawebi1503%2F20230321_134448.png&type=l340_165",
+            image:"/images/student/European_otter.jpg",
             name: "줼레나",
             age: 5,
             gender: "w",
@@ -63,78 +70,48 @@ export default function index() {
         },
 
         {
-            Image:"https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzAzMjdfMTM3%2FMDAxNjc5ODk4NTIzNzM3.xEf48fNa0V0QslABtxDPF-zf18D1wRzRfnBYC_SSvLcg.ABbfBy5tGWrYz5NMqiRrGelbRVmgEtqNdpK9nwX7SEwg.PNG.rawebi1503%2F20230321_134448.png&type=l340_165",
+            image:"/images/student/squirrel.jpg",
             name: "줼레나",
             age: 5,
             gender: "w",
             class: "나무반"
         },
-        {
-            Image:"https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzAzMjdfMTM3%2FMDAxNjc5ODk4NTIzNzM3.xEf48fNa0V0QslABtxDPF-zf18D1wRzRfnBYC_SSvLcg.ABbfBy5tGWrYz5NMqiRrGelbRVmgEtqNdpK9nwX7SEwg.PNG.rawebi1503%2F20230321_134448.png&type=l340_165",
-            name: "줼레나",
-            age: 5,
-            gender: "w",
-            class: "나무반"
-        },
-        {
-            Image:"https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzAzMjdfMTM3%2FMDAxNjc5ODk4NTIzNzM3.xEf48fNa0V0QslABtxDPF-zf18D1wRzRfnBYC_SSvLcg.ABbfBy5tGWrYz5NMqiRrGelbRVmgEtqNdpK9nwX7SEwg.PNG.rawebi1503%2F20230321_134448.png&type=l340_165",
-            name: "줼레나",
-            age: 5,
-            gender: "w",
-            class: "나무반"
-        },
-        {
-            Image:"https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzAzMjdfMTM3%2FMDAxNjc5ODk4NTIzNzM3.xEf48fNa0V0QslABtxDPF-zf18D1wRzRfnBYC_SSvLcg.ABbfBy5tGWrYz5NMqiRrGelbRVmgEtqNdpK9nwX7SEwg.PNG.rawebi1503%2F20230321_134448.png&type=l340_165",
-            name: "줼레나",
-            age: 5,
-            gender: "w",
-            class: "나무반"
-        },
-        {
-            Image:"https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzAzMjdfMTM3%2FMDAxNjc5ODk4NTIzNzM3.xEf48fNa0V0QslABtxDPF-zf18D1wRzRfnBYC_SSvLcg.ABbfBy5tGWrYz5NMqiRrGelbRVmgEtqNdpK9nwX7SEwg.PNG.rawebi1503%2F20230321_134448.png&type=l340_165",
-            name: "줼레나",
-            age: 5,
-            gender: "w",
-            class: "나무반"
-        },
-    
-
-        
     ]
-
-    
     return (
-        <div className='grid grid-cols-7 h-full'>
-        <div className='bg-blue-100 h-full'></div>
-        <div className='col-span-6'>
-            <div>
-            {/* <Image className='absolute opacity-25 ml-[-500px]' src='/images/student/목업4.png' alt='' width={10000} height={0}></Image> */}
-            </div>
+        <div className=' grid grid-cols-7 h-[935px] '>
+        <div className='fixed'>
+            <NavBar target='원생' />
+        </div>
+        <div className='col-span-1'>
+        </div>
+        <div className='col-span-6 pl-28'>
             <div className=' absolute mt-[100px]  w-[680px] h-[120px]'>
-                <div className=' font-preM text-[32px] text-[#4F4F4F]'>
+                <div className=' font-preM text-[30px] text-[#4F4F4F]'>
                     소정 어린이집
                 </div>
-                <div className='mt-[-4px] font-preBl text-[60px] text-[#494949]'>
+                <div className='mt-[-4px] font-preBl text-[55px] text-[#494949]'>
                     원생 목록
                 </div>
             </div>
-            <div className='absolute overflow-hidden w-[2000px] h-[10px] mt-[270px] ml-[-50px]'>
+            <div className='absolute overflow-hidden w-[1580px] h-[10px] mt-[270px] ml-[-85px]'>
                 <Divider variant="middle" />
             </div>
-            <div className='grid grid-cols-5 gap-3 w-[1930px] h-[800px] mt-[330px]'>
+            <div className=' grid grid-cols-6 gap-1 w-[1500px] h-[100px] mt-[315px]'>
                 {studentList.map((v, i) => { 
                     return (
-                            <StudentCard key={i} student={v}></StudentCard>
+                        <div>
+                        <UserCard key={i} student={v}></UserCard>
+                        </div>
                     )
                 })}
+                
+                <div onClick={()=>handleOpen()} className=' cursor-pointer flex justify-center items-center hover:bg-gray-200 w-[200px] h-[250px] rounded-3xl border-2 border-gray-200 bg-gray-100  '>
+                    <Image className='opacity-40 ' src="/images/user/add.png" alt="" width={105} height={105} />
+                </div>
+                    <StudentRegisterModal open={open} handleOpen={handleOpen} handleClose={handleClose}></StudentRegisterModal>
+                    
             </div>
-            </div>
+        </div>
      </div>
   )
 }
-// return (
-//     <div className="grid grid-cols-7">
-//       <div className="bg-blue-100">test</div>
-//       <div className="col-span-6 bg-red-100">test</div>
-//     </div>
-//   );
