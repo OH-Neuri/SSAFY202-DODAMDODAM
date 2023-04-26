@@ -13,6 +13,7 @@ export default function index() {
   const [idx, setIdx] = useState<number>(-1)
 
   const [open, setOpen] = useState<boolean>(false)
+  const [open2, setOpen2] = useState<boolean>(false)
 
   const classList : classType[] = [
     {class_seq: 0, name: '햇님반', teacher: '김교사', age: '5세, 6세'},
@@ -66,7 +67,6 @@ export default function index() {
         {/* 내용 */}
         <div className='col-span-6 pt-4 px-20'>
           <PageHeader name='반 목록' />
-          <hr />
           <div className='flex w-full mt-20'>
             {/* 반 목록 */}
             <div className='w-[56%] px-8 h-[600px] overflow-y-scroll [&::-webkit-scrollbar]:w-[10px] [&::-webkit-scrollbar-thumb]:bg-[#D5D5D5] [&::-webkit-scrollbar-thumb]:rounded-[10px] [&::-webkit-scrollbar-track]:hidden'>
@@ -85,7 +85,9 @@ export default function index() {
                     <div onClick={()=>{update(i)}}>
                       <EditNoteOutlinedIcon className='mr-10 text-stone-500 hover:text-stone-700 cursor-pointer' />
                     </div>
-                    <HighlightOffOutlinedIcon className='text-red-400/80 cursor-pointer hover:text-red-400'/>
+                    <div onClick={()=>setOpen2(true)}>
+                      <HighlightOffOutlinedIcon className='text-red-400/80 cursor-pointer hover:text-red-400'/>
+                    </div>
                   </div>
                 )
               })}
@@ -95,7 +97,7 @@ export default function index() {
             <div className='w-[40%] flex flex-col items-center rounded shadow-lg px-10 ml-10'>
               {idx == -1 ?
               <>
-              <div className='font-preM text-[26px] mt-10 mb-16'>반 추가하기</div>
+              <div className='font-preB text-[#191919] text-[26px] mt-10 mb-16'>반 추가하기</div>
               <div className='w-full'>
                 <div className='font-preR text-grey-800 font-preR'>이름</div>
                 <input onChange={(e)=>{setName(e.target.value)}} className='outline-none bg-stone-200/50 rounded w-full h-[50px] mt-2 mb-8 px-4' type="text" />
@@ -117,7 +119,7 @@ export default function index() {
               <span onClick={()=>close()} className='cursor-pointer relative top-[10px] right-[-250px]'>
                 <CloseIcon className='' />
               </span>
-              <div className='font-preM text-[26px] mt-4 mb-10'>반 수정하기</div>
+              <div className='font-preB text-[26px] text-[#191919] mt-4 mb-10'>반 수정하기</div>
               <div className='w-full'>
                 <div className='font-preR text-grey-800 font-preR'>이름</div>
                 <input onChange={(e)=>{setName(e.target.value)}} className='outline-none bg-stone-200/50 rounded w-full h-[50px] mt-2 mb-8 px-4' value={name} type="text" />
@@ -155,6 +157,17 @@ export default function index() {
               </div>
               <input className='outline-none bg-stone-200/50 rounded w-full h-[50px] mt-5 px-5' placeholder='ex) 01012341234' type="text" />
               <div className='flex justify-center items-center w-full h-[60px] bg-m_yellow rounded text-[18px] font-preM mt-10 cursor-pointer hover:bg-h_yellow'>인증코드 전송하기</div>             
+            </div>
+          </Modal>
+          <Modal className='flex justify-center items-center' open={open2} onClose={()=>{setOpen2(false)}}>
+            <div className='flex flex-col items-center p-10 bg-white rounded outline-none w-[500px] h-[400px]'>
+              <div className='font-preB text-[24px] mb-10'>반 삭제하기</div>
+              <div className='flex flex-col w-full text-[18px]'>
+                <div>삭제된 반은 다시 복구할 수 없습니다.</div>
+                <div>정말로 삭제하시겠습니까?</div>
+              </div>
+              <div className='flex justify-center items-center w-full h-[60px] bg-m_yellow rounded text-[18px] font-preM mt-10 cursor-pointer hover:bg-h_yellow'>삭제하기</div>             
+              <div className='flex justify-center items-center w-full h-[60px] bg-stone-200 rounded text-[18px] font-preM mt-5 cursor-pointer hover:bg-stone-300'>취소</div>             
             </div>
           </Modal>
       </div>
