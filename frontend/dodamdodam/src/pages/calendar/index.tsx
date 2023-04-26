@@ -4,6 +4,7 @@ import NavBar from "@/components/common/navBar";
 import { calendarMonthType } from "@/types/calendarType";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import PageHeader from "@/components/common/pageHeader";
 
 export default function index() {
   // 현재 년, 월 초기에 저장.
@@ -57,19 +58,7 @@ export default function index() {
       <div></div>
       {/* 본문 내용 */}
       <div className="col-span-6 pl-28">
-        {/* 큰 타이틀 */}
-        <div className="flex m-10">
-          <div className="font-preB text-[54px] text-[#DDDDDD]">
-            {thisMonth.year}
-          </div>
-          <div className="flex flex-col justify-center ml-3">
-            <div>소정 어린이집</div>
-            <div className="font-preB text-[28px]">
-              {thisMonth.month}월 일정
-            </div>
-          </div>
-        </div>
-
+        <PageHeader name={"일정 관리"} />
         {/* Arrow */}
         <div>
           <ArrowBackIosIcon />
