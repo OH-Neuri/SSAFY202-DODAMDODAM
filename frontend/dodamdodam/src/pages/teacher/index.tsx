@@ -5,6 +5,9 @@ import UserCard from '@/components/user/userCard';
 import { student } from '@/types/DataTypes';
 import NavBar from '@/components/common/navBar';
 export default function index() {
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
     const studentList:student []= [
         {
             image:"/images/teacher/flower.png",
@@ -74,7 +77,7 @@ export default function index() {
                             <UserCard key={i} student={v}></UserCard>
                     )
                 })}
-                <div className=' cursor-pointer flex justify-center items-center hover:bg-gray-200 w-[200px] h-[250px] rounded-3xl border-1 border-gray-200 bg-gray-100  '>
+                <div onClick={handleOpen} className=' cursor-pointer flex justify-center items-center hover:bg-gray-200 w-[200px] h-[250px] rounded-3xl border-1 border-gray-200 bg-gray-100  '>
                     <Image className='opacity-40 ' src="/images/user/add.png" alt="" width={105} height={105} />
                 </div>
             </div>
