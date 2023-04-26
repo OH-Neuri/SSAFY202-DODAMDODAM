@@ -167,7 +167,7 @@ export default function index() {
                 <div>정말로 삭제하시겠습니까?</div>
               </div>
               <div className='flex justify-center items-center w-full h-[60px] bg-m_yellow rounded text-[18px] font-preM mt-10 cursor-pointer hover:bg-h_yellow'>삭제하기</div>             
-              <div className='flex justify-center items-center w-full h-[60px] bg-stone-200 rounded text-[18px] font-preM mt-5 cursor-pointer hover:bg-stone-300'>취소</div>             
+              <div onClick={()=>setOpen2(false)} className='flex justify-center items-center w-full h-[60px] bg-stone-200 rounded text-[18px] font-preM mt-5 cursor-pointer hover:bg-stone-300'>취소</div>             
             </div>
           </Modal>
       </div>
