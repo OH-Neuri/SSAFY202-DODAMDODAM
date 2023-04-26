@@ -61,3 +61,7 @@
 .scroll::-webkit-scrollbar-track {
   display: none;
 }
+
+.MuiModal-backdrop {
+  background: rgba(0, 0, 0, 0.3) !important;
+}
