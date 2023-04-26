@@ -1,11 +1,13 @@
-import { Box, Button, Modal, Typography } from '@mui/material'
+import { Box, Button, Chip, InputLabel, MenuItem, Modal, Select, SelectChangeEvent, Stack, TextField, Typography } from '@mui/material'
 import React from 'react'
 
 export default function StudentRegisterModal(props: {open:boolean, handleOpen: any, handleClose: any }) {
   const {open, handleOpen, handleClose} = props
-  // const [open, setOpen] = React.useState(false);
-  // const handleOpen = () => setOpen(true);
-  // const handleClose = () => setOpen(false);
+  const [age, setAge] = React.useState('');
+  const handleClick = () => {
+    
+  };
+
 
   const style = {
     position: 'absolute' as 'absolute',
@@ -20,7 +22,6 @@ export default function StudentRegisterModal(props: {open:boolean, handleOpen: a
   };
   return (
     <div>
-    {/* <Button onClick={handleOpen}>Open modal</Button> */}
     <Modal
       open={open}
       onClose={handleClose}
@@ -28,11 +29,33 @@ export default function StudentRegisterModal(props: {open:boolean, handleOpen: a
       aria-describedby="modal-modal-description"
     >
         <Box sx={style}>
-          <div className='flex flex-col bg-red-200 items-center h-[700px]'>
-            <div>
-              반 생성하기
+          <div className='flex flex-col mt-7 bg-red-200 items-center h-[700px]'>
+            <div className='font-preB text-[30px]'>
+              원생 등록하기
             </div>
-            
+            <div>
+              
+            </div>
+            <div>
+              <div>이름</div>
+              <div><TextField id="filled-basic" label="홍길동" variant="filled" size="small" /></div>
+            </div>
+            <div>
+              <div>나이</div>
+              <div>
+              <Stack direction="row" spacing={2}>
+                <Chip label="3세 이하"  variant="outlined" onClick={handleClick} />
+                <Chip label="4세" variant="outlined" onClick={handleClick} />
+                <Chip label="5세" variant="outlined" onClick={handleClick} />
+                <Chip label="6세" variant="outlined" onClick={handleClick} />
+                <Chip label="7세" variant="outlined" onClick={handleClick} />
+              </Stack>        
+              </div>
+            </div>
+            <div>
+              <div></div>
+              <div></div>
+            </div>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
           </Typography>
