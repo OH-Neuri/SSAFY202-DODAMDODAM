@@ -105,7 +105,7 @@ export default function index() {
                     )
                 })}
                 
-                <div onClick={()=>handleOpen()} className=' cursor-pointer flex justify-center items-center hover:bg-gray-200 w-[200px] h-[250px] rounded-3xl border-2 border-gray-200 bg-gray-100  '>
+                <div onClick={()=>handleOpen()} className=' cursor-pointer flex justify-center items-center hover:bg-gray-200 w-[200px] h-[250px] rounded-3xl border-1 border-gray-200 bg-gray-100  '>
                     <Image className='opacity-40 ' src="/images/user/add.png" alt="" width={105} height={105} />
                 </div>
                     <StudentRegisterModal open={open} handleOpen={handleOpen} handleClose={handleClose}></StudentRegisterModal>
