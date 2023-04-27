@@ -87,7 +87,7 @@ export default function Signup() {
                         <div className='text-red-600 text-[14px] h-[20px] mb-8'>{pwCheckRule}</div>
                     </div>
                     <div className=''>{}</div>
-                    <div className='flex justify-center items-center w-full h-[70px] bg-white/90 hover:bg-white cursor-pointer font-preM text-[20px] rounded-md'>생성하기</div>
+                    <div onClick={()=>router.push('/user/welcome')} className='flex justify-center items-center w-full h-[70px] bg-white/90 hover:bg-white cursor-pointer font-preM text-[20px] rounded-md'>생성하기</div>
                     </>
                     :
                     <>

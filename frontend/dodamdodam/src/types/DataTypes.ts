@@ -15,3 +15,10 @@ export type teacher = {
     gender: string;
     class: string;
 }
+
+export type kindergartenType = {
+    [index: string] : string
+    name: string
+    address: string
+    phone_number: string
+}

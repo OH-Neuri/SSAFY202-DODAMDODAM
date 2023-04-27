@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import React from 'react'
 
 export default function NavBar(props: {target: string}) {
@@ -21,15 +22,12 @@ export default function NavBar(props: {target: string}) {
             <div onClick={()=>{router.push('/student')}} className={`flex justify-center items-center w-full h-[80px] cursor-pointer hover:bg-yellow-500/20 text-[22px] ${target == '원생' && 'font-preM bg-yellow-500/20'}`}>원생 관리</div>
         </div>
         <div className='relative bottom-[-25%] flex justify-center w-full'>
-            <div className='flex items-center px-3 w-[90%] bg-yellow-400/50 h-[90px] rounded-full'>
-                <div className='rounded-full overflow-hidden w-[60px] h-[60px] mr-4'>
-                    <img className='object-fit w-full h-full' src="/images/main/cloud.png" alt="" />
-                </div>
+            <div className='flex items-center justify-between pl-12 pr-6 w-[90%] bg-yellow-400/50 h-[90px] rounded-full'>
                 <div className='flex flex-col w-[120px]'>
-                    <div className='font-preM text-[18px]'>소정어린이집</div>
+                    <div className='font-preM text-[20px]'>소정어린이집</div>
                     <div>쿨냥이원장님</div>
                 </div>
-                <div onClick={()=>{logout()}} className='cursor-pointer'>💢</div>
+                <div onClick={()=>{logout()}} className='cursor-pointer'><MoreVertIcon /></div>
             </div>
         </div>
     </div>

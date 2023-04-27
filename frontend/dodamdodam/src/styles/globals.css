@@ -65,3 +65,7 @@
 .MuiModal-backdrop {
   background: rgba(0, 0, 0, 0.3) !important;
 }
+
+.op .MuiModal-backdrop {
+  background: rgba(0, 0, 0, 0) !important;
+}
