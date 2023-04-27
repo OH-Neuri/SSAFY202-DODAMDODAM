@@ -1,6 +1,6 @@
 export type student = {
     [index: string]: string | number;
-    Image: string;
+    image: string;
     name: string;
     age: number;
     gender: string;
