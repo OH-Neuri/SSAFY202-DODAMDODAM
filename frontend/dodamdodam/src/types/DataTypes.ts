@@ -6,3 +6,10 @@ export type student = {
     gender: string;
     class: string;
 };
+
+export type kindergartenType = {
+    [index: string] : string
+    name: string
+    address: string
+    phone_number: string
+}
