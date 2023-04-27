@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  spring:
+    container_name: spring
+    build: ./backend/dodamdodam
+    ports:
+      - "9090:9090"
+    volumes:
+      - /spring:/image
+    restart: on-failure
+
+  # react:
+  #   container_name: react
+  #   build: ./frontend/overmountain
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - /react:/image
+  #   restart: on-failure
