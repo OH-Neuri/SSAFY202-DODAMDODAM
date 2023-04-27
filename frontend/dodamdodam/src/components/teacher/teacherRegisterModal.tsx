@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect} from "react";
 
 import FormControl from "@mui/material/FormControl";
 export default function StudentRegisterModal(props: {
@@ -29,6 +29,7 @@ export default function StudentRegisterModal(props: {
     setGroup(event.target.value);
   };
 
+
   // 모달 스타일
   const style = {
     position: "absolute" as "absolute",
@@ -40,18 +41,6 @@ export default function StudentRegisterModal(props: {
     bgcolor: "background.paper",
     boxShadow: 100,
     p: 3,
-  };
-  const onUpload = (e: any) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-
-    return new Promise<void>((resolve) => {
-      reader.onload = () => {
-        setImageSrc(reader.result || null); // 파일의 컨텐츠
-        resolve();
-      };
-    });
   };
 
   return (
@@ -66,13 +55,7 @@ export default function StudentRegisterModal(props: {
           <div className="flex flex-col mt-10  items-center h-[700px]">
             <div className=" font-preB text-[33px]">교사 등록하기</div>
             <div className="cursor-pointer mt-14 relative mt- w-[150px] h-[150px] ">
-              <input
-                className=" cursor-pointer  fixed opacity-0 w-[150px] h-[150px] rounded-full bg-red-300"
-                accept="image/*"
-                multiple
-                type="file"
-                onChange={(e) => onUpload(e)}
-              />
+           
               <div className="w-[150px] h-[150px] rounded-full overflow-hidden">
                 <img
                   className="w-full h-full object-cover"
