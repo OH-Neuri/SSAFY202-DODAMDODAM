@@ -10,7 +10,7 @@ import {
   Stack,
 } from "@mui/material";
 import React from "react";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { student } from "@/types/DataTypes";
 
 import FormControl from "@mui/material/FormControl";
@@ -32,12 +32,11 @@ export default function StudentRegisterModal(props: {
   };
 
   useEffect(() => {
-    setName(props.student.name)
-    setAge(props.student.age)
-    setImageSrc(props.student.image)
-    setGroup(props.student.class)
-
-  },[props])
+    setName(props.student.name);
+    setAge(props.student.age);
+    setImageSrc(props.student.image);
+    setGroup(props.student.class);
+  }, [props]);
 
   // 모달 스타일
   const style = {
@@ -51,7 +50,7 @@ export default function StudentRegisterModal(props: {
     boxShadow: 100,
     p: 3,
   };
-  
+
   const onUpload = (e: any) => {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -77,7 +76,7 @@ export default function StudentRegisterModal(props: {
           <div className="flex flex-col mt-10  items-center h-[700px]">
             <div className=" font-preB text-[33px]">원생 수정하기</div>
 
-          {/* 원생 사진 */}
+            {/* 원생 사진 */}
             <div className="cursor-pointer mt-14 relative mt- w-[150px] h-[150px] ">
               <input
                 className=" cursor-pointer  fixed opacity-0 w-[150px] h-[150px] rounded-full bg-red-300"
@@ -105,23 +104,20 @@ export default function StudentRegisterModal(props: {
               </div>
             </div>
 
-          {/* 원생 이름 */}
+            {/* 원생 이름 */}
             <div className="pt-[30px] w-[340px]">
-              <div>이름</div>
+              <div className="pl-[10px]">이름</div>
               <input
                 value={name}
-                className="outline-none border border-gray-300 w-[345px] h-[43px] rounded-lg px-4"
+                className="ml-[5px] outline-none border border-[#BEBEBE] w-[340px] h-[43px] rounded-lg px-4"
                 type="text"
                 onChange={(e) => setName(e.target.value)}
               ></input>
             </div>
             <div className="pt-[20px] w-[340px]">
-
-          {/* 원생 나이 */}
-              <div>나이</div>
+              {/* 원생 나이 */}
+              <div className="pl-[10px]">나이</div>
               <div className="mt-[3px]">
-                {props.student.age}
-                
                 <Stack direction="row" spacing={3}>
                   <Chip
                     className="text-black"
@@ -162,9 +158,9 @@ export default function StudentRegisterModal(props: {
               </div>
             </div>
 
-          {/* 원생 반 */}
+            {/* 원생 반 */}
             <div className="w-[340px] pt-[17px]">
-              <div className="">반</div>
+              <div className="pl-[10px]">반</div>
               <div className="ml-[0px]">
                 <FormControl sx={{ m: 1, minWidth: 340 }} size="small">
                   <InputLabel htmlFor="grouped-select"></InputLabel>
@@ -184,11 +180,19 @@ export default function StudentRegisterModal(props: {
                 </FormControl>
               </div>
             </div>
-            <div
-              onClick={handleClose}
-              className="cursor-pointer hover:bg-[#BF9831] flex justify-center items-center text-[20px] font-preM ml-3 w-[340px] h-[55px] bg-[#FFCD4A] rounded-lg mt-11"
-            >
-              등록하기
+            <div className="flex mt-[20px]">
+              <div
+                onClick={handleClose}
+                className="cursor-pointer hover:bg-[#BF9831] flex justify-center items-center text-[20px] font-preM ml-3 w-[165px] h-[50px] bg-[#FFCD4A] rounded-lg mt-11"
+              >
+                등록하기
+              </div>
+              <div
+                onClick={handleClose}
+                className="cursor-pointer hover:bg-[#C34139] flex justify-center items-center text-[20px] font-preM ml-3 w-[165px] h-[50px] bg-[#FF5F55] rounded-lg mt-11"
+              >
+                삭제하기
+              </div>
             </div>
           </div>
         </Box>
