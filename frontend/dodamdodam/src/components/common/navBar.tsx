@@ -1,9 +1,10 @@
 import { useRouter } from 'next/router'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import React from 'react'
+import React, { useState } from 'react'
 
 export default function NavBar(props: {target: string}) {
     const {target} = props
+    const [tab, setTab] = useState<boolean>(false)
     const router = useRouter()
     const logout = () => {
         alert('로그아웃')
@@ -27,7 +28,15 @@ export default function NavBar(props: {target: string}) {
                     <div className='font-preM text-[20px]'>소정어린이집</div>
                     <div>쿨냥이원장님</div>
                 </div>
-                <div onClick={()=>{logout()}} className='cursor-pointer'><MoreVertIcon /></div>
+                <div onBlur={()=>setTab(false)} tabIndex={0}>
+                    <div onClick={()=>{setTab(!tab)}} className='cursor-pointer'><MoreVertIcon /></div>
+                    {tab && 
+                    <div className='absolute top-[-70px] shadow-lg rounded bg-white w-[120px] h-[100px]'>
+                        <div className='flex justify-center items-center w-full h-1/2 cursor-pointer hover:bg-stone-200/80 font-preR'>유치원 정보</div>
+                        <div className='flex justify-center items-center w-full h-1/2 cursor-pointer hover:bg-stone-200/80 font-preR'>로그아웃</div>
+                    </div>
+                    }
+                </div>
             </div>
         </div>
     </div>
