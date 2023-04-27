@@ -66,7 +66,7 @@ export default function StudentRegisterModal(props: {
       >
         <Box sx={style}>
           <div className="flex flex-col mt-10  items-center h-[700px]">
-            <div className=" font-preB text-[33px]">원생 등록하기</div>
+            <div className=" font-preB text-[33px]">원생 수정하기</div>
             <div className="cursor-pointer mt-14 relative mt- w-[150px] h-[150px] ">
               <input
                 className=" cursor-pointer  fixed opacity-0 w-[150px] h-[150px] rounded-full bg-red-300"
