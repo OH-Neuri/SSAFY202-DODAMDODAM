@@ -21,7 +21,7 @@ export default function StudentRegisterModal(props: {
   handleClose: any;
 }) {
   const { open, handleClose } = props;
-  const [age, setAge] = React.useState(0);
+  const [age, setAge] = React.useState(3);
   const [group, setGroup] = React.useState("");
   const [name, setName] = React.useState("");
   const [imageSrc, setImageSrc]: any = useState("");
@@ -37,7 +37,7 @@ export default function StudentRegisterModal(props: {
     setImageSrc(props.student.image)
     setGroup(props.student.class)
 
-  },[])
+  },[props])
 
   // 모달 스타일
   const style = {
@@ -75,7 +75,7 @@ export default function StudentRegisterModal(props: {
       >
         <Box sx={style}>
           <div className="flex flex-col mt-10  items-center h-[700px]">
-            <div className=" font-preB text-[33px]">원생 등록하기</div>
+            <div className=" font-preB text-[33px]">원생 수정하기</div>
 
           {/* 원생 사진 */}
             <div className="cursor-pointer mt-14 relative mt- w-[150px] h-[150px] ">
@@ -120,6 +120,8 @@ export default function StudentRegisterModal(props: {
           {/* 원생 나이 */}
               <div>나이</div>
               <div className="mt-[3px]">
+                {props.student.age}
+                
                 <Stack direction="row" spacing={3}>
                   <Chip
                     className="text-black"
