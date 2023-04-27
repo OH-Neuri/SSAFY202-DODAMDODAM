@@ -18,7 +18,7 @@ export default function StudentCard(props: { student: student})
             {props.student.age}세 |
           </div>
           <div>
-            {props.student.gender == "w" ? '여자' : '남자'}
+            {props.student.gender == "여자" ? '여자' : '남자'}
           </div>
         </div>
       </div>

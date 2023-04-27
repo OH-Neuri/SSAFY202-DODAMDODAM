@@ -1,6 +1,5 @@
-import React from "react";
-import Divider from "@mui/material/Divider";
-import UserCard from "@/components/user/userCard";
+import React, { useState } from "react";
+import StudentCard from "@/components/student/studentCard";
 import { student } from "@/types/DataTypes";
 import NavBar from "@/components/common/navBar";
 import Image from "next/image";
@@ -9,12 +8,15 @@ import PageHeader from "@/components/common/pageHeader";
 import StudentModifyModal from "@/components/student/studentModifyModal";
 
 export default function index() {
-  const [openRi, setOpenRi] = React.useState(false);
-  const [openMo, setOpenMo] = React.useState(false);
-
-  const handleOpenRi = () => setOpenRi(true);
-  const handleCloseRi = () => setOpenRi(false);
-  const handleOpenMo = () => setOpenMo(true);
+  const [openRe, setOpenRe] = useState<boolean>(false);
+  const [openMo, setOpenMo] = useState<boolean>(false);
+  const [student, setStudent] = useState<number>(1)
+  const handleOpenRe = () => setOpenRe(true);
+  const handleCloseRe = () => setOpenRe(false);
+  const handleOpenMo = (v:number)=> {
+    setStudent(v)
+    setOpenMo(true)
+  };
   const handleCloseMo = () => setOpenMo(false);
 
   const studentList: student[] = [
@@ -22,64 +24,64 @@ export default function index() {
       image: "/images/student/dog1.jpg",
       name: "여니",
       age: 5,
-      gender: "w",
+      gender: "여자",
       class: "꽃님반",
     },
     {
       image: "/images/student/squirrel.jpg",
       name: "느리스키",
       age: 6,
-      gender: "m",
+      gender: "남자",
       class: "햇살반",
     },
     {
       image: "/images/student/dog1.jpg",
       name: "줼레나",
       age: 5,
-      gender: "w",
+      gender: "여자",
       class: "나무반",
     },
     {
       image: "/images/student/squirrel.jpg",
       name: "줼레나",
       age: 5,
-      gender: "w",
+      gender: "여자",
       class: "나무반",
     },
     {
       image: "/images/student/European_otter.jpg",
       name: "줼레나",
       age: 5,
-      gender: "w",
+      gender: "여자",
       class: "나무반",
     },
     {
       image: "/images/student/squirrel.jpg",
       name: "줼레나",
       age: 5,
-      gender: "w",
+      gender: "여자",
       class: "나무반",
     },
     {
       image: "/images/student/squirrel.jpg",
       name: "줼레나",
       age: 5,
-      gender: "w",
+      gender: "여자",
       class: "나무반",
     },
     {
       image: "/images/student/European_otter.jpg",
       name: "줼레나",
       age: 5,
-      gender: "w",
+      gender: "여자",
       class: "나무반",
     },
 
     {
       image: "/images/student/squirrel.jpg",
-      name: "줼레나",
+      name: "줼루나",
       age: 5,
-      gender: "w",
+      gender: "여자",
       class: "나무반",
     },
   ];
@@ -90,34 +92,26 @@ export default function index() {
       </div>
       <div className="col-span-1"></div>
       <div className="col-span-6 pl-20 pt-4">
-        <PageHeader name={"원생목록"}></PageHeader>
-        <div className="absolute overflow-hidden w-[1580px] h-[10px] mt-[10px] ml-[-53111px]">
-          <Divider variant="middle" />
-        </div>
-        <div className=" grid grid-cols-6 gap-1 w-[1500px] h-[100px] mt-[100px] ml-20">
+        <PageHeader name={"원생 목록"}></PageHeader>
+        
+        {/* 교사 카드 */}
+        <div className=" grid grid-cols-6 gap-1 w-[1500px] h-[100px] mt-[100px] ml-10">
           {studentList.map((v, i) => {
             return (
-              <div
-                onClick={() => {
-                  handleOpenMo();
-                }}
-              >
-                <UserCard key={i} student={v}></UserCard>
-                <div className="">
-                  <StudentModifyModal
-                    key={i}
-                    student={v}
-                    open={openMo}
-                    handleOpen={handleOpenMo}
-                    handleClose={handleCloseMo}
-                  ></StudentModifyModal>
+              <div key={i}>
+                <div
+                  onClick={() => {
+                    handleOpenMo(i);
+                  }}
+                >
+                <StudentCard key={i} student={v}></StudentCard>
                 </div>
               </div>
             );
           })}
-
+        {/* 교사 등록 카드 */}
           <div
-            onClick={() => handleOpenRi()}
+            onClick={() => handleOpenRe()}
             className=" cursor-pointer flex justify-center items-center hover:bg-gray-200 w-[200px] h-[250px] rounded-3xl border-1 border-gray-200 bg-gray-100  "
           >
             <Image
@@ -129,10 +123,18 @@ export default function index() {
             />
           </div>
           <StudentRegisterModal
-            open={openRi}
-            handleOpen={handleOpenRi}
-            handleClose={handleCloseRi}
+            open={openRe}
+            handleOpen={handleOpenRe}
+            handleClose={handleCloseRe}
           ></StudentRegisterModal>
+          <div className="">
+            <StudentModifyModal
+              open={openMo}
+              student={studentList[student]}
+              handleOpen={handleOpenMo}
+              handleClose={handleCloseMo}
+            ></StudentModifyModal>
+          </div>
         </div>
       </div>
     </div>
