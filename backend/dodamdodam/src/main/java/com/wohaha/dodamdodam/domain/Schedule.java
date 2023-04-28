@@ -17,7 +17,7 @@ public class Schedule {
     @Column(name = "schedule_seq", nullable = false)
     private Long scheduleSeq;
 
-    @Column(name = "kindergarten_seq")
+    @Column(name = "kindergarten_seq", nullable = false)
     private Long kindergartenSeq;
 
     @Column(name = "class_seq")
@@ -30,6 +30,6 @@ public class Schedule {
     private String content;
 
     @Column(name = "date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
 }
