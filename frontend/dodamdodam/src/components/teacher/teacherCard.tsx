@@ -29,9 +29,10 @@ export default function teacherCard(props: { teacher: teacher }) {
 
       <div className="mt-[13px] flex items-center font-preSB text-[20px]">
         {props.teacher.name}
+        <div className="mt-[2px] flex ml-[5px] text-[15px] font-preL">
+          교사
+        </div>
         <div className="flex justify-end items-end text-[15px] pl-[5px]">
-          <div className="pr-[5px]">{props.teacher.age}세 |</div>
-          <div>{props.teacher.gender == "여자" ? "여자" : "남자"}</div>
         </div>
       </div>
       <div className="items-center justify-center text-white text-[18px] font-preR mt-[20px] w-[83px] h-[37px] bg-[#FF7070] flex rounded-full overflow-hidden">
