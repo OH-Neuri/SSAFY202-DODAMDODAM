@@ -22,7 +22,7 @@ public class SwaggerConfig {
     @Bean
     public Docket api() {
         Server serverLocal = new Server("local", "http://localhost:9090", "for local usages", Collections.emptyList(), Collections.emptyList());
-//        Server realServer = new Server("test", "https://sanneomeo.site/api", "for testing", Collections.emptyList(), Collections.emptyList());
+        //Server realServer = new Server("test", "http://k8a202.p.ssafy.io", "for testing", Collections.emptyList(), Collections.emptyList());
         return new Docket(DocumentationType.OAS_30)
                 .servers(serverLocal)
                 .select()
@@ -35,8 +35,8 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Sanneomeo Swaager")
-                .description("Sanneomeo swagger")
+                .title("Dodamdodam Swaager")
+                .description("Dodamdodam swagger")
                 .version("v3")
                 .build();
     }

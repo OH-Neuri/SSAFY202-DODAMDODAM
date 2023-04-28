@@ -1,9 +1,6 @@
 package com.wohaha.dodamdodam.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -14,6 +11,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
+@ToString
 public class ClassInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,9 +30,9 @@ public class ClassInfo {
     @Column(name = "age")
     private String age;
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at")
     private Timestamp createdAt;
 
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "updated_at")
     private Timestamp updatedAt;
 }
