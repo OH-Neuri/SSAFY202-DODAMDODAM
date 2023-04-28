@@ -1,5 +1,7 @@
 package com.wohaha.dodamdodam.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +12,9 @@ import java.sql.Timestamp;
 @Table(name = "tbl_class")
 @Getter
 @NoArgsConstructor
-public class Class {
+@Builder
+@AllArgsConstructor
+public class ClassInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "class_seq", nullable = false)
