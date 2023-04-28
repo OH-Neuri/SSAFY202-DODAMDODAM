@@ -1,9 +1,12 @@
 import { useRouter } from 'next/router'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import React, { useState } from 'react'
+import { Modal } from '@mui/material';
+import UpdateModal from '../user/updateModal';
 
 export default function NavBar(props: {target: string}) {
     const {target} = props
+    const [open, setOpen] = useState<boolean>(false)
     const [tab, setTab] = useState<boolean>(false)
     const router = useRouter()
     const logout = () => {
@@ -32,13 +35,18 @@ export default function NavBar(props: {target: string}) {
                     <div onClick={()=>{setTab(!tab)}} className='cursor-pointer'><MoreVertIcon /></div>
                     {tab && 
                     <div className='absolute top-[-70px] shadow-lg rounded bg-white w-[120px] h-[100px]'>
-                        <div className='flex justify-center items-center w-full h-1/2 cursor-pointer hover:bg-stone-200/80 font-preR'>유치원 정보</div>
-                        <div className='flex justify-center items-center w-full h-1/2 cursor-pointer hover:bg-stone-200/80 font-preR'>로그아웃</div>
+                        <div onClick={()=>setOpen(true)} className='flex justify-center items-center w-full h-1/2 cursor-pointer hover:bg-stone-200/80 font-preR'>유치원 정보</div>
+                        <div onClick={logout} className='flex justify-center items-center w-full h-1/2 cursor-pointer hover:bg-stone-200/80 font-preR'>로그아웃</div>
                     </div>
                     }
                 </div>
             </div>
         </div>
+        <Modal className='flex justify-center items-center' open={open} onClose={()=>setOpen(false)}>
+            <div className='flex justify-center items-center outline-none'>
+                <UpdateModal />
+            </div>
+        </Modal>
     </div>
   )
 }
