@@ -12,31 +12,42 @@ import {
 import React from "react";
 import { useState, useEffect } from "react";
 import { student } from "@/types/DataTypes";
-
+import DatePicker from 'react-datepicker';
 import FormControl from "@mui/material/FormControl";
+
 export default function StudentRegisterModal(props: {
   student: student;
   open: boolean;
   handleOpen: any;
   handleClose: any;
 }) {
+  
+
   const { open, handleClose } = props;
   const [age, setAge] = React.useState(3);
   const [group, setGroup] = React.useState("");
   const [name, setName] = React.useState("");
   const [imageSrc, setImageSrc]: any = useState("");
-  // 반 목록
+  const [gender, setGender] = useState<string>("");
+  const [startDate, setStartDate] = useState(new Date());
   const groupName = ["햇살반", "새싹반", "나무반", "구름반"];
-  const handleChange = (event: SelectChangeEvent) => {
+  const genders = ["여자", "남자"];
+
+  const handleChangeGroup = (event: SelectChangeEvent) => {
     setGroup(event.target.value);
+  };
+
+  const handleChangeGender = (event: SelectChangeEvent) => {
+    setGender(event.target.value);
   };
 
   useEffect(() => {
     setName(props.student.name);
-    setAge(props.student.age);
     setImageSrc(props.student.image);
     setGroup(props.student.class);
+    setGender(props.student.gender);
   }, [props]);
+
 
   // 모달 스타일
   const style = {
@@ -51,10 +62,12 @@ export default function StudentRegisterModal(props: {
     p: 3,
   };
 
+  // 파일 업로드
   const onUpload = (e: any) => {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
+
 
     return new Promise<void>((resolve) => {
       reader.onload = () => {
@@ -63,6 +76,7 @@ export default function StudentRegisterModal(props: {
       };
     });
   };
+
 
   return (
     <div>
@@ -115,88 +129,82 @@ export default function StudentRegisterModal(props: {
               ></input>
             </div>
             <div className="pt-[20px] w-[340px]">
+              <div className="flex">
               {/* 원생 나이 */}
-              <div className="pl-[10px]">나이</div>
-              <div className="mt-[3px]">
-                <Stack direction="row" spacing={3}>
-                  <Chip
-                    className="text-black"
-                    label="3세 이하"
-                    color="primary"
-                    variant={age == 3 ? "filled" : "outlined"}
-                    onClick={() => setAge(3)}
-                  />
-                  <Chip
-                    className="text-black"
-                    label="4세"
-                    color="primary"
-                    variant={age == 4 ? "filled" : "outlined"}
-                    onClick={() => setAge(4)}
-                  />
-                  <Chip
-                    className="text-black"
-                    label="5세"
-                    color="primary"
-                    variant={age == 5 ? "filled" : "outlined"}
-                    onClick={() => setAge(5)}
-                  />
-                  <Chip
-                    className="text-black"
-                    label="6세"
-                    color="primary"
-                    variant={age == 6 ? "filled" : "outlined"}
-                    onClick={() => setAge(6)}
-                  />
-                  <Chip
-                    className="text-black"
-                    label="7세"
-                    color="primary"
-                    variant={age == 7 ? "filled" : "outlined"}
-                    onClick={() => setAge(7)}
-                  />
-                </Stack>
+                <div >
+                  <div className="ml-[5px]">생년월일</div>
+                  <div className="ml-[5px] mt-[3px]  w-[150px] h-[60px]">
+                    <DatePicker
+                      className="outline-none w-[160px] mt-[4px] h-[42px] text-[18px] border-[1.5px] border-gray-300 pl-[17px] rounded-lg"
+                      selected={startDate}
+                      onChange={(date: any) => setStartDate(date)}
+                      dateFormat="yyyy-MM-dd"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <div className="ml-[37px] "> 성별 </div>
+                  <div className="ml-[23px]">
+                    <FormControl sx={{ m: 1, minWidth: 160 }} size="small">
+                      <InputLabel htmlFor="grouped-select"></InputLabel>
+                      <Select
+                        id="grouped-select"
+                        value={gender}
+                        onChange={handleChangeGender}
+                      >
+                        {genders.map((v, i) => {
+                          return (
+                            <MenuItem key={i} value={v}>
+                              {v}
+                            </MenuItem>
+                          );
+                        })}
+                      </Select>
+                    </FormControl>
+                  </div>
+                </div>
               </div>
-            </div>
-
-            {/* 원생 반 */}
-            <div className="w-[340px] pt-[17px]">
-              <div className="pl-[10px]">반</div>
-              <div className="ml-[0px]">
-                <FormControl sx={{ m: 1, minWidth: 340 }} size="small">
-                  <InputLabel htmlFor="grouped-select"></InputLabel>
-                  <Select
-                    id="grouped-select"
-                    value={group}
-                    onChange={handleChange}
-                  >
-                    {groupName.map((v, i) => {
-                      return (
-                        <MenuItem key={i} value={v}>
-                          {v}
-                        </MenuItem>
-                      );
-                    })}
-                  </Select>
-                </FormControl>
+              {/* 원생 반 */}
+              <div className="w-[340px] pt-[17px]">
+                <div className="pl-[10px]">반</div>
+                <div className="ml-[0px]">
+                  <FormControl sx={{ m: 1, minWidth: 340 }} size="small">
+                    <InputLabel htmlFor="grouped-select"></InputLabel>
+                    <Select
+                      id="grouped-select"
+                      value={group}
+                      onChange={handleChangeGroup}
+                    >
+                      {groupName.map((v, i) => {
+                        return (
+                          <MenuItem key={i} value={v}>
+                            {v}
+                          </MenuItem>
+                        );
+                      })}
+                    </Select>
+                  </FormControl>
+                </div>
               </div>
-            </div>
-            <div className="flex mt-[20px]">
-              <div
-                onClick={handleClose}
-                className="cursor-pointer hover:bg-[#BF9831] flex justify-center items-center text-[20px] font-preM ml-3 w-[165px] h-[50px] bg-[#FFCD4A] rounded-lg mt-11"
-              >
-                등록하기
-              </div>
-              <div
-                onClick={handleClose}
-                className="cursor-pointer hover:bg-[#C34139] flex justify-center items-center text-[20px] font-preM ml-3 w-[165px] h-[50px] bg-[#FF5F55] rounded-lg mt-11"
-              >
-                삭제하기
+              <div className="flex mt-[20px]">
+                <div
+                  onClick={handleClose}
+                  className="cursor-pointer hover:bg-[#BF9831] flex justify-center items-center text-[20px] font-preM ml-3 w-[165px] h-[50px] bg-[#FFCD4A] rounded-lg mt-11"
+                >
+                  등록하기
+                </div>
+                <div
+                  onClick={handleClose}
+                  className="cursor-pointer hover:bg-[#C34139] flex justify-center items-center text-[20px] font-preM ml-3 w-[165px] h-[50px] bg-[#FF5F55] rounded-lg mt-11"
+                >
+                  삭제하기
+                </div>
               </div>
             </div>
           </div>
         </Box>
       </Modal>
     </div>
+  
   );
 }

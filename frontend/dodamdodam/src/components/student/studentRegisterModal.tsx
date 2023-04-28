@@ -1,35 +1,45 @@
 import {
   Box,
-  Button,
-  Chip,
   InputLabel,
   MenuItem,
   Modal,
   Select,
   SelectChangeEvent,
-  Stack,
   TextField,
-  Typography,
 } from "@mui/material";
 import React from "react";
 import { useState } from "react";
-
 import FormControl from "@mui/material/FormControl";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+
+
 export default function StudentRegisterModal(props: {
   open: boolean;
   handleOpen: any;
   handleClose: any;
 }) {
+
+
   const { open, handleClose } = props;
-  const [age, setAge] = React.useState(3);
-  const [group, setGroup] = React.useState("");
-  const [name, setName] = React.useState("");
+  const [group, setGroup] = React.useState<string>("");
+  const [name, setName] = React.useState<string>("");
   const [imageSrc, setImageSrc]: any = useState("images/student/boy.png");
-  // 반 목록
+  const [gender, setGender] = useState<string>("");
+  const [startDate, setStartDate] = useState(new Date());
   const groupName = ["햇살반", "새싹반", "나무반", "구름반"];
-  const handleChange = (event: SelectChangeEvent) => {
+  const genders = ["여자", "남자"];
+
+
+
+  const handleChangeGroup = (event: SelectChangeEvent) => {
     setGroup(event.target.value);
   };
+
+  const handleChangeGender = (event: SelectChangeEvent) => {
+    setGender(event.target.value);
+  };
+  
 
   // 모달 스타일
   const style = {
@@ -43,6 +53,8 @@ export default function StudentRegisterModal(props: {
     boxShadow: 100,
     p: 3,
   };
+
+  // 파일 업로드
   const onUpload = (e: any) => {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -56,6 +68,8 @@ export default function StudentRegisterModal(props: {
     });
   };
 
+
+
   return (
     <div>
       <Modal
@@ -66,7 +80,7 @@ export default function StudentRegisterModal(props: {
       >
         <Box sx={style}>
           <div className="flex flex-col mt-10  items-center h-[700px]">
-            <div className=" font-preB text-[33px]">원생 수정하기</div>
+            <div className=" font-preB text-[33px]">원생 등록하기</div>
             <div className="cursor-pointer mt-14 relative mt- w-[150px] h-[150px] ">
               <input
                 className=" cursor-pointer  fixed opacity-0 w-[150px] h-[150px] rounded-full bg-red-300"
@@ -94,64 +108,56 @@ export default function StudentRegisterModal(props: {
               </div>
             </div>
             <div className="pt-[30px] w-[340px]">
-              <div>이름</div>
+              <div className="ml-[10px]" >이름</div>
               <input
-                className="outline-none border border-gray-300 w-[345px] h-[43px] rounded-lg px-4"
+                className="outline-none border border-gray-300 w-[345px] h-[40px] rounded-lg px-4"
                 type="text"
                 onChange={(e) => setName(e.target.value)}
               ></input>
             </div>
-            <div className="pt-[20px] w-[340px]">
-              <div>나이</div>
-              <div className="mt-[3px]">
-                <Stack direction="row" spacing={3}>
-                  <Chip
-                    className="text-black"
-                    label="3세 이하"
-                    color="primary"
-                    variant={age == 3 ? "filled" : "outlined"}
-                    onClick={() => setAge(3)}
-                  />
-                  <Chip
-                    className="text-black"
-                    label="4세"
-                    color="primary"
-                    variant={age == 4 ? "filled" : "outlined"}
-                    onClick={() => setAge(4)}
-                  />
-                  <Chip
-                    className="text-black"
-                    label="5세"
-                    color="primary"
-                    variant={age == 5 ? "filled" : "outlined"}
-                    onClick={() => setAge(5)}
-                  />
-                  <Chip
-                    className="text-black"
-                    label="6세"
-                    color="primary"
-                    variant={age == 6 ? "filled" : "outlined"}
-                    onClick={() => setAge(6)}
-                  />
-                  <Chip
-                    className="text-black"
-                    label="7세"
-                    color="primary"
-                    variant={age == 7 ? "filled" : "outlined"}
-                    onClick={() => setAge(7)}
-                  />
-                </Stack>
+            <div className="pt-[20px] w-[340px] flex">
+              <div>
+                <div className="ml-[5px]">생년월일</div>
+                <div className="mt-[3px]  w-[150px] h-[60px]">
+                  <DatePicker 
+                    className="outline-none w-[160px] mt-[4px] h-[42px] text-[20px] border-[1.5px] border-gray-300 pl-[17px] rounded-lg"
+                    selected={startDate}
+                    onChange={(date:any) => setStartDate(date)}
+                    dateFormat="yyyy-MM-dd"
+                />
+                </div>
+              </div>
+              <div>
+                <div className="ml-[37px] "> 성별 </div>
+                <div className="ml-[23px]">
+                  <FormControl  sx={{ m: 1, minWidth: 160 }} size="small">
+                    <InputLabel htmlFor="grouped-select"></InputLabel>
+                    <Select
+                      id="grouped-select"
+                      value={gender}
+                      onChange={handleChangeGender}
+                    >
+                      {genders.map((v, i) => {
+                        return (
+                          <MenuItem key={i} value={v}>
+                            {v}
+                          </MenuItem>
+                        );
+                      })}
+                    </Select>
+                  </FormControl>
+                </div>
               </div>
             </div>
-            <div className="w-[340px] pt-[17px]">
-              <div className="">반</div>
-              <div className="ml-[0px]">
+            <div className="w-[350px] pt-[17px]">
+              <div className="ml-[10px]">반</div>
+              <div >
                 <FormControl sx={{ m: 1, minWidth: 340 }} size="small">
                   <InputLabel htmlFor="grouped-select"></InputLabel>
                   <Select
                     id="grouped-select"
                     value={group}
-                    onChange={handleChange}
+                    onChange={handleChangeGroup}
                   >
                     {groupName.map((v, i) => {
                       return (
