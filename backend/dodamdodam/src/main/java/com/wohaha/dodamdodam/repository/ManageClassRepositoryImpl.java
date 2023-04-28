@@ -16,11 +16,11 @@ public class ManageClassRepositoryImpl implements ManageClassRepositoryCustom {
     @Autowired
     private JPAQueryFactory query;
 
-    public List<ClassListResponseDto> classList(long kindergartenSeq){
-        return query
-                .select(Projections.fields(ClassListResponseDto.class),
-                        classInfo.classSeq,classInfo.)
-    }
+//    public List<ClassListResponseDto> classList(long kindergartenSeq){
+//        return query
+//                .select(Projections.fields(ClassListResponseDto.class),
+//                        classInfo.classSeq,classInfo.)
+//    }
 
 
 

@@ -39,7 +39,7 @@ public class ManageClassServiceImpl implements ManageClassService {
     @Override
     public List<ClassListResponseDto> classList(long kindergartenSeq) {
 
-        List<ClassListResponseDto> classList = manageClassRepository.classList(kindergartenSeq);
+        //List<ClassListResponseDto> classList = manageClassRepository.classList(kindergartenSeq);
         return null;
     }
 }
