@@ -1,14 +1,9 @@
 version: "3.7"
 services:
   react:
-    container_name: react
     build:
       context: .
       dockerfile: Dockerfile
+    restart: always
     ports:
       - "3000:3000"
-    volumes:
-      - /react:/image
-    restart: on-failure
-
-
