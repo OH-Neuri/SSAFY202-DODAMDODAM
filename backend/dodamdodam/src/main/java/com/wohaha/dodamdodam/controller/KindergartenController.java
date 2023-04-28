@@ -22,10 +22,10 @@ public class KindergartenController {
     @Autowired
     ManageClassService manageClassService;
 
-    @PostMapping("/kid")
-    public BaseResponseDto<?> createKid(@RequestBody CreateClassRequestDto createKidRequestDto) {
+    @PostMapping("/class")
+    public BaseResponseDto<?> createClass(@RequestBody CreateClassRequestDto createClassRequestDto) {
         try{
-            boolean result = manageClassService.createClass(createKidRequestDto);
+            boolean result = manageClassService.createClass(createClassRequestDto);
             return new BaseResponseDto<>(result);
         }catch (Exception e){
             if(e instanceof BaseException){
