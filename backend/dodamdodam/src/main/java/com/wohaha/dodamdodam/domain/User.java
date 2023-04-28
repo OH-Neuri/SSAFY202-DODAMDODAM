@@ -26,7 +26,7 @@ public class User {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "teacher", columnDefinition = "TINYINT(1) default 1")
+    @Column(name = "teacher", nullable = false, columnDefinition = "TINYINT(1) default 1")
     private boolean teacher;
 
     @Column(name = "phone_number")

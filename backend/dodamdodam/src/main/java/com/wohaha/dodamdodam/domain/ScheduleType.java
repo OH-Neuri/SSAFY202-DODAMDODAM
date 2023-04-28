@@ -20,4 +20,7 @@ public class ScheduleType {
 
     @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "is_valid", nullable = false, columnDefinition = "TINYINT(1) default 1")
+    private boolean isValid;
 }
