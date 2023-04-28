@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ManageClassService {
 
-    boolean createClass(CreateClassRequestDto createKidRequestDto);
+    boolean createClass(CreateClassRequestDto createClassRequestDto);
 
     List<ClassListResponseDto> classList(long kindergartenSeq);
 

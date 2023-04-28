@@ -19,15 +19,15 @@ public class ManageClassServiceImpl implements ManageClassService {
     private ManageClassRepository manageClassRepository;
 
     @Override
-    public boolean createClass(CreateClassRequestDto createKidRequestDto) {
+    public boolean createClass(CreateClassRequestDto createClassRequestDto) {
         //수정할거!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         long kindergartenSeq = 1; //token에 있는 원장 seq로 kindergartenSeq 구해서 넣기
 
         //dto to entity
         ClassInfo classInfo = ClassInfo.builder()
                 .kindergartenSeq(kindergartenSeq)
-                .name(createKidRequestDto.getName())
-                .age(createKidRequestDto.getAge())
+                .name(createClassRequestDto.getName())
+                .age(createClassRequestDto.getAge())
                 .count(0)
                 .build();
         System.out.println(classInfo.toString());
