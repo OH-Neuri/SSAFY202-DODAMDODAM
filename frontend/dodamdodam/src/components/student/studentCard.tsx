@@ -15,7 +15,7 @@ export default function StudentCard(props: { student: student})
         {props.student.name}
         <div className='flex justify-end items-end text-[15px] pl-[5px]'>
           <div className='pr-[5px]'>
-            {props.student.age}세 |
+            {2023-(+props.student.birth.split("-")[0])}세 |
           </div>
           <div>
             {props.student.gender == "여자" ? '여자' : '남자'}
