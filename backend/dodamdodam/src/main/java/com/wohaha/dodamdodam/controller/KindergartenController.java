@@ -2,6 +2,7 @@ package com.wohaha.dodamdodam.controller;
 
 import com.wohaha.dodamdodam.dto.response.BaseResponseDto;
 import com.wohaha.dodamdodam.dto.response.request.CreateKidRequestDto;
+import com.wohaha.dodamdodam.dto.response.request.CreateScheduleRequestDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.service.ManageKidService;
@@ -30,6 +31,22 @@ public class KindergartenController {
             }
         }
     }
+
+    @PostMapping("/schedule")
+    public BaseResponseDto<?> createSchedule(@RequestBody CreateScheduleRequestDto createScheduleRequestDto) {
+        try {
+            boolean result =
+        } catch (Exception e) {
+            if(e instanceof BaseException) {
+                throw e;
+            }
+            throw new BaseException(BaseResponseStatus.FAIL);
+        }
+    }
+
+
+
+
 
 
 }
