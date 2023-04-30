@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import OneDay from "@/components/calendar/oneDay";
 import NavBar from "@/components/common/navBar";
-import { calendarMonthType } from "@/types/calendarType";
+import { calendarMonthType, classificationType } from "@/types/calendarType";
 import PageHeader from "@/components/common/pageHeader";
 import { Button, IconButton, TextField, MenuItem } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import CalendarTypeModal from "@/components/calendar/calendarTypeModal";
 
 export default function index() {
+  // 모달
+  const [open, setOpen] = useState<boolean>(false);
+
   // 현재 년, 월 초기에 저장.
   let today = new Date();
   const [thisMonth, setThisMonth] = useState<calendarMonthType>({
@@ -224,18 +228,18 @@ export default function index() {
   // 일정 추가
   const [addType, setAddType] = useState<string>("");
   const [addContent, setaddContent] = useState<string>("");
-  const typeList = [
+  const typeList: classificationType[] = [
     {
-      value: 0,
-      label: "행사",
+      scheduleTypeSeq: 0,
+      content: "행사",
     },
     {
-      value: 1,
-      label: "미술",
+      scheduleTypeSeq: 1,
+      content: "미술",
     },
     {
-      value: 2,
-      label: "룰루랄랄랄ㄹ랄ㄹ랄ㄹ라",
+      scheduleTypeSeq: 2,
+      content: "룰루랄랄랄ㄹ랄ㄹ랄ㄹ라",
     },
   ];
 
@@ -309,6 +313,7 @@ export default function index() {
                   color="secondary"
                   className="font-preM text-[13px]"
                   size="small"
+                  onClick={() => setOpen(true)}
                 >
                   일정 분류 수정
                 </Button>
@@ -324,13 +329,13 @@ export default function index() {
                   select
                   defaultValue="분류 선택"
                 >
-                  {typeList.map((option) => (
+                  {typeList.map((option, idx) => (
                     <MenuItem
                       className="font-preL text-[13px]"
-                      key={option.value}
-                      value={option.value}
+                      key={idx}
+                      value={option.scheduleTypeSeq}
                     >
-                      {option.label}
+                      {option.content}
                     </MenuItem>
                   ))}
                 </TextField>
@@ -373,6 +378,13 @@ export default function index() {
           )}
         </div>
       </div>
+
+      {/* 모달 */}
+      <CalendarTypeModal
+        open={open}
+        handleClose={() => setOpen(false)}
+        typeList={typeList}
+      ></CalendarTypeModal>
     </div>
   );
 }

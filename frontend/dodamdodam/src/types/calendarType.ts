@@ -13,3 +13,15 @@ export type calendarMonthType = {
     [index: string]: oneSceduleType[];
   };
 };
+
+export type classificationType = {
+  [index: string]: number | string;
+  scheduleTypeSeq: number;
+  content: string;
+};
+
+export type classificationNullType = {
+  [index: string]: number | string | null;
+  scheduleTypeSeq: number | null;
+  content: string | null;
+};
