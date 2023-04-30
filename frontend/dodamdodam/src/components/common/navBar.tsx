@@ -1,9 +1,13 @@
 import { useRouter } from 'next/router'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import React from 'react'
+import React, { useState } from 'react'
+import { Modal } from '@mui/material';
+import UpdateModal from '../user/updateModal';
 
 export default function NavBar(props: {target: string}) {
     const {target} = props
+    const [open, setOpen] = useState<boolean>(false)
+    const [tab, setTab] = useState<boolean>(false)
     const router = useRouter()
     const logout = () => {
         alert('로그아웃')
@@ -27,9 +31,22 @@ export default function NavBar(props: {target: string}) {
                     <div className='font-preM text-[20px]'>소정어린이집</div>
                     <div>쿨냥이원장님</div>
                 </div>
-                <div onClick={()=>{logout()}} className='cursor-pointer'><MoreVertIcon /></div>
+                <div onBlur={()=>setTab(false)} tabIndex={0}>
+                    <div onClick={()=>{setTab(!tab)}} className='cursor-pointer'><MoreVertIcon /></div>
+                    {tab && 
+                    <div className='absolute top-[-70px] shadow-lg rounded bg-white w-[120px] h-[100px]'>
+                        <div onClick={()=>setOpen(true)} className='flex justify-center items-center w-full h-1/2 cursor-pointer hover:bg-stone-200/80 font-preR'>유치원 정보</div>
+                        <div onClick={logout} className='flex justify-center items-center w-full h-1/2 cursor-pointer hover:bg-stone-200/80 font-preR'>로그아웃</div>
+                    </div>
+                    }
+                </div>
             </div>
         </div>
+        <Modal className='flex justify-center items-center' open={open} onClose={()=>setOpen(false)}>
+            <div className='flex justify-center items-center outline-none'>
+                <UpdateModal />
+            </div>
+        </Modal>
     </div>
   )
 }
