@@ -10,45 +10,27 @@ export default function index() {
 
   const teacherList: teacher[] = [
     {
-      image:"",
       name: "여니",
-      age: 5,
-      gender: "여자",
       class: "꽃님반",
     },
     {
-      image:"",
       name: "쒸스키",
-      age: 6,
-      gender: "남자",
       class: "햇살반",
     },
     {
-      image:"",
       name: "젼스킈",
-      age: 5,
-      gender: "여자",
       class: "새싹반",
     },
     {
-      image:"",
       name: "나현스킈",
-      age: 5,
-      gender: "여자",
       class: "햇살반",
     },
     {
-      image:"",
       name: "줼레나",
-      age: 5,
-      gender: "남자",
       class: "구름반",
     },
     {
-      image:"",
       name: "줼레나",
-      age: 5,
-      gender: "여자",
       class: "꽃님반",
     },
   ];
