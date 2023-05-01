@@ -3,6 +3,7 @@ package com.wohaha.dodamdodam.service;
 import com.wohaha.dodamdodam.domain.Schedule;
 import com.wohaha.dodamdodam.domain.ScheduleType;
 import com.wohaha.dodamdodam.dto.response.request.CreateScheduleRequestDto;
+import com.wohaha.dodamdodam.dto.response.request.ScheduleTypeRequestDto;
 import com.wohaha.dodamdodam.dto.response.response.KindergartenScheduleListResponseDto;
 import com.wohaha.dodamdodam.dto.response.response.ScheduleListResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
@@ -69,5 +70,30 @@ public class ManageScheduleServiceImpl implements ManageScheduleService {
     public boolean deleteSchedule(Long scheduleSeq) {
         Long deleteCnt = scheduleRepository.deleteScheduleById(scheduleSeq);
         return deleteCnt > 0;
+    }
+
+    @Override
+    public boolean createScheduleType(String content) {
+        Long userSeq = 1L; // 원장선생님 시퀀스 토큰에서 가져옴
+        Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.KINDERGARTEN_NULL_FAIL));
+        System.out.println(kindergartenSeq);
+        ScheduleType scheduleType = ScheduleType.builder()
+                .kindergartenSeq(kindergartenSeq)
+                .name(content)
+                .build();
+        System.out.println(scheduleType.toString());
+        scheduleTypeRepository.save(scheduleType);
+        return true;
+    }
+
+    @Override
+    public boolean deleteScheduleType(Long scheduleTypeSeq) {
+        return false;
+    }
+
+    @Override
+    public boolean updateScheduleType(ScheduleTypeRequestDto scheduleTypeRequestDto) {
+        return false;
     }
 }
