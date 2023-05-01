@@ -35,10 +35,7 @@ public class KindergartenController {
     @GetMapping("class")
     public BaseResponseDto<List<ClassListResponseDto>> classList(){
         try{
-            //수정할거!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            long kindergartenSeq = 1; //token에 있는 원장 seq로 kindergartenSeq 구해서 넣기
-
-            return new BaseResponseDto<>(manageClassService.classList(kindergartenSeq));
+            return new BaseResponseDto<>(manageClassService.classList());
         }catch (Exception e){
             if(e instanceof BaseException){
                 throw e;

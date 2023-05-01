@@ -9,6 +9,6 @@ public interface ManageClassService {
 
     boolean createClass(CreateClassRequestDto createClassRequestDto);
 
-    List<ClassListResponseDto> classList(long kindergartenSeq);
+    List<ClassListResponseDto> classList();
 
 }
