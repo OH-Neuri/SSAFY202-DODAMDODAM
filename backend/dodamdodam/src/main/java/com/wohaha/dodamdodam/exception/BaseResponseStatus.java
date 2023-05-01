@@ -13,7 +13,7 @@ public enum BaseResponseStatus {
   //임시생성 -> 추후 코드 정리 예정
   FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 1999, "일단 실패했습니다??"),
   KINDERGARTEN_NULL_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 1998, "해당 유저의 어린이집 정보가 없습니다."),
-
+  SCHEDULE_TYPE_NULL_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 1997, "해당 시퀀스의 일정 분류가 없습니다."),
 
   //인증관련 에러
   SIGNUP_REQUIRED(HttpStatus.OK, 4001, "회원가입이 필요한 유저입니다."),

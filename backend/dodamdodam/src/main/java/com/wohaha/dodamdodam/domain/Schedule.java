@@ -27,9 +27,6 @@ public class Schedule {
     @Column(name = "class_seq")
     private Long classSeq;
 
-    @Column(name = "schedule_type_seq")
-    private Long scheduleTypeSeq;
-
     @Column(name = "content")
     private String content;
 
@@ -37,7 +34,7 @@ public class Schedule {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
 
-    @ManyToOne(targetEntity = ScheduleType.class)
-    @JoinColumn(name = "schedule_type_seq", insertable = false, updatable = false)
+    @ManyToOne
+    @JoinColumn(name = "schedule_type_seq")
     private ScheduleType scheduleType;
 }

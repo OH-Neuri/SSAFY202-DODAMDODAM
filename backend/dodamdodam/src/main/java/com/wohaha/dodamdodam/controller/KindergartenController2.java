@@ -21,7 +21,7 @@ public class KindergartenController2 {
     private ManageScheduleService manageScheduleService;
 
     @PostMapping("/schedule")
-    public BaseResponseDto<?> createSchedule(@RequestBody CreateScheduleRequestDto createScheduleRequestDto) {
+    public BaseResponseDto<Boolean> createSchedule(@RequestBody CreateScheduleRequestDto createScheduleRequestDto) {
         System.out.println(createScheduleRequestDto.toString());
         try {
             boolean result = manageScheduleService.createSchedule(createScheduleRequestDto);
@@ -40,14 +40,25 @@ public class KindergartenController2 {
             KindergartenScheduleListResponseDto kScheduleList = manageScheduleService.getScheduleList(year, month);
             return new BaseResponseDto<>(kScheduleList);
         } catch(Exception e) {
-            e.printStackTrace();
             if (e instanceof BaseException) {
                 throw e;
             } else {
                 throw new BaseException(BaseResponseStatus.FAIL);
             }
         }
+    }
 
+    @DeleteMapping("/schedule/{scheduleSeq}")
+    public BaseResponseDto<Boolean> deleteSchedule(@PathVariable Long scheduleSeq) {
+        try {
+            return new BaseResponseDto<>(manageScheduleService.deleteSchedule(scheduleSeq));
+        } catch(Exception e) {
+            if (e instanceof BaseException) {
+                throw e;
+            } else {
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
     }
 
 }

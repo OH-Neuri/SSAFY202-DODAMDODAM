@@ -32,7 +32,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepositoryCustom {
         return query
                 .select(
                         Projections.constructor(ScheduleListResponseDto.class,
-                                schedule.content, scheduleType.name))
+                                schedule.scheduleSeq, schedule.content, scheduleType.name))
                 .from(schedule)
                 .join(schedule.scheduleType, scheduleType)
                 .where(schedule.kindergartenSeq.eq(kindergartenSeq)
@@ -40,5 +40,13 @@ public class ScheduleRepositoryImpl implements ScheduleRepositoryCustom {
                         .and(schedule.date.month().eq(Integer.valueOf(month)))
                         .and(schedule.date.dayOfMonth().eq(date)))
                 .fetch();
+    }
+
+    @Override
+    public Long deleteScheduleById(Long scheduleSeq) {
+        return query
+                .delete(schedule)
+                .where(schedule.scheduleSeq.eq(scheduleSeq))
+                .execute();
     }
 }
