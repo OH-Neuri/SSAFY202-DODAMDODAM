@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+
+// 색깔 설정
 const logoYellow = Color(0xffFFCD4A);
 const logoNavy = Color(0xff3A4CA8);
 const darkYellow = Color(0xffFFB900);
@@ -12,3 +14,10 @@ const backYellow = Color(0xffFFF9E9);
 const bottomYellow = Color(0xffFFF1A1);
 
 const textColor = Color(0xff191919);
+
+// 폰트 설정
+const titleTextSize = 30.0;
+const subTitleTextSize = 24.0;
+const buttonTextSize = 18.0;
+const contentTextSize = 16.0;
+const subContentTextSize = 14.0;

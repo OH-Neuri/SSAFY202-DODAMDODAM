@@ -23,7 +23,7 @@ class Signup extends StatelessWidget {
                     Container(
                       margin : EdgeInsets.fromLTRB(0, 60, 0, 50),
                       child: Text('아이디를 입력해주세요.', style: TextStyle(
-                          fontSize: 30,
+                          fontSize: titleTextSize,
                           fontWeight: FontWeight.w700
                       ),),
                     ),
