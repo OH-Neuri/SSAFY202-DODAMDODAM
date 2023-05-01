@@ -39,7 +39,7 @@ class _AttendaneListTimePickerState extends State<AttendaneListTimePicker> {
     return InkWell(
       onTap: () => _selectDate(context),
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey),
           borderRadius: BorderRadius.circular(30),
