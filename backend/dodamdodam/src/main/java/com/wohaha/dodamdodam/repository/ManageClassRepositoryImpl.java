@@ -11,16 +11,31 @@ import static com.wohaha.dodamdodam.domain.QClassTeacher.classTeacher;
 import static com.wohaha.dodamdodam.domain.QClassInfo.classInfo;
 
 import java.util.List;
+import java.util.Optional;
 
 public class ManageClassRepositoryImpl implements ManageClassRepositoryCustom {
     @Autowired
     private JPAQueryFactory query;
 
-//    public List<ClassListResponseDto> classList(long kindergartenSeq){
-//        return query
-//                .select(Projections.fields(ClassListResponseDto.class),
-//                        classInfo.classSeq,classInfo.)
-//    }
+    @Override
+    public List<ClassListResponseDto> classInfoList(long kindergartenSeq){
+        return query
+                .select(Projections.fields(ClassListResponseDto.class,
+                        classInfo.classSeq, classInfo.name,classInfo.age))
+                .from(classInfo)
+                .where(classInfo.kindergartenSeq.eq(kindergartenSeq))
+                .fetch();
+
+
+    }
+
+    @Override
+    public List<ClassListResponseDto> teacherInfo(long kindergartenSeq) {
+        return query
+                .select(Projections.fields(ClassListResponseDto.class,);
+    }
+
+
 
 
 

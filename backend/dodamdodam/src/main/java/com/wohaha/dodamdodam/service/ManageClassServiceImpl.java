@@ -38,8 +38,12 @@ public class ManageClassServiceImpl implements ManageClassService {
 
     @Override
     public List<ClassListResponseDto> classList(long kindergartenSeq) {
-
-        //List<ClassListResponseDto> classList = manageClassRepository.classList(kindergartenSeq);
+        //    private Long classSeq(CLASS), String name(CLASS),String age(CLASS),teacherSeq(CLASS_TEACHER), teacherName(USER);
+        //반 정보 (반시퀀스, 반이름, 반별 연령)
+        List<ClassListResponseDto> classList = manageClassRepository.classInfoList(kindergartenSeq);
+        for(int i=0; i<classList.size(); i++){
+            classList = manageClassRepository.teacherInfo(classList.get(i).getClassSeq());
+        }
         return null;
     }
 }

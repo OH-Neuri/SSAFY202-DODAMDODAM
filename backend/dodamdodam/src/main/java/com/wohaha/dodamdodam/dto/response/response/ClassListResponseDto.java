@@ -11,7 +11,7 @@ public class ClassListResponseDto {
 
     private Long classSeq;
 
-    private String name;
+    private String className;
 
     private String age;
 
