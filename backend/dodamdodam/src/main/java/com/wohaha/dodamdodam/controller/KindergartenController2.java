@@ -40,6 +40,7 @@ public class KindergartenController2 {
             KindergartenScheduleListResponseDto kScheduleList = manageScheduleService.getScheduleList(year, month);
             return new BaseResponseDto<>(kScheduleList);
         } catch(Exception e) {
+            e.printStackTrace();
             if (e instanceof BaseException) {
                 throw e;
             } else {
