@@ -1,5 +1,7 @@
 import 'package:app/models/user/login_teacher.dart';
 import 'package:app/screens/attendance/attendance_list.dart';
+import 'package:app/screens/attendance/attendance_list_detail.dart';
+
 // import 'package:app/screens/user/login_select.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
