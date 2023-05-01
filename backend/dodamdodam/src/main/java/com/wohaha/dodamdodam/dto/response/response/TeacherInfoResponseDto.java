@@ -5,21 +5,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClassListResponseDto {
+public class TeacherInfoResponseDto {
 
-    private Long classSeq;
+    private Long teacherSeq;
 
-    private String className;
-
-    private String age;
-
-    List<TeacherInfoResponseDto> teacherInfo;
-
-
+    private String teacherName;
 }
