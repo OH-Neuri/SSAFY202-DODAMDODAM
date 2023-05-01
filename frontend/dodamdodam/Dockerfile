@@ -1,0 +1,5 @@
+FROM node:19
+WORKDIR /react
+COPY . .
+RUN npm install -g serve
+CMD serve -s build

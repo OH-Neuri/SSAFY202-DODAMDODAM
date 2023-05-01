@@ -1,7 +1,15 @@
 import { useRouter } from "next/router"
+import { useEffect } from "react"
 
 
 export default function Home() {
+  useEffect(()=>{
+    console.log('소정 하이')
+    console.log('소정 바이......')
+    console.log('가지마.......')
+    console.log('아니야 가.....')
+    console.log('지마')
+  },[])
   const router = useRouter()
   return (
     <>

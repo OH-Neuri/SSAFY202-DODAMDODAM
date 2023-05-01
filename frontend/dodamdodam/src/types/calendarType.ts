@@ -1,12 +1,15 @@
-export type oneDayType = {
-  [index: string]: string | Date;
-  date: Date;
+export type oneSceduleType = {
+  [index: string]: string;
+  type: string;
   content: string;
 };
 
 export type calendarMonthType = {
-  [index: string]: string | number | oneDayType[];
+  [index: string]: string | number | number[] | object;
   year: number;
   month: number;
-  result: oneDayType[];
+  dateNumber: number[];
+  schedule: {
+    [index: string]: oneSceduleType[];
+  };
 };
