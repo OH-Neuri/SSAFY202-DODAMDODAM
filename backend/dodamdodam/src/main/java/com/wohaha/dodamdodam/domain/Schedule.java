@@ -1,5 +1,7 @@
 package com.wohaha.dodamdodam.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -11,6 +13,8 @@ import java.util.Date;
 @Table(name = "tbl_schedule")
 @Getter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class Schedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
