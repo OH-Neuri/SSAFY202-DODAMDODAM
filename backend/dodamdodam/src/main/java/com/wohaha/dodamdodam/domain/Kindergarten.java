@@ -35,3 +35,4 @@ public class Kindergarten {
     private Timestamp updatedAt;
 
 }
+

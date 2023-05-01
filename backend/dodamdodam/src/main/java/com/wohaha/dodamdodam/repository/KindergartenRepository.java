@@ -8,6 +8,6 @@ import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Repository
-public interface KindergartenRepository extends JpaRepository<Kindergarten, Long> {
-    Optional<Long> findKindergartenSeqByUserSeq(Long userSeq);
+public interface KindergartenRepository extends JpaRepository<Kindergarten, Long>, KindergartenRepositoryCustom {
+
 }
