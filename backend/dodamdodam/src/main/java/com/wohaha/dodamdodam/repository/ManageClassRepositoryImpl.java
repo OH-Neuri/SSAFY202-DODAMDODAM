@@ -3,6 +3,7 @@ package com.wohaha.dodamdodam.repository;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.wohaha.dodamdodam.dto.response.request.UpdateClassRequestDto;
 import com.wohaha.dodamdodam.dto.response.response.ClassListResponseDto;
 import com.wohaha.dodamdodam.dto.response.response.TeacherInfoResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,8 +45,24 @@ public class ManageClassRepositoryImpl implements ManageClassRepositoryCustom {
                 .fetch();
     }
 
+    @Override
+    public void updateClass(UpdateClassRequestDto updateClassRequestDto) {
+        query
+            .update(classInfo)
+            .set(classInfo.name,updateClassRequestDto.getName())
+            .set(classInfo.age,updateClassRequestDto.getAge())
+            .where(classInfo.classSeq.eq(updateClassRequestDto.getClassSeq()))
+            .execute();
 
+    }
 
+    @Override
+    public void deleteClass(long classSeq) {
+         query
+                 .delete(classInfo)
+                 .where(classInfo.classSeq.eq(classSeq))
+                 .execute();
+    }
 
 
 }
