@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ManageClassRepository extends JpaRepository<ClassInfo, Long>, ManageClassRepositoryCustom {
 
+
 }

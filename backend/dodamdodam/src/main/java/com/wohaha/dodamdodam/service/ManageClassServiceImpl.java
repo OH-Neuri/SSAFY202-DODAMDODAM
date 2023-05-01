@@ -2,6 +2,7 @@ package com.wohaha.dodamdodam.service;
 
 import com.wohaha.dodamdodam.domain.ClassInfo;
 import com.wohaha.dodamdodam.dto.response.request.CreateClassRequestDto;
+import com.wohaha.dodamdodam.dto.response.request.UpdateClassRequestDto;
 import com.wohaha.dodamdodam.dto.response.response.ClassListResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.PersistenceException;
 import java.util.List;
 
 @Service
@@ -36,7 +38,6 @@ public class ManageClassServiceImpl implements ManageClassService {
                 .age(createClassRequestDto.getAge())
                 .count(0)
                 .build();
-        System.out.println(classInfo.toString());
         //반등록
         manageClassRepository.save(classInfo);
         return true;
@@ -56,4 +57,20 @@ public class ManageClassServiceImpl implements ManageClassService {
         }
         return classList;
     }
+
+    @Override
+    public boolean updateClass(UpdateClassRequestDto updateClassRequestDto) {
+        manageClassRepository.updateClass(updateClassRequestDto);
+        return true;
+    }
+
+    @Override
+    public boolean deleteClass(long classSeq) {
+        manageClassRepository.deleteClass(classSeq);
+        return true;
+    }
+
+
+
+
 }

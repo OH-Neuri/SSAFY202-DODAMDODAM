@@ -3,6 +3,7 @@ package com.wohaha.dodamdodam.controller;
 import com.wohaha.dodamdodam.dto.response.BaseResponseDto;
 import com.wohaha.dodamdodam.dto.response.request.CreateClassRequestDto;
 import com.wohaha.dodamdodam.dto.response.request.CreateScheduleRequestDto;
+import com.wohaha.dodamdodam.dto.response.request.UpdateClassRequestDto;
 import com.wohaha.dodamdodam.dto.response.response.ClassListResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
@@ -44,6 +45,34 @@ public class KindergartenController {
             }
         }
     }
+
+    @PutMapping("class")
+    public BaseResponseDto<?> updateClass(@RequestBody UpdateClassRequestDto updateClassRequestDto){
+        try{
+            return new BaseResponseDto<>(manageClassService.updateClass(updateClassRequestDto));
+        }catch (Exception e){
+            if( e instanceof BaseException){
+                throw e;
+            }else{
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
+    @DeleteMapping("class/{classSeq}")
+    public BaseResponseDto<?> deleteClass(@PathVariable Long classSeq){
+        try{
+            return new BaseResponseDto<>(manageClassService.deleteClass(classSeq));
+        }catch(Exception e){
+            if(e instanceof BaseException){
+                throw e;
+            }else{
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
+    
 
 
 }
