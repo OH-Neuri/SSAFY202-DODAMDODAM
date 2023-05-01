@@ -2,12 +2,14 @@ package com.wohaha.dodamdodam.controller;
 
 import com.wohaha.dodamdodam.dto.response.BaseResponseDto;
 import com.wohaha.dodamdodam.dto.response.request.CreateClassRequestDto;
+import com.wohaha.dodamdodam.dto.response.request.CreateKidRequestDto;
 import com.wohaha.dodamdodam.dto.response.request.CreateScheduleRequestDto;
 import com.wohaha.dodamdodam.dto.response.request.UpdateClassRequestDto;
 import com.wohaha.dodamdodam.dto.response.response.ClassListResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.service.ManageClassService;
+import com.wohaha.dodamdodam.service.ManageKidService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +20,9 @@ import java.util.List;
 public class KindergartenController {
     @Autowired
     ManageClassService manageClassService;
+
+    @Autowired
+    ManageKidService manageKidService;
 
     @PostMapping("/class")
     public BaseResponseDto<?> createClass(@RequestBody CreateClassRequestDto createClassRequestDto) {
@@ -72,7 +77,22 @@ public class KindergartenController {
         }
     }
 
-    
+    @PostMapping("/kid")
+    public BaseResponseDto<?> createKid(@RequestBody CreateKidRequestDto createKidRequestDto){
+        try{
+            return new BaseResponseDto<>(manageKidService.createKid(createKidRequestDto));
+        }catch(Exception e){
+            if( e instanceof  BaseException){
+                throw e;
+            }else{
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+
+    }
+
+    @GetMapping("/kid")
+    public BaseResponseDto<List<KidListResponseDto>>
 
 
 }
