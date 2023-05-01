@@ -47,18 +47,4 @@ public class KindergartenController {
             }
         }
     }
-
-    @PostMapping("/schedule")
-    public BaseResponseDto<?> createSchedule(@RequestBody CreateScheduleRequestDto createScheduleRequestDto) {
-        try {
-            boolean result = true;
-//            boolean result =
-        } catch (Exception e) {
-            if(e instanceof BaseException) {
-                throw e;
-            }
-            throw new BaseException(BaseResponseStatus.FAIL);
-        }
-        return null;
-    }
 }

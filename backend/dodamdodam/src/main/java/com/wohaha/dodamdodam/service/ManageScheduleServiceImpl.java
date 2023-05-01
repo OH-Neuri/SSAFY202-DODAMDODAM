@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional(readOnly = true)
@@ -52,9 +49,11 @@ public class ManageScheduleServiceImpl implements ManageScheduleService {
         // 행사가 있는 dateNumber가져옴
         List<Integer> dateNumber = scheduleRepository.findScheduleDateList(kindergartenSeq, year, month);
         kindergartenScheduleListResponseDto.setDateNumber(dateNumber);
+        System.out.println(dateNumber.toString());
         // 행사가 있는 날의 행사 List가져옴
         Map<Integer, List<ScheduleListResponseDto>> schedule = new HashMap<>();
         for(Integer date : dateNumber) {
+            System.out.println(date);
             List<ScheduleListResponseDto> scheduleList = scheduleRepository.findScheduleListByDate(kindergartenSeq, year, month, date);
             schedule.put(date, scheduleList);
         }

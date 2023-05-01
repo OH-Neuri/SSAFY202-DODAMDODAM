@@ -36,4 +36,8 @@ public class Schedule {
     @Column(name = "date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
+
+    @ManyToOne(targetEntity = ScheduleType.class)
+    @JoinColumn(name = "schedule_type_seq", insertable = false, updatable = false)
+    private ScheduleType scheduleType;
 }
