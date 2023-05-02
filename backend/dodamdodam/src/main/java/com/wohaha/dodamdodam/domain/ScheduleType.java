@@ -26,5 +26,4 @@ public class ScheduleType {
     @Column(name = "is_valid", nullable = false, columnDefinition = "TINYINT(1) default 1")
     @Builder.Default
     private Boolean isValid = true;
-
 }

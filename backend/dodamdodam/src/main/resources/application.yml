@@ -43,4 +43,4 @@ eureka:
     instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
   client:
     serviceUrl:
-      defaultZone: http://70.12.247.158:8761/eureka
+      defaultZone: https://dodamdodam.site:8761/eureka

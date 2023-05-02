@@ -13,7 +13,8 @@ public class ScheduleTypeRepositoryImpl implements ScheduleTypeRepositoryCustom 
     @Override
     public Long deleteScheduleTypeById(Long scheduleTypeSeq) {
         return query
-                .delete(scheduleType)
+                .update(scheduleType)
+                .set(scheduleType.isValid, false)
                 .where(scheduleType.scheduleTypeSeq.eq(scheduleTypeSeq))
                 .execute();
     }
