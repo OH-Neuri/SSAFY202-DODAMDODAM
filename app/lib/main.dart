@@ -1,6 +1,6 @@
 import 'package:app/screens/user/login_teacher.dart';
 import 'package:app/screens/attendance/attendance_list.dart';
-import 'package:app/screens/attendance/attendance_list_detail.dart';
+import 'package:app/screens/attendance/attendance_detail_parent.dart';
 
 import 'package:app/screens/user/signup.dart';
 // import 'package:app/screens/user/login_select.dart';
