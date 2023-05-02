@@ -6,6 +6,7 @@ import 'package:app/screens/user/login_teacher.dart';
 
 import 'package:app/screens/user/signup_id.dart';
 import 'package:app/screens/user/signup_number.dart';
+import 'package:app/screens/user/signup_select.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -21,9 +22,11 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       home: LoginSelect(),
       theme: ThemeData(fontFamily: 'Pretendard'),
-      initialRoute: '/',
+      // initialRoute: '/',
       getPages: [
+        GetPage(name: '/', page: ()=>LoginSelect()),
         GetPage(name: '/login/teacher', page: ()=>LoginTeacher(), transition: Transition.rightToLeft),
+        GetPage(name: '/signup/select', page: ()=>SignupSelect(), transition: Transition.rightToLeft),
         GetPage(name: '/signup/id', page: ()=>SignupId(), transition: Transition.rightToLeft),
         GetPage(name: '/signup/number', page: ()=>SignupNumber(), transition: Transition.rightToLeft),
       ],

@@ -67,6 +67,7 @@ dev_dependencies:
 flutter:
   assets:
     - assets/images/
+    - assets/images/signup/
 
   fonts:
     - family: Pretendard

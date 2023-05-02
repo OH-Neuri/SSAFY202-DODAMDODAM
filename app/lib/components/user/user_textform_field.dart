@@ -13,7 +13,7 @@ class UserTextFormField extends StatelessWidget {
     return TextFormField(
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
-      // onChanged: (){},
+      onChanged: onChanged,
       obscureText: obscureText,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.all(16),
