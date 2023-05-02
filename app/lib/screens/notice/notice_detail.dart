@@ -1,6 +1,5 @@
 import 'package:app/components/common/logout_app_bar.dart';
 import 'package:app/constants.dart';
-import 'package:app/screens/user/signup_id.dart';
 import 'package:flutter/material.dart';
 
 class NoticeDetail extends StatelessWidget {
@@ -39,13 +38,45 @@ class NoticeDetail extends StatelessWidget {
                   ),
                   Container(
                     width: double.infinity,
+                    padding: EdgeInsets.all(24),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20)
                     ),
                     child: Column(
                       children: [
-                        Text('xxxxxx')
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(DateTime.now().toString()),
+                            Text('@전체 원생', style: TextStyle(color: Colors.grey),)
+                          ],
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          child: Divider(color: Colors.grey, height: 1, thickness: 1),
+                        ),
+                        Row(
+                          children: [
+                            Expanded(child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Image.asset('images/bonggil.jpg'),
+                            )),
+                            Expanded(child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Image.asset('images/bonggil.jpg'),
+                            )),
+                            Expanded(child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Image.asset('images/bonggil.jpg'),
+                            )),
+                          ],
+                        ),
+                        Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.fromLTRB(0, 14, 0, 0),
+                          child: Text('봉길이랑 봉길이랑 봉길이다!봉길이랑 봉길이랑 봉길이다!봉길이랑 봉길이랑 봉길이다!봉길이랑 봉길이랑 봉길이다!봉길이랑 봉길이랑 봉길이다!봉길이랑 봉길이랑 봉길이다!봉길이랑 봉길이랑 봉길이다!'),
+                        )
                       ],
                     ),
                   )
