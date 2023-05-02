@@ -90,7 +90,7 @@ class _SignupNumberState extends State<SignupNumber> {
                 child: CustomButton(text: '다음', height: 70, onPressed: (){
                   print(user.is_teacher);
                   print(user.phone_number);
-                  Get.toNamed('/signup/id');
+                  Get.toNamed('/signup/id', arguments: user);
                 },),
               ),
             ],
