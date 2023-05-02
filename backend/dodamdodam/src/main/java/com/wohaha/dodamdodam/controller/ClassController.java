@@ -33,4 +33,9 @@ public class ClassController {
         }
 
     }
+
+    @GetMapping("/hello")
+    public BaseResponseDto<String> hello() {
+        return new BaseResponseDto<>("hello");
+    }
 }

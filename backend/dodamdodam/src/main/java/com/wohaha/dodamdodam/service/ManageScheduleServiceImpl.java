@@ -89,6 +89,7 @@ public class ManageScheduleServiceImpl implements ManageScheduleService {
 
     @Override
     public boolean deleteScheduleType(Long scheduleTypeSeq) {
+        //isValid = false로 업데이트
         Long deleteCnt = scheduleTypeRepository.deleteScheduleTypeById(scheduleTypeSeq);
         return deleteCnt > 0;
     }
