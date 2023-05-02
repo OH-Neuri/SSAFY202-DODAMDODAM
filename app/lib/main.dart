@@ -1,9 +1,11 @@
+import 'package:app/screens/user/login_select.dart';
 import 'package:app/screens/user/login_teacher.dart';
-import 'package:app/screens/attendance/attendance_list.dart';
-import 'package:app/screens/attendance/attendance_list_detail.dart';
+// import 'package:app/screens/user/login_teacher.dart';
+// import 'package:app/screens/attendance/attendance_list.dart';
+// import 'package:app/screens/attendance/attendance_list_detail.dart';
 
-import 'package:app/screens/user/signup.dart';
-// import 'package:app/screens/user/login_select.dart';
+import 'package:app/screens/user/signup_id.dart';
+import 'package:app/screens/user/signup_number.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,11 +19,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      home: AttendanceList(),
+      home: LoginSelect(),
       theme: ThemeData(fontFamily: 'Pretendard'),
       initialRoute: '/',
       getPages: [
-        GetPage(name: '/signup', page: ()=>Signup(), transition: Transition.rightToLeft)
+        GetPage(name: '/login/teacher', page: ()=>LoginTeacher(), transition: Transition.rightToLeft),
+        GetPage(name: '/signup/id', page: ()=>SignupId(), transition: Transition.rightToLeft),
+        GetPage(name: '/signup/number', page: ()=>SignupNumber(), transition: Transition.rightToLeft),
       ],
     );
   }
