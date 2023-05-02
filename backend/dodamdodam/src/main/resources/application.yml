@@ -14,11 +14,11 @@ spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     # DB Source URL
-    url: jdbc:mariadb://localhost:3307/dodamdodam?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
+    url: jdbc:mariadb://k8a202.p.ssafy.io:3306/dodamdodam?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
     # DB username
-    username: root
+    username: dodamdodam
     # DB password
-    password: ssafy
+    password: wohaha
   # true 설정시 JPA 쿼리문 확인 가능
   jpa:
     database: mysql
@@ -43,4 +43,4 @@ eureka:
     instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
   client:
     serviceUrl:
-      defaultZone: https://dodamdodam.site:8761/eureka
+      defaultZone: http://dodamdodam.site:8761/eureka
