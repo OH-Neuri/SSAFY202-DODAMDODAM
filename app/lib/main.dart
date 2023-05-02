@@ -1,3 +1,4 @@
+import 'package:app/screens/main/main_page.dart';
 import 'package:app/screens/user/login_teacher.dart';
 import 'package:app/screens/attendance/attendance_list.dart';
 import 'package:app/screens/attendance/attendance_list_detail.dart';
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      home: AttendanceList(),
+      home: MainPage(),
       theme: ThemeData(fontFamily: 'Pretendard'),
       initialRoute: '/',
       getPages: [
