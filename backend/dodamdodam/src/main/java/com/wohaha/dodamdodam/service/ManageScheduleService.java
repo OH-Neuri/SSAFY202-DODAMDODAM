@@ -12,7 +12,8 @@ public interface ManageScheduleService {
     // 일정 관리
     boolean createSchedule(CreateScheduleRequestDto createScheduleRequestDto);
 
-    KindergartenScheduleListResponseDto getScheduleList(String year, String month);
+    KindergartenScheduleListResponseDto getMonthScheduleList(String year, String month);
+    List<ScheduleResponseDto> getDayScheduleList(String year, String month, String day);
 
     boolean deleteSchedule(Long scheduleSeq);
 

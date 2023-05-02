@@ -34,11 +34,27 @@ public class KindergartenController2 {
         }
     }
 
-    @GetMapping("/schedule")
-    public BaseResponseDto<KindergartenScheduleListResponseDto> getScheduleList(@RequestParam String year, @RequestParam String month) {
+    @GetMapping("/schedule/month")
+    public BaseResponseDto<KindergartenScheduleListResponseDto> getMonthScheduleList(@RequestParam String year, @RequestParam String month) {
         try {
-            KindergartenScheduleListResponseDto kScheduleList = manageScheduleService.getScheduleList(year, month);
+            KindergartenScheduleListResponseDto kScheduleList = manageScheduleService.getMonthScheduleList(year, month);
             return new BaseResponseDto<>(kScheduleList);
+        } catch(Exception e) {
+            if (e instanceof BaseException) {
+                throw e;
+            } else {
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
+    @GetMapping("schedule")
+    public BaseResponseDto<List<ScheduleResponseDto>> getDayScheduleList(@RequestParam String year,
+                                                                         @RequestParam String month,
+                                                                         @RequestParam String day) {
+        try {
+            List<ScheduleResponseDto> kDayScheduleList = manageScheduleService.getDayScheduleList(year, month, day);
+            return new BaseResponseDto<>(kDayScheduleList);
         } catch(Exception e) {
             if (e instanceof BaseException) {
                 throw e;
