@@ -55,7 +55,7 @@ class RoundButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(onPressed: (){Get.to(LoginTeacher());},
+    return ElevatedButton(onPressed: (){Get.toNamed('/login/teacher');},
         style: ElevatedButton.styleFrom(
           textStyle: TextStyle(
             color: Colors.white,

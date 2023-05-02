@@ -37,7 +37,7 @@ class LoginTeacher extends StatelessWidget {
                   child: Text('아직 회원이 아니신가요?', style: TextStyle(fontSize: contentTextSize),),
                 ),
                 TextButton(
-                  onPressed: (){Get.toNamed('/signup');},
+                  onPressed: (){Get.toNamed('/signup/select');},
                   style: ButtonStyle(
                     overlayColor: MaterialStateProperty.all(Colors.white)
                   ),
