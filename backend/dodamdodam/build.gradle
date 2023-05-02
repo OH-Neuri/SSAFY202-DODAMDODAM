@@ -26,6 +26,10 @@ repositories {
 	mavenCentral()
 }
 
+ext {
+	set('springCloudVersion', "2021.0.6")
+}
+
 dependencies {
 	//basic spring boot
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -54,6 +58,9 @@ dependencies {
 
 	//swagger
 	implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
+	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+
+
 }
 
 tasks.named('test') {
@@ -87,4 +94,10 @@ compileQuerydsl{
 //querydsl
 configurations {
 	querydsl.extendsFrom compileClasspath
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
 }

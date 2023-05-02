@@ -5,6 +5,8 @@ server:
 
 # mariaDB 설정
 spring:
+  application:
+    name: dodam
   servlet:
     multipart:
       max-file-size: 10MB
@@ -35,3 +37,10 @@ spring:
 #    swagger:
 #      v2:
 #        path: /swagger/api-docs
+
+eureka:
+  instance:
+    instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    serviceUrl:
+      defaultZone: http://70.12.247.158:8761/eureka
