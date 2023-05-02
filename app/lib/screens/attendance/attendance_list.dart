@@ -1,6 +1,7 @@
 import 'package:app/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:app/modules/attendance/attendance_list_timepicker.dart';
+import 'package:get/get.dart';
 
 class AttendanceList extends StatefulWidget {
   const AttendanceList({Key? key}) : super(key: key);
@@ -105,6 +106,7 @@ class _AttendanceListState extends State<AttendanceList> {
                         children: List.generate(30, (index) {
                           return Center(
                               child: Card(
+
                                 shape: RoundedRectangleBorder(  //모서리를 둥글게 하기 위해 사용
                                   borderRadius: BorderRadius.circular(16.0),
                                 ),
