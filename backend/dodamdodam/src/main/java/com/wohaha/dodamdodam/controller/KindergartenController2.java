@@ -20,7 +20,6 @@ public class KindergartenController2 {
 
     @PostMapping("/schedule")
     public BaseResponseDto<Boolean> createSchedule(@RequestBody CreateScheduleRequestDto createScheduleRequestDto) {
-        System.out.println(createScheduleRequestDto.toString());
         try {
             boolean result = manageScheduleService.createSchedule(createScheduleRequestDto);
             return new BaseResponseDto<>(result);
@@ -65,11 +64,19 @@ public class KindergartenController2 {
             for(ScheduleTypeRequestDto st : scheduleType) {
                 if(st.getScheduleTypeSeq() == null) {
                     // create
-                    manageScheduleService.createScheduleType(st.getContent());
+                    if(!manageScheduleService.createScheduleType(st.getContent())) {
+                        throw new BaseException(BaseResponseStatus.SCHEDULE_TYPE_CREATE_FAIL);
+                    }
                 } else if(st.getContent() == null) {
                     // delete
+                    if(!manageScheduleService.deleteScheduleType(st.getScheduleTypeSeq())) {
+                        throw new BaseException(BaseResponseStatus.SCHEDULE_TYPE_DELETE_FAIL);
+                    }
                 } else {
                     // update
+                    if(!manageScheduleService.updateScheduleType(st)) {
+                        throw new BaseException(BaseResponseStatus.SCHEDULE_TYPE_UPDATE_FAIL);
+                    }
                 }
             }
         } catch(Exception e) {
