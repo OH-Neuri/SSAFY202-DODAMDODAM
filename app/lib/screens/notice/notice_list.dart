@@ -2,6 +2,7 @@ import 'package:app/components/common/logout_app_bar.dart';
 import 'package:app/components/notice/notice_item.dart';
 import 'package:app/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class NoticeList extends StatelessWidget {
   const NoticeList({Key? key}) : super(key: key);
@@ -35,7 +36,7 @@ class NoticeList extends StatelessWidget {
                         content: '우아엄라ㅓㅇㄹ마러만ㅇ러;ㅁ널;미너란머람넝라ㅓㄴㅁㄹdfad아엄라ㅓㅇㄹ마러만ㅇ러;ㅁ널;미너란머람넝라ㅓㄴㅁㄹdfad아엄라ㅓㅇㄹ마러만ㅇ러;ㅁ널;미너란머람넝라ㅓㄴㅁㄹdfadkajfajdfkjafsafeiㄴ어ㅏ림;너럼ㅈ댜ㅓㄻ;더라멍;너라ㅣㅓ먖더ㅣㄹ더지ㅏㅓ란ㅁ어럼;니ㅏ얼',
                       ),
                     ),
-                  ElevatedButton(onPressed: (){},
+                  ElevatedButton(onPressed: (){Get.toNamed('/notice/detail');},
                       style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                           backgroundColor: lightYellow,
