@@ -2,6 +2,7 @@ package com.wohaha.dodamdodam.repository;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.wohaha.dodamdodam.dto.response.response.ClassScheduleResponseDto;
 import com.wohaha.dodamdodam.dto.response.response.ScheduleResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -49,14 +50,15 @@ public class ScheduleRepositoryImpl implements ScheduleRepositoryCustom {
     }
 
     @Override
-    public List<ScheduleResponseDto> findClassScheduleByClassSeq(Long classSeq, Integer year, Integer month, Integer day) {
+    public List<ClassScheduleResponseDto> findClassScheduleByClassSeq(Long kindergartenSeq, Long classSeq, Integer year, Integer month, Integer day) {
         return query
                 .select(
-                        Projections.constructor(ScheduleResponseDto.class,
-                                schedule.scheduleSeq, schedule.content, scheduleType.name))
+                        Projections.constructor(ClassScheduleResponseDto.class,
+                                schedule.scheduleSeq, schedule.content, scheduleType.name, schedule.classSeq))
                 .from(schedule)
                 .join(schedule.scheduleType, scheduleType)
                 .where(schedule.classSeq.eq(classSeq)
+                        .or(schedule.kindergartenSeq.eq(kindergartenSeq))
                         .and(schedule.date.year().eq(year))
                         .and(schedule.date.month().eq(month))
                         .and(schedule.date.dayOfMonth().eq(day)))
