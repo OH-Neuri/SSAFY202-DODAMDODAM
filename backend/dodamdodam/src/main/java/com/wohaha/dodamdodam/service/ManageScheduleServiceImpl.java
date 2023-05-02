@@ -5,7 +5,7 @@ import com.wohaha.dodamdodam.domain.ScheduleType;
 import com.wohaha.dodamdodam.dto.response.request.CreateScheduleRequestDto;
 import com.wohaha.dodamdodam.dto.response.request.ScheduleTypeRequestDto;
 import com.wohaha.dodamdodam.dto.response.response.KindergartenScheduleListResponseDto;
-import com.wohaha.dodamdodam.dto.response.response.ScheduleListResponseDto;
+import com.wohaha.dodamdodam.dto.response.response.ScheduleResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.repository.KindergartenRepository;
@@ -56,9 +56,9 @@ public class ManageScheduleServiceImpl implements ManageScheduleService {
         List<Integer> dateNumber = scheduleRepository.findScheduleDateList(kindergartenSeq, year, month);
         kindergartenScheduleListResponseDto.setDateNumber(dateNumber);
         // 행사가 있는 날의 행사 List가져옴
-        Map<Integer, List<ScheduleListResponseDto>> schedule = new HashMap<>();
+        Map<Integer, List<ScheduleResponseDto>> schedule = new HashMap<>();
         for(Integer date : dateNumber) {
-            List<ScheduleListResponseDto> scheduleList = scheduleRepository.findScheduleListByDate(kindergartenSeq, year, month, date);
+            List<ScheduleResponseDto> scheduleList = scheduleRepository.findScheduleListByDate(kindergartenSeq, year, month, date);
             schedule.put(date, scheduleList);
         }
         kindergartenScheduleListResponseDto.setSchedule(schedule);
