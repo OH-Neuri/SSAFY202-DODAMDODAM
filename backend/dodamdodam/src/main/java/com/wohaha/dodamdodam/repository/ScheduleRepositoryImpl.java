@@ -27,7 +27,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepositoryCustom {
     }
 
     @Override
-    public List<ScheduleResponseDto> findScheduleListByDate(Long kindergartenSeq, String year, String month, Integer date) {
+    public List<ScheduleResponseDto> findScheduleListByKindergartenSeq(Long kindergartenSeq, Integer year, Integer month, Integer day) {
         return query
                 .select(
                         Projections.constructor(ScheduleResponseDto.class,
@@ -35,9 +35,10 @@ public class ScheduleRepositoryImpl implements ScheduleRepositoryCustom {
                 .from(schedule)
                 .join(schedule.scheduleType, scheduleType)
                 .where(schedule.kindergartenSeq.eq(kindergartenSeq)
-                        .and(schedule.date.year().eq(Integer.valueOf(year)))
-                        .and(schedule.date.month().eq(Integer.valueOf(month)))
-                        .and(schedule.date.dayOfMonth().eq(date)))
+                        .and(schedule.classSeq.isNull())
+                        .and(schedule.date.year().eq(year))
+                        .and(schedule.date.month().eq(month))
+                        .and(schedule.date.dayOfMonth().eq(day)))
                 .fetch();
     }
 
@@ -47,6 +48,18 @@ public class ScheduleRepositoryImpl implements ScheduleRepositoryCustom {
                 .delete(schedule)
                 .where(schedule.scheduleSeq.eq(scheduleSeq))
                 .execute();
+    }
+
+    @Override
+    public List<Integer> findScheduleDateList(Long kindergartenSeq, Long classSeq, String year, String month) {
+        return query
+                .selectDistinct(schedule.date.dayOfMonth())
+                .from(schedule)
+                .where(schedule.classSeq.eq(classSeq)
+                        .or(schedule.kindergartenSeq.eq(kindergartenSeq))
+                        .and(schedule.date.month().eq(Integer.valueOf(month)))
+                        .and(schedule.date.year().eq(Integer.valueOf(year))))
+                .fetch();
     }
 
     @Override

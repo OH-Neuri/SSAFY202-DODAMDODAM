@@ -8,10 +8,10 @@ import java.util.List;
 public interface ScheduleRepositoryCustom {
     List<Integer> findScheduleDateList(Long kindergartenSeq, String year, String month);
 
-    List<ScheduleResponseDto> findScheduleListByDate(Long kindergartenSeq, String year, String month, Integer date);
-
+    List<ScheduleResponseDto> findScheduleListByKindergartenSeq(Long kindergartenSeq, Integer year, Integer month, Integer day);
     Long deleteScheduleById(Long scheduleSeq);
 
     // class
+    List<Integer> findScheduleDateList(Long kindergartenSeq, Long classSeq, String year, String month);
     List<ClassScheduleResponseDto> findClassScheduleByClassSeq(Long kindergartenSeq, Long classSeq, Integer year, Integer month, Integer day);
 }
