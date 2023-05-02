@@ -1,6 +1,8 @@
 import 'package:app/constants.dart';
+import 'package:app/screens/attendance/attendance_detail_parent.dart';
 import 'package:flutter/material.dart';
-import 'package:app/modules/attendance/attendance_list_timepicker.dart';
+import 'package:app/components/attendance/attendance_list_timepicker.dart';
+import 'package:get/get.dart';
 
 class AttendanceList extends StatefulWidget {
   const AttendanceList({Key? key}) : super(key: key);
@@ -104,80 +106,85 @@ class _AttendanceListState extends State<AttendanceList> {
                         crossAxisSpacing: 21.0,
                         children: List.generate(30, (index) {
                           return Center(
-                              child: Card(
-                                shape: RoundedRectangleBorder(  //모서리를 둥글게 하기 위해 사용
-                                  borderRadius: BorderRadius.circular(16.0),
-                                ),
-                                elevation: 4.0, //그림자 깊이
-                                color: cardYellow,
-                                child: Padding(
-                                  padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
-                                  child: Column(
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Icon(Icons.circle,size: 70, color:Colors.white),
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text("이연희", style: TextStyle(fontSize: 20),),
-                                                Text("꽃님반"),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(5.0),
-                                          child: Column(
+                              child: GestureDetector(
+                                onTap:(){
+                                  Get.to(()=>AttendanceListDetail());
+                                },
+                                child: Card(
+                                  shape: RoundedRectangleBorder(  //모서리를 둥글게 하기 위해 사용
+                                    borderRadius: BorderRadius.circular(16.0),
+                                  ),
+                                  elevation: 4.0, //그림자 깊이
+                                  color: cardYellow,
+                                  child: Padding(
+                                    padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
+                                    child: Column(
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                             children: [
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              Icon(Icons.circle,size: 70, color:Colors.white),
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
-                                                  Text("등원 시간 :"),
-                                                  Text("08:30"),
+                                                  Text("이연희", style: TextStyle(fontSize: 20),),
+                                                  Text("꽃님반"),
                                                 ],
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.symmetric(vertical: 1),
-                                                child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children:[
-                                                      Text("하원 시간:"),
-                                                      Text("18:00"),
-                                                    ]
-                                                ),
-                                              ),
+                                              )
                                             ],
                                           ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(vertical: 8),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            children: [
-                                              Container(
-                                                  width: 63,
-                                                  height: 26,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(30),
-                                                    color: cardBtnYellow,
-                                                  ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(5.0),
+                                            child: Column(
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Text("등원 시간 :"),
+                                                    Text("08:30"),
+                                                  ],
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.symmetric(vertical: 1),
                                                   child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: [
-                                                      Text("미확인", style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 13,
-                                                        fontWeight: FontWeight.w600,
-                                                      ),
-                                                      )
-                                                    ],
-                                                  )
-                                              )],
+                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      children:[
+                                                        Text("하원 시간:"),
+                                                        Text("18:00"),
+                                                      ]
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      ]),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 8),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.end,
+                                              children: [
+                                                Container(
+                                                    width: 63,
+                                                    height: 26,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(30),
+                                                      color: cardBtnYellow,
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        Text("미확인", style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 13,
+                                                          fontWeight: FontWeight.w600,
+                                                        ),
+                                                        )
+                                                      ],
+                                                    )
+                                                )],
+                                            ),
+                                          ),
+                                        ]),
+                                  ),
                                 ),
                               ));
                         }),
