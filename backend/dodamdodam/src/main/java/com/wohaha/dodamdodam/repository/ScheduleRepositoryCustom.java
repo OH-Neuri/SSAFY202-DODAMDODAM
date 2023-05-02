@@ -8,4 +8,7 @@ public interface ScheduleRepositoryCustom {
     List<Integer> findScheduleDateList(Long kindergartenSeq, String year, String month);
     List<ScheduleResponseDto> findScheduleListByDate(Long kindergartenSeq, String year, String month, Integer date);
     Long deleteScheduleById(Long scheduleSeq);
+
+    // class
+    List<ScheduleResponseDto> findClassScheduleByClassSeq(Long classSeq, Integer year, Integer month, Integer day);
 }

@@ -47,4 +47,19 @@ public class ScheduleRepositoryImpl implements ScheduleRepositoryCustom {
                 .where(schedule.scheduleSeq.eq(scheduleSeq))
                 .execute();
     }
+
+    @Override
+    public List<ScheduleResponseDto> findClassScheduleByClassSeq(Long classSeq, Integer year, Integer month, Integer day) {
+        return query
+                .select(
+                        Projections.constructor(ScheduleResponseDto.class,
+                                schedule.scheduleSeq, schedule.content, scheduleType.name))
+                .from(schedule)
+                .join(schedule.scheduleType, scheduleType)
+                .where(schedule.classSeq.eq(classSeq)
+                        .and(schedule.date.year().eq(year))
+                        .and(schedule.date.month().eq(month))
+                        .and(schedule.date.dayOfMonth().eq(day)))
+                .fetch();
+    }
 }
