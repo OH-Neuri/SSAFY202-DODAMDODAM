@@ -6,6 +6,7 @@ import com.wohaha.dodamdodam.dto.response.request.CreateScheduleRequestDto;
 import com.wohaha.dodamdodam.dto.response.request.ScheduleTypeRequestDto;
 import com.wohaha.dodamdodam.dto.response.response.KindergartenScheduleListResponseDto;
 import com.wohaha.dodamdodam.dto.response.response.ScheduleResponseDto;
+import com.wohaha.dodamdodam.dto.response.response.ScheduleTypeResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.repository.KindergartenRepository;
@@ -77,7 +78,6 @@ public class ManageScheduleServiceImpl implements ManageScheduleService {
         Long userSeq = 1L; // 원장선생님 시퀀스 토큰에서 가져옴
         Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.KINDERGARTEN_NULL_FAIL));
-        System.out.println(kindergartenSeq);
         ScheduleType scheduleType = ScheduleType.builder()
                 .kindergartenSeq(kindergartenSeq)
                 .name(content)
@@ -85,6 +85,19 @@ public class ManageScheduleServiceImpl implements ManageScheduleService {
         System.out.println(scheduleType.toString());
         scheduleTypeRepository.save(scheduleType);
         return true;
+    }
+    @Override
+    public List<ScheduleTypeResponseDto> getScheduleTypeList() {
+        Long userSeq = 1L; // 원장선생님 시퀀스 토큰에서 가져옴
+        Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.KINDERGARTEN_NULL_FAIL));
+        return scheduleTypeRepository.findScheduleTypeByKindergartenSeq(kindergartenSeq);
+    }
+
+    @Override
+    public boolean updateScheduleType(ScheduleTypeRequestDto scheduleTypeRequestDto) {
+        Long updateCnt = scheduleTypeRepository.updateScheduleType(scheduleTypeRequestDto);
+        return updateCnt > 0;
     }
 
     @Override
@@ -94,9 +107,4 @@ public class ManageScheduleServiceImpl implements ManageScheduleService {
         return deleteCnt > 0;
     }
 
-    @Override
-    public boolean updateScheduleType(ScheduleTypeRequestDto scheduleTypeRequestDto) {
-        Long updateCnt = scheduleTypeRepository.updateScheduleType(scheduleTypeRequestDto);
-        return updateCnt > 0;
-    }
 }
