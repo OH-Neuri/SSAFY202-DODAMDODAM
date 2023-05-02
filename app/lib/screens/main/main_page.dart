@@ -1,11 +1,19 @@
+import 'package:app/components/common/logout_app_bar.dart';
 import 'package:app/components/today/today_info.dart';
+import 'package:app/constants.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final DateTime now = DateTime.now();
+    final String year = now.year.toString();
+    final String month = now.month.toString();
+    final String day = now.day.toString();
+
     return Scaffold(
+      appBar: LogoutAppBar(),
       body: Row(
         children: [
           Expanded(child: SizedBox()),
@@ -15,7 +23,7 @@ class MainPage extends StatelessWidget {
               children: [
                 // 첫 인사말
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  padding: const EdgeInsets.fromLTRB(0, 25, 0, 40),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -28,8 +36,8 @@ class MainPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Text('융융이맘님, ', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 24)),
-                      Text('안녕하세요!', style: TextStyle(fontSize: 24))
+                      Text('융융이맘님, ', style: TextStyle(fontWeight: FontWeight.w700, fontSize: subTitleTextSize)),
+                      Text('안녕하세요!', style: TextStyle(fontSize: subTitleTextSize))
                     ],
                   ),
                 ),
@@ -37,10 +45,10 @@ class MainPage extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                        child: TodayInfo(title: "오늘의 일정 📆", year: "2023", month: "4", day: "30"),
+                        child: TodayInfo(title: "오늘의 일정 📆", year: year, month: month, day: day),
                     ),
                     Expanded(
-                        child: TodayInfo(title: "오늘의 식단 📆", year: "2023", month: "4", day: "30"),
+                        child: TodayInfo(title: "오늘의 식단 📆", year: year, month: month, day: day),
                     )
                   ],
                 )
