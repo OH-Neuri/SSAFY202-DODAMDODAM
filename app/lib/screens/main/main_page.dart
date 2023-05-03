@@ -1,4 +1,5 @@
 import 'package:app/components/common/logout_app_bar.dart';
+import 'package:app/components/today/today_food.dart';
 import 'package:app/components/today/today_info.dart';
 import 'package:app/constants.dart';
 import 'package:flutter/material.dart';
@@ -16,14 +17,16 @@ class MainPage extends StatelessWidget {
       appBar: LogoutAppBar(),
       body: Row(
         children: [
+          // 왼쪽 여백
           Expanded(child: SizedBox()),
+          // 본문
           Flexible(
             flex: 12,
             child: Column(
               children: [
                 // 첫 인사말
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 25, 0, 40),
+                  padding: const EdgeInsets.fromLTRB(0, 25, 0, 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -41,20 +44,13 @@ class MainPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                // 오늘의 일정 / 오늘의 식단
-                Row(
-                  children: [
-                    Expanded(
-                        child: TodayInfo(title: "오늘의 일정 📆", year: year, month: month, day: day),
-                    ),
-                    Expanded(
-                        child: TodayInfo(title: "오늘의 식단 📆", year: year, month: month, day: day),
-                    )
-                  ],
-                )
+                // 오늘의 일정
+                TodayInfo(year: '2023', month: '5', day: '2'),
+                TodayFood(year: '2023', month: '5', day: '2')
               ],
             ),
           ),
+          //오른쪽 여백
           Expanded(child: SizedBox())
         ],
       ),

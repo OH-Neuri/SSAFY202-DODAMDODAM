@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:app/models/schedule/singleday_schedule_model.dart';
@@ -14,7 +16,7 @@ class ScheduleService {
       final response = await http.get(Uri.parse('http://localhost:9090/class/schedule/$classSeq?year=$year&month=$month&day=$day'));
 
       if(response.statusCode == 200){
-        final List<OneSchedule> scheduleList = sigledayScheduleFromJson(response.body).scheduleList;
+        final List<OneSchedule> scheduleList = sigledayScheduleFromJson(utf8.decode(response.bodyBytes)).oneSchedule;
         return scheduleList;
       }else {
         print('Error 발생 <OneSchedule>[] return ');
