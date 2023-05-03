@@ -45,12 +45,13 @@ class _AttendaneListTimePickerState extends State<AttendaneListTimePicker> {
           borderRadius: BorderRadius.circular(30),
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(
               _selectedDate == null
                   ? "날짜 선택"
                   : "${_selectedDate.year}-${_selectedDate.month}-${_selectedDate.day}",
+
             ),
             Icon(Icons.calendar_today),
           ],

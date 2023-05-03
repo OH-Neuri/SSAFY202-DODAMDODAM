@@ -11,7 +11,7 @@ const lightNavy = Color(0xffACB4DB);
 const mainPink = Color(0xffFFCAC8);
 const lightPink = Color(0xffFFE5E4);
 const cardYellow = Color(0xffFFF1A7);
-const cardPink = Color(0xffFFF5E4);
+const cardPink = Color(0xffffE5E4);
 const cardBtnYellow = Color(0xffFFC700);
 const cardBtnPink = Color(0xffFC8F85);
 
