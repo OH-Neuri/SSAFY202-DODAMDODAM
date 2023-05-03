@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class ClassScheduleResponseDto {
     private Long scheduleSeq;
-    private String type;
     private String content;
+    private String type;
     private Long classSeq;
 }
