@@ -15,17 +15,18 @@ public class ManageKidServiceImpl implements ManageKidService{
     @Autowired
     private ManageKidRepository manageKidRepository;
     @Override
-    public boolean createKid(CreateKidRequestDto createKidRequestDto) {
+    public boolean createKid(CreateKidRequestDto createKidRequestDto, String uploadUrl) {
         //dto to entity
         Kid kid = Kid.builder()
                 .name(createKidRequestDto.getKidName())
                 .birth(createKidRequestDto.getBirth())
-                .photo(createKidRequestDto.getPhoto())
+                .photo(uploadUrl)
                 .gender(createKidRequestDto.getGender())
                 .classSeq(createKidRequestDto.getClassSeq())
                 .build();
         //아이등록
         manageKidRepository.save(kid);
+
         return true;
     }
 }

@@ -10,6 +10,7 @@ import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.service.ManageClassService;
 import com.wohaha.dodamdodam.service.ManageKidService;
+import com.wohaha.dodamdodam.service.S3UploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,9 @@ public class KindergartenController {
 
     @Autowired
     ManageKidService manageKidService;
+
+    @Autowired
+    S3UploadService s3UploadService;
 
     @PostMapping("/class")
     public BaseResponseDto<?> createClass(@RequestBody CreateClassRequestDto createClassRequestDto) {
@@ -78,9 +82,14 @@ public class KindergartenController {
     }
 
     @PostMapping("/kid")
-    public BaseResponseDto<?> createKid(@RequestBody CreateKidRequestDto createKidRequestDto){
+    public BaseResponseDto<?> createKid(@ModelAttribute CreateKidRequestDto createKidRequestDto){
         try{
-            return new BaseResponseDto<>(manageKidService.createKid(createKidRequestDto));
+            //이미지 s3 업로드 후 링크 가져오기
+            String uploadUrl = s3UploadService.upload(createKidRequestDto.getPhoto(),"kidProfile");
+            //db 저장
+            boolean result = manageKidService.createKid(createKidRequestDto, uploadUrl);
+
+            return new BaseResponseDto<>(result);
         }catch(Exception e){
             if( e instanceof  BaseException){
                 throw e;
@@ -91,8 +100,8 @@ public class KindergartenController {
 
     }
 
-    @GetMapping("/kid")
-    public BaseResponseDto<List<KidListResponseDto>>
+//    @GetMapping("/kid")
+//    public BaseResponseDto<List<KidListResponseDto>>
 
 
 }

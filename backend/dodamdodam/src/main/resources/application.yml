@@ -28,7 +28,18 @@ spring:
     # JPA의 구현체인 Hibernate가 동작하면서 발생한 SQL의 가독성을 높여준다.
     properties:
       hibernate.format_sql: true
-
+# s3
+cloud:
+  aws:
+    credentials:
+      access-key: AKIAVPUXQSUO7G3OHJVQ   # IAM 계정의 accessKey
+      secret-key: vE1QTu7yiFDN7Pq9/TW76lIONSrxZmq7uE9quHdp  # IAM 계정의 secretKey
+    region:
+      static: ap-northeast-2  # 버킷의 리전
+    s3:
+      bucket: dodamdodam   # 버킷 이름
+    stack:
+      auto: false
 #swagger
 #springfox:
 #  documentation:
