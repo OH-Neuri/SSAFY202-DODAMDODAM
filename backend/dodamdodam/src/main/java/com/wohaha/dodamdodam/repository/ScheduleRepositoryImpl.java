@@ -75,6 +75,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepositoryCustom {
                         .and(schedule.date.year().eq(year))
                         .and(schedule.date.month().eq(month))
                         .and(schedule.date.dayOfMonth().eq(day)))
+                .orderBy(schedule.classSeq.asc())
                 .fetch();
     }
 }
