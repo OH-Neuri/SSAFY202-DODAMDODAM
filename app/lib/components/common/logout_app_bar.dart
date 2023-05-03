@@ -8,7 +8,7 @@ class LogoutAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      automaticallyImplyLeading: false,
+      automaticallyImplyLeading: true,
       backgroundColor: Colors.white,
       elevation: 3,
       title: Image.asset('assets/images/logo.png', height: 40,),

@@ -1,12 +1,15 @@
 import 'package:app/components/common/logout_app_bar.dart';
 import 'package:app/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class NoticeDetail extends StatelessWidget {
   const NoticeDetail({Key? key}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
+  List<String> images = ['images/bonggil.jpg','images/bonggil.jpg'];
     return Scaffold(
       backgroundColor: lightNavy,
       appBar: LogoutAppBar(),
@@ -56,21 +59,22 @@ class NoticeDetail extends StatelessWidget {
                           padding: EdgeInsets.symmetric(vertical: 10),
                           child: Divider(color: Colors.grey, height: 1, thickness: 1),
                         ),
-                        Row(
-                          children: [
-                            Expanded(child: Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: Image.asset('images/bonggil.jpg'),
-                            )),
-                            Expanded(child: Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: Image.asset('images/bonggil.jpg'),
-                            )),
-                            Expanded(child: Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: Image.asset('images/bonggil.jpg'),
-                            )),
-                          ],
+                        SizedBox(
+                          width: double.infinity,
+                          height: 150,
+                          child: GridView(gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              crossAxisSpacing: 5,
+                            ),
+                            children: [
+                              for(int i=0; i<images.length; i++)
+                                InkWell(
+                                  onTap: () {Get.toNamed('/notice/image/$i', arguments: images);},
+                                  child: Image.asset(images[i], fit: BoxFit.cover,)
+                                ),
+                              Image.network('https://dodamdodam.s3.ap-northeast-2.amazonaws.com/kidProfile/3d0aaa2f-f539-437f-bc02-50c391ef0fd6.jpg', fit: BoxFit.cover,),
+                            ],
+                          ),
                         ),
                         Container(
                           width: double.infinity,
