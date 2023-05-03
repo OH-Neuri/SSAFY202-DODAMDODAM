@@ -11,6 +11,10 @@ class AttendanceList extends StatefulWidget {
   _AttendanceListState createState() => _AttendanceListState();
 }
 
+//
+bool is_teacher = Get.arguments.is_teacher;
+
+
 class _AttendanceListState extends State<AttendanceList> {
   late DateTime _selectedDate = DateTime.now();
   String? _selectedChild;
@@ -25,6 +29,7 @@ class _AttendanceListState extends State<AttendanceList> {
       title: title,
       home: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: true,
           title: const Text(title),
         ),
         body: Row(
@@ -57,6 +62,9 @@ class _AttendanceListState extends State<AttendanceList> {
                               );
                             }).toList(),
                             decoration: InputDecoration(
+                              hintStyle: TextStyle(
+                                fontSize: 14,
+                              ),
                               contentPadding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
                               labelText: '전체 원아 보기',
                               border: OutlineInputBorder(
@@ -107,7 +115,7 @@ class _AttendanceListState extends State<AttendanceList> {
                           return Center(
                               child: GestureDetector(
                                 onTap:(){
-                                  Get.to(()=>AttendanceListDetail());
+                                  Get.toNamed('/attendance/parent');
                                 },
                                 child: AttendanceCard(),
                               ));

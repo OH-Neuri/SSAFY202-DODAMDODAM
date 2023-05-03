@@ -1,17 +1,18 @@
 import 'package:app/components/common/input_form.dart';
+import 'package:app/components/common/text_form_field_custom.dart';
 import 'package:app/components/user/user_textform_field.dart';
 import 'package:app/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:app/components/attendance/attendance_list_timepicker.dart';
 
-class AttendanceListDetail extends StatefulWidget {
-  const AttendanceListDetail({Key? key}) : super(key: key);
+class AttendanceDetailTeacher extends StatefulWidget {
+  const AttendanceDetailTeacher({Key? key}) : super(key: key);
 
   @override
-  _AttendanceListDetailState createState() => _AttendanceListDetailState();
+  _AttendanceDetailTeacherState createState() => _AttendanceDetailTeacherState();
 }
 
-class _AttendanceListDetailState extends State<AttendanceListDetail> {
+class _AttendanceDetailTeacherState extends State<AttendanceDetailTeacher> {
   final TextEditingController _attendanceTimeController =
   TextEditingController();
   final TextEditingController _leaveTimeController = TextEditingController();
@@ -24,6 +25,7 @@ class _AttendanceListDetailState extends State<AttendanceListDetail> {
       home: Scaffold(
         resizeToAvoidBottomInset:false,
         appBar: AppBar(
+          automaticallyImplyLeading: true,
           title: const Text(title),
         ),
         body: Row(children: [
@@ -87,9 +89,9 @@ class _AttendanceListDetailState extends State<AttendanceListDetail> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          InputForm(hint:"등원 예정 시간",enabled: true),
+                          InputForm(hint:"등원 예정 시간",enabled: true,isTeacher:true),
                           Expanded(child: SizedBox()),
-                          InputForm(hint:"귀가 예정 시간",enabled: true),
+                          InputForm(hint:"귀가 예정 시간",enabled: true,isTeacher:true),
                         ],
                       ),
                     ),
@@ -98,9 +100,9 @@ class _AttendanceListDetailState extends State<AttendanceListDetail> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          InputForm(hint:"등원 시간",enabled: false ),
+                          InputForm(hint:"등원 시간",enabled: false,isTeacher:true ),
                           Expanded(child: SizedBox()),
-                          InputForm(hint:"귀가 시간",enabled: false),
+                          InputForm(hint:"귀가 시간",enabled: false,isTeacher:true),
                         ],
                       ),
                     ),
@@ -116,7 +118,7 @@ class _AttendanceListDetailState extends State<AttendanceListDetail> {
                                 padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
                                 child: Text("귀가 방법"),
                               ),
-                              UserTextFormField(hint: '귀가 방법 입력', onChanged: (val){}, obscureText: false)
+                              TextFormFieldCustom(hint: '귀가 방법 입력', onChanged: (val){}, obscureText: false, isTeacher:true)
                             ],
                           ))
                         ],
@@ -127,9 +129,9 @@ class _AttendanceListDetailState extends State<AttendanceListDetail> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          InputForm(hint:"보호자1",enabled: true),
+                          InputForm(hint:"보호자1",enabled: true, isTeacher:true),
                           Expanded(child: SizedBox()),
-                          InputForm(hint:"보호자1 연락처",enabled: true),
+                          InputForm(hint:"보호자1 연락처",enabled: true,isTeacher:true),
                         ],
                       ),
                     ),
@@ -138,9 +140,9 @@ class _AttendanceListDetailState extends State<AttendanceListDetail> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          InputForm(hint:"보호자2",enabled: true),
+                          InputForm(hint:"보호자2",enabled: true,isTeacher:true),
                           Expanded(child: SizedBox()),
-                          InputForm(hint:"보호자2 연락처",enabled: true),
+                          InputForm(hint:"보호자2 연락처",enabled: true,isTeacher:true),
                         ],
                       ),
                     )
