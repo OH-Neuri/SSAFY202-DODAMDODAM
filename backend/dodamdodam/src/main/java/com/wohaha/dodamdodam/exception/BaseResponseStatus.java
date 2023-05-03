@@ -19,6 +19,8 @@ public enum BaseResponseStatus {
   SCHEDULE_TYPE_DELETE_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 1995, "일정 분류 삭제가 실패했습니다."),
   SCHEDULE_TYPE_UPDATE_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 1994, "일정 분류 수정이 실패했습니다."),
 
+  // 식단 관리
+  FOOD_NULL_FAIl(HttpStatus.INTERNAL_SERVER_ERROR, 1993, "해당 날의 식단이 없습니다."),
 
   //인증관련 에러
   SIGNUP_REQUIRED(HttpStatus.OK, 4001, "회원가입이 필요한 유저입니다."),

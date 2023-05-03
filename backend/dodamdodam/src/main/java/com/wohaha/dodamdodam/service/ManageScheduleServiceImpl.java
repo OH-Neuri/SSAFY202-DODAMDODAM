@@ -24,11 +24,8 @@ import java.util.*;
 @Transactional
 @RequiredArgsConstructor
 public class ManageScheduleServiceImpl implements ManageScheduleService {
-    @Autowired
     private final KindergartenRepository kindergartenRepository;
-    @Autowired
     private final ScheduleRepository scheduleRepository;
-    @Autowired
     private final ScheduleTypeRepository scheduleTypeRepository;
 
     @Override
