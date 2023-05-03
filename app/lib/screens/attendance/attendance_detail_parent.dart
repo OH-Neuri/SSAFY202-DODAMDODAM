@@ -1,3 +1,4 @@
+import 'package:app/components/attendance/signature_dialog.dart';
 import 'package:app/components/common/input_form.dart';
 import 'package:app/components/common/text_form_field_custom.dart';
 import 'package:app/components/user/user_textform_field.dart';
@@ -150,16 +151,48 @@ class _AttendanceDetailParentState extends State<AttendanceDetailParent> {
                   ],
                 ),
               ),
-              Container(
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                 child: Row(
-                  children:[
-                    TextButton(onPressed: onPressed(){}, child: Text("")),
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: ElevatedButton(onPressed: (){
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              //이 부분에 그림 그리는 부분 들어가자
+                              title: Text("서명하기"),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: Text("취소"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                TextButton(
+                                  child: Text("저장"),
+                                  onPressed: () {
+                                    // TODO: 저장 코드 추가
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                       }, child: Text("서명하기")),
+                    ),
+                    ElevatedButton(onPressed: (){
+                    }, child: Text("저장하기"))
 
                   ],
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 40),
+                padding: const EdgeInsets.symmetric(vertical: 20),
                 child: Column(
                   children: [
                     Text("위 보호자 이외의 다른 사람에게 인계할 때는 사전에 반드시 연락을 취하겠습니다.",

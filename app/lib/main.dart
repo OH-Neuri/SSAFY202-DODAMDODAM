@@ -1,5 +1,6 @@
 import 'package:app/screens/notice/notice_detail.dart';
 import 'package:app/screens/notice/notice_image_detail.dart';
+import 'package:app/components/attendance/signature_dialog.dart';
 import 'package:app/screens/attendance/attendance_detail_teacher.dart';
 import 'package:app/screens/notice/notice_list.dart';
 import 'package:app/screens/user/login_select.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      home: AttendanceList(),
+      home: SignatureDialog(),
       theme: ThemeData(fontFamily: 'Pretendard'),
       // initialRoute: '/',
       getPages: [
