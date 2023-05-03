@@ -18,8 +18,7 @@ class InputForm extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-            child: Text("$hint",style: TextStyle(
-            ),),
+            child: Text("$hint"),
           ),
           TextFormFieldCustom(hint: '$hint 입력', onChanged: (val){}, obscureText: false, enabled:enabled, )
         ],
