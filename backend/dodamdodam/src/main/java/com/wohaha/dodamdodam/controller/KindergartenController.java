@@ -1,11 +1,9 @@
 package com.wohaha.dodamdodam.controller;
 
 import com.wohaha.dodamdodam.dto.response.BaseResponseDto;
-import com.wohaha.dodamdodam.dto.response.request.CreateClassRequestDto;
-import com.wohaha.dodamdodam.dto.response.request.CreateKidRequestDto;
-import com.wohaha.dodamdodam.dto.response.request.CreateScheduleRequestDto;
-import com.wohaha.dodamdodam.dto.response.request.UpdateClassRequestDto;
+import com.wohaha.dodamdodam.dto.response.request.*;
 import com.wohaha.dodamdodam.dto.response.response.ClassListResponseDto;
+import com.wohaha.dodamdodam.dto.response.response.KidListResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.service.ManageClassService;
@@ -100,8 +98,60 @@ public class KindergartenController {
 
     }
 
-//    @GetMapping("/kid")
-//    public BaseResponseDto<List<KidListResponseDto>>
+    @GetMapping("/kid")
+    public BaseResponseDto<List<KidListResponseDto>> kidList(){
+        try{
+            return new BaseResponseDto<>(manageKidService.kidList());
+        }catch (Exception e){
+            if(e instanceof BaseException){
+                throw  e;
+            }else{
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
+    @PostMapping("/kidImage")
+    public BaseResponseDto<String> kidImage(@ModelAttribute KidImageFileRequestDto kidImageFileRequestDto){
+        try{
+            //이미지 s3 업로드 후 링크 가져오기
+            String uploadUrl = s3UploadService.upload(kidImageFileRequestDto.getPhoto(),"kidProfile");
+            return new BaseResponseDto<>(uploadUrl);
+        }catch (Exception e){
+            if(e instanceof BaseException){
+                throw  e;
+            }else{
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
+
+    @PutMapping("kid")
+    public BaseResponseDto<?> updateKid(@ModelAttribute UpdateKidRequestDto updateKidRequestDto){
+        try{
+            return new BaseResponseDto<>(manageKidService.updateKid(updateKidRequestDto));
+        }catch (Exception e){
+            if( e instanceof BaseException){
+                throw e;
+            }else{
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
+    @DeleteMapping("kid/{kidSeq}")
+    public BaseResponseDto<?> deleteKid(@PathVariable Long kidSeq){
+        try{
+            return new BaseResponseDto<>(manageKidService.deleteKid(kidSeq));
+        }catch(Exception e){
+            if(e instanceof BaseException){
+                throw e;
+            }else{
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
 
 
 }
