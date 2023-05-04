@@ -13,11 +13,19 @@ class NoticeRegist extends StatefulWidget {
 
 TextEditingController _controller = TextEditingController();
 bool isAnnouncement = false;
-List<String> images = ['1', '2', '4'];
 
 class _NoticeRegistState extends State<NoticeRegist> {
   @override
   Widget build(BuildContext context) {
+    List<String> images = ['1', '2', '3'];
+
+    void deleteImage(int idx) {
+      setState(() {
+        List<String> newImages = List.from(images);
+        newImages.removeAt(idx);
+        images = newImages;
+      });
+    }
 
     return Scaffold(
       backgroundColor: lightNavy,
@@ -104,25 +112,19 @@ class _NoticeRegistState extends State<NoticeRegist> {
                             Stack(
                               children: [
                                 Container(
-                                  padding: EdgeInsets.all(4),
                                   alignment: Alignment.center,
                                   width: double.infinity,
                                   height: double.infinity,
-                                  child: SizedBox(
-                                    width: double.infinity,
-                                    height: double.infinity,
-                                    child: Image.asset('images/bonggil.jpg', fit: BoxFit.cover,),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(style: BorderStyle.solid),
                                   ),
+                                  child: Text(images[i]),
                                 ),
                                 Positioned(
                                   right: 0,
                                   top: 0,
                                   child: InkWell(
-                                    onTap: (){setState(() {
-                                      List<String> newImages = List.from(images);
-                                      newImages.removeAt(i);
-                                      images = newImages;
-                                    });},
+                                    onTap: (){deleteImage(i);},
                                     child: Container(
                                         width: 20,
                                         height: 20,
@@ -165,43 +167,10 @@ class _NoticeRegistState extends State<NoticeRegist> {
                                       borderRadius: BorderRadius.circular(10.0),
                                       borderSide: BorderSide(color: Colors.grey)
                                   ),
-                                  hintText: '내용을 입력해주세요.',
-                                  hintStyle: TextStyle(
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.w200
-                                  )
+                                  hintText: '내용을 입력해주세요.'
                                 ),
                               ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(0, 10, 10, 0),
-                                  child: ElevatedButton(onPressed: (){},
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: logoNavy,
-                                        minimumSize: Size(140, 40)
-                                      ),
-                                      child: Text('맞춤법 검사', style: TextStyle(
-                                        fontWeight: FontWeight.w300
-                                      ),)
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                                  child: ElevatedButton(onPressed: (){},
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: logoNavy,
-                                        minimumSize: Size(140, 40)
-                                      ),
-                                      child: Text('알림장 자동완성', style: TextStyle(
-                                        fontWeight: FontWeight.w300
-                                      ),)
-                                  ),
-                                ),
-                              ],
-                            )
                           ],
                         ),
                       )
@@ -247,5 +216,10 @@ class _NoticeRegistState extends State<NoticeRegist> {
         ],
       ),
     );
+  }
+  @override
+  void initState() {
+    super.initState();
+    _controller.text = '임시 테스트입니다.... 테스트가 되는 지 확인하겠습니다 후후후\n후후';
   }
 }

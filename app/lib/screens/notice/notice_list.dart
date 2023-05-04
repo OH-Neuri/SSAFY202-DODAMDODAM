@@ -98,7 +98,7 @@ class NoticeList extends StatelessWidget {
             bottom: 40,
             right: 40,
             child: ElevatedButton(
-              onPressed: (){print('작성페이지 고');},
+              onPressed: (){Get.toNamed('notice/regist');},
               style: ElevatedButton.styleFrom(
                 minimumSize: Size(80, 80),
                 backgroundColor: logoNavy,
