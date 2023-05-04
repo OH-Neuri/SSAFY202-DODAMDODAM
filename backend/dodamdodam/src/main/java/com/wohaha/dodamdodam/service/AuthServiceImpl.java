@@ -105,7 +105,7 @@ public class AuthServiceImpl implements AuthService{
     message.setFrom(fromNumber);
     message.setTo(toNumber);
 
-    message.setText("[도담도담] 인증번호 [" + randomNumber + "] 입력해주세요 >ㅁ<");
+    message.setText("[도담도담] 인증번호 [" + randomNumber + "] 입력해주세요");
 
     SingleMessageSentResponse response = this.messageService.sendOne(new SingleMessageSendingRequest(message));
 

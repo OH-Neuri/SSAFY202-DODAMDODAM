@@ -15,6 +15,8 @@ public interface ManageClassService {
     boolean updateClass(UpdateClassRequestDto updateClassRequestDto);
     //반 삭제
     boolean deleteClass(long classSeq);
+    //반 선생님 추가 sms 인증코드 생성
+
 
 
 }

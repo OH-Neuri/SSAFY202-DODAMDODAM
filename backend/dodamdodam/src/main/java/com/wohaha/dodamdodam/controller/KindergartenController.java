@@ -1,15 +1,19 @@
 package com.wohaha.dodamdodam.controller;
 
+import com.wohaha.dodamdodam.domain.KindergartenInfo;
 import com.wohaha.dodamdodam.dto.BaseResponseDto;
 import com.wohaha.dodamdodam.dto.request.CreateClassRequestDto;
 import com.wohaha.dodamdodam.dto.request.CreateKidRequestDto;
 import com.wohaha.dodamdodam.dto.request.KidImageFileRequestDto;
+import com.wohaha.dodamdodam.dto.request.SendTeacherSmsRequestDto;
 import com.wohaha.dodamdodam.dto.request.UpdateClassRequestDto;
 import com.wohaha.dodamdodam.dto.request.UpdateKidRequestDto;
 import com.wohaha.dodamdodam.dto.response.ClassListResponseDto;
 import com.wohaha.dodamdodam.dto.response.KidListResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
+import com.wohaha.dodamdodam.service.KindergartenService;
+import com.wohaha.dodamdodam.service.KindergartenServiceImpl;
 import com.wohaha.dodamdodam.service.ManageClassService;
 import com.wohaha.dodamdodam.service.ManageKidService;
 import com.wohaha.dodamdodam.service.S3UploadService;
@@ -29,6 +33,9 @@ public class KindergartenController {
 
     @Autowired
     S3UploadService s3UploadService;
+
+    @Autowired
+    KindergartenService kindergartenService;
 
     @PostMapping("/class")
     public BaseResponseDto<?> createClass(@RequestBody CreateClassRequestDto createClassRequestDto) {
@@ -156,6 +163,32 @@ public class KindergartenController {
             }
         }
     }
+
+    @GetMapping("/search")
+    public BaseResponseDto<List<KindergartenInfo>> searchKindergartenInfo(@RequestParam String keyword){
+        try{
+            return new BaseResponseDto<>(kindergartenService.getKindergartenInfoList(keyword));
+        }catch(Exception e){
+            if(e instanceof BaseException){
+                throw e;
+            }else{
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+//
+//    @PostMapping("/class/teacher")
+//    public BaseResponseDto<Boolean> sendTeacherSms(@RequestBody SendTeacherSmsRequestDto sendTeacherSmsRequestDto){
+//        try{
+//            return new BaseResponseDto<>(kindergartenService.getKindergartenInfoList(keyword));
+//        }catch(Exception e){
+//            if(e instanceof BaseException){
+//                throw e;
+//            }else{
+//                throw new BaseException(BaseResponseStatus.FAIL);
+//            }
+//        }
+//    }
 
 
 }
