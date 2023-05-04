@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService{
 
     //아이디, 권한으로 유저 찾아오기
     User user = userRepository.findUserByIdAndRole(loginUserRequestDto.getId(),
-        loginUserRequestDto.getRole()).orElseThrow(()->{throw new BaseException(SIGNUP_REQUIRED)});
+        loginUserRequestDto.getRole()).orElseThrow(()->{throw new BaseException(SIGNUP_REQUIRED);});
 
     //아이디 비밀번호 일치 여부 확인하기
     if(!EncodeUtils.matches(loginUserRequestDto.getPassword(), user.getPassword())){
