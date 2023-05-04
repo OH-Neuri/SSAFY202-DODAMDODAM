@@ -2,10 +2,12 @@ package com.wohaha.dodamdodam.controller;
 
 import com.wohaha.dodamdodam.dto.BaseResponseDto;
 import com.wohaha.dodamdodam.dto.request.CreateScheduleRequestDto;
+import com.wohaha.dodamdodam.dto.response.ClassNoticeResponseDto;
 import com.wohaha.dodamdodam.dto.response.ClassScheduleListResponseDto;
 import com.wohaha.dodamdodam.dto.response.ClassScheduleResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
+import com.wohaha.dodamdodam.service.NoticeService;
 import com.wohaha.dodamdodam.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,9 @@ import java.util.List;
 public class ClassController {
     @Autowired
     private ScheduleService scheduleService;
+
+    @Autowired
+    private NoticeService noticeService;
 
     // 일정 관리
     @PostMapping("/schedule/{classSeq}")
@@ -69,8 +74,28 @@ public class ClassController {
 
     }
 
-    @GetMapping("/hello")
-    public BaseResponseDto<String> hello() {
-        return new BaseResponseDto<>("hello");
+    @GetMapping("/notice/{classSeq}")
+    public BaseResponseDto<List<ClassNoticeResponseDto>> noticeList(@PathVariable Long classSeq){
+        try{
+            return new BaseResponseDto<>(noticeService.noticeList(classSeq));
+        }catch (Exception e){
+            if(e instanceof BaseException){
+                throw e;
+            }else{
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+    @GetMapping("/notice/info/{noticeSeq}")
+    public BaseResponseDto<ClassNoticeResponseDto> noticeInfo(@PathVariable Long noticeSeq){
+        try{
+            return new BaseResponseDto<>(noticeService.noticeInfo(noticeSeq));
+        }catch (Exception e){
+            if(e instanceof BaseException){
+                throw e;
+            }else{
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
     }
 }
