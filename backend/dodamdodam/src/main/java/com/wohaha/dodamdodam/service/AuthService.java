@@ -1,6 +1,5 @@
 package com.wohaha.dodamdodam.service;
 
-import com.google.inject.spi.Message;
 import com.wohaha.dodamdodam.dto.response.request.CheckSmsRequestDto;
 import com.wohaha.dodamdodam.dto.response.request.SendSmsRequestDto;
 import net.nurigo.sdk.message.response.SingleMessageSentResponse;
