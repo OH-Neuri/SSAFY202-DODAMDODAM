@@ -1,30 +1,32 @@
 package com.wohaha.dodamdodam.controller;
 
 import com.wohaha.dodamdodam.dto.response.BaseResponseDto;
-import com.wohaha.dodamdodam.dto.response.request.LoginUserRequestDto;
-import com.wohaha.dodamdodam.dto.response.request.RegisterUserRequestDto;
-import com.wohaha.dodamdodam.dto.response.response.LoginUserResponseDto;
-import com.wohaha.dodamdodam.dto.response.response.RegisterUserResponseDto;
+import com.wohaha.dodamdodam.dto.response.request.CheckSmsRequestDto;
+import com.wohaha.dodamdodam.dto.response.request.CreateScheduleRequestDto;
+import com.wohaha.dodamdodam.dto.response.request.SendSmsRequestDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
+import com.wohaha.dodamdodam.service.AuthService;
 import com.wohaha.dodamdodam.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/auth")
+public class AuthController {
 
   @Autowired
-  private UserService userService;
+  private AuthService authService;
 
-  @PostMapping("")
-  public BaseResponseDto<RegisterUserResponseDto> registerUser(@RequestBody RegisterUserRequestDto registerUserRequestDto) {
+  @PostMapping("/sms")
+  public BaseResponseDto<Boolean> postSms(@RequestBody SendSmsRequestDto sendSmsRequestDto) {
     try {
-      RegisterUserResponseDto result = userService.registerUser(registerUserRequestDto);
+      boolean result = authService.sendSms(sendSmsRequestDto);
       return new BaseResponseDto<>(result);
     } catch (Exception e) {
       e.printStackTrace();
@@ -36,10 +38,10 @@ public class UserController {
     }
   }
 
-  @PostMapping("/login")
-  public BaseResponseDto<LoginUserResponseDto> login(@RequestBody LoginUserRequestDto loginUserRequestDto) {
+  @PostMapping("/check")
+  public BaseResponseDto<Boolean> checkSms(@RequestBody CheckSmsRequestDto checkSmsRequestDto) {
     try {
-      LoginUserResponseDto result = userService.loginUser(loginUserRequestDto);
+      boolean result = authService.checkSms(checkSmsRequestDto);
       return new BaseResponseDto<>(result);
     } catch (Exception e) {
       e.printStackTrace();
@@ -50,5 +52,4 @@ public class UserController {
       }
     }
   }
-
 }

@@ -68,6 +68,12 @@ dependencies {
 	implementation 'software.amazon.awssdk:s3'
 
 
+	//coolsms
+	implementation 'net.nurigo:sdk:4.3.0'
+
+	//jwt
+	implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+	implementation group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.3.2'
 
 }
 
