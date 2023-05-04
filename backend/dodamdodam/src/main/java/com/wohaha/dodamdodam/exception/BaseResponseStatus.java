@@ -33,7 +33,7 @@ public enum BaseResponseStatus {
   UNREQUESTED_SMS_USER(HttpStatus.INTERNAL_SERVER_ERROR, 4010, "sms 인증을 요청하지 않은 유저의 접근입니다."),
   WRONG_CODE(HttpStatus.INTERNAL_SERVER_ERROR, 4011, "코드가 일치하지 않습니다."),
   SMS_UNAUTHENTICATION(HttpStatus.INTERNAL_SERVER_ERROR, 4012, "sms 인증을 먼저 진행해주세요."),
-
+  WRONG_PASSWORD(HttpStatus.INTERNAL_SERVER_ERROR, 4013, "아이디와 비밀번호가 일치하지 않습니다."),
   // 파일 에러
   FILE_SAVE_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 4010, "파일 변환 및 로컬 저장 과정에서 에러가 발생했습니다."),
   FILE_UPLOAD_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 4011, "파일 s3 서버 업로드 과정에서 에러가 발생했습니다."),

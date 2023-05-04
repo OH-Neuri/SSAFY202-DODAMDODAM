@@ -1,5 +1,8 @@
 package com.wohaha.dodamdodam.service;
 
+import static com.wohaha.dodamdodam.exception.BaseResponseStatus.SIGNUP_REQUIRED;
+import static com.wohaha.dodamdodam.exception.BaseResponseStatus.WRONG_PASSWORD;
+
 import com.wohaha.dodamdodam.domain.Auth;
 import com.wohaha.dodamdodam.domain.JwtTokenInfo;
 import com.wohaha.dodamdodam.domain.User;
@@ -78,9 +81,24 @@ public class UserServiceImpl implements UserService{
   public LoginUserResponseDto loginUser(LoginUserRequestDto loginUserRequestDto) {
 
     //아이디, 권한으로 유저 찾아오기
-    User user = userRepository.find
+    User user = userRepository.findUserByIdAndRole(loginUserRequestDto.getId(),
+        loginUserRequestDto.getRole()).orElseThrow(()->{throw new BaseException(SIGNUP_REQUIRED)});
 
+    //아이디 비밀번호 일치 여부 확인하기
+    if(!EncodeUtils.matches(loginUserRequestDto.getPassword(), user.getPassword())){
+      throw new BaseException(WRONG_PASSWORD);
+    }
 
-    return null;
+    //토큰 발급
+    JwtTokenInfo jwtTokenInfo = JwtTokenUtils.allocateToken(user.getUserSeq(), user.getRole());
+
+    LoginUserResponseDto result = LoginUserResponseDto.builder()
+        .name(user.getName())
+        .id(user.getId())
+        .role(user.getRole())
+        .token(jwtTokenInfo.getAccessToken())
+        .build();
+
+    return result;
   }
 }

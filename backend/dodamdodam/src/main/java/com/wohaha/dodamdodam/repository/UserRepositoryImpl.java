@@ -31,8 +31,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
             query
                 .selectFrom(user)
                 .where(predicate)
-                .fetchFirst() != null;
-            
+                .fetchOne()));
     }
 
 
