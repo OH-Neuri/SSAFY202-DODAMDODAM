@@ -2,8 +2,8 @@ package com.wohaha.dodamdodam.repository;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.wohaha.dodamdodam.dto.response.request.UpdateKidRequestDto;
-import com.wohaha.dodamdodam.dto.response.response.KidListResponseDto;
+import com.wohaha.dodamdodam.dto.request.UpdateKidRequestDto;
+import com.wohaha.dodamdodam.dto.response.KidListResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static com.wohaha.dodamdodam.domain.QKid.kid;

@@ -1,9 +1,8 @@
 package com.wohaha.dodamdodam.service;
 
-import com.wohaha.dodamdodam.dto.response.request.CreateKidRequestDto;
-import com.wohaha.dodamdodam.dto.response.request.UpdateClassRequestDto;
-import com.wohaha.dodamdodam.dto.response.request.UpdateKidRequestDto;
-import com.wohaha.dodamdodam.dto.response.response.KidListResponseDto;
+import com.wohaha.dodamdodam.dto.request.CreateKidRequestDto;
+import com.wohaha.dodamdodam.dto.request.UpdateKidRequestDto;
+import com.wohaha.dodamdodam.dto.response.KidListResponseDto;
 
 import java.util.List;
 

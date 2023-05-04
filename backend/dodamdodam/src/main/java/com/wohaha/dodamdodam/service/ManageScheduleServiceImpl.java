@@ -2,19 +2,17 @@ package com.wohaha.dodamdodam.service;
 
 import com.wohaha.dodamdodam.domain.Schedule;
 import com.wohaha.dodamdodam.domain.ScheduleType;
-import com.wohaha.dodamdodam.dto.response.request.CreateScheduleRequestDto;
-import com.wohaha.dodamdodam.dto.response.request.ScheduleTypeRequestDto;
-import com.wohaha.dodamdodam.dto.response.response.KindergartenScheduleListResponseDto;
-import com.wohaha.dodamdodam.dto.response.response.ScheduleResponseDto;
-import com.wohaha.dodamdodam.dto.response.response.ScheduleTypeResponseDto;
+import com.wohaha.dodamdodam.dto.request.CreateScheduleRequestDto;
+import com.wohaha.dodamdodam.dto.request.ScheduleTypeRequestDto;
+import com.wohaha.dodamdodam.dto.response.KindergartenScheduleListResponseDto;
+import com.wohaha.dodamdodam.dto.response.ScheduleResponseDto;
+import com.wohaha.dodamdodam.dto.response.ScheduleTypeResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.repository.KindergartenRepository;
 import com.wohaha.dodamdodam.repository.ScheduleRepository;
 import com.wohaha.dodamdodam.repository.ScheduleTypeRepository;
-import io.swagger.models.auth.In;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

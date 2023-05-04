@@ -1,10 +1,9 @@
 package com.wohaha.dodamdodam.repository;
 
-import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.wohaha.dodamdodam.dto.response.request.ScheduleTypeRequestDto;
-import com.wohaha.dodamdodam.dto.response.response.ScheduleTypeResponseDto;
+import com.wohaha.dodamdodam.dto.request.ScheduleTypeRequestDto;
+import com.wohaha.dodamdodam.dto.response.ScheduleTypeResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

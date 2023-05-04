@@ -2,10 +2,9 @@ package com.wohaha.dodamdodam.service;
 
 import com.wohaha.dodamdodam.domain.Schedule;
 import com.wohaha.dodamdodam.domain.ScheduleType;
-import com.wohaha.dodamdodam.dto.response.request.CreateScheduleRequestDto;
-import com.wohaha.dodamdodam.dto.response.response.ClassScheduleListResponseDto;
-import com.wohaha.dodamdodam.dto.response.response.ClassScheduleResponseDto;
-import com.wohaha.dodamdodam.dto.response.response.ScheduleResponseDto;
+import com.wohaha.dodamdodam.dto.request.CreateScheduleRequestDto;
+import com.wohaha.dodamdodam.dto.response.ClassScheduleListResponseDto;
+import com.wohaha.dodamdodam.dto.response.ClassScheduleResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.repository.KindergartenRepository;

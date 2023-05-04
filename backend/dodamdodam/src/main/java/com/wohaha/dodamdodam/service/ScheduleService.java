@@ -1,8 +1,8 @@
 package com.wohaha.dodamdodam.service;
 
-import com.wohaha.dodamdodam.dto.response.request.CreateScheduleRequestDto;
-import com.wohaha.dodamdodam.dto.response.response.ClassScheduleListResponseDto;
-import com.wohaha.dodamdodam.dto.response.response.ClassScheduleResponseDto;
+import com.wohaha.dodamdodam.dto.request.CreateScheduleRequestDto;
+import com.wohaha.dodamdodam.dto.response.ClassScheduleListResponseDto;
+import com.wohaha.dodamdodam.dto.response.ClassScheduleResponseDto;
 
 import java.util.List;
 

@@ -4,7 +4,6 @@ import com.wohaha.dodamdodam.dto.response.request.FoodRequestDto;
 import com.wohaha.dodamdodam.dto.response.response.FoodResponseDto;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 

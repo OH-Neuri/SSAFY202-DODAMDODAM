@@ -1,9 +1,13 @@
 package com.wohaha.dodamdodam.controller;
 
-import com.wohaha.dodamdodam.dto.response.BaseResponseDto;
-import com.wohaha.dodamdodam.dto.response.request.*;
-import com.wohaha.dodamdodam.dto.response.response.ClassListResponseDto;
-import com.wohaha.dodamdodam.dto.response.response.KidListResponseDto;
+import com.wohaha.dodamdodam.dto.BaseResponseDto;
+import com.wohaha.dodamdodam.dto.request.CreateClassRequestDto;
+import com.wohaha.dodamdodam.dto.request.CreateKidRequestDto;
+import com.wohaha.dodamdodam.dto.request.KidImageFileRequestDto;
+import com.wohaha.dodamdodam.dto.request.UpdateClassRequestDto;
+import com.wohaha.dodamdodam.dto.request.UpdateKidRequestDto;
+import com.wohaha.dodamdodam.dto.response.ClassListResponseDto;
+import com.wohaha.dodamdodam.dto.response.KidListResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.service.ManageClassService;

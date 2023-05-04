@@ -1,9 +1,9 @@
 package com.wohaha.dodamdodam.service;
 
 import com.wohaha.dodamdodam.domain.Food;
-import com.wohaha.dodamdodam.dto.response.request.FoodRequestDto;
-import com.wohaha.dodamdodam.dto.response.response.FoodListResponseDto;
-import com.wohaha.dodamdodam.dto.response.response.FoodResponseDto;
+import com.wohaha.dodamdodam.dto.request.FoodRequestDto;
+import com.wohaha.dodamdodam.dto.response.FoodListResponseDto;
+import com.wohaha.dodamdodam.dto.response.FoodResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.repository.FoodRepository;
@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.html.Option;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
