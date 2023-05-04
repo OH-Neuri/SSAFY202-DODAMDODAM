@@ -5,6 +5,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.wohaha.dodamdodam.dto.response.response.FoodResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 import java.util.Optional;
 
 import static com.wohaha.dodamdodam.domain.QFood.food;
@@ -31,6 +32,16 @@ public class FoodRepositoryImpl implements FoodRepositoryCustom {
                         .and(food.date.dayOfMonth().eq(day)))
                 .fetchOne()
         );
+    }
 
+    @Override
+    public List<Integer> findFoodScheduleList(Long kindergartenSeq, Integer year, Integer month) {
+        return query
+                .selectDistinct(food.date.dayOfMonth())
+                .from(food)
+                .where(food.kindergartenSeq.eq(kindergartenSeq)
+                        .and(food.date.year().eq(year))
+                        .and(food.date.month().eq(month)))
+                .fetch();
     }
 }

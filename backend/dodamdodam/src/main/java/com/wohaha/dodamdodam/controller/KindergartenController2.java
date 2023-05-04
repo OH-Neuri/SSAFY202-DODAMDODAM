@@ -3,10 +3,7 @@ package com.wohaha.dodamdodam.controller;
 import com.wohaha.dodamdodam.dto.response.BaseResponseDto;
 import com.wohaha.dodamdodam.dto.response.request.CreateScheduleRequestDto;
 import com.wohaha.dodamdodam.dto.response.request.ScheduleTypeRequestDto;
-import com.wohaha.dodamdodam.dto.response.response.FoodResponseDto;
-import com.wohaha.dodamdodam.dto.response.response.KindergartenScheduleListResponseDto;
-import com.wohaha.dodamdodam.dto.response.response.ScheduleResponseDto;
-import com.wohaha.dodamdodam.dto.response.response.ScheduleTypeResponseDto;
+import com.wohaha.dodamdodam.dto.response.response.*;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.service.ManageFoodService;
@@ -143,5 +140,18 @@ public class KindergartenController2 {
             }
         }
     }
-
+//    api/dodam/kindergarten/food/month?year={year}&month={month}
+    @GetMapping("/food/month")
+    public BaseResponseDto<FoodListResponseDto> getFoodList(@RequestParam String year,
+                                                            @RequestParam String month) {
+        try {
+            return new BaseResponseDto<>(manageFoodService.getFoodList(year, month));
+        } catch(Exception e) {
+            if (e instanceof BaseException) {
+                throw e;
+            } else {
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
 }

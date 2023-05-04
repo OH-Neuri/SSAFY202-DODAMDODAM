@@ -60,7 +60,7 @@ dependencies {
 
 	//swagger
 	implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
-	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+//	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 
 	//aws s3
 	//s3 객체로 저장하기 위해선 sdk 설치해야함
