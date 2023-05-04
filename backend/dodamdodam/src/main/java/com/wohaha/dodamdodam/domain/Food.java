@@ -9,7 +9,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Table(name = "tbl_food")
@@ -62,24 +61,4 @@ public class Food {
 
     @Column(name = "updated_at")
     private Timestamp updatedAt;
-
-    @Override
-    public String toString() {
-        return "Food{" +
-                "foodSeq=" + foodSeq +
-                ", kindergartenSeq=" + kindergartenSeq +
-                ", date=" + date +
-                ", rice='" + rice + '\'' +
-                ", soup='" + soup + '\'' +
-                ", dish1='" + dish1 + '\'' +
-                ", dish2='" + dish2 + '\'' +
-                ", dish3='" + dish3 + '\'' +
-                ", morningSnack1='" + morningSnack1 + '\'' +
-                ", morningSnack2='" + morningSnack2 + '\'' +
-                ", afternoonSnack1='" + afternoonSnack1 + '\'' +
-                ", afternoonSnack2='" + afternoonSnack2 + '\'' +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                '}';
-    }
 }

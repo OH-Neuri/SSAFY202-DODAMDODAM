@@ -31,9 +31,9 @@ public class ManageFoodServiceImpl implements ManageFoodService {
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.KINDERGARTEN_NULL_FAIL));
         Optional<Long> foodSeq = foodRepository.findFoodSeq(kindergartenSeq, foodRequestDto.getDate());
 
-        if(foodSeq.isPresent()) {
+        if (foodSeq.isPresent()) {
             // update
-            if(foodRepository.updateFood(foodSeq.get(), foodRequestDto) > 0)
+            if (foodRepository.updateFood(foodSeq.get(), foodRequestDto) > 0)
                 return "UPDATE FOOD";
         } else {
             // create
@@ -59,7 +59,7 @@ public class ManageFoodServiceImpl implements ManageFoodService {
         Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.KINDERGARTEN_NULL_FAIL));
         return foodRepository.findFoodByKindergartenSeq(kindergartenSeq,
-                Integer.valueOf(year), Integer.valueOf(month), Integer.valueOf(day))
+                        Integer.valueOf(year), Integer.valueOf(month), Integer.valueOf(day))
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.FOOD_NULL_FAIl));
     }
 
@@ -74,7 +74,7 @@ public class ManageFoodServiceImpl implements ManageFoodService {
         foodList.setDateNumber(dateNumber);
         // 식단 있는 날의 식단 가져옴
         Map<Integer, FoodResponseDto> food = new HashMap<>();
-        for(Integer date : dateNumber) {
+        for (Integer date : dateNumber) {
             food.put(date, foodRepository.findFoodByKindergartenSeq(kindergartenSeq, Integer.valueOf(year), Integer.valueOf(month), date)
                     .orElseThrow(() -> new BaseException(BaseResponseStatus.FOOD_NULL_FAIl)));
         }

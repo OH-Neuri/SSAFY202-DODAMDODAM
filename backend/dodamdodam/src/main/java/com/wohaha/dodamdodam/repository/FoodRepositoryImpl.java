@@ -2,12 +2,11 @@ package com.wohaha.dodamdodam.repository;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.wohaha.dodamdodam.dto.response.request.FoodRequestDto;
-import com.wohaha.dodamdodam.dto.response.response.FoodResponseDto;
+import com.wohaha.dodamdodam.dto.request.FoodRequestDto;
+import com.wohaha.dodamdodam.dto.response.FoodResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,6 +57,7 @@ public class FoodRepositoryImpl implements FoodRepositoryCustom {
                         .and(food.date.month().eq(month)))
                 .fetch();
     }
+
 
     @Override
     public Long updateFood(Long foodSeq, FoodRequestDto foodRequestDto) {

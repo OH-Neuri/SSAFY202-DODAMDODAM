@@ -1,23 +1,14 @@
 package com.wohaha.dodamdodam.controller;
 
-import com.wohaha.dodamdodam.dto.response.BaseResponseDto;
-import com.wohaha.dodamdodam.dto.response.request.CreateScheduleRequestDto;
-import com.wohaha.dodamdodam.dto.response.request.FoodRequestDto;
-import com.wohaha.dodamdodam.dto.response.request.ScheduleTypeRequestDto;
-import com.wohaha.dodamdodam.dto.response.response.*;
 import com.wohaha.dodamdodam.dto.BaseResponseDto;
 import com.wohaha.dodamdodam.dto.request.CreateScheduleRequestDto;
 import com.wohaha.dodamdodam.dto.request.ScheduleTypeRequestDto;
-import com.wohaha.dodamdodam.dto.response.FoodListResponseDto;
-import com.wohaha.dodamdodam.dto.response.FoodResponseDto;
-import com.wohaha.dodamdodam.dto.response.KindergartenScheduleListResponseDto;
-import com.wohaha.dodamdodam.dto.response.ScheduleResponseDto;
-import com.wohaha.dodamdodam.dto.response.ScheduleTypeResponseDto;
+import com.wohaha.dodamdodam.dto.response.*;
+import com.wohaha.dodamdodam.dto.request.FoodRequestDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.service.ManageFoodService;
 import com.wohaha.dodamdodam.service.ManageScheduleService;
-import com.wohaha.dodamdodam.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,7 +29,7 @@ public class KindergartenController2 {
             boolean result = manageScheduleService.createSchedule(createScheduleRequestDto);
             return new BaseResponseDto<>(result);
         } catch (Exception e) {
-            if(e instanceof BaseException) {
+            if (e instanceof BaseException) {
                 throw e;
             }
             throw new BaseException(BaseResponseStatus.FAIL);
@@ -50,7 +41,7 @@ public class KindergartenController2 {
         try {
             KindergartenScheduleListResponseDto kScheduleList = manageScheduleService.getMonthScheduleList(year, month);
             return new BaseResponseDto<>(kScheduleList);
-        } catch(Exception e) {
+        } catch (Exception e) {
             if (e instanceof BaseException) {
                 throw e;
             } else {
@@ -66,7 +57,7 @@ public class KindergartenController2 {
         try {
             List<ScheduleResponseDto> kDayScheduleList = manageScheduleService.getDayScheduleList(year, month, day);
             return new BaseResponseDto<>(kDayScheduleList);
-        } catch(Exception e) {
+        } catch (Exception e) {
             if (e instanceof BaseException) {
                 throw e;
             } else {
@@ -79,7 +70,7 @@ public class KindergartenController2 {
     public BaseResponseDto<Boolean> deleteSchedule(@PathVariable Long scheduleSeq) {
         try {
             return new BaseResponseDto<>(manageScheduleService.deleteSchedule(scheduleSeq));
-        } catch(Exception e) {
+        } catch (Exception e) {
             if (e instanceof BaseException) {
                 throw e;
             } else {
@@ -91,26 +82,26 @@ public class KindergartenController2 {
     // 일정 분류 관리
     @PostMapping("/scheduleType")
     public BaseResponseDto<Boolean> createScheduleType(@RequestBody List<ScheduleTypeRequestDto> scheduleType) {
-        try{
-            for(ScheduleTypeRequestDto st : scheduleType) {
-                if(st.getScheduleTypeSeq() == null) {
+        try {
+            for (ScheduleTypeRequestDto st : scheduleType) {
+                if (st.getScheduleTypeSeq() == null) {
                     // create
-                    if(!manageScheduleService.createScheduleType(st.getContent())) {
+                    if (!manageScheduleService.createScheduleType(st.getContent())) {
                         throw new BaseException(BaseResponseStatus.SCHEDULE_TYPE_CREATE_FAIL);
                     }
-                } else if(st.getContent() == null) {
+                } else if (st.getContent() == null) {
                     // delete
-                    if(!manageScheduleService.deleteScheduleType(st.getScheduleTypeSeq())) {
+                    if (!manageScheduleService.deleteScheduleType(st.getScheduleTypeSeq())) {
                         throw new BaseException(BaseResponseStatus.SCHEDULE_TYPE_DELETE_FAIL);
                     }
                 } else {
                     // update
-                    if(!manageScheduleService.updateScheduleType(st)) {
+                    if (!manageScheduleService.updateScheduleType(st)) {
                         throw new BaseException(BaseResponseStatus.SCHEDULE_TYPE_UPDATE_FAIL);
                     }
                 }
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             if (e instanceof BaseException) {
                 throw e;
             } else {
@@ -125,7 +116,7 @@ public class KindergartenController2 {
         try {
             List<ScheduleTypeResponseDto> scheduleTypeList = manageScheduleService.getScheduleTypeList();
             return new BaseResponseDto<>(scheduleTypeList);
-        } catch(Exception e) {
+        } catch (Exception e) {
             if (e instanceof BaseException) {
                 throw e;
             } else {
@@ -147,13 +138,14 @@ public class KindergartenController2 {
             }
         }
     }
+
     @GetMapping("/food")
     public BaseResponseDto<FoodResponseDto> getFood(@RequestParam String year,
                                                     @RequestParam String month,
                                                     @RequestParam String day) {
         try {
             return new BaseResponseDto<>(manageFoodService.getFood(year, month, day));
-        } catch(Exception e) {
+        } catch (Exception e) {
             if (e instanceof BaseException) {
                 throw e;
             } else {
@@ -161,13 +153,14 @@ public class KindergartenController2 {
             }
         }
     }
-//    api/dodam/kindergarten/food/month?year={year}&month={month}
+
+    //    api/dodam/kindergarten/food/month?year={year}&month={month}
     @GetMapping("/food/month")
     public BaseResponseDto<FoodListResponseDto> getFoodList(@RequestParam String year,
                                                             @RequestParam String month) {
         try {
             return new BaseResponseDto<>(manageFoodService.getFoodList(year, month));
-        } catch(Exception e) {
+        } catch (Exception e) {
             if (e instanceof BaseException) {
                 throw e;
             } else {

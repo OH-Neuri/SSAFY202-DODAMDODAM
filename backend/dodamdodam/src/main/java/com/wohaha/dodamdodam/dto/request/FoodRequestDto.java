@@ -1,11 +1,10 @@
-package com.wohaha.dodamdodam.dto.response.request;
+package com.wohaha.dodamdodam.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Getter
 public class FoodRequestDto {
