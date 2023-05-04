@@ -1,9 +1,6 @@
-package com.wohaha.dodamdodam.dto.response.request;
+package com.wohaha.dodamdodam.dto.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,14 +10,14 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateKidRequestDto {
-    private Long kidSeq;
+public class CreateKidRequestDto {
+
     private String kidName;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birth;
 
-    private String photo;
+    private MultipartFile photo;
 
     private String gender;
 

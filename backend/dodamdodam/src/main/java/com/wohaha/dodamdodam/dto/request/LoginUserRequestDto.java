@@ -1,17 +1,15 @@
-package com.wohaha.dodamdodam.dto.response.response;
+package com.wohaha.dodamdodam.dto.request;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-@Builder
 @AllArgsConstructor
-public class LoginUserResponseDto {
+public class LoginUserRequestDto {
+
     private String id;
-    private String name;
+    private String password;
     private Integer role;
-    private String token;
 }

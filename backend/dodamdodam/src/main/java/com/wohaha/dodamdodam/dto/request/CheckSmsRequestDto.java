@@ -1,4 +1,4 @@
-package com.wohaha.dodamdodam.dto.response.request;
+package com.wohaha.dodamdodam.dto.request;
 
 import lombok.Getter;
 

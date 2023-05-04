@@ -1,9 +1,9 @@
 package com.wohaha.dodamdodam.repository;
 
 
-import com.wohaha.dodamdodam.dto.response.request.UpdateClassRequestDto;
-import com.wohaha.dodamdodam.dto.response.response.ClassListResponseDto;
-import com.wohaha.dodamdodam.dto.response.response.TeacherInfoResponseDto;
+import com.wohaha.dodamdodam.dto.request.UpdateClassRequestDto;
+import com.wohaha.dodamdodam.dto.response.ClassListResponseDto;
+import com.wohaha.dodamdodam.dto.response.TeacherInfoResponseDto;
 
 import java.util.List;
 

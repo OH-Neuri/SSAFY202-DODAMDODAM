@@ -1,4 +1,4 @@
-package com.wohaha.dodamdodam.dto.response.response;
+package com.wohaha.dodamdodam.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

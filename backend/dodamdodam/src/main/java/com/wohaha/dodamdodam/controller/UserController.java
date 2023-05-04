@@ -1,10 +1,10 @@
 package com.wohaha.dodamdodam.controller;
 
-import com.wohaha.dodamdodam.dto.response.BaseResponseDto;
-import com.wohaha.dodamdodam.dto.response.request.LoginUserRequestDto;
-import com.wohaha.dodamdodam.dto.response.request.RegisterUserRequestDto;
-import com.wohaha.dodamdodam.dto.response.response.LoginUserResponseDto;
-import com.wohaha.dodamdodam.dto.response.response.RegisterUserResponseDto;
+import com.wohaha.dodamdodam.dto.BaseResponseDto;
+import com.wohaha.dodamdodam.dto.request.LoginUserRequestDto;
+import com.wohaha.dodamdodam.dto.request.RegisterUserRequestDto;
+import com.wohaha.dodamdodam.dto.response.LoginUserResponseDto;
+import com.wohaha.dodamdodam.dto.response.RegisterUserResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.service.UserService;

@@ -1,4 +1,4 @@
-package com.wohaha.dodamdodam.dto.response;
+package com.wohaha.dodamdodam.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

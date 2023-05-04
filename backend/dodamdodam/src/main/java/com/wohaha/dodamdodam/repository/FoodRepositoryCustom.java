@@ -1,6 +1,6 @@
 package com.wohaha.dodamdodam.repository;
 
-import com.wohaha.dodamdodam.dto.response.response.FoodResponseDto;
+import com.wohaha.dodamdodam.dto.response.FoodResponseDto;
 
 import java.util.List;
 import java.util.Optional;

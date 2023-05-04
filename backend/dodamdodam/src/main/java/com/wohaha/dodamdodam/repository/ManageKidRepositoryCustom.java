@@ -1,7 +1,7 @@
 package com.wohaha.dodamdodam.repository;
 
-import com.wohaha.dodamdodam.dto.response.request.UpdateKidRequestDto;
-import com.wohaha.dodamdodam.dto.response.response.KidListResponseDto;
+import com.wohaha.dodamdodam.dto.request.UpdateKidRequestDto;
+import com.wohaha.dodamdodam.dto.response.KidListResponseDto;
 
 import java.util.List;
 

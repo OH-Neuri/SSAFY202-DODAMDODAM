@@ -1,9 +1,9 @@
 package com.wohaha.dodamdodam.service;
 
 import com.wohaha.dodamdodam.domain.Kid;
-import com.wohaha.dodamdodam.dto.response.request.CreateKidRequestDto;
-import com.wohaha.dodamdodam.dto.response.request.UpdateKidRequestDto;
-import com.wohaha.dodamdodam.dto.response.response.KidListResponseDto;
+import com.wohaha.dodamdodam.dto.request.CreateKidRequestDto;
+import com.wohaha.dodamdodam.dto.request.UpdateKidRequestDto;
+import com.wohaha.dodamdodam.dto.response.KidListResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.repository.KindergartenRepository;
@@ -13,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @Service

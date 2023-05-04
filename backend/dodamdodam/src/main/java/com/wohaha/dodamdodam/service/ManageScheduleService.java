@@ -1,10 +1,10 @@
 package com.wohaha.dodamdodam.service;
 
-import com.wohaha.dodamdodam.dto.response.request.CreateScheduleRequestDto;
-import com.wohaha.dodamdodam.dto.response.request.ScheduleTypeRequestDto;
-import com.wohaha.dodamdodam.dto.response.response.KindergartenScheduleListResponseDto;
-import com.wohaha.dodamdodam.dto.response.response.ScheduleResponseDto;
-import com.wohaha.dodamdodam.dto.response.response.ScheduleTypeResponseDto;
+import com.wohaha.dodamdodam.dto.request.CreateScheduleRequestDto;
+import com.wohaha.dodamdodam.dto.request.ScheduleTypeRequestDto;
+import com.wohaha.dodamdodam.dto.response.KindergartenScheduleListResponseDto;
+import com.wohaha.dodamdodam.dto.response.ScheduleResponseDto;
+import com.wohaha.dodamdodam.dto.response.ScheduleTypeResponseDto;
 
 import java.util.List;
 

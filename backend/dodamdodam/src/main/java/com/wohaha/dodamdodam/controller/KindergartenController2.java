@@ -1,14 +1,17 @@
 package com.wohaha.dodamdodam.controller;
 
-import com.wohaha.dodamdodam.dto.response.BaseResponseDto;
-import com.wohaha.dodamdodam.dto.response.request.CreateScheduleRequestDto;
-import com.wohaha.dodamdodam.dto.response.request.ScheduleTypeRequestDto;
-import com.wohaha.dodamdodam.dto.response.response.*;
+import com.wohaha.dodamdodam.dto.BaseResponseDto;
+import com.wohaha.dodamdodam.dto.request.CreateScheduleRequestDto;
+import com.wohaha.dodamdodam.dto.request.ScheduleTypeRequestDto;
+import com.wohaha.dodamdodam.dto.response.FoodListResponseDto;
+import com.wohaha.dodamdodam.dto.response.FoodResponseDto;
+import com.wohaha.dodamdodam.dto.response.KindergartenScheduleListResponseDto;
+import com.wohaha.dodamdodam.dto.response.ScheduleResponseDto;
+import com.wohaha.dodamdodam.dto.response.ScheduleTypeResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.service.ManageFoodService;
 import com.wohaha.dodamdodam.service.ManageScheduleService;
-import com.wohaha.dodamdodam.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

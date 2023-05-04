@@ -1,4 +1,4 @@
-package com.wohaha.dodamdodam.dto.response.request;
+package com.wohaha.dodamdodam.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateClassRequestDto {
-    private Long classSeq;
+public class CreateClassRequestDto {
 
     private String name;
 

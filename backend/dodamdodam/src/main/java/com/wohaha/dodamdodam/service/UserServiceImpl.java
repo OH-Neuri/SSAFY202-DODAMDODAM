@@ -6,22 +6,17 @@ import static com.wohaha.dodamdodam.exception.BaseResponseStatus.WRONG_PASSWORD;
 import com.wohaha.dodamdodam.domain.Auth;
 import com.wohaha.dodamdodam.domain.JwtTokenInfo;
 import com.wohaha.dodamdodam.domain.User;
-import com.wohaha.dodamdodam.dto.response.request.LoginUserRequestDto;
-import com.wohaha.dodamdodam.dto.response.request.RegisterUserRequestDto;
-import com.wohaha.dodamdodam.dto.response.request.SendSmsRequestDto;
-import com.wohaha.dodamdodam.dto.response.response.LoginUserResponseDto;
-import com.wohaha.dodamdodam.dto.response.response.RegisterUserResponseDto;
+import com.wohaha.dodamdodam.dto.request.LoginUserRequestDto;
+import com.wohaha.dodamdodam.dto.request.RegisterUserRequestDto;
+import com.wohaha.dodamdodam.dto.response.LoginUserResponseDto;
+import com.wohaha.dodamdodam.dto.response.RegisterUserResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.repository.AuthRepository;
 import com.wohaha.dodamdodam.repository.UserRepository;
 import com.wohaha.dodamdodam.util.EncodeUtils;
 import com.wohaha.dodamdodam.util.JwtTokenUtils;
-import javax.annotation.PostConstruct;
-import net.nurigo.sdk.NurigoApp;
-import net.nurigo.sdk.message.service.DefaultMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service

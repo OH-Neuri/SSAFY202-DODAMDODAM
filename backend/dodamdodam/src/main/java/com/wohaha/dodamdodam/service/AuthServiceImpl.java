@@ -4,8 +4,8 @@ import static com.wohaha.dodamdodam.exception.BaseResponseStatus.UNREQUESTED_SMS
 import static com.wohaha.dodamdodam.exception.BaseResponseStatus.WRONG_CODE;
 
 import com.wohaha.dodamdodam.domain.Auth;
-import com.wohaha.dodamdodam.dto.response.request.CheckSmsRequestDto;
-import com.wohaha.dodamdodam.dto.response.request.SendSmsRequestDto;
+import com.wohaha.dodamdodam.dto.request.CheckSmsRequestDto;
+import com.wohaha.dodamdodam.dto.request.SendSmsRequestDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.repository.AuthRepository;

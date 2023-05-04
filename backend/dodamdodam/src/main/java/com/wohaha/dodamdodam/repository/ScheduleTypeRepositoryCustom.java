@@ -1,7 +1,7 @@
 package com.wohaha.dodamdodam.repository;
 
-import com.wohaha.dodamdodam.dto.response.request.ScheduleTypeRequestDto;
-import com.wohaha.dodamdodam.dto.response.response.ScheduleTypeResponseDto;
+import com.wohaha.dodamdodam.dto.request.ScheduleTypeRequestDto;
+import com.wohaha.dodamdodam.dto.response.ScheduleTypeResponseDto;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.wohaha.dodamdodam.service;
 
-import com.wohaha.dodamdodam.dto.response.response.FoodListResponseDto;
-import com.wohaha.dodamdodam.dto.response.response.FoodResponseDto;
+import com.wohaha.dodamdodam.dto.response.FoodListResponseDto;
+import com.wohaha.dodamdodam.dto.response.FoodResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.repository.FoodRepository;
