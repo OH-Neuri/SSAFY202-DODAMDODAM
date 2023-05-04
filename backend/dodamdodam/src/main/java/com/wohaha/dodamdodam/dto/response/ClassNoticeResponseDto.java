@@ -6,27 +6,26 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class KidListResponseDto {
+public class ClassNoticeResponseDto {
 
-    private Long kidSeq;
-
-    private String kidName;
+    private Long noticeSeq;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private Date birth;
+    private Date date;
 
-    private String photo;
+    private String content;
 
-    private String gender;
+    private boolean announcement;
 
-    private Long classSeq;
+    private List<String> photo;
 
-    private String className;
+    private List<String> kid;
+
 }
