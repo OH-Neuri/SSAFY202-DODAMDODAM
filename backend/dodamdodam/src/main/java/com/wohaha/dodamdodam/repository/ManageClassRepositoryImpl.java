@@ -14,7 +14,6 @@ import static com.wohaha.dodamdodam.domain.QClassInfo.classInfo;
 
 import java.util.List;
 
-
 public class ManageClassRepositoryImpl implements ManageClassRepositoryCustom {
     @Autowired
     private JPAQueryFactory query;
@@ -27,8 +26,6 @@ public class ManageClassRepositoryImpl implements ManageClassRepositoryCustom {
                 .from(classInfo)
                 .where(classInfo.kindergartenSeq.eq(kindergartenSeq))
                 .fetch();
-
-
     }
 
     @Override
