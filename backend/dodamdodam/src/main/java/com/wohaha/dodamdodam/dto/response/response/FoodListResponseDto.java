@@ -8,13 +8,13 @@ import java.util.Map;
 
 @Getter
 @Setter
-public class KindergartenScheduleListResponseDto {
+public class FoodListResponseDto {
     private String year;
     private String month;
     private List<Integer> dateNumber;
-    private Map<Integer, List<ScheduleResponseDto>> schedule;
+    private Map<Integer, FoodResponseDto> food;
 
-    public KindergartenScheduleListResponseDto(String year, String month) {
+    public FoodListResponseDto(String year, String month) {
         this.year = year;
         this.month = month;
     }

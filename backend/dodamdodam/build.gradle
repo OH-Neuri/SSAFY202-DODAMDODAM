@@ -26,6 +26,10 @@ repositories {
 	mavenCentral()
 }
 
+ext {
+	set('springCloudVersion', "2021.0.6")
+}
+
 dependencies {
 	//basic spring boot
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -51,9 +55,20 @@ dependencies {
 	implementation 'com.querydsl:querydsl-jpa'
 	annotationProcessor 'com.querydsl:querydsl-apt'
 	implementation 'com.querydsl:querydsl-apt'
+	implementation 'com.querydsl:querydsl-sql'
+
 
 	//swagger
 	implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
+//	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+
+	//aws s3
+	//s3 객체로 저장하기 위해선 sdk 설치해야함
+	implementation platform('software.amazon.awssdk:bom:2.15.0')
+	implementation 'software.amazon.awssdk:s3'
+
+
+
 }
 
 tasks.named('test') {

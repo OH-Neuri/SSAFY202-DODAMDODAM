@@ -1,11 +1,12 @@
 package com.wohaha.dodamdodam.dto.response.response;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
-public class ScheduleListResponseDto {
-    private String type;
+@AllArgsConstructor
+public class ScheduleTypeResponseDto {
+    private Long scheduleTypeSeq;
     private String content;
 }
