@@ -25,6 +25,9 @@ public class Notice {
     @Column(name = "content")
     private String content;
 
+    @Column(name = "announcement", nullable = false, columnDefinition = "TINYINT(1) default 0")
+    private boolean announcement;
+
     @Column(name = "created_at", nullable = false)
     private Timestamp createdAt;
 
