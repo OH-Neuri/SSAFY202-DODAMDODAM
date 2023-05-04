@@ -86,4 +86,16 @@ public class ClassController {
             }
         }
     }
+    @GetMapping("/notice/info/{noticeSeq}")
+    public BaseResponseDto<ClassNoticeResponseDto> noticeInfo(@PathVariable Long noticeSeq){
+        try{
+            return new BaseResponseDto<>(noticeService.noticeInfo(noticeSeq));
+        }catch (Exception e){
+            if(e instanceof BaseException){
+                throw e;
+            }else{
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
 }

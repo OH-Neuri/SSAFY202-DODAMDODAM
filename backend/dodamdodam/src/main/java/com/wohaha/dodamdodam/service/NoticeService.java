@@ -9,4 +9,6 @@ public interface NoticeService {
 
     //알림장 리스트
     List<ClassNoticeResponseDto> noticeList(long classSeq);
+    //알림장 1개 정보
+    ClassNoticeResponseDto noticeInfo(long noticeSeq);
 }

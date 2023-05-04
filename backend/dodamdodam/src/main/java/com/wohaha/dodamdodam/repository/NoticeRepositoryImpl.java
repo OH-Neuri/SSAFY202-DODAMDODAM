@@ -46,4 +46,15 @@ public class NoticeRepositoryImpl implements NoticeRepositoryCustom{
                 .where(noticeKid.noticeSeq.eq(noticeSeq))
                 .fetch();
     }
+
+    @Override
+    public ClassNoticeResponseDto oneNoticeInfo(long noticeSeq) {
+        return query
+                .select(Projections.fields(ClassNoticeResponseDto.class,
+                        notice.noticeSeq, notice.createdAt.as("date"), notice.content,
+                        notice.announcement))
+                .from(notice)
+                .where(notice.noticeSeq.eq(noticeSeq))
+                .fetchOne();
+    }
 }

@@ -23,11 +23,21 @@ public class NoticeServiceImpl implements NoticeService{
         noticeList = noticeRepository.noticeInfo(classSeq);
 
         for(ClassNoticeResponseDto notice : noticeList) {
-            //알림장 사진 불러와 넣기;
+            //알림장 사진 불러와 넣기
            notice.setPhoto(noticeRepository.noticePhoto(notice.getNoticeSeq()));
-            //아이 선택
+            //아이 정보 넣기
             notice.setKid(noticeRepository.noticeKid(notice.getNoticeSeq()));
         }
         return noticeList;
+    }
+
+    @Override
+    public ClassNoticeResponseDto noticeInfo(long noticeSeq) {
+        ClassNoticeResponseDto noticeInfo = noticeRepository.oneNoticeInfo(noticeSeq);
+        //알림장 사진 불러와 넣기
+        noticeInfo.setPhoto(noticeRepository.noticePhoto(noticeSeq));
+        // 아이 정보 넣기
+        noticeInfo.setKid(noticeRepository.noticeKid(noticeSeq));
+        return noticeInfo;
     }
 }
