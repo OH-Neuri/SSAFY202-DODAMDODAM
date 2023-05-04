@@ -24,11 +24,11 @@ import java.util.Map;
 @Transactional
 @RequiredArgsConstructor
 public class ScheduleServiceImpl implements ScheduleService {
-    @Autowired
+
     private final KindergartenRepository kindergartenRepository;
-    @Autowired
+
     private final ScheduleRepository scheduleRepository;
-    @Autowired
+
     private final ScheduleTypeRepository scheduleTypeRepository;
 
     @Override
