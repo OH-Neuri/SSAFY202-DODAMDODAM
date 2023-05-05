@@ -2,14 +2,15 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
 class AddImageIcon extends StatelessWidget {
+  final Function() onTap;
   const AddImageIcon({
-    super.key,
+    required this.onTap
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap:(){},
+      onTap: onTap,
       child: Container(
         margin: EdgeInsets.fromLTRB(0, 0, 3, 0),
         child: DottedBorder(

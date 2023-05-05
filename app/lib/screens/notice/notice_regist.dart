@@ -1,4 +1,5 @@
 import 'package:app/components/common/logout_app_bar.dart';
+import 'package:app/components/common/toast.dart';
 import 'package:app/components/notice/add_image_icon.dart';
 import 'package:app/constants.dart';
 import 'package:flutter/material.dart';
@@ -99,7 +100,9 @@ class _NoticeRegistState extends State<NoticeRegist> {
                           childAspectRatio: 1,
                         ),
                           children: [
-                            AddImageIcon(),
+                            AddImageIcon(onTap: (){
+                              ToastClass.showToast('사진은 3장까지 첨부할 수 있습니다.');
+                            }),
                             for(int i=0; i<images.length; i++)
                             Stack(
                               children: [

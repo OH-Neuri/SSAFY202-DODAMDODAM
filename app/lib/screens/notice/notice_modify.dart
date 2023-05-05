@@ -107,7 +107,7 @@ class _NoticeRegistState extends State<NoticeRegist> {
                           childAspectRatio: 1,
                         ),
                           children: [
-                            AddImageIcon(),
+                            AddImageIcon(onTap: (){}),
                             for(int i=0; i<images.length; i++)
                             Stack(
                               children: [

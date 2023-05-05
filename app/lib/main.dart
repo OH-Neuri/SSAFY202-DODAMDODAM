@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      home: AttendanceDetailParent(),
+      home: NoticeList(),
       theme: ThemeData(fontFamily: 'Pretendard'),
       // initialRoute: '/',
       getPages: [
