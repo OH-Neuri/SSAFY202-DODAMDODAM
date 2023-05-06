@@ -1,14 +1,13 @@
 package com.wohaha.dodamdodam.service;
 
 import com.wohaha.dodamdodam.domain.AuthCode;
+import com.wohaha.dodamdodam.domain.AuthParent;
 import com.wohaha.dodamdodam.domain.AuthTeacher;
 import com.wohaha.dodamdodam.domain.AuthUser;
-import com.wohaha.dodamdodam.dto.request.SmsCheckTeacherRequestDto;
-import com.wohaha.dodamdodam.dto.request.SmsCheckUserRequestDto;
-import com.wohaha.dodamdodam.dto.request.SmsSendTeacherRequestDto;
-import com.wohaha.dodamdodam.dto.request.SmsSendUserRequestDto;
+import com.wohaha.dodamdodam.dto.request.*;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
+import com.wohaha.dodamdodam.repository.AuthParentRepository;
 import com.wohaha.dodamdodam.repository.AuthTeacherRepository;
 import com.wohaha.dodamdodam.repository.AuthUserRepository;
 import com.wohaha.dodamdodam.repository.UserRepository;
@@ -43,6 +42,12 @@ public class SmsServiceImpl implements SmsService {
 
   @Autowired
   private ManageClassService manageClassService;
+
+  @Autowired
+  private AuthParentRepository authParentRepository;
+
+  @Autowired
+  private ManageKidService manageKidService;
 
 
   //유저 회원가입 시 메세지 인증
@@ -120,12 +125,12 @@ public class SmsServiceImpl implements SmsService {
   }
 
   @Override
-  public boolean checkUserSms(SmsCheckUserRequestDto smsCheckUserRequestDto) {
+  public boolean checkUserSms(SmsCheckRequestDto smsCheckRequestDto) {
 
-    AuthUser authUser = authUserRepository.findById(smsCheckUserRequestDto.getPhone()).orElseThrow(() -> {throw new BaseException(UNREQUESTED_SMS_USER);});
+    AuthUser authUser = authUserRepository.findById(smsCheckRequestDto.getPhone()).orElseThrow(() -> {throw new BaseException(UNREQUESTED_SMS_USER);});
 
     //code 틀릴 경우
-    if(!authUser.getCode().equals(smsCheckUserRequestDto.getCode())){
+    if(!authUser.getCode().equals(smsCheckRequestDto.getCode())){
       throw new BaseException(WRONG_CODE);
     }
 
@@ -137,20 +142,20 @@ public class SmsServiceImpl implements SmsService {
   }
 
   @Override
-  public boolean checkTeacherSms(SmsCheckTeacherRequestDto checkTeacherSms, Long userSeq) {
-    AuthTeacher authTeacher = authTeacherRepository.findById(checkTeacherSms.getPhone()).orElseThrow(() -> {throw new BaseException(UNREQUESTED_SMS_USER);});
+  public boolean checkTeacherSms(SmsCheckRequestDto smsCheckRequestDto, Long userSeq) {
+    AuthTeacher authTeacher = authTeacherRepository.findById(smsCheckRequestDto.getPhone()).orElseThrow(() -> {throw new BaseException(UNREQUESTED_SMS_USER);});
 
-    if(!authTeacher.getCodeMap().containsKey(checkTeacherSms.getCode())){
+    if(!authTeacher.getCodeMap().containsKey(smsCheckRequestDto.getCode())){
       throw new BaseException(WRONG_CODE);
     }
 
-    Long classSeq = authTeacher.getCodeMap().get(checkTeacherSms.getCode()).getSeq();
+    Long classSeq = authTeacher.getCodeMap().get(smsCheckRequestDto.getCode()).getSeq();
 
     //연관관계 만들기
     manageClassService.createClassTeacher(classSeq, userSeq);
 
     //code를 인증했으므로 기존 코드를 삭제한다.
-    authTeacher.getCodeMap().remove(checkTeacherSms.getCode());
+    authTeacher.getCodeMap().remove(smsCheckRequestDto.getCode());
 
     return true;
   }
@@ -188,6 +193,48 @@ public class SmsServiceImpl implements SmsService {
   @Override
   public void deleteCheckedUser(String phone) {
     authUserRepository.deleteById(phone);
+  }
+
+  @Override
+  public boolean sendParentSms(SmsSendParentRequestDto smsSendParentRequestDto) {
+
+    AuthParent authParent = authParentRepository.findById(smsSendParentRequestDto.getPhone())
+            .orElse(new AuthParent());
+
+    String code = generateRandomSixDigitCode();
+    if(authParent.getCodeMap()==null){
+      authParent.setCodeMap(new HashMap<>());
+    }
+
+    authParent.getCodeMap().put(code,
+            AuthCode.builder().seq(smsSendParentRequestDto.getKidSeq())
+                    .providedAt(LocalDateTime.now()).build());
+
+    authParent.setPhone(smsSendParentRequestDto.getPhone());
+
+    authParentRepository.save(authParent);
+
+    messageService.sendMessage(authParent.getPhone(), code, "학부모님!\n");
+
+    return true;
+  }
+
+  @Override
+  public boolean checkParentSms(SmsCheckRequestDto smsCheckRequestDto, Long userSeq) {
+    AuthParent authParent = authParentRepository.findById(smsCheckRequestDto.getPhone()).orElseThrow(() -> {throw new BaseException(UNREQUESTED_SMS_USER);});
+
+    if(!authParent.getCodeMap().containsKey(smsCheckRequestDto.getCode())){
+      throw new BaseException(WRONG_CODE);
+    }
+
+    Long kidSeq = authParent.getCodeMap().get(smsCheckRequestDto.getCode()).getSeq();
+    manageKidService.createParentKid(userSeq, kidSeq);
+
+
+    //code를 인증했으므로 기존 코드를 삭제한다.
+    authParent.getCodeMap().remove(smsCheckRequestDto.getCode());
+
+    return true;
   }
 
 }

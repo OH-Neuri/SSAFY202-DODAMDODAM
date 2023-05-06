@@ -9,6 +9,7 @@ import java.util.Date;
 @Entity
 @Table(name = "tbl_kid")
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

@@ -3,7 +3,7 @@ package com.wohaha.dodamdodam.dto.request;
 import lombok.Getter;
 
 @Getter
-public class SmsCheckTeacherRequestDto {
+public class SmsSendParentRequestDto {
   private String phone;
-  private String code;
+  private Long kidSeq;
 }

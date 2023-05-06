@@ -13,5 +13,7 @@ public interface UserService {
   LoginUserResponseDto loginUser(LoginUserRequestDto loginUserRequestDto);
   User getUser(Long userSeq);
   boolean updateUser(UpdateUserRequestDto updateUserRequestDto, Long userSeq);
+  boolean isExist(Long userSeq);
+
 
 }

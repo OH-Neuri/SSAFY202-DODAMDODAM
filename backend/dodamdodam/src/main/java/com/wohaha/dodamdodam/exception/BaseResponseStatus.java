@@ -57,7 +57,11 @@ public enum BaseResponseStatus {
   UNREGISTERED_TEACHER(HttpStatus.INTERNAL_SERVER_ERROR, 4041, "해당 반에 선생님이 등록되어있지 않습니다."),
 
   //User 관련
-  UNREGISTERED_USER(HttpStatus.INTERNAL_SERVER_ERROR, 4050, "존재하지 않는 유저입니다.");
+  UNREGISTERED_USER(HttpStatus.INTERNAL_SERVER_ERROR, 4050, "존재하지 않는 유저입니다."),
+
+  //Kid 관련
+  UNREGISTERED_KID(HttpStatus.INTERNAL_SERVER_ERROR, 4060, "존재하지 않는 아이입니다.");
+
 //  UNAUTHORIZED_USER(HttpStatus.INTERNAL_SERVER_ERROR, 4051, "권한이 없는 유저입니다.");
 //
 //  REQUEST_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "요청에 실패하였습니다."),

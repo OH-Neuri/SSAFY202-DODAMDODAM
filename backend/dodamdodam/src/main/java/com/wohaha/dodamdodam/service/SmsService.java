@@ -1,9 +1,6 @@
 package com.wohaha.dodamdodam.service;
 
-import com.wohaha.dodamdodam.dto.request.SmsCheckTeacherRequestDto;
-import com.wohaha.dodamdodam.dto.request.SmsCheckUserRequestDto;
-import com.wohaha.dodamdodam.dto.request.SmsSendTeacherRequestDto;
-import com.wohaha.dodamdodam.dto.request.SmsSendUserRequestDto;
+import com.wohaha.dodamdodam.dto.request.*;
 
 public interface SmsService {
 
@@ -14,12 +11,16 @@ public interface SmsService {
 
 //  SingleMessageSentResponse sendOneMessage(String toNumber, String randomNumber);
 //
-  boolean checkUserSms(SmsCheckUserRequestDto smsCheckUserRequestDto);
-  boolean checkTeacherSms(SmsCheckTeacherRequestDto checkTeacherSms, Long userSeq);
+  boolean checkUserSms(SmsCheckRequestDto smsCheckRequestDto);
+  boolean checkTeacherSms(SmsCheckRequestDto smsCheckRequestDto, Long userSeq);
 
   String generateRandomSixDigitCode();
 
   boolean isCheckedUser(String phone);
   void deleteCheckedUser(String phone);
+
+  boolean sendParentSms(SmsSendParentRequestDto smsSendParentRequestDto);
+
+  boolean checkParentSms(SmsCheckRequestDto smsCheckRequestDto, Long userSeq);
 
 }

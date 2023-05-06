@@ -108,4 +108,11 @@ public class UserServiceImpl implements UserService{
     userRepository.updateUser(updateUserRequestDto);
     return true;
   }
+
+  @Override
+  public boolean isExist(Long userSeq) {
+    return userRepository.existsById(userSeq);
+  }
+
+
 }

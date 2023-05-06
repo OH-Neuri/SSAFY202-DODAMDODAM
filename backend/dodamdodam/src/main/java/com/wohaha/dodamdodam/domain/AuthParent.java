@@ -4,14 +4,12 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 /*
   @value : 해쉬키값(테이블명)
@@ -25,22 +23,15 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class AuthParent {
 
     @Id
     private String phone;
 
-    private String code;
-
-    private Long kidSeq;
-
-    @JsonDeserialize(
-            using = LocalDateTimeDeserializer.class
-    )
-    @JsonSerialize(
-            using = LocalDateTimeSerializer.class
-    )
-    private LocalDateTime providedAt;
+    //key: code, value: AuthCode(seq,providedAt)
+    Map<String, AuthCode> codeMap;
 
 }
 
