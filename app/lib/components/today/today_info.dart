@@ -39,10 +39,12 @@ class _TodayInfoState extends State<TodayInfo> {
       children: [
         // 오늘의 일정 타이틀
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 5),
+          padding: const EdgeInsets.fromLTRB(10, 5, 0, 5),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("${widget.month}/${widget.day} ${widget.week} 일정", style: TextStyle(fontSize: buttonTextSize, fontWeight: FontWeight.w600)),
+              Text("${widget.month}/${widget.day} ${widget.week} ", style: TextStyle(fontSize: buttonTextSize, fontWeight: FontWeight.w600)),
+              Image(image: AssetImage('/images/common/calendar_icon.png'), height: 30)
             ],
           ),
         ),
@@ -50,7 +52,7 @@ class _TodayInfoState extends State<TodayInfo> {
         Container(
             height: 200, width: double.infinity,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(6)),
+              borderRadius: BorderRadius.all(Radius.circular(20)),
               color: lightYellow,
               boxShadow: [
                 BoxShadow(
