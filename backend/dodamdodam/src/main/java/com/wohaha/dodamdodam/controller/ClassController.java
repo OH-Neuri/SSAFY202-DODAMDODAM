@@ -1,13 +1,16 @@
 package com.wohaha.dodamdodam.controller;
 
 import com.wohaha.dodamdodam.dto.BaseResponseDto;
+import com.wohaha.dodamdodam.dto.request.CreateNoticeRequestDto;
 import com.wohaha.dodamdodam.dto.request.CreateScheduleRequestDto;
 import com.wohaha.dodamdodam.dto.response.ClassNoticeResponseDto;
 import com.wohaha.dodamdodam.dto.response.ClassScheduleListResponseDto;
 import com.wohaha.dodamdodam.dto.response.ClassScheduleResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
+import com.wohaha.dodamdodam.repository.NoticeRepository;
 import com.wohaha.dodamdodam.service.NoticeService;
+import com.wohaha.dodamdodam.service.S3UploadService;
 import com.wohaha.dodamdodam.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +25,11 @@ public class ClassController {
 
     @Autowired
     private NoticeService noticeService;
+
+    @Autowired
+    private S3UploadService s3UploadService;
+    @Autowired
+    private NoticeRepository noticeRepository;
 
     // 일정 관리
     @PostMapping("/schedule/{classSeq}")
@@ -74,6 +82,25 @@ public class ClassController {
 
     }
 
+    @PostMapping("/notice")
+    public BaseResponseDto<?> createNotice(@ModelAttribute CreateNoticeRequestDto createNoticeRequestDto){
+        try{
+            //이미지 s3 업로드 후 링크 가져오기
+            List<String> uploadUrl = s3UploadService.upload(createNoticeRequestDto.getPhotos(),"noticePhoto");
+            //db 저장
+            Long noticeSeq = noticeService.createNotice(createNoticeRequestDto);
+            boolean result = noticeService.createNoticeKidAndPhoto(noticeSeq,createNoticeRequestDto.getKid(),uploadUrl );
+
+            return new BaseResponseDto(result);
+        }catch (Exception e){
+            if(e instanceof BaseException){
+                throw e;
+            }else{
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+
+    }
     @GetMapping("/notice/{classSeq}")
     public BaseResponseDto<List<ClassNoticeResponseDto>> noticeList(@PathVariable Long classSeq){
         try{
@@ -86,6 +113,7 @@ public class ClassController {
             }
         }
     }
+
     @GetMapping("/notice/info/{noticeSeq}")
     public BaseResponseDto<ClassNoticeResponseDto> noticeInfo(@PathVariable Long noticeSeq){
         try{
