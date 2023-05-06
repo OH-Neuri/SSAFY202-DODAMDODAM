@@ -1,7 +1,7 @@
-import 'package:app/components/attendance/signature_dialog.dart';
+import 'package:app/components/attendance/paint_page.dart';
+import 'package:app/components/attendance/sign_button.dart';
 import 'package:app/components/common/input_form.dart';
 import 'package:app/components/common/text_form_field_custom.dart';
-import 'package:app/components/user/user_textform_field.dart';
 import 'package:app/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:app/components/attendance/attendance_list_timepicker.dart';
@@ -45,30 +45,29 @@ class _AttendanceDetailParentState extends State<AttendanceDetailParent> {
                   child: Row(
                       children: [
                         Flexible(
-                          flex:3,
+                          flex:4,
                           child: Row(
-                                children: [
-                                      Icon(
-                                        Icons.circle_notifications_sharp,
-                                        size: 60,
-                                      ),
-                                      Padding(
-                                        padding:
-                                        const EdgeInsets.symmetric(horizontal: 15),
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              "이연희",
-                                              style: TextStyle(fontSize: 16),
-                                            ),
-                                            Text("꽃님반")
-                                          ],
-                                        ),
-                                        )
-                                      ],
-                                  ),
+                            children: [
+                              Icon(
+                                Icons.circle_notifications_sharp, size: 60,
                               ),
+                              Padding(
+                                padding:
+                                const EdgeInsets.symmetric(horizontal: 15),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "이연희",
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                            Text("꽃님반")
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
                         Flexible(
                           flex: 2,
                           child: AttendaneListTimePicker(
@@ -77,7 +76,7 @@ class _AttendanceDetailParentState extends State<AttendanceDetailParent> {
                                   _selectedDate = date;
                                 });
                               },
-                            ),
+                          ),
                         ),
                       ]),
                 ),
@@ -151,46 +150,7 @@ class _AttendanceDetailParentState extends State<AttendanceDetailParent> {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: ElevatedButton(onPressed: (){
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              //이 부분에 그림 그리는 부분 들어가자
-                              title: Text("서명하기"),
-                              actions: <Widget>[
-                                TextButton(
-                                  child: Text("취소"),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                                TextButton(
-                                  child: Text("저장"),
-                                  onPressed: () {
-                                    // TODO: 저장 코드 추가
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                       }, child: Text("서명하기")),
-                    ),
-                    ElevatedButton(onPressed: (){
-                    }, child: Text("저장하기"))
 
-                  ],
-                ),
-              ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: Column(
@@ -204,16 +164,7 @@ class _AttendanceDetailParentState extends State<AttendanceDetailParent> {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 90, 0, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("2022년 8월 13일 김부모",  style: TextStyle(fontSize: 20)),
-                    Text("(인)")
-                  ],
-                ),
-              ),
+              SignButton(),
             ]),
           ),
           Expanded(child: SizedBox()),
