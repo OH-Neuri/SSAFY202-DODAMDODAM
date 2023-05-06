@@ -18,6 +18,7 @@ import com.wohaha.dodamdodam.service.ManageClassService;
 import com.wohaha.dodamdodam.service.ManageKidService;
 import com.wohaha.dodamdodam.service.S3UploadService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -64,6 +65,8 @@ public class KindergartenController {
         }
     }
 
+
+    @Secured("hi")
     @PutMapping("class")
     public BaseResponseDto<?> updateClass(@RequestBody UpdateClassRequestDto updateClassRequestDto){
         try{
@@ -176,19 +179,20 @@ public class KindergartenController {
             }
         }
     }
-//
-//    @PostMapping("/class/teacher")
-//    public BaseResponseDto<Boolean> sendTeacherSms(@RequestBody SendTeacherSmsRequestDto sendTeacherSmsRequestDto){
-//        try{
-//            return new BaseResponseDto<>(kindergartenService.getKindergartenInfoList(keyword));
-//        }catch(Exception e){
-//            if(e instanceof BaseException){
-//                throw e;
-//            }else{
-//                throw new BaseException(BaseResponseStatus.FAIL);
-//            }
-//        }
-//    }
+
+    @DeleteMapping("/teacher/{classTeacherSeq}")
+    public BaseResponseDto<Boolean> deleteClassTeacher(@PathVariable Long classTeacherSeq){
+        try{
+            //api 완성되면 -> method security (원장만)
+            return new BaseResponseDto<>(manageClassService.deleteClassTeacher(classTeacherSeq));
+        }catch(Exception e){
+            if(e instanceof BaseException){
+                throw e;
+            }else{
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
 
 
 }

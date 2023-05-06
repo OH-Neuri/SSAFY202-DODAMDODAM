@@ -54,6 +54,7 @@ public class JwtTokenUtils {
 
   public static Claims getClaims(String token) throws BaseException {
     try {
+      token = token.replace("Bearer ","");
       return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
     } catch (Exception e) {
       throw new BaseException(BaseResponseStatus.TOKEN_CLAIM_ERROR, e.toString());

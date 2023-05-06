@@ -1,5 +1,6 @@
 package com.wohaha.dodamdodam.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,9 +37,11 @@ public class User {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     @Column(name = "created_at")
     private Timestamp createdAt;
 
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     @Column(name = "updated_at")
     private Timestamp updatedAt;
 

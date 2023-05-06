@@ -50,10 +50,15 @@ public enum BaseResponseStatus {
   UNAUTHORIZED_USER(HttpStatus.UNAUTHORIZED, 4016, "토큰 인증 정보와 요청 내의 userSeq가 다릅니다."),
 
   //리뷰 에러
-  REVIEW_DELETE_ERROR(HttpStatus.INTERNAL_SERVER_ERROR,4017, "리뷰 삭제에 실패했습니다.");
-  
+  REVIEW_DELETE_ERROR(HttpStatus.INTERNAL_SERVER_ERROR,4017, "리뷰 삭제에 실패했습니다."),
 
+  //ClassTeacher 관련
+  ALREADY_REGISTERED_TEACHER(HttpStatus.INTERNAL_SERVER_ERROR, 4040, "이미 해당 반에 등록된 선생님입니다."),
+  UNREGISTERED_TEACHER(HttpStatus.INTERNAL_SERVER_ERROR, 4041, "해당 반에 선생님이 등록되어있지 않습니다."),
 
+  //User 관련
+  UNREGISTERED_USER(HttpStatus.INTERNAL_SERVER_ERROR, 4050, "존재하지 않는 유저입니다.");
+//  UNAUTHORIZED_USER(HttpStatus.INTERNAL_SERVER_ERROR, 4051, "권한이 없는 유저입니다.");
 //
 //  REQUEST_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "요청에 실패하였습니다."),
 //  UNVALID_USER(HttpStatus.INTERNAL_SERVER_ERROR, "권한 없는 유저입니다."),

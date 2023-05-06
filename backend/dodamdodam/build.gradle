@@ -37,7 +37,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 	//spring security
-//	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 //	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 //	testImplementation 'org.springframework.security:spring-security-test'
 
@@ -76,6 +76,10 @@ dependencies {
 	implementation group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.3.2'
 
 	implementation 'org.springframework.security:spring-security-crypto:5.6.0'
+
+	//Redis
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis'
+
 
 }
 
