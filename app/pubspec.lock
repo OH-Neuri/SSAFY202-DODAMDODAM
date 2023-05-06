@@ -709,6 +709,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.1"
+  text_divider:
+    dependency: "direct main"
+    description:
+      name: text_divider
+      sha256: b3e812231d7b38d99310cec63d71363efd6299950c59bfc3c1b0fedb7717264d
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   timezone:
     dependency: transitive
     description:
