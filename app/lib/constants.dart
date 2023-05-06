@@ -14,6 +14,7 @@ const cardYellow = Color(0xffFFF1A7);
 const cardPink = Color(0xffffE5E4);
 const cardBtnYellow = Color(0xffFFC700);
 const cardBtnPink = Color(0xffFC8F85);
+const TextYellow = Color(0xff9F7C1F);
 
 const backYellow = Color(0xffFFF9E9);
 const bottomYellow = Color(0xffFFF1A1);
