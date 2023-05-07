@@ -1,6 +1,8 @@
 import 'package:app/components/common/logout_app_bar.dart';
+import 'package:app/components/notice/keyword_chip.dart';
 import 'package:app/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class NoticeAI extends StatefulWidget {
   const NoticeAI({Key? key}) : super(key: key);
@@ -11,6 +13,8 @@ class NoticeAI extends StatefulWidget {
 
 List<String> keyword = [];
 bool result = false;
+final keywordController = TextEditingController();
+FocusNode inputFocus = FocusNode();
 
 class _NoticeAIState extends State<NoticeAI> {
   @override
@@ -96,7 +100,25 @@ class _NoticeAIState extends State<NoticeAI> {
                                                 ),
                                               ),
                                             ),
-                                            Text('  (예시)'),
+                                            Padding(
+                                              padding: const EdgeInsets.only(top: 12, bottom: 16),
+                                              child: Text('  (예시)', style: TextStyle(fontSize: contentTextSize),),
+                                            ),
+                                            SizedBox(
+                                              width: double.infinity,
+                                              child: Wrap(
+                                                alignment: WrapAlignment.start,
+                                                spacing: 6,
+                                                runSpacing: 10,
+                                                children: [
+                                                  KeywordChip(text: '봄 소풍', onPressed: (){}),
+                                                  KeywordChip(text: '준비물은 도시락', onPressed: (){}),
+                                                  KeywordChip(text: '9시에 출발하고 16시에 도착 예정', onPressed: (){}),
+                                                  KeywordChip(text: '소풍 장소는 서울숲', onPressed: (){}),
+                                                  KeywordChip(text: '즐겁게 잘 놀다 옴', onPressed: (){}),
+                                                ],
+                                              ),
+                                            )
                                           ],
                                         ),
                                       );
@@ -119,6 +141,9 @@ class _NoticeAIState extends State<NoticeAI> {
                             children: [
                               Expanded(
                                 child: TextFormField(
+                                  autofocus: true,
+                                  focusNode: inputFocus,
+                                  controller: keywordController,
                                   keyboardType: TextInputType.text,
                                   textInputAction: TextInputAction.next,
                                   cursorColor: darkNavy,
@@ -148,40 +173,35 @@ class _NoticeAIState extends State<NoticeAI> {
                                     eccentricity: 0
                                   )
                                 ),
-                                onPressed: (){},
+                                onPressed: (){
+                                  setState(() {
+                                    if(keywordController.text != '') {
+                                      keyword.add(keywordController.text);
+                                    }
+                                    keywordController.text = '';
+                                    inputFocus.requestFocus();
+                                  });
+                                },
                                 child: Icon(Icons.add)
                               )
                             ],
                           ),
                         ),
-                        Wrap(
-                          children: [
-                            Container(
-                              height: 40,
-                              padding: EdgeInsets.fromLTRB(16, 4, 0, 4),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: textColor, width: 1),
-                                  borderRadius: BorderRadius.circular(50)
-                              ),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text('봄 소풍'),
-                                  TextButton(
-                                    onPressed: (){},
-                                    style: ButtonStyle(
-                                      shape: MaterialStateProperty.all(CircleBorder(eccentricity: 0)),
-                                      padding: MaterialStateProperty.all(EdgeInsets.zero),
-                                      overlayColor: MaterialStateProperty.all(Colors.white),
-                                      backgroundColor: MaterialStateProperty.all(Colors.white),
-                                    ),
-                                    child: Icon(Icons.close, color: Colors.redAccent,)
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
+                        SizedBox(
+                          width: double.infinity,
+                          child: Wrap(
+                            alignment: WrapAlignment.start,
+                            spacing: 6,
+                            runSpacing: 10,
+                            children: [
+                              for(int i=0; i<keyword.length; i++)
+                                KeywordChip(text: keyword[i], onPressed: (){
+                                  setState(() {
+                                    keyword.removeAt(i);
+                                  });
+                                })
+                            ],
+                          ),
                         )
                       ],
                     ),
@@ -201,7 +221,9 @@ class _NoticeAIState extends State<NoticeAI> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 14, 0, 30),
                   child: ElevatedButton(
-                      onPressed: (){},
+                      onPressed: (){
+                        Get.back();
+                      },
                       style: ElevatedButton.styleFrom(
                         minimumSize: Size(double.infinity, 70),
                         backgroundColor: Color(0xffA2A2A2)
