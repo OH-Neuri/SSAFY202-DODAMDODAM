@@ -8,7 +8,6 @@ import static com.wohaha.dodamdodam.domain.QNotice.notice;
 import static com.wohaha.dodamdodam.domain.QNoticePhoto.noticePhoto;
 import static com.wohaha.dodamdodam.domain.QKid.kid;
 import static com.wohaha.dodamdodam.domain.QNoticeKid.noticeKid;
-
 import java.util.List;
 
 public class NoticeRepositoryImpl implements NoticeRepositoryCustom{

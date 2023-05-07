@@ -1,5 +1,7 @@
 package com.wohaha.dodamdodam.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +12,8 @@ import java.sql.Timestamp;
 @Table(name = "tbl_notice")
 @Getter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class Notice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,10 +32,10 @@ public class Notice {
     @Column(name = "announcement", nullable = false, columnDefinition = "TINYINT(1) default 0")
     private boolean announcement;
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at")
     private Timestamp createdAt;
 
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "updated_at")
     private Timestamp updatedAt;
 
 }
