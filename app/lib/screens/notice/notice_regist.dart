@@ -1,9 +1,11 @@
+import 'dart:io';
 import 'package:app/components/common/logout_app_bar.dart';
-import 'package:app/components/common/toast.dart';
 import 'package:app/components/notice/add_image_icon.dart';
 import 'package:app/constants.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class NoticeRegist extends StatefulWidget {
   const NoticeRegist({Key? key}) : super(key: key);
@@ -14,7 +16,28 @@ class NoticeRegist extends StatefulWidget {
 
 TextEditingController _controller = TextEditingController();
 bool isAnnouncement = false;
-List<String> images = ['1', '2', '4'];
+List<String> images = ['images/bonggil.jpg', 'images/sleepingCat.png', 'images/logo.png'];
+
+final picker = ImagePicker();
+
+Future<void> uploadImage() async {
+  final pickedFile = await picker.getImage(source: ImageSource.gallery);
+  final file = File(pickedFile!.path);
+  // Firebase Storage에 파일 업로드
+  // final storage = FirebaseStorage.instance;
+  // print('여기까지222222!');
+  // final ref = storage.ref().child('images/${file.path.split('/').last}');
+  // print('여기까지33333!');
+  // print(ref);
+  // final uploadTask = ref.putFile(file);
+  // print('여기까지444');
+  //
+  // final snapshot = await uploadTask.whenComplete((){});
+  // // 업로드한 파일의 URL 얻기
+  // final url = await snapshot.ref.getDownloadURL();
+  // print(url);
+  // // 얻은 URL을 이용하여 이미지 표시 등의 작업 수행
+}
 
 class _NoticeRegistState extends State<NoticeRegist> {
   @override
@@ -101,7 +124,17 @@ class _NoticeRegistState extends State<NoticeRegist> {
                         ),
                           children: [
                             AddImageIcon(onTap: (){
-                              ToastClass.showToast('사진은 3장까지 첨부할 수 있습니다.');
+                              if(images.length == 3) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text("사진은 3장까지 첨부할 수 있습니다."),
+                                    backgroundColor: Color(0xABFF2F00),
+                                    duration: Duration(seconds: 2),
+                                  ),
+                                );
+                              }else{
+                                uploadImage();
+                              }
                             }),
                             for(int i=0; i<images.length; i++)
                             Stack(
@@ -114,7 +147,7 @@ class _NoticeRegistState extends State<NoticeRegist> {
                                   child: SizedBox(
                                     width: double.infinity,
                                     height: double.infinity,
-                                    child: Image.asset('images/bonggil.jpg', fit: BoxFit.cover,),
+                                    child: Image.asset(images[i], fit: BoxFit.cover,),
                                   ),
                                 ),
                                 Positioned(
@@ -193,7 +226,10 @@ class _NoticeRegistState extends State<NoticeRegist> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                                  child: ElevatedButton(onPressed: (){},
+                                  child: ElevatedButton(
+                                      onPressed: (){
+                                        Get.toNamed('notice/regist/ai');
+                                      },
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: logoNavy,
                                         minimumSize: Size(140, 40)
@@ -232,7 +268,8 @@ class _NoticeRegistState extends State<NoticeRegist> {
                         child: Container(
                           padding: EdgeInsets.symmetric(horizontal: 10),
                           height: 50,
-                          child: ElevatedButton(onPressed: (){},
+                          child: ElevatedButton(
+                              onPressed: (){},
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: darkNavy
                               ),

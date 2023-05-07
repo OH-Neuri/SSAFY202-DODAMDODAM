@@ -48,7 +48,8 @@ dependencies:
   share_plus: ^4.5.3
   badges: ^3.1.1
   dotted_border: ^2.0.0+3
-  fluttertoast: ^8.2.1
+  firebase_storage: ^11.1.2
+  firebase_core: ^2.11.0
 
 dev_dependencies:
   flutter_test:

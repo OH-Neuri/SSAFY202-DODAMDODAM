@@ -1,4 +1,6 @@
+import 'package:app/firebase_options.dart';
 import 'package:app/screens/attendance/attendance_detail_teacher.dart';
+import 'package:app/screens/notice/notice_ai.dart';
 import 'package:app/screens/notice/notice_detail.dart';
 import 'package:app/screens/notice/notice_image_detail.dart';
 import 'package:app/screens/notice/notice_list.dart';
@@ -11,10 +13,16 @@ import 'package:app/screens/attendance/attendance_detail_parent.dart';
 import 'package:app/screens/user/signup_id.dart';
 import 'package:app/screens/user/signup_number.dart';
 import 'package:app/screens/user/signup_select.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MyApp());
 }
 
@@ -56,6 +64,10 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: '/notice/regist',
             page: () => NoticeRegist(),
+            transition: Transition.cupertino),
+        GetPage(
+            name: '/notice/regist/ai',
+            page: () => NoticeAI(),
             transition: Transition.cupertino),
         GetPage(
             name: '/notice/image/:idx',
