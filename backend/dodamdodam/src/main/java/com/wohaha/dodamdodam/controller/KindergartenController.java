@@ -1,19 +1,24 @@
 package com.wohaha.dodamdodam.controller;
 
+import com.wohaha.dodamdodam.domain.KindergartenInfo;
 import com.wohaha.dodamdodam.dto.BaseResponseDto;
 import com.wohaha.dodamdodam.dto.request.CreateClassRequestDto;
 import com.wohaha.dodamdodam.dto.request.CreateKidRequestDto;
 import com.wohaha.dodamdodam.dto.request.KidImageFileRequestDto;
+import com.wohaha.dodamdodam.dto.request.SendTeacherSmsRequestDto;
 import com.wohaha.dodamdodam.dto.request.UpdateClassRequestDto;
 import com.wohaha.dodamdodam.dto.request.UpdateKidRequestDto;
 import com.wohaha.dodamdodam.dto.response.ClassListResponseDto;
 import com.wohaha.dodamdodam.dto.response.KidListResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
+import com.wohaha.dodamdodam.service.KindergartenService;
+import com.wohaha.dodamdodam.service.KindergartenServiceImpl;
 import com.wohaha.dodamdodam.service.ManageClassService;
 import com.wohaha.dodamdodam.service.ManageKidService;
 import com.wohaha.dodamdodam.service.S3UploadService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,6 +34,9 @@ public class KindergartenController {
 
     @Autowired
     S3UploadService s3UploadService;
+
+    @Autowired
+    KindergartenService kindergartenService;
 
     @PostMapping("/class")
     public BaseResponseDto<?> createClass(@RequestBody CreateClassRequestDto createClassRequestDto) {
@@ -57,6 +65,8 @@ public class KindergartenController {
         }
     }
 
+
+    @Secured("hi")
     @PutMapping("class")
     public BaseResponseDto<?> updateClass(@RequestBody UpdateClassRequestDto updateClassRequestDto){
         try{
@@ -148,6 +158,33 @@ public class KindergartenController {
     public BaseResponseDto<?> deleteKid(@PathVariable Long kidSeq){
         try{
             return new BaseResponseDto<>(manageKidService.deleteKid(kidSeq));
+        }catch(Exception e){
+            if(e instanceof BaseException){
+                throw e;
+            }else{
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
+    @GetMapping("/search")
+    public BaseResponseDto<List<KindergartenInfo>> searchKindergartenInfo(@RequestParam String keyword){
+        try{
+            return new BaseResponseDto<>(kindergartenService.getKindergartenInfoList(keyword));
+        }catch(Exception e){
+            if(e instanceof BaseException){
+                throw e;
+            }else{
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
+    @DeleteMapping("/teacher/{classTeacherSeq}")
+    public BaseResponseDto<Boolean> deleteClassTeacher(@PathVariable Long classTeacherSeq){
+        try{
+            //api 완성되면 -> method security (원장만)
+            return new BaseResponseDto<>(manageClassService.deleteClassTeacher(classTeacherSeq));
         }catch(Exception e){
             if(e instanceof BaseException){
                 throw e;

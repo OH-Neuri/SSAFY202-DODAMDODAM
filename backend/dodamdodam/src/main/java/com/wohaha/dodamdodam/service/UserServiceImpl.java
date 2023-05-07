@@ -1,32 +1,32 @@
 package com.wohaha.dodamdodam.service;
 
-import static com.wohaha.dodamdodam.exception.BaseResponseStatus.SIGNUP_REQUIRED;
-import static com.wohaha.dodamdodam.exception.BaseResponseStatus.WRONG_PASSWORD;
-
-import com.wohaha.dodamdodam.domain.Auth;
 import com.wohaha.dodamdodam.domain.JwtTokenInfo;
 import com.wohaha.dodamdodam.domain.User;
 import com.wohaha.dodamdodam.dto.request.LoginUserRequestDto;
 import com.wohaha.dodamdodam.dto.request.RegisterUserRequestDto;
+import com.wohaha.dodamdodam.dto.request.UpdateUserRequestDto;
 import com.wohaha.dodamdodam.dto.response.LoginUserResponseDto;
 import com.wohaha.dodamdodam.dto.response.RegisterUserResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
-import com.wohaha.dodamdodam.repository.AuthRepository;
 import com.wohaha.dodamdodam.repository.UserRepository;
 import com.wohaha.dodamdodam.util.EncodeUtils;
 import com.wohaha.dodamdodam.util.JwtTokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import static com.wohaha.dodamdodam.exception.BaseResponseStatus.*;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService{
 
   @Autowired
   private UserRepository userRepository;
 
   @Autowired
-  private AuthRepository authRepository;
+  private SmsService smsService;
 
   @Override
   public RegisterUserResponseDto registerUser(RegisterUserRequestDto registerUserRequestDto) {
@@ -38,8 +38,7 @@ public class UserServiceImpl implements UserService{
     }
 
     //2. 해당 유저의 휴대폰 인증이 완료됐는지 체크
-    Auth auth = authRepository.findById(registerUserRequestDto.getPhone()).orElseThrow(()->{throw new BaseException(BaseResponseStatus.SMS_UNAUTHENTICATION);});
-    if(!auth.getIsChecked()){
+    if(!smsService.isCheckedUser(registerUserRequestDto.getPhone())){
       //휴대폰 인증을 먼저 진행해주세요
       throw new BaseException(BaseResponseStatus.FAIL);
     }
@@ -59,7 +58,7 @@ public class UserServiceImpl implements UserService{
     JwtTokenInfo jwtTokenInfo = JwtTokenUtils.allocateToken(user.getUserSeq(), user.getRole());
 
     //휴대폰 인증 삭제
-    authRepository.delete(auth);
+    smsService.deleteCheckedUser(user.getPhoneNumber());
 
     //return
     RegisterUserResponseDto result = RegisterUserResponseDto.builder()
@@ -96,4 +95,24 @@ public class UserServiceImpl implements UserService{
 
     return result;
   }
+
+  @Override
+  public User getUser(Long userSeq) {
+    return userRepository.findById(userSeq).orElseThrow(()->{throw new BaseException(UNREGISTERED_USER);});
+  }
+
+  @Override
+  public boolean updateUser(UpdateUserRequestDto updateUserRequestDto, Long userSeq) {
+    updateUserRequestDto.setPassword(EncodeUtils.encode(updateUserRequestDto.getPassword()));
+    updateUserRequestDto.setUserSeq(userSeq);
+    userRepository.updateUser(updateUserRequestDto);
+    return true;
+  }
+
+  @Override
+  public boolean isExist(Long userSeq) {
+    return userRepository.existsById(userSeq);
+  }
+
+
 }

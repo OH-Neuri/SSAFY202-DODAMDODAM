@@ -18,4 +18,7 @@ public interface ManageKidService {
 
     //아이 삭제
     boolean deleteKid(long kidSeq);
+
+    //아이에게 학부모 등록
+    boolean createParentKid(Long userSeq, Long kidSeq);
 }
