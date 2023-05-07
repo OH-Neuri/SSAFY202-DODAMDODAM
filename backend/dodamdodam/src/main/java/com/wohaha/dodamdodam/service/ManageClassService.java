@@ -16,5 +16,9 @@ public interface ManageClassService {
     //반 삭제
     boolean deleteClass(long classSeq);
 
+    //해당 반에 선생님 추가하기
+    boolean createClassTeacher(Long classSeq, Long userSeq);
+    //해당 반에서 선생님 삭제하기
+    boolean deleteClassTeacher(Long classTeacherSeq);
 
 }

@@ -1,11 +1,13 @@
 package com.wohaha.dodamdodam.service;
 
 import com.wohaha.dodamdodam.domain.ClassInfo;
+import com.wohaha.dodamdodam.domain.ClassTeacher;
 import com.wohaha.dodamdodam.dto.request.CreateClassRequestDto;
 import com.wohaha.dodamdodam.dto.request.UpdateClassRequestDto;
 import com.wohaha.dodamdodam.dto.response.ClassListResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
+import com.wohaha.dodamdodam.repository.ClassTeacherRepository;
 import com.wohaha.dodamdodam.repository.KindergartenRepository;
 import com.wohaha.dodamdodam.repository.ManageClassRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +26,9 @@ public class ManageClassServiceImpl implements ManageClassService {
 
     @Autowired
     private final KindergartenRepository kindergartenRepository;
+
+    @Autowired
+    private ClassTeacherRepository classTeacherRepository;
 
     @Override
     public boolean createClass(CreateClassRequestDto createClassRequestDto) {
@@ -69,7 +74,30 @@ public class ManageClassServiceImpl implements ManageClassService {
         return true;
     }
 
+    @Override
+    public boolean createClassTeacher(Long classSeq, Long userSeq) {
 
+        //이미 연관관계가 존재하는지 찾는다.
+        if(classTeacherRepository.isExist(classSeq, userSeq)){
+            throw new BaseException(BaseResponseStatus.ALREADY_REGISTERED_TEACHER);
+        }
+
+        //등록한다.
+        ClassTeacher classTeacher =  ClassTeacher.builder()
+                .classSeq(classSeq)
+                .userSeq(userSeq)
+                .build();
+
+        classTeacherRepository.save(classTeacher);
+
+        return true;
+    }
+
+    @Override
+    public boolean deleteClassTeacher(Long classTeacherSeq) {
+        classTeacherRepository.deleteById(classTeacherSeq);
+        return true;
+    }
 
 
 }
