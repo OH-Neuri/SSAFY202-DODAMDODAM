@@ -1,7 +1,7 @@
 import 'package:app/screens/attendance/attendance_detail_teacher.dart';
-import 'package:app/screens/medicine/medicine_parent_detail_page.dart';
+import 'package:app/screens/medicine/medicine_parent_regist_page.dart';
 import 'package:app/screens/medicine/medicine_parent_page.dart';
-import 'package:app/screens/medicine/medicine_teacher_detail_page.dart';
+import 'package:app/screens/medicine/medicine_detail_page.dart';
 import 'package:app/screens/medicine/medicine_teacher_page.dart';
 import 'package:app/screens/notice/notice_detail.dart';
 import 'package:app/screens/notice/notice_image_detail.dart';
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      home: MedicineTeacherDetailPage(),
+      home: MedicineParentPage(),
       theme: ThemeData(fontFamily: 'Pretendard'),
       // initialRoute: '/',
       getPages: [
@@ -82,16 +82,16 @@ class MyApp extends StatelessWidget {
             page: () => MedicineTeacherPage(),
             transition: Transition.cupertino),
         GetPage(
-            name: '/medicine/teacher/detail',
-            page: () => MedicineTeacherDetailPage(),
+            name: '/medicine/detail',
+            page: () => MedicineDetailPage(),
             transition: Transition.cupertino),
         GetPage(
             name: '/medicine/parent',
             page: () => MedicineParentPage(),
             transition: Transition.cupertino),
         GetPage(
-            name: '/medicine/parent/detail',
-            page: () => MedicineParentDetailPage(),
+            name: '/medicine/parent/regist',
+            page: () => MedicineParentRegistPage(),
             transition: Transition.cupertino),
       ],
     );
