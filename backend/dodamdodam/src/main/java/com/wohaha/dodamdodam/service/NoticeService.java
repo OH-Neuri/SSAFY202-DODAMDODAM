@@ -1,6 +1,7 @@
 package com.wohaha.dodamdodam.service;
 
 import com.wohaha.dodamdodam.dto.request.CreateNoticeRequestDto;
+import com.wohaha.dodamdodam.dto.request.UpdateNoticeRequestDto;
 import com.wohaha.dodamdodam.dto.response.ClassNoticeResponseDto;
 import com.wohaha.dodamdodam.dto.response.KidListResponseDto;
 
@@ -15,4 +16,6 @@ public interface NoticeService {
     List<ClassNoticeResponseDto> noticeList(long classSeq);
     //알림장 1개 정보
     ClassNoticeResponseDto noticeInfo(long noticeSeq);
+    //알림장 update
+    boolean updateNotice(Long classSeq, UpdateNoticeRequestDto updateNoticeRequestDto);
 }

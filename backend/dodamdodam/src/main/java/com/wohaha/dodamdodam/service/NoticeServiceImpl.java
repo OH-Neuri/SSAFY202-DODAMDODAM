@@ -4,6 +4,7 @@ import com.wohaha.dodamdodam.domain.Notice;
 import com.wohaha.dodamdodam.domain.NoticeKid;
 import com.wohaha.dodamdodam.domain.NoticePhoto;
 import com.wohaha.dodamdodam.dto.request.CreateNoticeRequestDto;
+import com.wohaha.dodamdodam.dto.request.UpdateNoticeRequestDto;
 import com.wohaha.dodamdodam.dto.response.ClassNoticeResponseDto;
 import com.wohaha.dodamdodam.repository.NoticeKidRepository;
 import com.wohaha.dodamdodam.repository.NoticePhotoRepository;
@@ -91,4 +92,23 @@ public class NoticeServiceImpl implements NoticeService{
         noticeInfo.setKid(noticeRepository.noticeKid(noticeSeq));
         return noticeInfo;
     }
+
+    @Override
+    public boolean updateNotice(Long classSeq, UpdateNoticeRequestDto updateNoticeRequestDto) {
+        //기존 알림장 사진 삭제
+        noticeRepository.deleteNoticePhoto(updateNoticeRequestDto.getNoticeSeq());
+
+        //알림장에 사진 넣기
+        for(String photo : updateNoticeRequestDto.getPhoto()){
+            NoticePhoto noticePhoto = NoticePhoto.builder()
+                    .noticeSeq(updateNoticeRequestDto.getNoticeSeq())
+                    .photo(photo)
+                    .build();
+            noticePhotoRepository.save(noticePhoto);
+        }
+
+        return true;
+    }
+
+
 }

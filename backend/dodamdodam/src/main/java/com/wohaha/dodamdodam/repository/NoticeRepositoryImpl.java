@@ -56,4 +56,12 @@ public class NoticeRepositoryImpl implements NoticeRepositoryCustom{
                 .where(notice.noticeSeq.eq(noticeSeq))
                 .fetchOne();
     }
+
+    @Override
+    public void deleteNoticePhoto(long noticeSeq) {
+        query
+                .delete(noticePhoto)
+                .where(noticePhoto.noticeSeq.eq(noticeSeq))
+                .execute();
+    }
 }
