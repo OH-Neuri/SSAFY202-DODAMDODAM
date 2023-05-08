@@ -9,7 +9,7 @@ import java.sql.Time;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class KidAttendanceListResponseDto {
+public class AttendanceListResponseDto {
     private Long kidSeq;
     private String name;
     private String photo;
