@@ -1,24 +1,23 @@
 import 'package:app/constants.dart';
 import 'package:flutter/material.dart';
 
-class NoticeItem extends StatelessWidget {
+class NoticeItemAnnouncement extends StatelessWidget {
   final String date;
-  final List<String> kids;
   final String content;
   final Function() onPressed;
 
-  const NoticeItem({required this.date, required this.kids, required this.content, required this.onPressed});
+  const NoticeItemAnnouncement({required this.date, required this.content, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20),
+      padding: const EdgeInsets.only(bottom: 20.0),
       child: ElevatedButton(onPressed: onPressed,
           style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-              backgroundColor: Colors.white,
+              backgroundColor: lightYellow,
               foregroundColor: textColor,
-              minimumSize: Size(double.infinity, 100),
+              minimumSize: Size(double.infinity, 120),
               padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 30.0)
           ),
           child: SizedBox(
@@ -32,15 +31,16 @@ class NoticeItem extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Text(date),
+                        Text('2023-05-03'),
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(8.0, 0, 0, 0),
+                          padding: const EdgeInsets.fromLTRB(6.0, 0, 0, 0),
                           child: Image.asset('assets/images/notice/calendar.png', width: 20,),
                         )
                       ],
                     ),
-                    Text(kids[0],
-                      style: TextStyle(color: Colors.grey),),
+                    Text('전체 공지', style: TextStyle(
+                      color: textColor,
+                    ),)
                   ],
                 ),
                 Padding(
