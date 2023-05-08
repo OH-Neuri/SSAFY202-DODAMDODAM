@@ -159,7 +159,7 @@ public class ClassController {
     @GetMapping("/attendance/list")
     public BaseResponseDto<List<AttendanceListResponseDto>> getKidAttendanceList(@RequestBody AttendanceRequestDto classAttendanceRequestDto) {
         try {
-            return new BaseResponseDto<>(attendanceService.kidAttendanceList(classAttendanceRequestDto));
+            return new BaseResponseDto<>(attendanceService.getAttendanceList(classAttendanceRequestDto));
         }catch (Exception e) {
             e.printStackTrace();
             if (e instanceof BaseException) {
@@ -173,7 +173,7 @@ public class ClassController {
     @GetMapping("/attendance/{attendanceSeq}")
     public BaseResponseDto<AttendanceDetailResponseDto> getKidAttendanceDetail(@PathVariable Long attendanceSeq) {
         try {
-            return new BaseResponseDto<>(attendanceService.getKidAttendanceDetail(attendanceSeq));
+            return new BaseResponseDto<>(attendanceService.getAttendanceDetail(attendanceSeq));
         }catch (Exception e) {
             e.printStackTrace();
             if (e instanceof BaseException) {
@@ -184,19 +184,19 @@ public class ClassController {
         }
     }
 
-//    @GetMapping("/attendance/form")
-//    public BaseResponseDto<?> getKidAttendanceForm(@RequestBody AttendanceRequestDto kidAttendanceRequestDto) {
-//        try {
-//            return new BaseResponseDto<>(attendanceService.getKidAttendanceForm(kidAttendanceRequestDto));
-//        }catch (Exception e) {
-//            e.printStackTrace();
-//            if (e instanceof BaseException) {
-//                throw e;
-//            } else {
-//                throw new BaseException(BaseResponseStatus.FAIL);
-//            }
-//        }
-//    }
+    @GetMapping("/attendance/form")
+    public BaseResponseDto<AttendanceFormResponseDto> getKidAttendanceForm(@RequestBody AttendanceRequestDto kidAttendanceRequestDto) {
+        try {
+            return new BaseResponseDto<>(attendanceService.getAttendanceForm(kidAttendanceRequestDto));
+        }catch (Exception e) {
+            e.printStackTrace();
+            if (e instanceof BaseException) {
+                throw e;
+            } else {
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
 
 
 }
