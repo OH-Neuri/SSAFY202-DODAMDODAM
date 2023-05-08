@@ -4,8 +4,8 @@ import 'package:app/components/notice/notice_item.dart';
 import 'package:app/components/notice/notice_item_announcement.dart';
 import 'package:app/constants.dart';
 import 'package:app/screens/notice/notice_detail.dart';
+import 'package:app/screens/notice/notice_regist.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:app/models/notice/notice_list_model.dart';
 
 class NoticeList extends StatefulWidget {
@@ -88,10 +88,11 @@ class _NoticeListState extends State<NoticeList> {
               ),
             ),
             Positioned(
-                bottom: 40,
-                right: 40,
+                bottom: 20,
+                right: 30,
                 child: ElevatedButton(
-                  onPressed: (){Get.toNamed('notice/regist');},
+                  onPressed: (){Navigator.push(context, 
+                      MaterialPageRoute(builder: (context)=>NoticeRegist()));},
                   style: ElevatedButton.styleFrom(
                       minimumSize: Size(80, 80),
                       backgroundColor: logoNavy,

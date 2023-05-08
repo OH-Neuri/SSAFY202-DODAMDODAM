@@ -87,9 +87,8 @@ class _NoticeDetailPageState extends State<NoticeDetailPage> {
                             children: [
                               for(int i=0; i<_noticeDetail.photo.length; i++)
                               InkWell(
-                                onTap: (){Navigator.push(context,
-                                  MaterialPageRoute(builder: (context)=>
-                                    NoticeImageDetail(images: _noticeDetail.photo, index: i)
+                                onTap: (){Navigator.push(context, MaterialPageRoute(
+                                    builder: (context)=> NoticeImageDetail(images: _noticeDetail.photo, index: i)
                                   )
                                 );},
                                 child: Image.network(_noticeDetail.photo[i], fit: BoxFit.cover,)
