@@ -125,8 +125,8 @@ public class KindergartenController {
         }
     }
 
-    @PostMapping("/kidImage")
-    public BaseResponseDto<String> kidImage(@ModelAttribute KidImageFileRequestDto kidImageFileRequestDto){
+    @PostMapping("/Image")
+    public BaseResponseDto<String> Image(@ModelAttribute KidImageFileRequestDto kidImageFileRequestDto){
         try{
             //이미지 s3 업로드 후 링크 가져오기
             String uploadUrl = s3UploadService.upload(kidImageFileRequestDto.getPhoto(),"kidProfile");
