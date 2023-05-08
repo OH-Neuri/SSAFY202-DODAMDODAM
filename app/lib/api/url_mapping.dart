@@ -1,1 +1,1 @@
-const String url = "https://www.dodamdodam.site/api/dodam/";
+const String url = "https://dodamdodam.site/api/dodam/";

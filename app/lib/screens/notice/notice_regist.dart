@@ -38,6 +38,7 @@ Future<void> uploadImage() async {
   // print(url);
   // // 얻은 URL을 이용하여 이미지 표시 등의 작업 수행
 }
+List<int> kidSeqs = [];
 
 class _NoticeRegistState extends State<NoticeRegist> {
   @override
@@ -99,7 +100,7 @@ class _NoticeRegistState extends State<NoticeRegist> {
                           :
                           SizedBox(
                             width: 160,
-                            child: OutlinedButton(onPressed: (){print('원아선택');},
+                            child: OutlinedButton(onPressed: (){Get.toNamed('notice/regist/kid', arguments: kidSeqs);},
                               style: OutlinedButton.styleFrom(
                                 foregroundColor: textColor,
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
