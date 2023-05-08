@@ -90,7 +90,8 @@ class _MedicineTeacherPageState extends State<MedicineTeacherPage> {
                             return Center(
                                 child: GestureDetector(
                                   onTap:(){
-                                    Get.toNamed('/medicine/teacher/detail');
+                                    // Get.toNamed('/medicine/teacher/detail')
+                                     Navigator.push(context, MaterialPageRoute(builder: (context) => MedicineTeacherPage()));
                                   },
                                   child: MedicineCard(),
                                 ));

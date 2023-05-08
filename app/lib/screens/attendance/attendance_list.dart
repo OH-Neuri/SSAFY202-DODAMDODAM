@@ -115,9 +115,7 @@ class _AttendanceListState extends State<AttendanceList> {
                         children: List.generate(30, (index) {
                           return Center(
                               child: GestureDetector(
-                                onTap:(){
-                                  Get.toNamed('/attendance/parent');
-                                },
+                                onTap:(){Navigator.push(context, MaterialPageRoute(builder: (context) => AttendanceDetailParent()));},
                                 child: AttendanceCard(),
                               ));
                         }),

@@ -209,7 +209,6 @@ class _MedicineParentRegistPageState extends State<MedicineParentRegistPage> {
                         fontSize: 16,
                         color: Colors.black54
                     )),
-
                   ],
                 ),
               )),

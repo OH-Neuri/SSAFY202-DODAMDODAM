@@ -1,9 +1,9 @@
 import 'package:app/components/medicine/medicine_parent_card.dart';
 import 'package:app/constants.dart';
+import 'package:app/screens/medicine/medicine_parent_regist_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:app/components/attendance/attendance_list_timepicker.dart';
-import 'package:timelines/timelines.dart';
 class MedicineParentPage extends StatefulWidget {
 
   const MedicineParentPage({Key? key}) : super(key: key);
@@ -62,7 +62,7 @@ class _MedicineParentPageState extends State<MedicineParentPage> {
                                 ),
                               ],
                             ),
-                            for(int i=0; i<15; i++)
+                            for(int i=0; i<3; i++)
                               Padding(
                                 padding:const EdgeInsets.fromLTRB(0, 10, 0, 10),
                                   child:MedicineParentCard(i: i),
@@ -71,7 +71,7 @@ class _MedicineParentPageState extends State<MedicineParentPage> {
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
                             children: <Widget>[
-                              Container(height: 200), // 예시로 높이 200인 빈 컨테이너 추가
+                              Container(height: 450), // 예시로 높이 200인 빈 컨테이너 추가
                               // ListView 내부에 표시되는 다른 위젯들
                             ],
                           )
@@ -88,7 +88,7 @@ class _MedicineParentPageState extends State<MedicineParentPage> {
                 bottom: 40,
                 right: 40,
                 child: ElevatedButton(
-                  onPressed: (){Get.toNamed('medicine/parent/regist');},
+                  onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => MedicineParentRegistPage()));},
                   style: ElevatedButton.styleFrom(
                       minimumSize: Size(80, 80),
                       backgroundColor: logoNavy,
