@@ -38,6 +38,8 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        //cors config
+        http.cors().configurationSource(corsConfigurationSource());
 
         //기본 설정 해제와 경로 설정
         http
@@ -63,4 +65,24 @@ public class SecurityConfig {
     public CustomAuthenticationEntryPoint customAuthenticationEntryPoint(){
         return new CustomAuthenticationEntryPoint();
     }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        configuration.addAllowedOriginPattern("*");
+        configuration.addAllowedMethod("*");
+        configuration.setAllowCredentials(true);
+
+        //custom header 설정
+        for(String key : Constants.CORS_HEADER_URIS){
+            configuration.addAllowedHeader(key);
+            configuration.addExposedHeader(key);
+        }
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+
 }
