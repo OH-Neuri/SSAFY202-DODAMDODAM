@@ -1,8 +1,15 @@
+import 'package:app/firebase_options.dart';
 import 'package:app/screens/attendance/attendance_detail_teacher.dart';
+import 'package:app/screens/notice/notice_ai.dart';
+import 'package:app/screens/medicine/medicine_parent_regist_page.dart';
+import 'package:app/screens/medicine/medicine_parent_page.dart';
+import 'package:app/screens/medicine/medicine_detail_page.dart';
+import 'package:app/screens/medicine/medicine_teacher_page.dart';
 import 'package:app/screens/notice/notice_detail.dart';
 import 'package:app/screens/notice/notice_image_detail.dart';
 import 'package:app/screens/notice/notice_list.dart';
 import 'package:app/screens/notice/notice_regist.dart';
+import 'package:app/screens/notice/select_kid.dart';
 import 'package:app/screens/user/login_select.dart';
 import 'package:app/screens/user/login_teacher.dart';
 import 'package:app/screens/attendance/attendance_list.dart';
@@ -11,6 +18,7 @@ import 'package:app/screens/attendance/attendance_detail_parent.dart';
 import 'package:app/screens/user/signup_id.dart';
 import 'package:app/screens/user/signup_number.dart';
 import 'package:app/screens/user/signup_select.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -24,7 +32,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      home: AttendanceDetailParent(),
+      home: NoticeList(),
       theme: ThemeData(fontFamily: 'Pretendard'),
       // initialRoute: '/',
       getPages: [
@@ -58,6 +66,14 @@ class MyApp extends StatelessWidget {
             page: () => NoticeRegist(),
             transition: Transition.cupertino),
         GetPage(
+            name: '/notice/regist/ai',
+            page: () => NoticeAI(),
+            transition: Transition.cupertino),
+        GetPage(
+            name: '/notice/regist/kid',
+            page: () => SelectKid(),
+            transition: Transition.cupertino),
+        GetPage(
             name: '/notice/image/:idx',
             page: () => NoticeImageDetail(),
             transition: Transition.cupertino),
@@ -72,6 +88,22 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: '/attendance/parent',
             page: () => AttendanceDetailParent(),
+            transition: Transition.cupertino),
+        GetPage(
+            name: '/medicine/teacher',
+            page: () => MedicineTeacherPage(),
+            transition: Transition.cupertino),
+        GetPage(
+            name: '/medicine/detail',
+            page: () => MedicineDetailPage(),
+            transition: Transition.cupertino),
+        GetPage(
+            name: '/medicine/parent',
+            page: () => MedicineParentPage(),
+            transition: Transition.cupertino),
+        GetPage(
+            name: '/medicine/parent/regist',
+            page: () => MedicineParentRegistPage(),
             transition: Transition.cupertino),
       ],
     );

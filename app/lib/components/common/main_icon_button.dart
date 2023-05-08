@@ -1,3 +1,4 @@
+import 'package:app/screens/notice/notice_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,27 +9,30 @@ class MainIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget icon;
-    String link;
+    dynamic link;
     switch (title) {
       case '알림장':
         icon = Image.asset('/images/common/notebook_icon.png');
-        link = '/notice';
+        link = NoticeList();
         break;
       case '등하원 확인서':
         icon = Image.asset('/images/common/goback_icon.png');
-        link = '/notice';
+        link = NoticeList();
         break;
       case '투약 의뢰서':
         icon = Image.asset('/images/common/medicine_icon.png');
-        link = '/notice';
+        link = NoticeList();
         break;
       default:
         icon = Container();
-        link = '/';
+        link = NoticeList();
     }
     return InkWell(
       onTap: (){
-        Get.toNamed(link);
+        // bottomNavi를 살리기 위해 Navigator 사용
+        Navigator.push(context, MaterialPageRoute(
+            builder: (context) => link));
+        // Get.toNamed(link);
       },
       child: Container(
         height: 100, width: double.infinity,
