@@ -44,4 +44,21 @@ class NoticeService {
       return NoticeDetail(noticeSeq: 0, date: '', content: '', announcement: true, photo: [], kid: []);
     }
   }
+
+  // 알림장 삭제
+  static Future<bool> deleteNotice(int noticeSeq) async {
+    try {
+      String URL = '${url}class/notice/$noticeSeq';
+      final res = await http.delete(Uri.parse(URL));
+      if (res.statusCode == 200) {
+        print('삭제 성공');
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
 }
