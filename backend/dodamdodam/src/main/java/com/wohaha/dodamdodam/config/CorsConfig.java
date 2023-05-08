@@ -28,6 +28,7 @@ public class CorsConfig {
     config.addAllowedHeader("Authorization");
     config.addAllowedHeader("Content-Type");
     config.addExposedHeader("Authorization");
+    config.addExposedHeader("Access-Control-Allow-Origin");
 
     //모든 패턴 요청에 대해 해당 config 등록
     source.registerCorsConfiguration("/**", config);
