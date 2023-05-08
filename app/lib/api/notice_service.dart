@@ -1,17 +1,17 @@
 import 'dart:convert';
+import 'package:app/controller/deviceInfo_controller.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:app/api/url_mapping.dart';
 import 'package:app/models/notice/notice_list_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class NoticeService {
   static Future<List<NoticeListItem>> getNoticeList() async {
+    DeviceInfoController c = Get.put(DeviceInfoController());
     try{
-      final SharedPreferences pref = await SharedPreferences.getInstance();
-      pref.setInt('classSeq', 1); // 로그인 할 때, 저장
-      int? classSeq = pref.getInt('classSeq');
+      c.setClassSeq(1); // 로그인 할 때, 저장
+      int? classSeq = c.classSeq.value;
       String URL = '${url}class/notice/$classSeq';
-      print(URL);
       final res = await http.get(Uri.parse(URL));
 
       if (res.statusCode == 200) {

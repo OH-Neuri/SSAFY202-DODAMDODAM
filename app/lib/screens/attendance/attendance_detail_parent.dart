@@ -1,5 +1,5 @@
-import 'package:app/components/attendance/paint_page.dart';
-import 'package:app/components/attendance/sign_button.dart';
+import 'package:app/components/common/paint_page.dart';
+import 'package:app/components/attendance/attendance_sign_button.dart';
 import 'package:app/components/common/input_form.dart';
 import 'package:app/components/common/text_form_field_custom.dart';
 import 'package:app/constants.dart';
@@ -164,7 +164,7 @@ class _AttendanceDetailParentState extends State<AttendanceDetailParent> {
                   ],
                 ),
               ),
-              SignButton(),
+              AttendanceSignButton(),
             ]),
           ),
           Expanded(child: SizedBox()),

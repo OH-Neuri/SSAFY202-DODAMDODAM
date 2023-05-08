@@ -1,10 +1,10 @@
 
-import 'package:app/components/attendance/paint_page.dart';
+import 'package:app/components/common/paint_page.dart';
 import 'package:app/constants.dart';
 import 'package:flutter/material.dart';
 
-class SignButton extends StatelessWidget {
-  const SignButton({
+class AttendanceSignButton extends StatelessWidget {
+  const AttendanceSignButton({
     super.key,
   });
 
@@ -39,7 +39,7 @@ class SignButtonCustom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 0, 5, 20),
+      padding: const EdgeInsets.fromLTRB(0, 0, 5, 30),
       child: ElevatedButton(
         onPressed: () {
           showDialog(
