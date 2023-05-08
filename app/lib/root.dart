@@ -51,7 +51,7 @@ class Root extends GetView<RootController> {
           currentIndex: controller.rootPageIndex.value,
           showSelectedLabels: true,
           showUnselectedLabels: true,
-          onTap: controller.changeRootPageIndex,
+          onTap: (index) => controller.navigateToRootPage(index),
           items: [
             // 메인
             BottomNavigationBarItem(
