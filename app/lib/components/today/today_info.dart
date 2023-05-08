@@ -44,7 +44,7 @@ class _TodayInfoState extends State<TodayInfo> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text("${widget.month}/${widget.day} ${widget.week} ", style: TextStyle(fontSize: buttonTextSize, fontWeight: FontWeight.w600)),
-              Image(image: AssetImage('/images/common/calendar_icon.png'), height: 30)
+              Image(image: AssetImage('assets/images/common/calendar_icon.png'), height: 30)
             ],
           ),
         ),
