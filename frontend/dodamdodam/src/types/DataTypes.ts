@@ -1,8 +1,21 @@
 export type student = {
     [index: string]: string | number;
-    Image: string;
+    image: string;
     name: string;
-    age: number;
+    birth: string;
     gender: string;
     class: string;
 };
+
+export type teacher = {
+    [index: string]: string | number;
+    name: string;
+    class: string;
+}
+
+export type kindergartenType = {
+    [index: string] : string
+    name: string
+    address: string
+    phone_number: string
+}
