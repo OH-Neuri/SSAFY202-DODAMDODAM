@@ -1,15 +1,17 @@
 package com.wohaha.dodamdodam.controller;
 
 import com.wohaha.dodamdodam.dto.BaseResponseDto;
+import com.wohaha.dodamdodam.dto.request.ClassAttendanceRequestDto;
 import com.wohaha.dodamdodam.dto.request.CreateNoticeRequestDto;
 import com.wohaha.dodamdodam.dto.request.CreateScheduleRequestDto;
 import com.wohaha.dodamdodam.dto.request.UpdateNoticeRequestDto;
 import com.wohaha.dodamdodam.dto.response.ClassNoticeResponseDto;
 import com.wohaha.dodamdodam.dto.response.ClassScheduleListResponseDto;
 import com.wohaha.dodamdodam.dto.response.ClassScheduleResponseDto;
+import com.wohaha.dodamdodam.dto.response.KidAttendanceListResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
-import com.wohaha.dodamdodam.repository.NoticeRepository;
+import com.wohaha.dodamdodam.service.AttendanceService;
 import com.wohaha.dodamdodam.service.NoticeService;
 import com.wohaha.dodamdodam.service.S3UploadService;
 import com.wohaha.dodamdodam.service.ScheduleService;
@@ -29,8 +31,9 @@ public class ClassController {
 
     @Autowired
     private S3UploadService s3UploadService;
+
     @Autowired
-    private NoticeRepository noticeRepository;
+    private AttendanceService attendanceService;
 
     // 일정 관리
     @PostMapping("/schedule/{classSeq}")
@@ -150,6 +153,21 @@ public class ClassController {
             if(e instanceof BaseException){
                 throw e;
             }else{
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
+    // 출석부
+    @GetMapping("/attendance")
+    public BaseResponseDto<List<KidAttendanceListResponseDto>> getKidAttendanceList(@RequestBody ClassAttendanceRequestDto classAttendanceRequestDto) {
+        try {
+            return new BaseResponseDto<>(attendanceService.getKidAttendanceList(classAttendanceRequestDto));
+        }catch (Exception e) {
+            e.printStackTrace();
+            if (e instanceof BaseException) {
+                throw e;
+            } else {
                 throw new BaseException(BaseResponseStatus.FAIL);
             }
         }
