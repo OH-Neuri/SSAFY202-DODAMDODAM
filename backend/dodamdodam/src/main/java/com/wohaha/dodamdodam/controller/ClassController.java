@@ -3,6 +3,7 @@ package com.wohaha.dodamdodam.controller;
 import com.wohaha.dodamdodam.dto.BaseResponseDto;
 import com.wohaha.dodamdodam.dto.request.CreateNoticeRequestDto;
 import com.wohaha.dodamdodam.dto.request.CreateScheduleRequestDto;
+import com.wohaha.dodamdodam.dto.request.UpdateNoticeRequestDto;
 import com.wohaha.dodamdodam.dto.response.ClassNoticeResponseDto;
 import com.wohaha.dodamdodam.dto.response.ClassScheduleListResponseDto;
 import com.wohaha.dodamdodam.dto.response.ClassScheduleResponseDto;
@@ -118,6 +119,33 @@ public class ClassController {
     public BaseResponseDto<ClassNoticeResponseDto> noticeInfo(@PathVariable Long noticeSeq){
         try{
             return new BaseResponseDto<>(noticeService.noticeInfo(noticeSeq));
+        }catch (Exception e){
+            if(e instanceof BaseException){
+                throw e;
+            }else{
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
+    @PutMapping("/notice/{noticeSeq}")
+    public BaseResponseDto<?> updateNotice(@PathVariable Long noticeSeq, @RequestBody UpdateNoticeRequestDto updateNoticeRequestDto){
+        try{
+
+            return new BaseResponseDto<>(noticeService.updateNotice(noticeSeq, updateNoticeRequestDto));
+        }catch (Exception e){
+            if(e instanceof BaseException){
+                throw e;
+            }else{
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
+    @DeleteMapping("/notice/{noticeSeq}")
+    public BaseResponseDto<?> deleteNotice(@PathVariable Long noticeSeq){
+        try{
+            return  new BaseResponseDto<>(noticeService.deleteNotice(noticeSeq));
         }catch (Exception e){
             if(e instanceof BaseException){
                 throw e;
