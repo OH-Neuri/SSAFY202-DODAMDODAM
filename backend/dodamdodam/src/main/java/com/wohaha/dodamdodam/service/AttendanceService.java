@@ -1,10 +1,13 @@
 package com.wohaha.dodamdodam.service;
 
-import com.wohaha.dodamdodam.dto.request.ClassAttendanceRequestDto;
-import com.wohaha.dodamdodam.dto.response.KidAttendanceListResponseDto;
+import com.wohaha.dodamdodam.dto.request.AttendanceRequestDto;
+import com.wohaha.dodamdodam.dto.response.AttendanceDetailResponseDto;
+import com.wohaha.dodamdodam.dto.response.AttendanceListResponseDto;
 
 import java.util.List;
 
 public interface AttendanceService {
-    List<KidAttendanceListResponseDto> getKidAttendanceList(ClassAttendanceRequestDto classAttendanceRequestDto);
+    List<AttendanceListResponseDto> kidAttendanceList(AttendanceRequestDto classAttendanceRequestDto);
+
+    AttendanceDetailResponseDto getKidAttendanceDetail(Long attendanceSeq);
 }

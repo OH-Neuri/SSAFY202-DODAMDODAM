@@ -1,7 +1,8 @@
 package com.wohaha.dodamdodam.service;
 
-import com.wohaha.dodamdodam.dto.request.ClassAttendanceRequestDto;
-import com.wohaha.dodamdodam.dto.response.KidAttendanceListResponseDto;
+import com.wohaha.dodamdodam.dto.request.AttendanceRequestDto;
+import com.wohaha.dodamdodam.dto.response.AttendanceDetailResponseDto;
+import com.wohaha.dodamdodam.dto.response.AttendanceListResponseDto;
 import com.wohaha.dodamdodam.repository.AttendanceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,12 @@ public class AttendanceServiceImpl implements AttendanceService {
     private final AttendanceRepository attendanceRepository;
 
     @Override
-    public List<KidAttendanceListResponseDto> getKidAttendanceList(ClassAttendanceRequestDto classAttendanceRequestDto) {
-        return attendanceRepository.getKidAttendanceList(classAttendanceRequestDto.getClassSeq(), classAttendanceRequestDto.getDay());
+    public List<AttendanceListResponseDto> kidAttendanceList(AttendanceRequestDto classAttendanceRequestDto) {
+        return attendanceRepository.getAttendanceList(classAttendanceRequestDto.getSeq(), classAttendanceRequestDto.getDay());
+    }
+
+    @Override
+    public AttendanceDetailResponseDto getKidAttendanceDetail(Long attendanceSeq) {
+        return attendanceRepository.getAttendanceDetail(attendanceSeq);
     }
 }

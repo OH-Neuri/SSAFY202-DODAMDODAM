@@ -1,14 +1,11 @@
 package com.wohaha.dodamdodam.controller;
 
 import com.wohaha.dodamdodam.dto.BaseResponseDto;
-import com.wohaha.dodamdodam.dto.request.ClassAttendanceRequestDto;
+import com.wohaha.dodamdodam.dto.request.AttendanceRequestDto;
 import com.wohaha.dodamdodam.dto.request.CreateNoticeRequestDto;
 import com.wohaha.dodamdodam.dto.request.CreateScheduleRequestDto;
 import com.wohaha.dodamdodam.dto.request.UpdateNoticeRequestDto;
-import com.wohaha.dodamdodam.dto.response.ClassNoticeResponseDto;
-import com.wohaha.dodamdodam.dto.response.ClassScheduleListResponseDto;
-import com.wohaha.dodamdodam.dto.response.ClassScheduleResponseDto;
-import com.wohaha.dodamdodam.dto.response.KidAttendanceListResponseDto;
+import com.wohaha.dodamdodam.dto.response.*;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.service.AttendanceService;
@@ -159,10 +156,10 @@ public class ClassController {
     }
 
     // 출석부
-    @GetMapping("/attendance")
-    public BaseResponseDto<List<KidAttendanceListResponseDto>> getKidAttendanceList(@RequestBody ClassAttendanceRequestDto classAttendanceRequestDto) {
+    @GetMapping("/attendance/list")
+    public BaseResponseDto<List<AttendanceListResponseDto>> getKidAttendanceList(@RequestBody AttendanceRequestDto classAttendanceRequestDto) {
         try {
-            return new BaseResponseDto<>(attendanceService.getKidAttendanceList(classAttendanceRequestDto));
+            return new BaseResponseDto<>(attendanceService.kidAttendanceList(classAttendanceRequestDto));
         }catch (Exception e) {
             e.printStackTrace();
             if (e instanceof BaseException) {
@@ -172,6 +169,34 @@ public class ClassController {
             }
         }
     }
+
+    @GetMapping("/attendance/{attendanceSeq}")
+    public BaseResponseDto<AttendanceDetailResponseDto> getKidAttendanceDetail(@PathVariable Long attendanceSeq) {
+        try {
+            return new BaseResponseDto<>(attendanceService.getKidAttendanceDetail(attendanceSeq));
+        }catch (Exception e) {
+            e.printStackTrace();
+            if (e instanceof BaseException) {
+                throw e;
+            } else {
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
+//    @GetMapping("/attendance/form")
+//    public BaseResponseDto<?> getKidAttendanceForm(@RequestBody AttendanceRequestDto kidAttendanceRequestDto) {
+//        try {
+//            return new BaseResponseDto<>(attendanceService.getKidAttendanceForm(kidAttendanceRequestDto));
+//        }catch (Exception e) {
+//            e.printStackTrace();
+//            if (e instanceof BaseException) {
+//                throw e;
+//            } else {
+//                throw new BaseException(BaseResponseStatus.FAIL);
+//            }
+//        }
+//    }
 
 
 }
