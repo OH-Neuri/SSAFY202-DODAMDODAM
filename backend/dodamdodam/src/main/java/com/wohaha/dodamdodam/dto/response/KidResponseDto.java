@@ -13,7 +13,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class KidListResponseDto {
+public class KidResponseDto {
 
     private Long kidSeq;
 

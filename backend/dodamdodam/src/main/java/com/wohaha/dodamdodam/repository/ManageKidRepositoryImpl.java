@@ -3,7 +3,7 @@ package com.wohaha.dodamdodam.repository;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.wohaha.dodamdodam.dto.request.UpdateKidRequestDto;
-import com.wohaha.dodamdodam.dto.response.KidListResponseDto;
+import com.wohaha.dodamdodam.dto.response.KidResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static com.wohaha.dodamdodam.domain.QKid.kid;
@@ -18,10 +18,10 @@ public class ManageKidRepositoryImpl implements ManageKidRepositoryCustom{
     private JPAQueryFactory query;
 
     @Override
-    public List<KidListResponseDto> kidList() {
+    public List<KidResponseDto> kidList() {
 
         return query
-                .select(Projections.fields(KidListResponseDto.class,
+                .select(Projections.fields(KidResponseDto.class,
                         kid.kidSeq, kid.name.as("kidName"),
                         kid.birth,
                         kid.photo, kid.gender, kid.classSeq,
@@ -31,6 +31,21 @@ public class ManageKidRepositoryImpl implements ManageKidRepositoryCustom{
                 .on(kid.classSeq.eq(classInfo.classSeq))
                 .fetch();
 
+    }
+
+    @Override
+    public KidResponseDto kidInfo(long kidSeq) {
+        return query
+                .select(Projections.fields(KidResponseDto.class,
+                        kid.kidSeq, kid.name.as("kidName"),
+                        kid.birth,
+                        kid.photo, kid.gender, kid.classSeq,
+                        classInfo.name.as("className")))
+                .from(kid)
+                .join(classInfo)
+                .on(kid.classSeq.eq(classInfo.classSeq))
+                .where(kid.kidSeq.eq(kidSeq))
+                .fetchOne();
     }
 
     @Override
