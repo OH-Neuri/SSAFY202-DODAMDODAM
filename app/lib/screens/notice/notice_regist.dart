@@ -2,27 +2,26 @@ import 'dart:io';
 import 'package:app/components/common/logout_app_bar.dart';
 import 'package:app/components/notice/add_image_icon.dart';
 import 'package:app/constants.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:app/screens/notice/notice_ai.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class NoticeRegist extends StatefulWidget {
-  const NoticeRegist({Key? key}) : super(key: key);
-
   @override
   State<NoticeRegist> createState() => _NoticeRegistState();
 }
 
 TextEditingController _controller = TextEditingController();
 bool isAnnouncement = false;
-List<String> images = ['images/bonggil.jpg', 'images/sleepingCat.png', 'images/logo.png'];
+List<String> images = [];
 
 final picker = ImagePicker();
 
 Future<void> uploadImage() async {
-  final pickedFile = await picker.getImage(source: ImageSource.gallery);
+  final pickedFile = await picker.pickImage(source: ImageSource.gallery);
   final file = File(pickedFile!.path);
+  print(file);
   // Firebase Storage에 파일 업로드
   // final storage = FirebaseStorage.instance;
   // print('여기까지222222!');
@@ -54,12 +53,37 @@ class _NoticeRegistState extends State<NoticeRegist> {
             flex: 12,
             child: Column(
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end ,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: ElevatedButton(
+                          onPressed: (){
+                            Navigator.push(context, MaterialPageRoute(
+                                builder: (context)=>NoticeAI()));
+                          },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: logoNavy,
+                              minimumSize: Size(100, 32),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(6)
+                              )
+                          ),
+                          child: Text('알림장 자동완성', style: TextStyle(
+                              fontWeight: FontWeight.w300,
+                              fontSize: 12
+                          ),)
+                      ),
+                    ),
+                  ],
+                ),
                 Expanded(child: Container(
-                  margin: EdgeInsets.fromLTRB(0, 40.0, 0, 20.0),
-                  padding: EdgeInsets.all(30.0),
+                  margin: EdgeInsets.fromLTRB(0, 6.0, 0, 20.0),
+                  padding: EdgeInsets.all(16.0),
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(20)
+                    borderRadius: BorderRadius.circular(10)
                   ),
                   child: Column(
                     children: [
@@ -87,37 +111,37 @@ class _NoticeRegistState extends State<NoticeRegist> {
                           ),
                           isAnnouncement ?
                           SizedBox(
-                            width: 160,
+                            width: 130,
                             child: OutlinedButton(onPressed: (){},
                               style: OutlinedButton.styleFrom(
                                 foregroundColor: textColor,
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-                                padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0)
+                                padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0)
                               ),
-                              child: Text('@전체 아동'),
+                              child: Text('@전체 아동', style: TextStyle(fontSize: 12),),
                             ),
                           )
                           :
                           SizedBox(
-                            width: 160,
+                            width: 130,
                             child: OutlinedButton(onPressed: (){Get.toNamed('notice/regist/kid', arguments: kidSeqs);},
                               style: OutlinedButton.styleFrom(
                                 foregroundColor: textColor,
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-                                padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0)
+                                padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0)
                               ),
-                              child: Text('원아 선택'),
+                              child: Text('원아 선택', style: TextStyle(fontSize: 12),),
                             ),
                           )
                         ],
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 16.0),
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
                         child: Divider(color: Color(0xffD5D5D5), height: 1, thickness: 1,),
                       ),
                       SizedBox(
                         width: double.infinity,
-                        height: 100,
+                        height: 90,
                         child: GridView(gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 4,
                           crossAxisSpacing: 5,
@@ -205,43 +229,11 @@ class _NoticeRegistState extends State<NoticeRegist> {
                                   hintText: '내용을 입력해주세요.',
                                   hintStyle: TextStyle(
                                     color: Colors.grey,
-                                    fontWeight: FontWeight.w200
+                                    fontWeight: FontWeight.w200,
                                   )
                                 ),
                               ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(0, 10, 10, 0),
-                                  child: ElevatedButton(onPressed: (){},
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: logoNavy,
-                                        minimumSize: Size(140, 40)
-                                      ),
-                                      child: Text('맞춤법 검사', style: TextStyle(
-                                        fontWeight: FontWeight.w300
-                                      ),)
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                                  child: ElevatedButton(
-                                      onPressed: (){
-                                        Get.toNamed('notice/regist/ai');
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: logoNavy,
-                                        minimumSize: Size(140, 40)
-                                      ),
-                                      child: Text('알림장 자동완성', style: TextStyle(
-                                        fontWeight: FontWeight.w300
-                                      ),)
-                                  ),
-                                ),
-                              ],
-                            )
                           ],
                         ),
                       )
@@ -249,7 +241,7 @@ class _NoticeRegistState extends State<NoticeRegist> {
                   ),
                 )),
                 Container(
-                  margin: const EdgeInsets.fromLTRB(0, 0, 0, 60),
+                  margin: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                   width: double.infinity,
                   child: Row(
                     children: [
@@ -257,7 +249,7 @@ class _NoticeRegistState extends State<NoticeRegist> {
                         child: Container(
                           padding: EdgeInsets.symmetric(horizontal: 10),
                           height: 50,
-                          child: ElevatedButton(onPressed: (){Get.back();},
+                          child: ElevatedButton(onPressed: (){Navigator.pop(context);},
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Color(0xffA2A2A2)
                               ),

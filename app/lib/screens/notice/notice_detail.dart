@@ -1,15 +1,31 @@
+import 'package:app/api/notice_service.dart';
 import 'package:app/components/common/logout_app_bar.dart';
 import 'package:app/constants.dart';
+import 'package:app/models/notice/notice_detail_model.dart';
+import 'package:app/screens/notice/notice_image_detail.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-class NoticeDetail extends StatelessWidget {
-  const NoticeDetail({Key? key}) : super(key: key);
+class NoticeDetailPage extends StatefulWidget {
+  const NoticeDetailPage({Key? key, required this.noticeSeq}) : super(key: key);
+  final int noticeSeq;
+  @override
+  State<NoticeDetailPage> createState() => _NoticeDetailPageState();
+}
 
+class _NoticeDetailPageState extends State<NoticeDetailPage> {
+  NoticeDetail _noticeDetail = NoticeDetail(noticeSeq: 0, date: '', content: '', announcement: true, photo: [], kid: []);
 
   @override
+  void initState() {
+    super.initState();
+    NoticeService.getNoticeDetail(widget.noticeSeq).then((value) =>
+      setState((){
+        _noticeDetail = value;
+      })
+    );
+  }
+  @override
   Widget build(BuildContext context) {
-  List<String> images = ['images/bonggil.jpg','images/bonggil.jpg'];
     return Scaffold(
       backgroundColor: lightNavy,
       appBar: LogoutAppBar(),
@@ -20,7 +36,7 @@ class NoticeDetail extends StatelessWidget {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 20, 2, 20),
+                    padding: const EdgeInsets.fromLTRB(0, 6, 2, 6),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -43,16 +59,18 @@ class NoticeDetail extends StatelessWidget {
                     width: double.infinity,
                     padding: EdgeInsets.all(24),
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20)
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20)
                     ),
                     child: Column(
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(DateTime.now().toString()),
-                            Text('@전체 원생', style: TextStyle(color: Colors.grey),)
+                            Text(_noticeDetail.date),
+                            _noticeDetail.announcement ?
+                              Text('전체 공지', style: TextStyle(fontWeight: FontWeight.w600),) :
+                              Text('@전체 원생', style: TextStyle(color: Colors.grey),)
                           ],
                         ),
                         Padding(
@@ -61,25 +79,27 @@ class NoticeDetail extends StatelessWidget {
                         ),
                         SizedBox(
                           width: double.infinity,
-                          height: 150,
+                          height: 120,
                           child: GridView(gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              crossAxisSpacing: 5,
-                            ),
+                            crossAxisCount: 3,
+                            crossAxisSpacing: 5,
+                          ),
                             children: [
-                              for(int i=0; i<images.length; i++)
-                                InkWell(
-                                  onTap: () {Get.toNamed('/notice/image/$i', arguments: images);},
-                                  child: Image.asset(images[i], fit: BoxFit.cover,)
-                                ),
-                              Image.network('https://dodamdodam.s3.ap-northeast-2.amazonaws.com/kidProfile/3d0aaa2f-f539-437f-bc02-50c391ef0fd6.jpg', fit: BoxFit.cover,),
+                              for(int i=0; i<_noticeDetail.photo.length; i++)
+                              InkWell(
+                                onTap: (){Navigator.push(context, MaterialPageRoute(
+                                    builder: (context)=> NoticeImageDetail(images: _noticeDetail.photo, index: i)
+                                  )
+                                );},
+                                child: Image.network(_noticeDetail.photo[i], fit: BoxFit.cover,)
+                              ),
                             ],
                           ),
                         ),
                         Container(
                           width: double.infinity,
                           padding: const EdgeInsets.fromLTRB(0, 14, 0, 0),
-                          child: Text('봉길이랑 봉길이랑 봉길이다!봉길이랑 봉길이랑 봉길이다!봉길이랑 봉길이랑 봉길이다!봉길이랑 봉길이랑 봉길이다!봉길이랑 봉길이랑 봉길이다!봉길이랑 봉길이랑 봉길이다!봉길이랑 봉길이랑 봉길이다!'),
+                          child: Text(_noticeDetail.content),
                         )
                       ],
                     ),
