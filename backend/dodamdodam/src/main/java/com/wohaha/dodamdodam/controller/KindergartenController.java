@@ -109,9 +109,22 @@ public class KindergartenController {
     }
 
     @GetMapping("/kid")
-    public BaseResponseDto<List<KidListResponseDto>> kidList(){
+    public BaseResponseDto<List<KidResponseDto>> kidList(){
         try{
             return new BaseResponseDto<>(manageKidService.kidList());
+        }catch (Exception e){
+            if(e instanceof BaseException){
+                throw  e;
+            }else{
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
+    @GetMapping("/kidInfo/{kidSeq}")
+    public BaseResponseDto<KidResponseDto> kidInfo(@PathVariable Long kidSeq){
+        try{
+            return new BaseResponseDto<>(manageKidService.kidInfo(kidSeq));
         }catch (Exception e){
             if(e instanceof BaseException){
                 throw  e;
