@@ -2,6 +2,7 @@ package com.wohaha.dodamdodam.service;
 
 import com.wohaha.dodamdodam.dto.request.AttendanceRequestDto;
 import com.wohaha.dodamdodam.dto.response.AttendanceDetailResponseDto;
+import com.wohaha.dodamdodam.dto.response.AttendanceFormResponseDto;
 import com.wohaha.dodamdodam.dto.response.AttendanceListResponseDto;
 import com.wohaha.dodamdodam.repository.AttendanceRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,12 +20,17 @@ public class AttendanceServiceImpl implements AttendanceService {
     private final AttendanceRepository attendanceRepository;
 
     @Override
-    public List<AttendanceListResponseDto> kidAttendanceList(AttendanceRequestDto classAttendanceRequestDto) {
+    public List<AttendanceListResponseDto> getAttendanceList(AttendanceRequestDto classAttendanceRequestDto) {
         return attendanceRepository.getAttendanceList(classAttendanceRequestDto.getSeq(), classAttendanceRequestDto.getDay());
     }
 
     @Override
-    public AttendanceDetailResponseDto getKidAttendanceDetail(Long attendanceSeq) {
+    public AttendanceDetailResponseDto getAttendanceDetail(Long attendanceSeq) {
         return attendanceRepository.getAttendanceDetail(attendanceSeq);
+    }
+
+    @Override
+    public AttendanceFormResponseDto getAttendanceForm(AttendanceRequestDto kidAttendanceRequestDto) {
+        return attendanceRepository.getAttendanceForm(kidAttendanceRequestDto.getSeq(), kidAttendanceRequestDto.getDay());
     }
 }

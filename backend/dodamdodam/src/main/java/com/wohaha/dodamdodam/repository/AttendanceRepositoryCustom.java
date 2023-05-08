@@ -1,6 +1,7 @@
 package com.wohaha.dodamdodam.repository;
 
 import com.wohaha.dodamdodam.dto.response.AttendanceDetailResponseDto;
+import com.wohaha.dodamdodam.dto.response.AttendanceFormResponseDto;
 import com.wohaha.dodamdodam.dto.response.AttendanceListResponseDto;
 
 import java.time.LocalDate;
@@ -10,4 +11,6 @@ public interface AttendanceRepositoryCustom {
     List<AttendanceListResponseDto> getAttendanceList(Long classSeq, LocalDate day);
 
     AttendanceDetailResponseDto getAttendanceDetail(Long attendanceSeq);
+
+    AttendanceFormResponseDto getAttendanceForm(Long kidSeq, LocalDate day);
 }
