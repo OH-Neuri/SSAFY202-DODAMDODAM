@@ -4,6 +4,7 @@ import com.wohaha.dodamdodam.domain.Notice;
 import com.wohaha.dodamdodam.domain.NoticeKid;
 import com.wohaha.dodamdodam.domain.NoticePhoto;
 import com.wohaha.dodamdodam.dto.request.CreateNoticeRequestDto;
+import com.wohaha.dodamdodam.dto.request.UpdateKidRequestDto;
 import com.wohaha.dodamdodam.dto.request.UpdateNoticeRequestDto;
 import com.wohaha.dodamdodam.dto.response.ClassNoticeResponseDto;
 import com.wohaha.dodamdodam.repository.NoticeKidRepository;
@@ -15,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.wohaha.dodamdodam.domain.QKid.kid;
 
 @Service
 @Transactional
@@ -94,19 +97,34 @@ public class NoticeServiceImpl implements NoticeService{
     }
 
     @Override
-    public boolean updateNotice(Long classSeq, UpdateNoticeRequestDto updateNoticeRequestDto) {
+    public boolean updateNotice(Long noticeSeq, UpdateNoticeRequestDto updateNoticeRequestDto) {
         //기존 알림장 사진 삭제
-        noticeRepository.deleteNoticePhoto(updateNoticeRequestDto.getNoticeSeq());
+        noticeRepository.deleteNoticePhoto(noticeSeq);
 
         //알림장에 사진 넣기
         for(String photo : updateNoticeRequestDto.getPhoto()){
             NoticePhoto noticePhoto = NoticePhoto.builder()
-                    .noticeSeq(updateNoticeRequestDto.getNoticeSeq())
+                    .noticeSeq(noticeSeq)
                     .photo(photo)
                     .build();
             noticePhotoRepository.save(noticePhoto);
         }
 
+        //알림장 내용 변경
+        noticeRepository.updateNoticeContent(updateNoticeRequestDto.getContent(), noticeSeq);
+
+
+        return true;
+    }
+
+    @Override
+    public boolean deleteNotice(Long noticeSeq) {
+        //기존 알림장 사진 삭제
+        noticeRepository.deleteNoticePhoto(noticeSeq);
+        //기존 아이 삭제
+        noticeRepository.deleteNoticeKid(noticeSeq);
+        //알림장 삭제
+        noticeRepository.deleteNotice(noticeSeq);
         return true;
     }
 

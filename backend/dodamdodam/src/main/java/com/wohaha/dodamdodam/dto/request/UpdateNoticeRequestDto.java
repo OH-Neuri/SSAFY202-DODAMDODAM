@@ -15,5 +15,5 @@ public class UpdateNoticeRequestDto {
 
     private String content;
 
-    private Long noticeSeq;
+
 }

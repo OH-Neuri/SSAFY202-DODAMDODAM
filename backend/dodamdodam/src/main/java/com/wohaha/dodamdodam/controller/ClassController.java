@@ -128,11 +128,24 @@ public class ClassController {
         }
     }
 
-    @PutMapping("/notice/{classSeq}")
-    public BaseResponseDto<?> updateNotice(@PathVariable Long classSeq, @RequestBody UpdateNoticeRequestDto updateNoticeRequestDto){
+    @PutMapping("/notice/{noticeSeq}")
+    public BaseResponseDto<?> updateNotice(@PathVariable Long noticeSeq, @RequestBody UpdateNoticeRequestDto updateNoticeRequestDto){
         try{
 
-            return new BaseResponseDto<>(noticeService.updateNotice(classSeq, updateNoticeRequestDto));
+            return new BaseResponseDto<>(noticeService.updateNotice(noticeSeq, updateNoticeRequestDto));
+        }catch (Exception e){
+            if(e instanceof BaseException){
+                throw e;
+            }else{
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
+    @DeleteMapping("/notice/{noticeSeq}")
+    public BaseResponseDto<?> deleteNotice(@PathVariable Long noticeSeq){
+        try{
+            return  new BaseResponseDto<>(noticeService.deleteNotice(noticeSeq));
         }catch (Exception e){
             if(e instanceof BaseException){
                 throw e;

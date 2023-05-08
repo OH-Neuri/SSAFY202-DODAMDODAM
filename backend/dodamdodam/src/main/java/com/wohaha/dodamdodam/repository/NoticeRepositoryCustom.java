@@ -16,4 +16,10 @@ public interface NoticeRepositoryCustom {
     ClassNoticeResponseDto oneNoticeInfo(long noticeSeq);
     //알림장 사진 삭제
     void deleteNoticePhoto(long noticeSeq);
+    //알림장 내용 변경
+    void updateNoticeContent(String content, Long noticeSeq);
+    //알림장 아이 삭제
+    void deleteNoticeKid(long noticeSeq);
+    //알림장 내용 삭제
+    void deleteNotice(long noticeSeq);
 }
