@@ -46,7 +46,7 @@ export default function StudentRegisterModal(props: {
     const { isLoading, isError, error, refetch, data } = useQuery(
       "getStudent",
       async () => {
-        const queryKey = `https://dodamdodam.site/api/dodam/kindergarten/kid`;
+        const queryKey = `https://dodamdodam.site/api/dodam/kindergarten/${kidSeq}`;
         const response = await axios.get(queryKey);
         return response.data.result;
       },
