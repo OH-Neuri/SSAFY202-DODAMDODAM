@@ -72,6 +72,7 @@ flutter:
     - assets/images/
     - assets/images/signup/
     - assets/images/notice/
+    - assets/images/common/
 
   fonts:
     - family: Pretendard

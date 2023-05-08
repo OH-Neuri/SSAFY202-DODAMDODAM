@@ -44,13 +44,14 @@ class _TodayFoodState extends State<TodayFood> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text("${widget.month}/${widget.day} ${widget.week} ", style: TextStyle(fontSize: buttonTextSize, fontWeight: FontWeight.w600)),
-              Image(image: AssetImage('/images/common/diet_icon.png'), height: 30)
+              Image.asset('assets/images/common/diet_icon.png', height: 30, width: 30,)
             ],
           ),
         ),
         // 급식 내용 박스
         Container(
             height: 250, width: double.infinity,
+            margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(20)),
               color: lightNavy,
