@@ -12,17 +12,18 @@ import {
 import React from "react";
 import { useState, useEffect } from "react";
 import { student } from "@/types/DataTypes";
-import DatePicker from 'react-datepicker';
+import DatePicker from "react-datepicker";
 import FormControl from "@mui/material/FormControl";
+import axios from "axios";
+import { useQuery } from "react-query";
 
 export default function StudentRegisterModal(props: {
-  student: student;
+  // student: student;
+  idx: number;
   open: boolean;
   handleOpen: any;
   handleClose: any;
 }) {
-  
-
   const { open, handleClose } = props;
   const [age, setAge] = React.useState(3);
   const [group, setGroup] = React.useState("");
@@ -41,13 +42,35 @@ export default function StudentRegisterModal(props: {
     setGender(event.target.value);
   };
 
+  const StudentList = () => {
+    const { isLoading, isError, error, refetch, data } = useQuery(
+      "getStudent",
+      async () => {
+        const queryKey = `https://dodamdodam.site/api/dodam/kindergarten/kid`;
+        const response = await axios.get(queryKey);
+        return response.data.result;
+      },
+      {
+        retry: 0,
+        staleTime: 1000 * 60 * 5,
+        cacheTime: 1000 * 60 * 5,
+      }
+    );
+    if (isLoading) {
+      return <h1>Loading.......</h1>;
+    }
+    if (isError) {
+      return <h1>에러발생</h1>;
+    }
+    return <></>;
+  };
+
   useEffect(() => {
-    setName(props.student.name);
-    setImageSrc(props.student.image);
-    setGroup(props.student.class);
+    setName(props.student.kidName);
+    setImageSrc(props.student.photo);
+    setGroup(props.student.className);
     setGender(props.student.gender);
   }, [props]);
-
 
   // 모달 스타일
   const style = {
@@ -68,7 +91,6 @@ export default function StudentRegisterModal(props: {
     const reader = new FileReader();
     reader.readAsDataURL(file);
 
-
     return new Promise<void>((resolve) => {
       reader.onload = () => {
         setImageSrc(reader.result || null); // 파일의 컨텐츠
@@ -76,7 +98,6 @@ export default function StudentRegisterModal(props: {
       };
     });
   };
-
 
   return (
     <div>
@@ -130,8 +151,8 @@ export default function StudentRegisterModal(props: {
             </div>
             <div className="pt-[20px] w-[340px]">
               <div className="flex">
-              {/* 원생 나이 */}
-                <div >
+                {/* 원생 나이 */}
+                <div>
                   <div className="ml-[5px]">생년월일</div>
                   <div className="ml-[5px] mt-[3px]  w-[150px] h-[60px]">
                     <DatePicker
@@ -205,6 +226,5 @@ export default function StudentRegisterModal(props: {
         </Box>
       </Modal>
     </div>
-  
   );
 }
