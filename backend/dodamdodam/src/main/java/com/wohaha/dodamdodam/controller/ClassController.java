@@ -165,8 +165,11 @@ public class ClassController {
     public BaseResponseDto<Boolean> createAttendance(@ModelAttribute CreateAttendanceRequestDto createAttendanceRequestDto) {
         try {
             createAttendanceRequestDto.toString();
+            String uploadUrl = null;
             //이미지 s3 업로드 후 링크 가져오기
-            String uploadUrl = s3UploadService.upload(createAttendanceRequestDto.getSign(),"attendanceSign");
+            if(!createAttendanceRequestDto.getSign().isEmpty()) {
+                uploadUrl = s3UploadService.upload(createAttendanceRequestDto.getSign(), "attendanceSign");
+            }
             return new BaseResponseDto<>(attendanceService.createAttendance(createAttendanceRequestDto, uploadUrl));
         }catch (Exception e) {
             e.printStackTrace();
