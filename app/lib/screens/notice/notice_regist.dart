@@ -1,14 +1,24 @@
 import 'dart:io';
+import 'package:app/api/notice_service.dart';
 import 'package:app/api/url_mapping.dart';
 import 'package:app/components/common/logout_app_bar.dart';
 import 'package:app/components/notice/add_image_icon.dart';
 import 'package:app/constants.dart';
+import 'package:app/controller/deviceInfo_controller.dart';
 import 'package:app/screens/notice/notice_ai.dart';
 import 'package:app/screens/notice/notice_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
+
+class Kid {
+  final int kidSeq;
+  final String name;
+  final String photo;
+
+  Kid(this.kidSeq, this.name, this.photo);
+}
 
 class NoticeRegist extends StatefulWidget {
   @override
@@ -17,27 +27,22 @@ class NoticeRegist extends StatefulWidget {
 
 TextEditingController _controller = TextEditingController();
 bool isAnnouncement = false;
-
-final picker = ImagePicker();
+String content = '';
 List<File> _images = [];
 List<int> kidSeqs = [];
-
-Future<void> registNotice() async {
-
-  try {
-    String URL = '${url}class/notice';
-    var req = http.MultipartRequest('POST', Uri.parse(URL));
-    final res = await http.post(Uri.parse(URL));
-  } catch (e) {
-    print(e);
-  }
-}
+List<Kid> kids = [];
 
 class _NoticeRegistState extends State<NoticeRegist> {
-  Future<void> uploadImage() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+  @override
+  void initState() {
+    super.initState();
     setState(() {
-      _images.add(File(pickedFile!.path));
+      print('실행됨');
+      kidSeqs.add(2);
+      kids.add(Kid(1, '김나현', 'aseets/images/bonggil.jpg'));
+      kids.add(Kid(2, '이연희', 'aseets/images/sleepingCat.png'));
+      kids.add(Kid(3, '오하늘', 'aseets/images/bonggil.jpg'));
     });
   }
 
@@ -129,7 +134,7 @@ class _NoticeRegistState extends State<NoticeRegist> {
                             :
                             SizedBox(
                               width: 130,
-                              child: OutlinedButton(onPressed: (){Get.toNamed('notice/regist/kid', arguments: kidSeqs);},
+                              child: OutlinedButton(onPressed: (){_openDialog(context, kids);},
                                 style: OutlinedButton.styleFrom(
                                   foregroundColor: textColor,
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
@@ -217,6 +222,11 @@ class _NoticeRegistState extends State<NoticeRegist> {
                             children: [
                               Expanded(
                                 child: TextField(
+                                  onChanged: (value){
+                                    setState(() {
+                                      content = value;
+                                    });
+                                  },
                                   style: TextStyle(
                                     fontSize: 12.0
                                   ),
@@ -272,7 +282,12 @@ class _NoticeRegistState extends State<NoticeRegist> {
                             padding: EdgeInsets.only(left: 4),
                             height: 40,
                             child: ElevatedButton(
-                                onPressed: (){},
+                                onPressed: (){
+                                  NoticeService.registNotice(1, isAnnouncement, content, kidSeqs, _images);
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder:
+                                      (context) => NoticeList()
+                                  ));
+                                  },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: darkNavy
                                 ),
@@ -290,6 +305,122 @@ class _NoticeRegistState extends State<NoticeRegist> {
           Expanded(child: SizedBox()),
         ],
       ),
+    );
+  }
+
+  // 이미지 업로드
+  Future<void> uploadImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      _images.add(File(pickedFile!.path));
+    });
+  }
+
+  // 원아 선택 페이지
+  void _openDialog(BuildContext context, List<Kid> kids) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: SizedBox(
+                width: 600,
+                height: 400,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 16.0),
+                      child: Text('원아 선택', style: TextStyle(
+                          fontSize: titleTextSize,
+                          fontWeight: FontWeight.w700
+                      ),),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 30),
+                      child: TextButton(
+                        onPressed: (){
+                          setState(() {
+                            if(kidSeqs.length == kids.length) {
+                              kidSeqs = [];
+                            }else {
+                              List<int> newList = kids.map((kid) {return kid.kidSeq;}).toList();
+                              kidSeqs = newList;
+                            }
+                          });
+                        },
+                        style: ButtonStyle(
+                            overlayColor: MaterialStateProperty.all(Colors.white),
+                            backgroundColor: MaterialStateProperty.all(Colors.white),
+                            foregroundColor: MaterialStateProperty.all(textColor)
+                        ),
+                        child: Row(
+                          children: [
+                            Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child:
+                                kidSeqs.length == kids.length ?
+                                Icon(Icons.check_box)
+                                    :
+                                Icon(Icons.check_box_outline_blank)
+                            ),
+                            Text('전체 선택')
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10, bottom: 20),
+                      child: Divider(color: Colors.grey, height: 1, thickness: 1,),
+                    ),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            for(Kid kid in kids)
+                              InkWell(
+                                onTap: (){
+                                  setState(() {
+                                    if(kidSeqs.contains(kid.kidSeq)){
+                                      kidSeqs.remove(kid.kidSeq);
+                                    }else{
+                                      kidSeqs.add(kid.kidSeq);
+                                    }
+                                  });
+                                },
+                                child: Container(
+                                  height: 70,
+                                  padding: EdgeInsets.fromLTRB(40, 10, 50, 10),
+                                  decoration: BoxDecoration(
+                                      color: kidSeqs.contains(kid.kidSeq) ? Color(0x40D5D5D5) : null
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      SizedBox(
+                                        width: 50,
+                                        height: 50,
+                                        child: CircleAvatar(
+                                            radius: 200,
+                                            backgroundImage: AssetImage(kid.photo)
+                                        ),
+                                      ),
+                                      Text(kid.name, style: TextStyle(
+                                          fontSize: contentTextSize,
+                                          fontWeight: FontWeight.w400
+                                      ),)
+                                    ],
+                                  ),
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                )
+            ),
+          );
+        }
     );
   }
 }
