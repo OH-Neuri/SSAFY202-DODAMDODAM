@@ -1,5 +1,7 @@
 package com.wohaha.dodamdodam.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +13,8 @@ import java.sql.Timestamp;
 @Table(name = "tbl_attendance")
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Attendance {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

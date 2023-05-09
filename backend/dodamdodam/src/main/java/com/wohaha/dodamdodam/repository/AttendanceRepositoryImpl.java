@@ -7,10 +7,13 @@ import com.wohaha.dodamdodam.dto.response.AttendanceFormResponseDto;
 import com.wohaha.dodamdodam.dto.response.AttendanceListResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.swing.text.html.Option;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 import static com.querydsl.core.types.ExpressionUtils.anyOf;
 import static com.querydsl.sql.SQLExpressions.date;
@@ -36,21 +39,21 @@ public class AttendanceRepositoryImpl implements AttendanceRepositoryCustom {
     }
 
     @Override
-    public AttendanceDetailResponseDto getAttendanceDetail(Long attendanceSeq) {
-        return query.select(Projections.constructor(AttendanceDetailResponseDto.class,
+    public Optional<AttendanceDetailResponseDto> getAttendanceDetail(Long attendanceSeq) {
+        return Optional.ofNullable(query.select(Projections.constructor(AttendanceDetailResponseDto.class,
                 kid.name, kid.photo, attendance.createdAt, attendance.forthTime, attendance.backTime,
                 attendance.forthTimeCheck, attendance.backTimeCheck, attendance.parentName, attendance.phoneNumber, attendance.tempParentName, attendance.tempPhoneNumber))
                 .from(attendance)
                 .join(kid).on(attendance.kidSeq.eq(kid.kidSeq))
                 .where(attendance.attendanceSeq.eq(attendanceSeq))
-                .fetchOne();
+                .fetchOne());
     }
 
     @Override
-    public AttendanceFormResponseDto getAttendanceForm(Long kidSeq, LocalDate day) {
+    public Optional<AttendanceFormResponseDto> getAttendanceForm(Long kidSeq, LocalDate day) {
         Timestamp startOfDay = Timestamp.valueOf(day.atStartOfDay());
         Timestamp endOfDay = Timestamp.valueOf(day.atTime(LocalTime.MAX));
-        return query
+        return Optional.ofNullable(query
                 .select(Projections.constructor(AttendanceFormResponseDto.class,
                         kid.name, kid.photo, attendance.forthTime, attendance.backTime, attendance.backWay,
                         attendance.parentName, attendance.phoneNumber, attendance.tempParentName, attendance.tempPhoneNumber))
@@ -58,7 +61,18 @@ public class AttendanceRepositoryImpl implements AttendanceRepositoryCustom {
                 .leftJoin(kid).on(kid.kidSeq.eq(attendance.kidSeq))
                 .where(kid.kidSeq.eq(kidSeq),
                         anyOf(attendance.createdAt.between(startOfDay, endOfDay), attendance.isNull()))
-                .fetchOne();
+                .fetchOne());
     }
+
+    @Override
+    public Long updateAttendanceForm(Long attendanceSeq, Time forthTimeCheck, Time backTimeCheck) {
+        return query
+                .update(attendance)
+                .set(attendance.forthTimeCheck, forthTimeCheck)
+                .set(attendance.backTimeCheck, backTimeCheck)
+                .where(attendance.attendanceSeq.eq(attendanceSeq))
+                .execute();
+    }
+
 
 }
