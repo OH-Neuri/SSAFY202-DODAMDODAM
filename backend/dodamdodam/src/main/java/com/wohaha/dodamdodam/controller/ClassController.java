@@ -96,7 +96,6 @@ public class ClassController {
             //db 저장
             Long noticeSeq = noticeService.createNotice(createNoticeRequestDto);
             boolean result = noticeService.createNoticeKidAndPhoto(noticeSeq,createNoticeRequestDto.getKid(),uploadUrl);
-
             return new BaseResponseDto(result);
         }catch (Exception e){
             if(e instanceof BaseException){
