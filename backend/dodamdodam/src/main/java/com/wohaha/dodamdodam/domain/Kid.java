@@ -28,7 +28,7 @@ public class Kid {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "photo", nullable = false)
+    @Column(name = "photo")
     private String photo;
 
     @Column(name = "birth", nullable = false)
