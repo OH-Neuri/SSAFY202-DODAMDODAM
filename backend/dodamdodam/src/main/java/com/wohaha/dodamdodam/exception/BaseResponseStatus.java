@@ -64,7 +64,10 @@ public enum BaseResponseStatus {
   UNREGISTERED_USER(HttpStatus.INTERNAL_SERVER_ERROR, 4050, "존재하지 않는 유저입니다."),
 
   //Kid 관련
-  UNREGISTERED_KID(HttpStatus.INTERNAL_SERVER_ERROR, 4060, "존재하지 않는 아이입니다.");
+  UNREGISTERED_KID(HttpStatus.INTERNAL_SERVER_ERROR, 4060, "존재하지 않는 아이입니다."),
+
+  //Medicine 관련
+  UNREGISTERED_MEDICINE(HttpStatus.INTERNAL_SERVER_ERROR, 4070, "존재하지 않는 투약의뢰서입니다.");
 
 //  UNAUTHORIZED_USER(HttpStatus.INTERNAL_SERVER_ERROR, 4051, "권한이 없는 유저입니다.");
 //
