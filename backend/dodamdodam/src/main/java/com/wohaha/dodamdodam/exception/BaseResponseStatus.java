@@ -22,6 +22,10 @@ public enum BaseResponseStatus {
   // 식단 관리
   FOOD_NULL_FAIl(HttpStatus.INTERNAL_SERVER_ERROR, 1993, "해당 날의 식단이 없습니다."),
 
+  // 출석 관리
+  ATTENDANCE_NULL_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 1980, "해당 시퀀스의 등하원 정보가 없습니다."),
+  ATTENDANCE_FORM_NULL_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 1981, "해당 날짜의 등하원 정보가 없습니다."),
+
   //인증관련 에러
   SIGNUP_REQUIRED(HttpStatus.OK, 4001, "회원가입이 필요한 유저입니다."),
   OAUTH_UNKOWN_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 4002, "OAuth2 인증 과정에서 에러가 발생했습니다."),
