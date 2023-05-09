@@ -10,7 +10,6 @@ import 'package:app/models/notice/notice_list_model.dart';
 
 class NoticeList extends StatefulWidget {
   const NoticeList({Key? key}) : super(key: key);
-
   @override
   State<NoticeList> createState() => _NoticeListState();
 }
@@ -21,11 +20,7 @@ class _NoticeListState extends State<NoticeList> {
   @override
   void initState() {
     super.initState();
-    NoticeService.getNoticeList().then((value) => {
-      setState((){
-        _noticeList = value;
-      })
-    });
+    getNoticeListInfo();
   }
 
   @override
@@ -66,17 +61,27 @@ class _NoticeListState extends State<NoticeList> {
                                 NoticeItemAnnouncement(
                                   date: item.date,
                                   content: item.content,
-                                  onPressed: (){ Navigator.push(context, MaterialPageRoute(builder:
-                                  (context) => NoticeDetailPage(noticeSeq : item.noticeSeq)
-                                  ));},
+                                  onPressed: () async {
+                                    final res = await Navigator.push(context, MaterialPageRoute(builder:
+                                        (context) => NoticeDetailPage(noticeSeq : item.noticeSeq)
+                                    ));
+                                    if(res) {
+                                      getNoticeListInfo();
+                                    }
+                                  },
                                 ):
                                 NoticeItem(
                                   date: item.date,
                                   kids: item.kid,
                                   content: item.content,
-                                  onPressed: (){ Navigator.push(context, MaterialPageRoute(builder:
-                                      (context) => NoticeDetailPage(noticeSeq : item.noticeSeq)
-                                  ));},
+                                  onPressed: () async {
+                                    final res = await Navigator.push(context, MaterialPageRoute(builder:
+                                        (context) => NoticeDetailPage(noticeSeq : item.noticeSeq)
+                                    ));
+                                    if(res) {
+                                      getNoticeListInfo();
+                                    }
+                                  },
                                 ),
                             ],
                           )
@@ -91,8 +96,13 @@ class _NoticeListState extends State<NoticeList> {
                 bottom: 20,
                 right: 30,
                 child: ElevatedButton(
-                  onPressed: (){Navigator.push(context, 
-                      MaterialPageRoute(builder: (context)=>NoticeRegist()));},
+                  onPressed: () async {
+                    final res = await Navigator.push(context,
+                        MaterialPageRoute(builder: (context)=>NoticeRegist()));
+                    if(res) {
+                      getNoticeListInfo();
+                    }
+                  },
                   style: ElevatedButton.styleFrom(
                       minimumSize: Size(80, 80),
                       backgroundColor: logoNavy,
@@ -109,4 +119,14 @@ class _NoticeListState extends State<NoticeList> {
       ),
     );
   }
+
+  void getNoticeListInfo() {
+    NoticeService.getNoticeList().then((value) {
+      setState((){
+        _noticeList.clear();
+        _noticeList.addAll(value);
+      });
+    });
+  }
+
 }

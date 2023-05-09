@@ -1,16 +1,11 @@
 import 'dart:io';
 import 'package:app/api/notice_service.dart';
-import 'package:app/api/url_mapping.dart';
 import 'package:app/components/common/logout_app_bar.dart';
 import 'package:app/components/notice/add_image_icon.dart';
 import 'package:app/constants.dart';
-import 'package:app/controller/deviceInfo_controller.dart';
 import 'package:app/screens/notice/notice_ai.dart';
-import 'package:app/screens/notice/notice_list.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:http/http.dart' as http;
 
 class Kid {
   final int kidSeq;
@@ -267,9 +262,7 @@ class _NoticeRegistState extends State<NoticeRegist> {
                           child: Container(
                             padding: EdgeInsets.only(right: 4),
                             height: 40,
-                            child: ElevatedButton(onPressed: (){Navigator.pushReplacement(context, MaterialPageRoute(builder:
-                                (context)=>NoticeList()
-                            ));},
+                            child: ElevatedButton(onPressed: (){Navigator.pop(context, false); },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Color(0xffA2A2A2)
                                 ),
@@ -284,9 +277,7 @@ class _NoticeRegistState extends State<NoticeRegist> {
                             child: ElevatedButton(
                                 onPressed: (){
                                   NoticeService.registNotice(1, isAnnouncement, content, kidSeqs, _images);
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder:
-                                      (context) => NoticeList()
-                                  ));
+                                  Navigator.pop(context, true);
                                   },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: darkNavy
