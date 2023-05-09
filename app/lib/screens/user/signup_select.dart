@@ -1,7 +1,9 @@
+import 'package:app/components/common/CustomSnackBar.dart';
 import 'package:app/components/common/custom_button.dart';
-import 'package:app/components/common/logout_app_bar.dart';
+import 'package:app/components/user/signup_step.dart';
 import 'package:app/constants.dart';
 import 'package:app/models/user/signup_user.dart';
+import 'package:app/screens/user/signup_number.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,13 +15,12 @@ class SignupSelect extends StatefulWidget {
 }
 
 int idx = -1;
-SignupUser user = SignupUser(id: '', pw: '', phone_number: '', name: '', is_teacher: false);
+SignupUserModel user = SignupUserModel(id: '', password: '', phone: '', name: '', role: 0);
 
 class _SignupSelectState extends State<SignupSelect> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: LogoutAppBar(),
       body: Row(
         children: [
           Expanded(child: SizedBox()),
@@ -28,8 +29,9 @@ class _SignupSelectState extends State<SignupSelect> {
               Expanded(
                 child: Column(
                   children: [
+                    SignupStep(step: 0,),
                     Container(
-                      margin : EdgeInsets.fromLTRB(0, 60, 0, 50),
+                      margin : EdgeInsets.only(bottom: 60),
                       child: Text('하나를 선택해주세요.', style: TextStyle(
                           fontSize: titleTextSize,
                           fontWeight: FontWeight.w700
@@ -45,7 +47,7 @@ class _SignupSelectState extends State<SignupSelect> {
                               ElevatedButton(onPressed: (){
                                 setState(() {
                                   idx = 1;
-                                  user.is_teacher = true;
+                                  user.role = 2;
                                 });
                               },
                                 style: ElevatedButton.styleFrom(
@@ -70,7 +72,7 @@ class _SignupSelectState extends State<SignupSelect> {
                               ElevatedButton(onPressed: (){
                                 setState(() {
                                   idx = 2;
-                                  user.is_teacher = false;
+                                  user.role = 3;
                                 });
                               },
                                 style: ElevatedButton.styleFrom(
@@ -97,10 +99,10 @@ class _SignupSelectState extends State<SignupSelect> {
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
                 child: CustomButton(text: '다음', height: 70, onPressed: (){
                   if(idx == -1){
-                    print('입력해야지');
+                    CustomSnackBar.errorSnackbar(context, '하나를 선택해주세요.');
                     return;
                   }
-                  Get.toNamed('/signup/number', arguments: user);
+                  Get.to(SignupNumber(), arguments: user);
                 },),
               ),
             ],

@@ -13,7 +13,7 @@ class SignupId extends StatefulWidget {
   State<SignupId> createState() => _SignupIdState();
 }
 
-SignupUser user = Get.arguments;
+SignupUserModel user = Get.arguments;
 Text none = Text('영문 또는 영문,숫자 조합 6~12 자리', style: TextStyle(color: Color(0xff797979)),);
 Text invalid = Text('영문 또는 영문,숫자 조합 6~12 자리를 입력해주세요.', style: TextStyle(color: Colors.red),);
 Text duplication = Text('${user.id}는 사용할 수 없는 아이디입니다.', style: TextStyle(color: Colors.red),);

@@ -28,10 +28,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Do-damDo-dam',
+      debugShowCheckedModeBanner: false,
       initialBinding: BindingsBuilder(() {
         Get.put(RootController());
       }),
-      home: Root(),
+      home: SignupSelect(),
 
       // bottom Navi를 유지하지 않을 때는 , GetPage를 사용해서 이동.
       // 로그인 하기 전일 때 처리하면 될듯.

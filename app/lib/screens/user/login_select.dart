@@ -29,9 +29,9 @@ class LoginSelect extends StatelessWidget {
                         children: [
                           Container(
                               padding: EdgeInsets.symmetric(vertical: 16),
-                              child: RoundButton(text: '학부모로 로그인하기', color: darkYellow,)
+                              child: RoundButton(text: '학부모로 로그인하기', color: darkYellow, onPressed: (){Get.to(LoginTeacher());})
                           ),
-                          RoundButton(text: '교사로 로그인하기', color: darkNavy,)
+                          RoundButton(text: '교사로 로그인하기', color: darkNavy, onPressed: (){Get.to(LoginTeacher());},)
                         ],
                       ),
                     )
@@ -50,12 +50,13 @@ class RoundButton extends StatelessWidget {
 
   final String text;
   final Color color;
+  final Function() onPressed;
 
-  const RoundButton({required this.text, required this.color});
+  const RoundButton({required this.text, required this.color, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(onPressed: (){Get.toNamed('/login/teacher');},
+    return ElevatedButton(onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           textStyle: TextStyle(
             color: Colors.white,
