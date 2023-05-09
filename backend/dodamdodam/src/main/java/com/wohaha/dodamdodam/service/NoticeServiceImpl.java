@@ -6,6 +6,7 @@ import com.wohaha.dodamdodam.domain.NoticePhoto;
 import com.wohaha.dodamdodam.dto.request.CreateNoticeRequestDto;
 import com.wohaha.dodamdodam.dto.request.UpdateKidRequestDto;
 import com.wohaha.dodamdodam.dto.request.UpdateNoticeRequestDto;
+import com.wohaha.dodamdodam.dto.response.ClassKidListResponseDto;
 import com.wohaha.dodamdodam.dto.response.ClassNoticeResponseDto;
 import com.wohaha.dodamdodam.repository.NoticeKidRepository;
 import com.wohaha.dodamdodam.repository.NoticePhotoRepository;
@@ -70,6 +71,12 @@ public class NoticeServiceImpl implements NoticeService{
 
         return true;
     }
+
+    @Override
+    public List<ClassKidListResponseDto> getKidList(Long classSeq) {
+        return noticeRepository.getKidList(classSeq);
+    }
+
 
     @Override
     public List<ClassNoticeResponseDto> noticeList(long classSeq) {

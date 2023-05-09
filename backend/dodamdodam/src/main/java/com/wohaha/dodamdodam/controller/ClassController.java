@@ -80,6 +80,7 @@ public class ClassController {
 
     }
 
+    // 알림장 관리
     @PostMapping("/notice")
     public BaseResponseDto<?> createNotice(@ModelAttribute CreateNoticeRequestDto createNoticeRequestDto){
         try{
@@ -99,6 +100,20 @@ public class ClassController {
         }
 
     }
+
+    @GetMapping("/notice/kid/{classSeq}")
+    public BaseResponseDto<List<ClassKidListResponseDto>> getKidList(@PathVariable Long classSeq) {
+        try{
+            return  new BaseResponseDto<>(noticeService.getKidList(classSeq));
+        }catch (Exception e){
+            if(e instanceof BaseException){
+                throw e;
+            }else{
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
     @GetMapping("/notice/{classSeq}")
     public BaseResponseDto<List<ClassNoticeResponseDto>> noticeList(@PathVariable Long classSeq){
         try{

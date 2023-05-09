@@ -2,17 +2,31 @@ package com.wohaha.dodamdodam.repository;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.wohaha.dodamdodam.dto.response.ClassKidListResponseDto;
 import com.wohaha.dodamdodam.dto.response.ClassNoticeResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.server.header.ClearSiteDataServerHttpHeadersWriter;
+
 import static com.wohaha.dodamdodam.domain.QNotice.notice;
 import static com.wohaha.dodamdodam.domain.QNoticePhoto.noticePhoto;
 import static com.wohaha.dodamdodam.domain.QKid.kid;
 import static com.wohaha.dodamdodam.domain.QNoticeKid.noticeKid;
+
 import java.util.List;
 
-public class NoticeRepositoryImpl implements NoticeRepositoryCustom{
+public class NoticeRepositoryImpl implements NoticeRepositoryCustom {
     @Autowired
     private JPAQueryFactory query;
+
+    @Override
+    public List<ClassKidListResponseDto> getKidList(Long classSeq) {
+        return query
+                .select(Projections.constructor(ClassKidListResponseDto.class,
+                        kid.kidSeq, kid.name, kid.photo))
+                .from(kid)
+                .where(kid.classSeq.eq(classSeq))
+                .fetch();
+    }
 
     @Override
     public List<ClassNoticeResponseDto> noticeInfo(long classSeq) {

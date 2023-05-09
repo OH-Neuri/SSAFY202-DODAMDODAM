@@ -1,11 +1,13 @@
 package com.wohaha.dodamdodam.repository;
 
+import com.wohaha.dodamdodam.dto.response.ClassKidListResponseDto;
 import com.wohaha.dodamdodam.dto.response.ClassNoticeResponseDto;
 
 import java.util.List;
 
 public interface NoticeRepositoryCustom {
-
+    //알림장 작성용 아이리스트
+    List<ClassKidListResponseDto> getKidList(Long classSeq);
     //알림장 정보 불러오기
     List<ClassNoticeResponseDto> noticeInfo(long classSeq);
     //알림장 사진 불러오기
