@@ -22,6 +22,10 @@ public enum BaseResponseStatus {
   // 식단 관리
   FOOD_NULL_FAIl(HttpStatus.INTERNAL_SERVER_ERROR, 1993, "해당 날의 식단이 없습니다."),
 
+  // 출석 관리
+  ATTENDANCE_NULL_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 1980, "해당 시퀀스의 등하원 정보가 없습니다."),
+  ATTENDANCE_FORM_NULL_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 1981, "해당 날짜의 등하원 정보가 없습니다."),
+
   //인증관련 에러
   SIGNUP_REQUIRED(HttpStatus.OK, 4001, "회원가입이 필요한 유저입니다."),
   OAUTH_UNKOWN_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 4002, "OAuth2 인증 과정에서 에러가 발생했습니다."),
@@ -60,7 +64,10 @@ public enum BaseResponseStatus {
   UNREGISTERED_USER(HttpStatus.INTERNAL_SERVER_ERROR, 4050, "존재하지 않는 유저입니다."),
 
   //Kid 관련
-  UNREGISTERED_KID(HttpStatus.INTERNAL_SERVER_ERROR, 4060, "존재하지 않는 아이입니다.");
+  UNREGISTERED_KID(HttpStatus.INTERNAL_SERVER_ERROR, 4060, "존재하지 않는 아이입니다."),
+
+  //Medicine 관련
+  UNREGISTERED_MEDICINE(HttpStatus.INTERNAL_SERVER_ERROR, 4070, "존재하지 않는 투약의뢰서입니다.");
 
 //  UNAUTHORIZED_USER(HttpStatus.INTERNAL_SERVER_ERROR, 4051, "권한이 없는 유저입니다.");
 //

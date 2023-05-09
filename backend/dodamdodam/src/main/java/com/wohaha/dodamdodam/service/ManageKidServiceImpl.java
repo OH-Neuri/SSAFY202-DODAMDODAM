@@ -1,11 +1,9 @@
 package com.wohaha.dodamdodam.service;
 
-import com.wohaha.dodamdodam.domain.ClassTeacher;
 import com.wohaha.dodamdodam.domain.Kid;
-import com.wohaha.dodamdodam.domain.User;
 import com.wohaha.dodamdodam.dto.request.CreateKidRequestDto;
 import com.wohaha.dodamdodam.dto.request.UpdateKidRequestDto;
-import com.wohaha.dodamdodam.dto.response.KidListResponseDto;
+import com.wohaha.dodamdodam.dto.response.KidResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.repository.KindergartenRepository;
@@ -51,20 +49,26 @@ public class ManageKidServiceImpl implements ManageKidService{
     }
 
     @Override
-    public List<KidListResponseDto> kidList() {
+    public List<KidResponseDto> kidList() {
         Long userSeq = 1L; // 원장선생님 시퀀스 토큰에서 가져옴
         Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.KINDERGARTEN_NULL_FAIL));
 
         //아이 정보
-        List<KidListResponseDto> kidList = manageKidRepository.kidList();
+        List<KidResponseDto> kidList = manageKidRepository.kidList();
 
-        for(KidListResponseDto list : kidList){
+        for(KidResponseDto list : kidList){
             System.out.println(list.getBirth());
 
         }
 
         return kidList;
+    }
+
+    @Override
+    public KidResponseDto kidInfo(long kidSeq) {
+
+        return manageKidRepository.kidInfo(kidSeq);
     }
 
     @Override

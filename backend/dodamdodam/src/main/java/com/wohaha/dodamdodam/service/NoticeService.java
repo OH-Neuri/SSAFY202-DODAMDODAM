@@ -3,7 +3,6 @@ package com.wohaha.dodamdodam.service;
 import com.wohaha.dodamdodam.dto.request.CreateNoticeRequestDto;
 import com.wohaha.dodamdodam.dto.request.UpdateNoticeRequestDto;
 import com.wohaha.dodamdodam.dto.response.ClassNoticeResponseDto;
-import com.wohaha.dodamdodam.dto.response.KidListResponseDto;
 
 import java.util.List;
 

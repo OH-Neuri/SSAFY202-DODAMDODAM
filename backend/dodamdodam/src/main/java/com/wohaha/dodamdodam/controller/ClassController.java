@@ -1,15 +1,11 @@
 package com.wohaha.dodamdodam.controller;
 
 import com.wohaha.dodamdodam.dto.BaseResponseDto;
-import com.wohaha.dodamdodam.dto.request.CreateNoticeRequestDto;
-import com.wohaha.dodamdodam.dto.request.CreateScheduleRequestDto;
-import com.wohaha.dodamdodam.dto.request.UpdateNoticeRequestDto;
-import com.wohaha.dodamdodam.dto.response.ClassNoticeResponseDto;
-import com.wohaha.dodamdodam.dto.response.ClassScheduleListResponseDto;
-import com.wohaha.dodamdodam.dto.response.ClassScheduleResponseDto;
+import com.wohaha.dodamdodam.dto.request.*;
+import com.wohaha.dodamdodam.dto.response.*;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
-import com.wohaha.dodamdodam.repository.NoticeRepository;
+import com.wohaha.dodamdodam.service.AttendanceService;
 import com.wohaha.dodamdodam.service.NoticeService;
 import com.wohaha.dodamdodam.service.S3UploadService;
 import com.wohaha.dodamdodam.service.ScheduleService;
@@ -30,8 +26,9 @@ public class ClassController {
 
     @Autowired
     private S3UploadService s3UploadService;
+
     @Autowired
-    private NoticeRepository noticeRepository;
+    private AttendanceService attendanceService;
 
     // 일정 관리
     @PostMapping("/schedule/{classSeq}")
@@ -162,6 +159,81 @@ public class ClassController {
             }
         }
     }
+
+    // 출석부
+    @PostMapping("/attendance")
+    public BaseResponseDto<Boolean> createAttendance(@ModelAttribute CreateAttendanceRequestDto createAttendanceRequestDto) {
+        try {
+            createAttendanceRequestDto.toString();
+            //이미지 s3 업로드 후 링크 가져오기
+            String uploadUrl = s3UploadService.upload(createAttendanceRequestDto.getSign(),"attendanceSign");
+            return new BaseResponseDto<>(attendanceService.createAttendance(createAttendanceRequestDto, uploadUrl));
+        }catch (Exception e) {
+            e.printStackTrace();
+            if (e instanceof BaseException) {
+                throw e;
+            } else {
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
+    @GetMapping("/attendance/list")
+    public BaseResponseDto<List<AttendanceListResponseDto>> getKidAttendanceList(@RequestBody AttendanceRequestDto classAttendanceRequestDto) {
+        try {
+            return new BaseResponseDto<>(attendanceService.getAttendanceList(classAttendanceRequestDto));
+        }catch (Exception e) {
+            e.printStackTrace();
+            if (e instanceof BaseException) {
+                throw e;
+            } else {
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
+    @GetMapping("/attendance/{attendanceSeq}")
+    public BaseResponseDto<AttendanceDetailResponseDto> getKidAttendanceDetail(@PathVariable Long attendanceSeq) {
+        try {
+            return new BaseResponseDto<>(attendanceService.getAttendanceDetail(attendanceSeq));
+        }catch (Exception e) {
+            e.printStackTrace();
+            if (e instanceof BaseException) {
+                throw e;
+            } else {
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
+    @GetMapping("/attendance/form")
+    public BaseResponseDto<AttendanceFormResponseDto> getKidAttendanceForm(@RequestBody AttendanceRequestDto kidAttendanceRequestDto) {
+        try {
+            return new BaseResponseDto<>(attendanceService.getAttendanceForm(kidAttendanceRequestDto));
+        }catch (Exception e) {
+            e.printStackTrace();
+            if (e instanceof BaseException) {
+                throw e;
+            } else {
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
+    @PutMapping("/attendance/{attendanceSeq}")
+    public BaseResponseDto<Boolean> updateAttendanceTime(@PathVariable Long attendanceSeq, @RequestBody AttendanceTimeRequestDto attendanceTimeRequestDto) {
+        try {
+            return new BaseResponseDto<>(attendanceService.updateAttendanceTime(attendanceSeq, attendanceTimeRequestDto));
+        }catch (Exception e) {
+            e.printStackTrace();
+            if (e instanceof BaseException) {
+                throw e;
+            } else {
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
 
 
 }
