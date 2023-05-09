@@ -61,12 +61,14 @@ public class NoticeServiceImpl implements NoticeService{
             noticeKidRepository.save(noticeKid);
         }
         //사진 저장
-        for(String photo : uploadUrls){
-            NoticePhoto noticePhoto = NoticePhoto.builder()
-                    .noticeSeq(noticeSeq)
-                    .photo(photo)
-                    .build();
-            noticePhotoRepository.save(noticePhoto);
+        if(uploadUrls != null) {
+            for (String photo : uploadUrls) {
+                NoticePhoto noticePhoto = NoticePhoto.builder()
+                        .noticeSeq(noticeSeq)
+                        .photo(photo)
+                        .build();
+                noticePhotoRepository.save(noticePhoto);
+            }
         }
 
         return true;

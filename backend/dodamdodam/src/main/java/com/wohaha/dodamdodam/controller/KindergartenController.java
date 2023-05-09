@@ -10,6 +10,7 @@ import com.wohaha.dodamdodam.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -62,7 +63,6 @@ public class KindergartenController {
     }
 
 
-    @Secured("hi")
     @PutMapping("class")
     public BaseResponseDto<?> updateClass(@RequestBody UpdateClassRequestDto updateClassRequestDto){
         try{
@@ -92,8 +92,12 @@ public class KindergartenController {
     @PostMapping("/kid")
     public BaseResponseDto<?> createKid(@ModelAttribute CreateKidRequestDto createKidRequestDto){
         try{
+
+            String uploadUrl = null;
             //이미지 s3 업로드 후 링크 가져오기
-            String uploadUrl = s3UploadService.upload(createKidRequestDto.getPhoto(),"kidProfile");
+            if(!createKidRequestDto.getPhoto().isEmpty()) {
+                uploadUrl = s3UploadService.upload(createKidRequestDto.getPhoto(), "kidProfile");
+            }
             //db 저장
             boolean result = manageKidService.createKid(createKidRequestDto, uploadUrl);
 
@@ -138,8 +142,11 @@ public class KindergartenController {
     public BaseResponseDto<String> Image(@ModelAttribute KidImageFileRequestDto kidImageFileRequestDto){
         try{
             //이미지 s3 업로드 후 링크 가져오기
-            String uploadUrl = s3UploadService.upload(kidImageFileRequestDto.getPhoto(),"kidProfile");
-            return new BaseResponseDto<>(uploadUrl);
+            if(!kidImageFileRequestDto.getPhoto().isEmpty()){
+                String uploadUrl = s3UploadService.upload(kidImageFileRequestDto.getPhoto(),"kidProfile");
+                return new BaseResponseDto<>(uploadUrl);
+            }
+            return new BaseResponseDto<>("No Image");
         }catch (Exception e){
             if(e instanceof BaseException){
                 throw  e;

@@ -11,6 +11,7 @@ import com.wohaha.dodamdodam.service.S3UploadService;
 import com.wohaha.dodamdodam.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -84,12 +85,18 @@ public class ClassController {
     @PostMapping("/notice")
     public BaseResponseDto<?> createNotice(@ModelAttribute CreateNoticeRequestDto createNoticeRequestDto){
         try{
+            List<String> uploadUrl = null;
             //이미지 s3 업로드 후 링크 가져오기
-            List<String> uploadUrl = s3UploadService.upload(createNoticeRequestDto.getPhotos(),"noticePhoto");
+             if(createNoticeRequestDto.getPhotos() != null && createNoticeRequestDto.getPhotos().size() > 0) {
+                MultipartFile firstFile = createNoticeRequestDto.getPhotos().get(0);
+                if (!firstFile.isEmpty()) {
+                    // 파일이 존재함
+                    uploadUrl = s3UploadService.upload(createNoticeRequestDto.getPhotos(),"noticePhoto");
+                }
+            }
             //db 저장
             Long noticeSeq = noticeService.createNotice(createNoticeRequestDto);
-            boolean result = noticeService.createNoticeKidAndPhoto(noticeSeq,createNoticeRequestDto.getKid(),uploadUrl );
-
+            boolean result = noticeService.createNoticeKidAndPhoto(noticeSeq,createNoticeRequestDto.getKid(),uploadUrl);
             return new BaseResponseDto(result);
         }catch (Exception e){
             if(e instanceof BaseException){
@@ -172,8 +179,11 @@ public class ClassController {
     public BaseResponseDto<Boolean> createAttendance(@ModelAttribute CreateAttendanceRequestDto createAttendanceRequestDto) {
         try {
             createAttendanceRequestDto.toString();
+            String uploadUrl = null;
             //이미지 s3 업로드 후 링크 가져오기
-            String uploadUrl = s3UploadService.upload(createAttendanceRequestDto.getSign(),"attendanceSign");
+            if(!createAttendanceRequestDto.getSign().isEmpty()) {
+                uploadUrl = s3UploadService.upload(createAttendanceRequestDto.getSign(), "attendanceSign");
+            }
             return new BaseResponseDto<>(attendanceService.createAttendance(createAttendanceRequestDto, uploadUrl));
         }catch (Exception e) {
             e.printStackTrace();
