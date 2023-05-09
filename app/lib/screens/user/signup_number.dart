@@ -125,19 +125,9 @@ class _SignupNumberState extends State<SignupNumber> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
                 child: CustomButton(text: '다음', height: 70,
-                  onPressed: () async {
-                    final res = await UserService.authPhoneCheck(user.phone, code);
-                    if(res) {
-                      CustomSnackBar.alertSnackbar(context, '인증되었습니다.');
-                      Get.to(SignupId(), arguments: user);
-                    }else {
-                      CustomSnackBar.errorSnackbar(context, '인증에 실패하였습니다.');
-                      setState(() {
-                        number = '';
-                        flag = true;
-                      });
-                    }
-                },),
+                  onPressed: (){
+                    phoneCheck();
+                  }),
               ),
             ],
           )),
@@ -145,5 +135,26 @@ class _SignupNumberState extends State<SignupNumber> {
         ],
       ),
     );
+  }
+
+  void phoneCheck() async {
+    if(flag) {
+      CustomSnackBar.errorSnackbar(context, '인증을 진행해주세요');
+      return;
+    }else if(code == '') {
+      CustomSnackBar.errorSnackbar(context, '인증번호를 입력해주세요.');
+      return;
+    }
+    final res = await UserService.authPhoneCheck(user.phone, code);
+    if(res) {
+      CustomSnackBar.alertSnackbar(context, '인증되었습니다.');
+      Get.to(SignupId(), arguments: user);
+    }else {
+      CustomSnackBar.errorSnackbar(context, '인증에 실패하였습니다.');
+      setState(() {
+        number = '';
+        flag = true;
+      });
+    }
   }
 }
