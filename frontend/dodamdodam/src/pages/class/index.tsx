@@ -1,32 +1,35 @@
 import NavBar from '@/components/common/navBar'
-import { classType } from '@/types/classType'
+import { ClassTeacherType, ClassType } from '@/types/classType'
 import { Chip, Modal } from '@mui/material'
-import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
-import HighlightOffOutlinedIcon from '@mui/icons-material/HighlightOffOutlined';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import CloseIcon from '@mui/icons-material/Close';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PageHeader from '@/components/common/pageHeader';
+import { useClass } from '@/hooks/useClass';
 
 export default function index() {
+  const { data } = useClass()
+
   const [name, setName] = useState<string>('')
-  const [teacher, setTeacher] = useState<string|null>(null)
+  const [teacher, setTeacher] = useState<ClassTeacherType[]|null>(null)
   const [idx, setIdx] = useState<number>(-1)
 
   const [open, setOpen] = useState<boolean>(false)
   const [open2, setOpen2] = useState<boolean>(false)
 
-  const classList : classType[] = [
-    {class_seq: 0, name: '햇님반', teacher: '김교사', age: '5세, 6세'},
-    {class_seq: 1, name: '햇살반', teacher: '이교사', age: '3세 이하, 4세, 7세 이상'},
-    {class_seq: 2, name: '구름반', teacher: null, age: '4세, 5세'},
-    {class_seq: 3, name: '사랑반', teacher: null, age: '4세, 5세'},
-    {class_seq: 4, name: '햇님반', teacher: '김교사', age: '4세'},
-    {class_seq: 5, name: '햇살반', teacher: '이교사', age: '4세'},
-    {class_seq: 6, name: '구름반', teacher: '윤교사', age: '4세'},
-    {class_seq: 7, name: '사랑반', teacher: '오교사', age: '4세'},
-    {class_seq: 8, name: '햇님반', teacher: '김교사', age: '4세'},
-    {class_seq: 9, name: '햇살반', teacher: '이교사', age: '4세'},
-  ]
+  // const classList : classType[] = [
+  //   {class_seq: 0, name: '햇님반', teacher: '김교사', age: '5세, 6세'},
+  //   {class_seq: 1, name: '햇살반', teacher: '이교사', age: '3세 이하, 4세, 7세 이상'},
+  //   {class_seq: 2, name: '구름반', teacher: null, age: '4세, 5세'},
+  //   {class_seq: 3, name: '사랑반', teacher: null, age: '4세, 5세'},
+  //   {class_seq: 4, name: '햇님반', teacher: '김교사', age: '4세'},
+  //   {class_seq: 5, name: '햇살반', teacher: '이교사', age: '4세'},
+  //   {class_seq: 6, name: '구름반', teacher: '윤교사', age: '4세'},
+  //   {class_seq: 7, name: '사랑반', teacher: '오교사', age: '4세'},
+  //   {class_seq: 8, name: '햇님반', teacher: '김교사', age: '4세'},
+  //   {class_seq: 9, name: '햇살반', teacher: '이교사', age: '4세'},
+  // ]
     const chips = ['3세 이하', '4세', '5세', '6세', '7세 이상']
     const [ageList, setAgeList] = useState<string[]>([])
     const select = (value : string) => {
@@ -41,9 +44,10 @@ export default function index() {
     }
 
     const update = (i : number) => {
-      setName(classList[i].name)
-      setTeacher(classList[i].teacher)
-      setAgeList(classList[i].age.split(', '))
+      if(!data) return
+      setName(data[i].className)
+      setTeacher(data[i].teacherInfo)
+      setAgeList(data[i].age.split(', '))
       setIdx(i)
     }
 
@@ -70,27 +74,27 @@ export default function index() {
           <div className='flex w-full mt-20'>
             {/* 반 목록 */}
             <div className='w-[56%] px-8 h-[600px] overflow-y-scroll [&::-webkit-scrollbar]:w-[10px] [&::-webkit-scrollbar-thumb]:bg-[#D5D5D5] [&::-webkit-scrollbar-thumb]:rounded-[10px] [&::-webkit-scrollbar-track]:hidden'>
-              {classList.map((c, i)=>{
+              { data && (data.map((c, i)=>{
                 return (
-                  <div key={c.class_seq} className='flex items-center px-8 py-4 rounded-lg shadow w-full h-[100px] mb-4 bg-red-100'>
-                    <div className='text-[22px] font-preSB pl-6 w-[20%]'>{c.name}</div>
+                  <div key={c.classSeq} className='flex items-center px-8 py-4 rounded-lg shadow w-full h-[100px] mb-4 bg-red-100'>
+                    <div className='text-[22px] font-preSB pl-6 w-[20%]'>{c.className}</div>
                     <div className='w-[20%]'>{c.age}</div>
                     <div className='flex justify-center w-[50%] pr-20'>
-                    {c.teacher ?
-                    <div className=''><span className='font-preM'>담당교사</span> : {c.teacher}</div>
+                    {c.teacherInfo.length != 0 ?
+                    <div className=''><span className='font-preM'>담당교사</span> : {c.teacherInfo.map((t)=>`${t.teacherName} `)}</div>
                     :
                     <span onClick={()=>setOpen(true)} className='flex justify-center items-center w-[180px] font-preR px-4 py-2 rounded-full bg-red-300 cursor-pointer hover:bg-red-400'>담당 교사 연결하기</span>
                     }
                     </div>
                     <div onClick={()=>{update(i)}}>
-                      <EditNoteOutlinedIcon className='mr-10 text-stone-500 hover:text-stone-700 cursor-pointer' />
+                      <DriveFileRenameOutlineIcon className='mr-10 text-stone-500 hover:text-stone-700 cursor-pointer' />
                     </div>
                     <div onClick={()=>setOpen2(true)}>
-                      <HighlightOffOutlinedIcon className='text-red-400/80 cursor-pointer hover:text-red-400'/>
+                      <DeleteForeverIcon className='text-red-400/80 cursor-pointer hover:text-red-400'/>
                     </div>
                   </div>
                 )
-              })}
+              }))}
             </div>
 
             {/* 반 추가하기 */}
