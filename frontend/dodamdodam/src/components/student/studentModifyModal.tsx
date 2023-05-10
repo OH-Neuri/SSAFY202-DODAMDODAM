@@ -11,28 +11,30 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useState, useEffect } from "react";
-import { student } from "@/types/DataTypes";
+import { student, classList } from "@/types/DataTypes";
 import DatePicker from "react-datepicker";
 import FormControl from "@mui/material/FormControl";
 import axios from "axios";
 import { useQuery } from "react-query";
 
-export default function StudentRegisterModal(props: {
-  // student: student;
+
+export default function StudentModifyModal(props: {
   idx: number;
   open: boolean;
   handleOpen: any;
   handleClose: any;
 }) {
-  const { open, handleClose } = props;
-  const [age, setAge] = React.useState(3);
-  const [group, setGroup] = React.useState("");
-  const [name, setName] = React.useState("");
-  const [imageSrc, setImageSrc]: any = useState("");
+  const { open, handleClose, idx } = props;
+  const [age, setAge] = useState<string>("");
+  const [group, setGroup] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [photo, setPhoto] = useState<any>("");
   const [gender, setGender] = useState<string>("");
-  const [startDate, setStartDate] = useState(new Date());
-  const groupName = ["햇살반", "새싹반", "나무반", "구름반"];
-  const genders = ["여자", "남자"];
+  const [startDate, setStartDate] = useState(new Date("2023-05-4"));
+  const [student, setStudent] = useState<student>('');
+  const [classList, setClassList] = useState<classList[]>([])
+  const [selectedImg, setSelectedImg] = useState<File | null>(null);
+
 
   const handleChangeGroup = (event: SelectChangeEvent) => {
     setGroup(event.target.value);
@@ -42,35 +44,101 @@ export default function StudentRegisterModal(props: {
     setGender(event.target.value);
   };
 
-  const StudentList = () => {
-    const { isLoading, isError, error, refetch, data } = useQuery(
-      "getStudent",
-      async () => {
-        const queryKey = `https://dodamdodam.site/api/dodam/kindergarten/${kidSeq}`;
-        const response = await axios.get(queryKey);
-        return response.data.result;
-      },
-      {
-        retry: 0,
-        staleTime: 1000 * 60 * 5,
-        cacheTime: 1000 * 60 * 5,
+  // 사진 안바뀌면 null로 보낼 수 있게 수희님이 수정해주셔야함 
+  async function getModifyKidInfo (){
+    console.log("아이 수정 보낼 데이터>>>>>>>>>>>>>>")
+    const changeDate = new Date(startDate)
+    const year = changeDate.getFullYear()
+    const month = changeDate.getMonth() + 1
+    const date = changeDate.getDate()
+    const resultDate = `${year}-${month >= 10 ? month : '0' + month}-${date >= 10 ? date : '0' + date}`
+
+    console.log(student.kidSeq.toString())
+    console.log(name)
+    console.log(resultDate)
+    console.log(selectedImg)
+    console.log(gender)
+    console.log(student.classSeq.toString())
+
+
+    try {
+      var formData = new FormData();
+      formData.append('kidSeq', student.kidSeq.toString());
+      formData.append('kidName', name);
+      formData.append('birth', resultDate);
+      if (!selectedImg) {
+        // 이미지가 그대로면 null 
+        formData.append('photo', new Blob())
+      } else {
+        // 이미지가 바뀌면 selectedImg
+        formData.append('photo', selectedImg);
       }
-    );
-    if (isLoading) {
-      return <h1>Loading.......</h1>;
+      formData.append('gender', gender);
+      formData.append('classSeq', student.classSeq.toString());
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      };
+      const response =  axios.put('https://dodamdodam.site/api/dodam/kindergarten/kid', formData, config);
+    } catch (error) { 
+      console.log("post 실패했습니다 조금만 더 힘 내십시오")
     }
-    if (isError) {
-      return <h1>에러발생</h1>;
+
+  }
+
+
+
+  async function fetchKid(idx: number) {
+    const kidSeq = idx;
+    try {
+      const response = await axios.get(
+        `https://dodamdodam.site/api/dodam/kindergarten/kidInfo/${kidSeq}`
+      );
+      setStudent(response.data.result);
+
+    } catch (error) {
+      console.log("에러났습니다.");
     }
-    return <></>;
-  };
+  }
+
+  async function getClassName() {
+    try {
+      const response = await axios.get(
+        `https://dodamdodam.site/api/dodam/kindergarten/class`
+      );
+      setClassList(response.data.result);
+      
+    } catch (error) {
+      console.log("에러났습니다.");
+    }
+  }
+
+  async function deleteKid(idx: number) { 
+    const kidSeq = idx;
+    try {
+      const response = await axios.delete(
+        `https://dodamdodam.site/api/dodam/kindergarten/kid/${kidSeq}`
+      );
+      console.log(`원생삭제 :>>>>>>>>>>>`);
+      console.log(response.data.result);
+    } catch (error) {
+      console.log("원생 삭제에서 에러났습니다.???????????????????????????????????//");
+    }
+
+  }
+
 
   useEffect(() => {
-    setName(props.student.kidName);
-    setImageSrc(props.student.photo);
-    setGroup(props.student.className);
-    setGender(props.student.gender);
+    fetchKid(props.idx)
+    getClassName()
+    setName(student.kidName);
+    setStartDate(new Date(`${student.birth}`));
+    setPhoto(student.photo);
+    setGroup(student.className);
+    setGender(student.gender);
   }, [props]);
+
 
   // 모달 스타일
   const style = {
@@ -85,19 +153,22 @@ export default function StudentRegisterModal(props: {
     p: 3,
   };
 
+
   // 파일 업로드
   const onUpload = (e: any) => {
     const file = e.target.files[0];
     const reader = new FileReader();
+    setSelectedImg(file);
     reader.readAsDataURL(file);
 
     return new Promise<void>((resolve) => {
       reader.onload = () => {
-        setImageSrc(reader.result || null); // 파일의 컨텐츠
+        setPhoto(reader.result || null); // 파일의 컨텐츠
         resolve();
       };
     });
   };
+
 
   return (
     <div>
@@ -123,7 +194,7 @@ export default function StudentRegisterModal(props: {
               <div className="w-[150px] h-[150px] rounded-full overflow-hidden">
                 <img
                   className="w-full h-full object-cover"
-                  src={imageSrc}
+                  src={photo==null||photo=='DF'?'images/student/boy.png':photo}
                   alt=""
                   width={150}
                   height={150}
@@ -151,7 +222,8 @@ export default function StudentRegisterModal(props: {
             </div>
             <div className="pt-[20px] w-[340px]">
               <div className="flex">
-                {/* 원생 나이 */}
+
+            {/* 원생 나이 */}
                 <div>
                   <div className="ml-[5px]">생년월일</div>
                   <div className="ml-[5px] mt-[3px]  w-[150px] h-[60px]">
@@ -173,18 +245,15 @@ export default function StudentRegisterModal(props: {
                         value={gender}
                         onChange={handleChangeGender}
                       >
-                        {genders.map((v, i) => {
-                          return (
-                            <MenuItem key={i} value={v}>
-                              {v}
-                            </MenuItem>
-                          );
-                        })}
+                      <MenuItem value='F'>여자</MenuItem>
+                      <MenuItem value='M'>남자</MenuItem>
+                        
                       </Select>
                     </FormControl>
                   </div>
                 </div>
               </div>
+
               {/* 원생 반 */}
               <div className="w-[340px] pt-[17px]">
                 <div className="pl-[10px]">반</div>
@@ -196,26 +265,31 @@ export default function StudentRegisterModal(props: {
                       value={group}
                       onChange={handleChangeGroup}
                     >
-                      {groupName.map((v, i) => {
-                        return (
-                          <MenuItem key={i} value={v}>
-                            {v}
-                          </MenuItem>
-                        );
-                      })}
+                      {/* 반 리스트만큼 map돌고 value가 반 이름이면 되고, group에 학생 반 넣으면 됨 */}
+                      {
+                        classList.map((v,i) => { 
+                          return (
+                              <MenuItem key={i} value={v.className}>{v.className}</MenuItem>
+                          )
+                        })
+                      } 
                     </Select>
                   </FormControl>
                 </div>
               </div>
               <div className="flex mt-[20px]">
                 <div
-                  onClick={handleClose}
+                  onClick={() => { 
+                    handleClose();
+                    getModifyKidInfo();
+                  }
+                  }
                   className="cursor-pointer hover:bg-[#BF9831] flex justify-center items-center text-[20px] font-preM ml-3 w-[165px] h-[50px] bg-[#FFCD4A] rounded-lg mt-11"
                 >
-                  등록하기
+                  수정하기
                 </div>
                 <div
-                  onClick={handleClose}
+                  onClick={() => { handleClose(); deleteKid(props.idx); }}
                   className="cursor-pointer hover:bg-[#C34139] flex justify-center items-center text-[20px] font-preM ml-3 w-[165px] h-[50px] bg-[#FF5F55] rounded-lg mt-11"
                 >
                   삭제하기
