@@ -1,7 +1,13 @@
-export type classType = {
-    [index : string] : string | number | null
-    class_seq : number
-    name : string
+export type ClassType = {
+    [index : string] : string | number | ClassTeacherType[]
+    classSeq : number
+    className : string
     age : string
-    teacher : string | null
+    teacherInfo : ClassTeacherType[]
+}
+
+export type ClassTeacherType = {
+    [index: string] : number | string,
+    teacherSeq : number,
+    teacherName : string
 }

@@ -1,5 +1,7 @@
+import { toastError } from '@/components/common/toast'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
+import { toast } from 'react-toastify'
 
 export default function Login() {
     const router = useRouter()
@@ -9,11 +11,11 @@ export default function Login() {
 
     const login = () => {
         if(id == '') {
-            alert('아이디를 입력해주세요.')
+            toastError('아이디를 입력해주세요');
             return
         }
         if(pw == '') {
-            alert('비밀번호를 입력해주세요.')
+            toastError('비밀번호를 입력해주세요');
             return
         }
         const data = {
