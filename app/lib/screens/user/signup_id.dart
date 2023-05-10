@@ -23,8 +23,16 @@ Text text = none;
 
 
 class _SignupIdState extends State<SignupId> {
-  Text getIdVaild(String id) {
+  Text getIdValid(String id) {
     if(id.length < 6){
+      setState(() {
+        able = false;
+      });
+      return Text('영문 또는 영문,숫자 조합 6~12 자리를 입력해주세요.', style: TextStyle(color: Colors.red),);
+    }else if (id.length > 12){
+      setState(() {
+        able = false;
+      });
       return Text('영문 또는 영문,숫자 조합 6~12 자리를 입력해주세요.', style: TextStyle(color: Colors.red),);
     }
     setState(() {
@@ -58,7 +66,7 @@ class _SignupIdState extends State<SignupId> {
                         onChanged: (val){
                         setState(() {
                           user.id = val;
-                          text = getIdVaild(val);
+                          text = getIdValid(val);
                         });
                       },),
                     ),

@@ -56,7 +56,7 @@ class _SignupSelectState extends State<SignupSelect> {
                                     minimumSize: Size(100, 140),
                                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100))
                                 ),
-                                child: Image.asset('images/signup/teacher.png', width: 100, height: 100,),
+                                child: Image.asset('assets/images/signup/teacher.png', width: 100, height: 100,),
                               ),
                               Padding(
                                 padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
@@ -81,7 +81,7 @@ class _SignupSelectState extends State<SignupSelect> {
                                     minimumSize: Size(100, 140),
                                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100))
                                 ),
-                                child: Image.asset('images/signup/mother.png', width: 100, height: 100,),
+                                child: Image.asset('assets/images/signup/mother.png', width: 100, height: 100,),
                               ),
                               Padding(
                                 padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),

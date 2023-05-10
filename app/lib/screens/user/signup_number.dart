@@ -32,94 +32,97 @@ class _SignupNumberState extends State<SignupNumber> {
           Flexible(flex: 12, child: Column(
             children: [
               Expanded(
-                child: Column(
-                  children: [
-                    SignupStep(step: 1),
-                    Container(
-                      margin : EdgeInsets.only(bottom: 60),
-                      child: Text('번호를 입력해주세요.', style: TextStyle(
-                          fontSize: titleTextSize,
-                          fontWeight: FontWeight.w700
-                      ),),
-                    ),
-                    Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                      child: UserTextFormField(hint: '번호', obscureText: false,
-                        onChanged: (val){
-                          number = val;
-                        },),
-                    ),
-                    SizedBox(
-                        width: double.infinity,
-                        child: Text('-(하이픈) 없이 입력해주세요',
-                          style: TextStyle(
-                              color: Color(0xff797979)
-                          ),
-                        )
-                    ),
-                    flag ?
-                    Container(
-                      padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                      width: double.infinity,
-                      height: 70,
-                      child: ElevatedButton(
-                          onPressed: (){
-                            setState(() {
-                              flag = false;
-                              user.phone = number;
-                            });
-                            UserService.sendAuthPhone(user.phone, user.role);
-                            CustomSnackBar.alertSnackbar(context, '인증번호를 전송했습니다.');
-                            },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: darkNavy,
-                            foregroundColor: Colors.white,
-                            minimumSize: Size(50, double.infinity)
-                          ),
-                          child: Text('인증번호 받기')
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      SignupStep(step: 1),
+                      Container(
+                        margin : EdgeInsets.only(bottom: 60),
+                        child: Text('번호를 입력해주세요.', style: TextStyle(
+                            fontSize: titleTextSize,
+                            fontWeight: FontWeight.w700
+                        ),),
                       ),
-                    )
-                        :
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                          child: Column(
-                            children: [
-                              Container(
-                                padding: EdgeInsets.fromLTRB(10, 0, 0, 6),
-                                width: double.infinity,
-                                child: SignupTimer()
-                              ),
-                              UserTextFormField(
-                                  hint: '인증번호',
-                                  onChanged: (val){
-                                    setState(() {
-                                      code = val;
-                                    });
-                                  },
-                                  obscureText: false
-                              ),
-                              Container(
-                                padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                                width: double.infinity,
-                                height: 70,
-                                child: ElevatedButton(
-                                    onPressed: (){
-                                      setState(() {
-                                        user.phone = number;
-                                      });
-                                      UserService.sendAuthPhone(user.phone, user.role);
-                                      },
-                                    style: ElevatedButton.styleFrom(
-                                        backgroundColor: darkNavy,
-                                        foregroundColor: Colors.white,
-                                        minimumSize: Size(50, double.infinity)
-                                    ),
-                                    child: Text('인증번호 다시 전송하기')
+                      Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                        child: UserTextFormField(hint: '번호', obscureText: false,
+                          onChanged: (val){
+                            number = val;
+                          },),
+                      ),
+                      SizedBox(
+                          width: double.infinity,
+                          child: Text('-(하이픈) 없이 입력해주세요',
+                            style: TextStyle(
+                                color: Color(0xff797979)
+                            ),
+                          )
+                      ),
+                      flag ?
+                      Container(
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                        width: double.infinity,
+                        height: 70,
+                        child: ElevatedButton(
+                            onPressed: (){
+                              setState(() {
+                                flag = false;
+                                user.phone = number;
+                              });
+                              UserService.sendAuthPhone(user.phone, user.role);
+                              CustomSnackBar.alertSnackbar(context, '인증번호를 전송했습니다.');
+                              },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: darkNavy,
+                              foregroundColor: Colors.white,
+                              minimumSize: Size(50, double.infinity)
+                            ),
+                            child: Text('인증번호 받기')
+                        ),
+                      )
+                          :
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                            child: Column(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.fromLTRB(10, 0, 0, 6),
+                                  width: double.infinity,
+                                  child: SignupTimer()
                                 ),
-                              )
-                            ],
-                          ),
-                        )
-                  ],
+                                UserTextFormField(
+                                    hint: '인증번호',
+                                    onChanged: (val){
+                                      setState(() {
+                                        code = val;
+                                      });
+                                    },
+                                    obscureText: false
+                                ),
+                                Container(
+                                  padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                                  width: double.infinity,
+                                  height: 70,
+                                  child: ElevatedButton(
+                                      onPressed: (){
+                                        setState(() {
+                                          user.phone = number;
+                                        });
+                                        UserService.sendAuthPhone(user.phone, user.role);
+                                        },
+                                      style: ElevatedButton.styleFrom(
+                                          backgroundColor: darkNavy,
+                                          foregroundColor: Colors.white,
+                                          minimumSize: Size(50, double.infinity)
+                                      ),
+                                      child: Text('인증번호 다시 전송하기')
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                    ],
+                  ),
                 ),
               ),
               Padding(

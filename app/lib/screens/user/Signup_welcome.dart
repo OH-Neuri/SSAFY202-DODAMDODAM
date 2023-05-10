@@ -1,0 +1,42 @@
+import 'package:app/components/common/custom_button.dart';
+import 'package:app/constants.dart';
+import 'package:app/controller/deviceInfo_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class SignupWelcome extends StatelessWidget {
+  DeviceInfoController c = Get.put(DeviceInfoController());
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Row(
+        children: [
+          Expanded(child: SizedBox()),
+          Flexible(flex: 12, child: Column(
+            children: [
+              SizedBox(height: 200,),
+              Container(
+                margin: EdgeInsets.only(bottom: 60),
+                child: Column(
+                  children: [
+                    Image.asset('assets/images/signup/check.gif', height: 160,),
+                    Text('${c.name}님 환영합니다.', style: TextStyle(fontSize: titleTextSize, fontWeight: FontWeight.w600),),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10.0, bottom: 40.0),
+                      child: Text('지금 바로 도담도담과 함께 ${c.isTeacher.isTrue? '반':'아이'}관리를 시작하세요.', style: TextStyle(fontSize: contentTextSize),),
+                    ),
+                    c.isTeacher.isTrue ?
+                    CustomButton(text: '반 코드 입력하기', height: 60, onPressed: (){}) :
+                    CustomButton(text: '아이 코드 입력하기', height: 60, onPressed: (){}),
+                  ],
+                ),
+              )
+            ],
+          )),
+          Expanded(child: SizedBox()),
+
+        ],
+      ),
+    );
+  }
+}

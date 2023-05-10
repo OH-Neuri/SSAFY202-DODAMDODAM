@@ -1,6 +1,10 @@
 import 'dart:convert';
 
 import 'package:app/api/url_mapping.dart';
+import 'package:app/controller/deviceInfo_controller.dart';
+import 'package:app/models/user/login_user_model.dart';
+import 'package:app/models/user/signup_user.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class UserService {
@@ -12,7 +16,10 @@ class UserService {
         'role' : role,
       };
       String URL = '${url}user/login';
-      final res = await http.post(Uri.parse(URL), body: jsonEncode(data));
+      final res = await http.post(
+          Uri.parse(URL),
+          headers: {"Content-Type" : "application/json"},
+          body: jsonEncode(data));
       print(res.statusCode);
     } catch(e) {
       print(e);
@@ -58,6 +65,32 @@ class UserService {
       }
       print('인증코드 실패');
       return false;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  static Future<bool> userSignup(SignupUserModel user) async {
+    DeviceInfoController c = Get.put(DeviceInfoController());
+    try {
+      String data = signupUserModelToJson(user);
+      print(data);
+      String URL = '${url}user';
+      final res = await http.post(
+        Uri.parse(URL),
+        headers: {"Content-Type" : "application/json"},
+        body: data
+      );
+      if (res.statusCode == 200){
+        final LoginUser loginUser = loginUserModelFromJson(utf8.decode(res.bodyBytes)).loginUser;
+        c.loginSetting(loginUser);
+        return true;
+      }else{
+        print('회원가입 실패');
+        print(res.statusCode);
+        return false;
+      }
     } catch (e) {
       print(e);
       return false;

@@ -8,7 +8,8 @@ class SignupStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      margin: EdgeInsets.only(top: 40),
       height: 100,
       child: Row(
         children: [
