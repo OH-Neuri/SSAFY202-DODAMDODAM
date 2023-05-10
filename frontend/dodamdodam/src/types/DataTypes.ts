@@ -5,9 +5,17 @@ export type student = {
   kidName: string;
   birth: string;
   gender: string;
-  classSeq: string;
+  classSeq: number;
   className: string;
 };
+
+export type classList = {
+  [index: string]: string | number;
+  classSeq: number;
+  className: string;
+  age: string;
+  teacherInfo : any
+}
 
 export type teacher = {
   [index: string]: string | number;
