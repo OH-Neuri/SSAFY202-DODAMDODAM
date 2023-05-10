@@ -3,6 +3,8 @@ import 'package:app/components/common/CustomSnackBar.dart';
 import 'package:app/components/common/custom_button.dart';
 import 'package:app/components/user/user_textform_field.dart';
 import 'package:app/constants.dart';
+import 'package:app/root.dart';
+import 'package:app/screens/main/main_page.dart';
 import 'package:app/screens/user/signup_select.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -85,7 +87,7 @@ class _LoginTeacherState extends State<LoginTeacher> {
 
 
 
-  void login() {
+  void login() async {
     if(id == '') {
       CustomSnackBar.errorSnackbar(context, '아이디를 입력해주세요.');
       return;
@@ -93,6 +95,12 @@ class _LoginTeacherState extends State<LoginTeacher> {
       CustomSnackBar.errorSnackbar(context, '비밀번호를 입력해주세요.');
       return;
     }
-    UserService.userLogin(id, pw, 2);
+    final res = await UserService.userLogin(id, pw, 2);
+    if(res) {
+      Get.to(Root());
+    }else {
+      CustomSnackBar.errorSnackbar(context, '아이디나 비밀번호를 다시 확인해주세요.');
+      // 아이디로 포커스가 가도록 이동 (추후)
+    }
   }
 }

@@ -8,7 +8,8 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class UserService {
-  static Future<void> userLogin(String id, String pw, int role) async {
+  static Future<bool> userLogin(String id, String pw, int role) async {
+    DeviceInfoController c = Get.put(DeviceInfoController());
     try {
       Map<String, dynamic> data = {
         'id' : id,
@@ -20,9 +21,17 @@ class UserService {
           Uri.parse(URL),
           headers: {"Content-Type" : "application/json"},
           body: jsonEncode(data));
-      print(res.statusCode);
+      if(res.statusCode == 200) {
+        final LoginUser loginUser = loginUserModelFromJson(utf8.decode(res.bodyBytes)).loginUser;
+        c.loginSetting(loginUser);
+        return true;
+      }else{
+        print(res.statusCode);
+        return false;
+      }
     } catch(e) {
       print(e);
+      return false;
     }
   }
 
