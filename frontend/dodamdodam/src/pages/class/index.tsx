@@ -1,15 +1,18 @@
 import NavBar from '@/components/common/navBar'
-import { ClassTeacherType, ClassType } from '@/types/classType'
+import { ClassTeacherType, ClassType, RegistClassType } from '@/types/classType'
 import { Chip, Modal } from '@mui/material'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import CloseIcon from '@mui/icons-material/Close';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react';
+import { useQueryClient, useMutation } from 'react-query';
 import PageHeader from '@/components/common/pageHeader';
-import { useClass } from '@/hooks/useClass';
+import { useRegistClass, useClass } from '@/hooks/useClass';
+import { toastError } from '@/components/common/toast';
 
 export default function index() {
   const { data } = useClass()
+  const { registClass } = useRegistClass()
 
   const [name, setName] = useState<string>('')
   const [teacher, setTeacher] = useState<ClassTeacherType[]|null>(null)
@@ -18,18 +21,6 @@ export default function index() {
   const [open, setOpen] = useState<boolean>(false)
   const [open2, setOpen2] = useState<boolean>(false)
 
-  // const classList : classType[] = [
-  //   {class_seq: 0, name: '햇님반', teacher: '김교사', age: '5세, 6세'},
-  //   {class_seq: 1, name: '햇살반', teacher: '이교사', age: '3세 이하, 4세, 7세 이상'},
-  //   {class_seq: 2, name: '구름반', teacher: null, age: '4세, 5세'},
-  //   {class_seq: 3, name: '사랑반', teacher: null, age: '4세, 5세'},
-  //   {class_seq: 4, name: '햇님반', teacher: '김교사', age: '4세'},
-  //   {class_seq: 5, name: '햇살반', teacher: '이교사', age: '4세'},
-  //   {class_seq: 6, name: '구름반', teacher: '윤교사', age: '4세'},
-  //   {class_seq: 7, name: '사랑반', teacher: '오교사', age: '4세'},
-  //   {class_seq: 8, name: '햇님반', teacher: '김교사', age: '4세'},
-  //   {class_seq: 9, name: '햇살반', teacher: '이교사', age: '4세'},
-  // ]
     const chips = ['3세 이하', '4세', '5세', '6세', '7세 이상']
     const [ageList, setAgeList] = useState<string[]>([])
     const select = (value : string) => {
@@ -47,7 +38,7 @@ export default function index() {
       if(!data) return
       setName(data[i].className)
       setTeacher(data[i].teacherInfo)
-      setAgeList(data[i].age.split(', '))
+      setAgeList(data[i].age.split(','))
       setIdx(i)
     }
 
@@ -56,6 +47,24 @@ export default function index() {
       setTeacher(null)
       setAgeList([])
       setIdx(-1)
+    }
+
+    const regist = () => {
+      if(name == ''){
+        toastError('반 이름을 입력해주세요.')
+        return
+      }
+      if(ageList.length == 0) {
+        toastError('나이를 선택해주세요.')
+        return
+      }
+      const data : RegistClassType = {
+        name: name,
+        age: ageList.toString()
+      }
+      registClass(data);
+      setName('');
+      setAgeList([]);
     }
 
   return (
@@ -74,7 +83,7 @@ export default function index() {
           <div className='flex w-full mt-20'>
             {/* 반 목록 */}
             <div className='w-[56%] px-8 h-[600px] overflow-y-scroll [&::-webkit-scrollbar]:w-[10px] [&::-webkit-scrollbar-thumb]:bg-[#D5D5D5] [&::-webkit-scrollbar-thumb]:rounded-[10px] [&::-webkit-scrollbar-track]:hidden'>
-              { data && (data.map((c, i)=>{
+              { data && (data.length != 0 ? (data.map((c, i)=>{
                 return (
                   <div key={c.classSeq} className='flex items-center px-8 py-4 rounded-lg shadow w-full h-[100px] mb-4 bg-red-100'>
                     <div className='text-[22px] font-preSB pl-6 w-[20%]'>{c.className}</div>
@@ -94,7 +103,8 @@ export default function index() {
                     </div>
                   </div>
                 )
-              }))}
+              })):
+              <div className='pl-6 text-[20px]'>등록된 반이 없습니다.</div>)}
             </div>
 
             {/* 반 추가하기 */}
@@ -113,7 +123,7 @@ export default function index() {
                     )
                   })}
                 </div>
-                <div className='flex justify-center items-center w-full h-[60px] bg-m_yellow rounded text-[18px] font-preM mt-20 cursor-pointer hover:bg-h_yellow'>등록하기</div>
+                <div onClick={()=>{regist()}} className='flex justify-center items-center w-full h-[60px] bg-m_yellow rounded text-[18px] font-preM mt-20 cursor-pointer hover:bg-h_yellow'>등록하기</div>
               </div>
               </>
               :
@@ -136,11 +146,15 @@ export default function index() {
                     })}
                 </div>
                 <div className='font-preR text-grey-800 mt-5 font-preR'>담당 교사</div>
-                {teacher ?
-                <div className='flex w-full mt-2 mb-8'>
-                  <input readOnly={true} className='outline-none bg-stone-200/50 rounded w-3/5 h-[50px] px-4 mr-4' value={teacher} type="text" />
-                  <div className='flex justify-center items-center font-preR bg-stone-200 h-[50px] w-[38%] rounded cursor-pointer hover:bg-stone-300/70'>삭제하기</div>  
-                </div>
+                {teacher && teacher.length != 0 ?
+                (teacher.map((t)=>{
+                  return (
+                  <div className='flex w-full mt-2 mb-8'>
+                    <input readOnly={true} className='outline-none bg-stone-200/50 rounded w-3/5 h-[50px] px-4 mr-4' value={t.teacherName} type="text" />
+                    <div className='flex justify-center items-center font-preR bg-stone-200 h-[50px] w-[38%] rounded cursor-pointer hover:bg-stone-300/70'>삭제하기</div>  
+                  </div> 
+                  )})
+                )
                 :
                 <input readOnly={true} className='outline-none bg-stone-200/50 rounded w-full h-[50px] mt-2 px-4 mr-4' value='미등록' type="text" />
               }

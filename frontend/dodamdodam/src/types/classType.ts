@@ -11,3 +11,9 @@ export type ClassTeacherType = {
     teacherSeq : number,
     teacherName : string
 }
+
+export type RegistClassType = {
+    [index : string] : string,
+    name : string,
+    age : string
+}
