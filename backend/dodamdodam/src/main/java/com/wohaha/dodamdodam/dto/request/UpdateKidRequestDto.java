@@ -20,7 +20,7 @@ public class UpdateKidRequestDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birth;
 
-    private String photo;
+    private MultipartFile photo;
 
     private String gender;
 

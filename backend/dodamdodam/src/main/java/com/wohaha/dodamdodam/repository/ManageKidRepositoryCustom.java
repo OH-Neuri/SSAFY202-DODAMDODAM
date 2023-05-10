@@ -16,7 +16,7 @@ public interface ManageKidRepositoryCustom {
     void updateKidNotPhoto(UpdateKidRequestDto updateKidRequestDto);
 
     //아이 정보 업데이트 - 사진 있을때
-    void updateKidWithPhoto(UpdateKidRequestDto updateKidRequestDto);
+    void updateKidWithPhoto(UpdateKidRequestDto updateKidRequestDto,String uploadUrl);
 
     //아이 삭제
     void deleteKid(long kidSeq);

@@ -61,13 +61,14 @@ public class ManageKidRepositoryImpl implements ManageKidRepositoryCustom{
 
     }
 
+
     @Override
-    public void updateKidWithPhoto(UpdateKidRequestDto updateKidRequestDto) {
+    public void updateKidWithPhoto(UpdateKidRequestDto updateKidRequestDto, String uploadUrl) {
         query
                 .update(kid)
                 .set(kid.name,updateKidRequestDto.getKidName())
                 .set(kid.birth,updateKidRequestDto.getBirth())
-                .set(kid.photo, updateKidRequestDto.getPhoto())
+                .set(kid.photo, uploadUrl)
                 .set(kid.gender,updateKidRequestDto.getGender())
                 .set(kid.classSeq,updateKidRequestDto.getClassSeq())
                 .where(kid.kidSeq.eq(updateKidRequestDto.getKidSeq()))
