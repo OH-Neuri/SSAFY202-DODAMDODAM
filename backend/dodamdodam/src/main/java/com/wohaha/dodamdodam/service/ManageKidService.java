@@ -15,7 +15,7 @@ public interface ManageKidService {
     //아이 1명 조회
     KidResponseDto kidInfo(long kidSeq);
     //아이 수정
-    boolean updateKid(UpdateKidRequestDto updateKidRequestDto);
+    boolean updateKid(UpdateKidRequestDto updateKidRequestDto, String uploadUrl);
 
     //아이 삭제
     boolean deleteKid(long kidSeq);

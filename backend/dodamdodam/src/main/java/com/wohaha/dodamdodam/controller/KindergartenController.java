@@ -160,7 +160,13 @@ public class KindergartenController {
     @PutMapping("kid")
     public BaseResponseDto<?> updateKid(@ModelAttribute UpdateKidRequestDto updateKidRequestDto){
         try{
-            return new BaseResponseDto<>(manageKidService.updateKid(updateKidRequestDto));
+            String uploadUrl = null;
+            //이미지 s3 업로드 후 링크 가져오기
+            if(!updateKidRequestDto.getPhoto().isEmpty()) {
+                uploadUrl = s3UploadService.upload(updateKidRequestDto.getPhoto(), "kidProfile");
+            }
+
+            return new BaseResponseDto<>(manageKidService.updateKid(updateKidRequestDto,uploadUrl));
         }catch (Exception e){
             if( e instanceof BaseException){
                 throw e;

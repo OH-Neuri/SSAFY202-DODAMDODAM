@@ -72,17 +72,18 @@ public class ManageKidServiceImpl implements ManageKidService{
     }
 
     @Override
-    public boolean updateKid(UpdateKidRequestDto updateKidRequestDto) {
-        if(updateKidRequestDto.getPhoto().equals("NONE")){
+    public boolean updateKid(UpdateKidRequestDto updateKidRequestDto, String uploadUrl) {
+        if(uploadUrl == null){
             // 사진 없을때
             manageKidRepository.updateKidNotPhoto(updateKidRequestDto);
         }else{
             //사진 있을때
-            manageKidRepository.updateKidWithPhoto(updateKidRequestDto);
+            manageKidRepository.updateKidWithPhoto(updateKidRequestDto, uploadUrl);
         }
 
         return true;
     }
+
 
     @Override
     public boolean deleteKid(long kidSeq) {
