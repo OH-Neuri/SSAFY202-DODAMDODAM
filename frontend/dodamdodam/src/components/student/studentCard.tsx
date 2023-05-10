@@ -9,7 +9,7 @@ export default function StudentCard(props: { student: student }) {
       <img
         className="mt-[35px] rounded-full w-[80px] h-[80px] "
         src={
-          props.student.photo == "DF"
+          props.student.photo == "DF" || props.student.photo == null
             ? "/images/student/boy.png"
             : `${props.student.photo}`
         }
