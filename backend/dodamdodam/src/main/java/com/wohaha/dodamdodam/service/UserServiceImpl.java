@@ -1,6 +1,5 @@
 package com.wohaha.dodamdodam.service;
 
-import com.querydsl.core.Tuple;
 import com.wohaha.dodamdodam.domain.JwtTokenInfo;
 import com.wohaha.dodamdodam.domain.User;
 import com.wohaha.dodamdodam.dto.request.LoginUserRequestDto;
@@ -95,22 +94,19 @@ public class UserServiceImpl implements UserService {
                 .token(jwtTokenInfo.getAccessToken())
                 .build();
 
-        System.out.println("여기오냐?");
-        System.out.println(loginUserRequestDto.getRole());
-
         Object response = result;
         switch (loginUserRequestDto.getRole()) {
-            case 1 : // 원장 선생님 (관리자)
+            case 1: // 원장 선생님 (관리자)
                 Boolean kindergarten = userRepository.findKindergartenSeq(user.getUserSeq()) != null;
                 response = new LoginAdminResponseDto(kindergarten, result);
                 break;
 
-            case 2 : // 선생님
+            case 2: // 선생님
                 LoginTeacherResponseDto loginTeacherResponseDto = userRepository.findClassInfoByUserSeq(user.getUserSeq());
                 loginTeacherResponseDto.setLoginResponseDto(result);
                 response = loginTeacherResponseDto;
                 break;
-            case 3 : // 부모님
+            case 3: // 부모님
                 LoginParentResponseDto loginParentResponseDto = userRepository.findKidInfoByUserSeq(user.getUserSeq());
                 loginParentResponseDto.setLoginResponseDto(result);
                 response = loginParentResponseDto;

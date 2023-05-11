@@ -10,4 +10,8 @@ public class LoginTeacherResponseDto {
     private String className;
     private LoginResponseDto loginResponseDto;
 
+    public LoginTeacherResponseDto(Long classSeq, String className) {
+        this.classSeq = classSeq;
+        this.className = className;
+    }
 }

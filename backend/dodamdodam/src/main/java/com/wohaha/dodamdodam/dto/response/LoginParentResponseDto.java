@@ -12,4 +12,11 @@ public class LoginParentResponseDto {
     private String className;
 
     private LoginResponseDto loginResponseDto;
+
+    public LoginParentResponseDto(Long kidSeq, String kidName, Long classSeq, String className) {
+        this.kidSeq = kidSeq;
+        this.kidName = kidName;
+        this.classSeq = classSeq;
+        this.className = className;
+    }
 }

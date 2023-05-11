@@ -1,9 +1,11 @@
 package com.wohaha.dodamdodam.repository;
 
 import com.wohaha.dodamdodam.dto.request.UpdateKidRequestDto;
+import com.wohaha.dodamdodam.dto.response.KidInfoResponseDto;
 import com.wohaha.dodamdodam.dto.response.KidResponseDto;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ManageKidRepositoryCustom {
     //아이리스트 조회
@@ -20,4 +22,6 @@ public interface ManageKidRepositoryCustom {
 
     //아이 삭제
     void deleteKid(long kidSeq);
+
+    Optional<KidInfoResponseDto> findKidInfoByKidSeq(Long kidSeq);
 }
