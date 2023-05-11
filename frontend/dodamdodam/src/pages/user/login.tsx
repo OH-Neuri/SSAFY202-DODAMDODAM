@@ -1,3 +1,5 @@
+import { userLogin } from '@/api/user/default'
+import { toastError } from '@/components/common/toast'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 
@@ -7,24 +9,32 @@ export default function Login() {
     const [id, setId] = useState<string>('')
     const [pw, setPw] = useState<string>('')
 
-    const login = () => {
+    const login = async () => {
         if(id == '') {
-            alert('아이디를 입력해주세요.')
+            toastError('아이디를 입력해주세요');
             return
         }
         if(pw == '') {
-            alert('비밀번호를 입력해주세요.')
+            toastError('비밀번호를 입력해주세요');
             return
         }
-        const data = {
-            id: id,
-            pw: pw
+        const res = await userLogin(id, pw, 1);
+        if(res.bool){
+            if(!res.kinder){
+                router.push('/user/welcome');
+            }else{
+                router.push('/calendar');
+            }
+        }else{
+            toastError('아이디나 비밀번호를 다시 확인해주세요.')
         }
-        console.log(data)
     }
   return (
     <>
         <div className='flex justify-center items-center h-screen bg-b_yellow'>
+            <div className='absolute flex justify-center top-0 left-0 w-[280px] mt-10'>
+                <img onClick={()=>router.push('/')} className='cursor-pointer w-1/2' src="/images/logo.png" alt="" />
+            </div>
             <div className='flex w-[1200px] h-[680px] bg-white rounded-xl'>
                 <div className='flex justify-center items-center w-1/2 h-full'>
                     <img src="/images/user/kids.gif" className='w-4/5' />
@@ -41,7 +51,7 @@ export default function Login() {
                     <div className='cursor-pointer font-preM hover:font-preB mt-16 mb-2'>문제가 있으신가요?</div>
                     <div>
                         <span className='mr-3'>아직 회원이 아니신가요?</span>
-                        <span onClick={()=>{router.push('/user/signup')}} className='underline font-preM hover:font-preB'>회원가입 하러가기</span>
+                        <span onClick={()=>{router.push('/user/signup')}} className='cursor-pointer underline font-preM hover:font-preB'>회원가입 하러가기</span>
                     </div>
                 </div>
             </div>
