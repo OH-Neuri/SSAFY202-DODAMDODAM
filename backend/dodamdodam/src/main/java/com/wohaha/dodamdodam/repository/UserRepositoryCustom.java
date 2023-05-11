@@ -13,4 +13,6 @@ public interface UserRepositoryCustom {
 
   void updateUser(UpdateUserRequestDto updateUserRequestDto);
 
+  Long findKindergartenSeq(Long userSeq);
+
 }
