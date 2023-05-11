@@ -29,4 +29,6 @@ public class KidResponseDto {
     private Long classSeq;
 
     private String className;
+
+    private Long parentSeq;
 }
