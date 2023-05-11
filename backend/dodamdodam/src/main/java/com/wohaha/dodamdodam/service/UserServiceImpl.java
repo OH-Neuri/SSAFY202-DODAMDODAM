@@ -5,8 +5,7 @@ import com.wohaha.dodamdodam.domain.User;
 import com.wohaha.dodamdodam.dto.request.LoginUserRequestDto;
 import com.wohaha.dodamdodam.dto.request.RegisterUserRequestDto;
 import com.wohaha.dodamdodam.dto.request.UpdateUserRequestDto;
-import com.wohaha.dodamdodam.dto.response.LoginUserResponseDto;
-import com.wohaha.dodamdodam.dto.response.RegisterUserResponseDto;
+import com.wohaha.dodamdodam.dto.response.*;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.repository.UserRepository;
@@ -72,7 +71,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public LoginUserResponseDto loginUser(LoginUserRequestDto loginUserRequestDto) {
+    public Object loginUser(LoginUserRequestDto loginUserRequestDto) {
 
         //아이디, 권한으로 유저 찾아오기
         User user = userRepository.findUserByIdAndRole(loginUserRequestDto.getId(),
@@ -88,19 +87,36 @@ public class UserServiceImpl implements UserService {
         //토큰 발급
         JwtTokenInfo jwtTokenInfo = JwtTokenUtils.allocateToken(user.getUserSeq(), user.getRole());
 
-        // 유치원 등록여부 확인
-
-        Boolean kindergarten = userRepository.findKindergartenSeq(user.getUserSeq()) != null;
-
-        LoginUserResponseDto result = LoginUserResponseDto.builder()
-                .kindergarten(kindergarten)
+        LoginResponseDto result = LoginResponseDto.builder()
                 .name(user.getName())
                 .id(user.getId())
                 .role(user.getRole())
                 .token(jwtTokenInfo.getAccessToken())
                 .build();
 
-        return result;
+        System.out.println("여기오냐?");
+        System.out.println(loginUserRequestDto.getRole());
+
+        Object response = result;
+        switch (loginUserRequestDto.getRole()) {
+            case 1 : // 원장 선생님 (관리자)
+                Boolean kindergarten = userRepository.findKindergartenSeq(user.getUserSeq()) != null;
+                response = new LoginAdminResponseDto(kindergarten, result);
+                break;
+
+            case 2 : // 선생님
+                LoginTeacherResponseDto loginTeacherResponseDto = userRepository.findClassInfoByUserSeq(user.getUserSeq());
+                loginTeacherResponseDto.setLoginResponseDto(result);
+                response = loginTeacherResponseDto;
+                break;
+            case 3 : // 부모님
+                LoginParentResponseDto loginParentResponseDto = userRepository.findKidInfoByUserSeq(user.getUserSeq());
+                loginParentResponseDto.setLoginResponseDto(result);
+                response = loginParentResponseDto;
+                break;
+        }
+
+        return (response instanceof LoginResponseDto) ? new BaseException(BaseResponseStatus.WRONG_ROLE) : response;
     }
 
     @Override
