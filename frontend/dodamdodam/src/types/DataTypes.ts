@@ -19,3 +19,11 @@ export type kindergartenType = {
     address: string
     phone_number: string
 }
+
+export type KinderGartenSearchType = {
+    [index : string] : number | string,
+    kindergartenInfoSeq : number,
+    name : string,
+    director : string,
+    address : string,
+}
