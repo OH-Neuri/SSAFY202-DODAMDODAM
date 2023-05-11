@@ -23,4 +23,6 @@ public interface UserRepositoryCustom {
   // 부모시퀀스로 아이정보, 아이의반정보
   LoginParentResponseDto findKidInfoByUserSeq(Long userSeq);
 
+  int findUserIdCntByUserId(String id);
+
 }

@@ -9,7 +9,6 @@ import static com.wohaha.dodamdodam.domain.QKid.kid;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.wohaha.dodamdodam.domain.ClassTeacher;
 import com.wohaha.dodamdodam.domain.User;
 
 import java.util.Optional;
@@ -88,6 +87,14 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
                 .fetchFirst();
 
         return new LoginParentResponseDto(tuple.get(kid.kidSeq), tuple.get(kid.name), tuple.get(kid.classSeq), tuple.get(classInfo.name));
+    }
+
+    @Override
+    public int findUserIdCntByUserId(String id) {
+        return query
+                .selectFrom(user)
+                .where(user.id.eq(id))
+                .fetch().size();
     }
 
 //    @Override

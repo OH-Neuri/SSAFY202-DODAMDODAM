@@ -136,5 +136,11 @@ public class UserServiceImpl implements UserService {
         return userRepository.existsById(userSeq);
     }
 
+    @Override
+    public Boolean checkIdDuplicate(String id) {
+        return userRepository.findUserIdCntByUserId(id) > 0;
+    }
+
+
 
 }

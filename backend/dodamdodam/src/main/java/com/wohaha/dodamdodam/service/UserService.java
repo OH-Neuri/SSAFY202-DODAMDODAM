@@ -13,6 +13,6 @@ public interface UserService {
   User getUser(Long userSeq);
   boolean updateUser(UpdateUserRequestDto updateUserRequestDto, Long userSeq);
   boolean isExist(Long userSeq);
-
+  Boolean checkIdDuplicate(String id);
 
 }
