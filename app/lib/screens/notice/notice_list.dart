@@ -24,11 +24,7 @@ class _NoticeListState extends State<NoticeList> {
   @override
   void initState() {
     super.initState();
-    NoticeService.getNoticeList().then((value) => {
-      setState((){
-        _noticeList = value;
-      })
-    });
+    getNoticeListInfo();
     NoticeService.getClassKidList().then((value) => {
       setState((){
         kidCnt = value.length;
@@ -137,5 +133,13 @@ class _NoticeListState extends State<NoticeList> {
           ]
       ),
     );
+  }
+
+  void getNoticeListInfo() {
+    NoticeService.getNoticeList().then((value) => {
+      setState((){
+        _noticeList = value;
+      })
+    });
   }
 }

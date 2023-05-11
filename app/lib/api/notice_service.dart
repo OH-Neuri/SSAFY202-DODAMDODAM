@@ -54,7 +54,7 @@ class NoticeService {
     DeviceInfoController c = Get.put(DeviceInfoController());
     try {
       c.setClassSeq(1); // 로그인 할 때, 저장
-      int? classSeq = c.classSeq.value;
+      int? classSeq = c.classSeq;
       String URL = '${url}class/notice';
       var req = http.MultipartRequest('POST', Uri.parse(URL));
       req.fields['classSeq'] = classSeq.toString();
@@ -89,6 +89,7 @@ class NoticeService {
     }
   }
 
+  // 반 별 원생 리스트 함수
   static Future<List<ClassKid>> getClassKidList() async {
     DeviceInfoController c = Get.put(DeviceInfoController());
     try {
