@@ -5,12 +5,10 @@ import com.wohaha.dodamdodam.domain.AuthParent;
 import com.wohaha.dodamdodam.domain.AuthTeacher;
 import com.wohaha.dodamdodam.domain.AuthUser;
 import com.wohaha.dodamdodam.dto.request.*;
+import com.wohaha.dodamdodam.dto.response.ClassNameResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
-import com.wohaha.dodamdodam.repository.AuthParentRepository;
-import com.wohaha.dodamdodam.repository.AuthTeacherRepository;
-import com.wohaha.dodamdodam.repository.AuthUserRepository;
-import com.wohaha.dodamdodam.repository.UserRepository;
+import com.wohaha.dodamdodam.repository.*;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -48,6 +46,9 @@ public class SmsServiceImpl implements SmsService {
 
   @Autowired
   private ManageKidService manageKidService;
+
+  @Autowired
+  private ClassRepository classRepository;
 
 
   //유저 회원가입 시 메세지 인증
@@ -142,7 +143,7 @@ public class SmsServiceImpl implements SmsService {
   }
 
   @Override
-  public boolean checkTeacherSms(SmsCheckRequestDto smsCheckRequestDto, Long userSeq) {
+  public ClassNameResponseDto checkTeacherSms(SmsCheckRequestDto smsCheckRequestDto, Long userSeq) {
     AuthTeacher authTeacher = authTeacherRepository.findById(smsCheckRequestDto.getPhone()).orElseThrow(() -> {throw new BaseException(UNREQUESTED_SMS_USER);});
 
     if(!authTeacher.getCodeMap().containsKey(smsCheckRequestDto.getCode())){
@@ -150,14 +151,15 @@ public class SmsServiceImpl implements SmsService {
     }
 
     Long classSeq = authTeacher.getCodeMap().get(smsCheckRequestDto.getCode()).getSeq();
-
     //연관관계 만들기
     manageClassService.createClassTeacher(classSeq, userSeq);
 
     //code를 인증했으므로 기존 코드를 삭제한다.
     authTeacher.getCodeMap().remove(smsCheckRequestDto.getCode());
 
-    return true;
+    // 리턴 값 생성
+    return new ClassNameResponseDto(classSeq,
+            classRepository.findNameById(classSeq).orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_CLASS)));
   }
 
 

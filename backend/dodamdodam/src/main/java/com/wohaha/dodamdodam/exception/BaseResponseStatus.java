@@ -60,6 +60,7 @@ public enum BaseResponseStatus {
   // 어린이집 관련 에러
   UNREGISTERED_KINDERGARTEN(HttpStatus.INTERNAL_SERVER_ERROR, 4080, "어린이집을 등록하지 않은 유저입니다."),
   KINDERGARTEN_NULL_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 4081, "해당 유저의 어린이집 정보를 찾을 수 없습니다."),
+  UNREGISTERED_CLASS(HttpStatus.INTERNAL_SERVER_ERROR, 4082, "존재하지 않는 반입니다."),
   // 출석 관리
   ATTENDANCE_NULL_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 4090, "해당 시퀀스의 등하원 정보가 없습니다."),
   ATTENDANCE_FORM_NULL_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 4091, "해당 날짜의 등하원 정보가 없습니다."),
