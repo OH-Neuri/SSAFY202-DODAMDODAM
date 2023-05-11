@@ -19,7 +19,7 @@ public class KindergartenController2 {
     @Autowired
     private ManageTeacherService manageTeacherService;
 
-    @GetMapping("kindergarten/teacher")
+    @GetMapping("teacher")
     public BaseResponseDto<List<TeacherInfoWithClassResponseDto>> teacherList(){
         try{
             return new BaseResponseDto<>(manageTeacherService.getTeacher());
