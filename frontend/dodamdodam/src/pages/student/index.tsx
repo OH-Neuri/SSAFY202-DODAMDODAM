@@ -62,7 +62,7 @@ export default function index() {
               <div key={i}>
                 <div
                   onClick={() => {
-                    handleOpenMo(i);
+                    handleOpenMo(v.kidSeq);
                   }}
                 >
                   <StudentCard key={i} student={v}></StudentCard>
@@ -90,7 +90,7 @@ export default function index() {
           ></StudentRegisterModal>
           <div className="">
             <StudentModifyModal
-              idx={studentIdx + 1}
+              idx={studentIdx}
               open={openMo}
               // student={studentList[studentIdx+1]}
               handleOpen={handleOpenMo}
