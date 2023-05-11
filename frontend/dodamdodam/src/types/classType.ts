@@ -8,7 +8,7 @@ export type ClassType = {
 
 export type ClassTeacherType = {
     [index: string] : number | string,
-    teacherSeq : number,
+    classTeacherSeq : number,
     teacherName : string
 }
 

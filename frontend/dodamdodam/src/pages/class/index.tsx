@@ -68,7 +68,7 @@ export default function index() {
       }
       const data : RegistClassType = {
         name: name,
-        age: ageList.toString()
+        age: ageList.sort().toString()
       }
       registClass(data);
       setName('');
@@ -87,7 +87,7 @@ export default function index() {
       const data : ModifyClassType = {
         classSeq : classSeq,
         name: name,
-        age: ageList.toString()
+        age: ageList.sort().toString()
       }
       modifyClass(data);
       close();
@@ -134,7 +134,7 @@ export default function index() {
             <div className='w-[56%] px-8 h-[600px] overflow-y-scroll [&::-webkit-scrollbar]:w-[10px] [&::-webkit-scrollbar-thumb]:bg-[#D5D5D5] [&::-webkit-scrollbar-thumb]:rounded-[10px] [&::-webkit-scrollbar-track]:hidden'>
               { data && (data.length != 0 ? (data.map((c, i)=>{
                 return (
-                  <div key={c.classSeq} className='flex items-center px-8 py-4 rounded-lg shadow w-full h-[100px] mb-4 bg-red-100'>
+                  <div key={c.classSeq} className={`flex items-center px-8 py-4 rounded-lg shadow w-full h-[100px] mb-4 ${c.classSeq == classSeq ? 'bg-red-200/90' : 'bg-red-100'}`}>
                     <div className='text-[22px] font-preSB pl-6 w-[20%] truncate'>{c.className}</div>
                     <div className='w-[20%]'>{c.age}</div>
                     <div className='flex justify-center w-[50%] pr-20'>
@@ -166,9 +166,9 @@ export default function index() {
                 <input onChange={(e)=>{setName(e.target.value)}} value={name} className='outline-none bg-stone-200/50 rounded w-full h-[50px] mt-2 mb-8 px-4' type="text" />
                 <div className='font-preR text-grey-800 font-preR'>연령</div>
                 <div className='flex mt-2 bg-white/70 rounded w-full p-2'>
-                  {chips.map((c, i)=>{
+                  {chips.map((c)=>{
                     return (
-                      <Chip key={i} onClick={()=>select(c)} className='cursor-pointer text-black mr-4 text-[16px] p-2 h-[40px] rounded-full' label={c} color='primary' variant={ageList.indexOf(c) == -1 ? 'outlined' : 'filled'}/>
+                      <Chip key={c} onClick={()=>select(c)} className='cursor-pointer text-black mr-4 text-[16px] p-2 h-[40px] rounded-full' label={c} color='primary' variant={ageList.indexOf(c) == -1 ? 'outlined' : 'filled'}/>
                     )
                   })}
                 </div>
@@ -188,9 +188,9 @@ export default function index() {
                 <input onChange={(e)=>{setName(e.target.value)}} className='outline-none bg-stone-200/50 rounded w-full h-[50px] mt-2 mb-8 px-4' value={name} type="text" />
                 <div className='font-preR text-grey-800 font-preR'>나이</div>
                 <div className='flex mt-2 bg-white/70 rounded w-full p-2'>
-                  {chips.map((c, i)=>{
+                  {chips.map((c)=>{
                     return (
-                      <Chip key={i} onClick={()=>select(c)} className='cursor-pointer text-black mr-4 text-[16px] p-2 h-[40px] rounded-full' label={c} color='primary' variant={ageList.indexOf(c) == -1 ? 'outlined' : 'filled'}/>
+                      <Chip key={c} onClick={()=>select(c)} className='cursor-pointer text-black mr-4 text-[16px] p-2 h-[40px] rounded-full' label={c} color='primary' variant={ageList.indexOf(c) == -1 ? 'outlined' : 'filled'}/>
                       )
                     })}
                 </div>
@@ -198,9 +198,9 @@ export default function index() {
                 {teacher && teacher.length != 0 ?
                 (teacher.map((t)=>{
                   return (
-                  <div key={t.teacherSeq} className='flex w-full mt-2 mb-8'>
+                  <div key={t.classTeacherSeq} className='flex w-full mt-2 mb-8'>
                     <input readOnly={true} className='outline-none bg-stone-200/50 rounded w-3/5 h-[50px] px-4 mr-4' value={t.teacherName} type="text" />
-                    <div onClick={()=>{deleteTeacher(t.teacherSeq); toastOK('삭제되었습니다.')}} className='flex justify-center items-center font-preR bg-stone-200 h-[50px] w-[38%] rounded cursor-pointer hover:bg-stone-300/70'>삭제하기</div>  
+                    <div onClick={()=>{deleteTeacher(t.classTeacherSeq); toastOK('삭제되었습니다.')}} className='flex justify-center items-center font-preR bg-stone-200 h-[50px] w-[38%] rounded cursor-pointer hover:bg-stone-300/70'>삭제하기</div>  
                   </div> 
                   )})
                 )
