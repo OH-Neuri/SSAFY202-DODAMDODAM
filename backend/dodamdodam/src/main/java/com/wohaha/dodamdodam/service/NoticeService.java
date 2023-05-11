@@ -14,8 +14,10 @@ public interface NoticeService {
     boolean createNoticeKidAndPhoto(long noticeSeq, List<Long> kids, List<String> uploadUrls);
     //아이 리스트
     List<ClassKidListResponseDto> getKidList(Long classSeq);
-    //알림장 리스트
-    List<ClassNoticeResponseDto> noticeList(long classSeq);
+    //알림장 리스트 - 선생님
+    List<ClassNoticeResponseDto> noticeListByTeacher(long classSeq);
+    //알림장 리스트 - 학부모
+    List<ClassNoticeResponseDto> noticeListByParent(long kidSeq);
     //알림장 1개 정보
     ClassNoticeResponseDto noticeInfo(long noticeSeq);
     //알림장 수정
