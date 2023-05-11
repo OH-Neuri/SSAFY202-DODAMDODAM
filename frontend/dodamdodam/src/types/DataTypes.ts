@@ -32,7 +32,8 @@ export type kindergartenType = {
 };
 
 export type teacherList = {
-  [index: string]: string;
+  [index: string]: string | number;
   teacherName: string,
-  className : string
+  className: string,
+  teacherSeq: number,
 }

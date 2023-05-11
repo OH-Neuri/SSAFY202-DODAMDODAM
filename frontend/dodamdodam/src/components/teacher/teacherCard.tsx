@@ -10,11 +10,12 @@ export default function teacherCard(props: { teacher: teacherList }) {
   const { teacher } = props;
   const [group, setGroup] = useState<string>("");
   const [name, setName] = useState<string>("");
-
+  const [teacherSeq, setTeacherSeq] = useState<number>(0);
 
   useEffect(() => {
     setGroup(props.teacher.className);
     setName(props.teacher.teacherName);
+    setTeacherSeq(props.teacher.teacherSeq);
   }, []);
 
 
@@ -25,13 +26,15 @@ export default function teacherCard(props: { teacher: teacherList }) {
       <Image
         className="mt-[29px]  w-[85px] h-[85px]  object-cover"
         src={
-          group == "햇살반"
-            ? "/images/teacher/sun.png"
-            : group == "꽃님반"
-            ? "/images/teacher/flower.png"
-            : group == "새싹반"
-            ? "/images/teacher/plant.png"
-            : "/images/teacher/cloud.png"
+          teacherSeq % 5 == 0 ?
+            '/images/teacher/class/class_1.png' :
+            teacherSeq % 5 == 2 ?
+              '/images/teacher/class/class_2.png' :
+              teacherSeq % 5 == 4 ?
+                '/images/teacher/class/class_3.png' :
+                teacherSeq % 5 == 6 ?
+                '/images/teacher/class/class_4.png' :
+                  '/images/teacher/class/class_5.png' 
         }
         alt=""
         width={100}
