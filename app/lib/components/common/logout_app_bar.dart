@@ -1,3 +1,4 @@
+import 'package:app/constants.dart';
 import 'package:flutter/material.dart';
 
 class LogoutAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -9,8 +10,8 @@ class LogoutAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: true,
-      backgroundColor: Colors.blue,
-      elevation: 3,
+      backgroundColor: bottomYellow,
+      elevation: 0,
       title: Row(
           children: [
             Image.asset('assets/images/logo.png', height: 40),

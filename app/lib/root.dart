@@ -1,4 +1,5 @@
 import 'package:app/components/common/logout_app_bar.dart';
+import 'package:app/constants.dart';
 import 'package:app/controller/root_controller.dart';
 import 'package:app/screens/chatting/chatting_main.dart';
 import 'package:app/screens/main/main_page.dart';
@@ -49,31 +50,31 @@ class Root extends GetView<RootController> {
         ),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: controller.rootPageIndex.value,
-          showSelectedLabels: true,
-          showUnselectedLabels: true,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
           onTap: (index) => controller.navigateToRootPage(index),
           items: [
             // 메인
             BottomNavigationBarItem(
               icon: Icon(Icons.home, color: Colors.grey),
-              activeIcon: Icon(Icons.home, color: Colors.red),
+              activeIcon: Icon(Icons.home, color: logoNavy),
               label: "메인",
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.calendar_month, color: Colors.grey),
-              activeIcon: Icon(Icons.calendar_month, color: Colors.red),
+              activeIcon: Icon(Icons.calendar_month, color: logoNavy),
               label: "캘린더",
             ),
             // 채팅
             BottomNavigationBarItem(
               icon: Icon(Icons.chat, color: Colors.grey),
-              activeIcon: Icon(Icons.chat, color: Colors.red),
+              activeIcon: Icon(Icons.chat, color: logoNavy),
               label: "채팅",
             ),
             // 환경 설정
             BottomNavigationBarItem(
               icon: Icon(Icons.settings, color: Colors.grey),
-              activeIcon: Icon(Icons.settings, color: Colors.red),
+              activeIcon: Icon(Icons.settings, color: logoNavy),
               label: "환경설정",
             ),
           ],
