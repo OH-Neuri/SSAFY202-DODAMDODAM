@@ -57,10 +57,6 @@ public class ManageKidServiceImpl implements ManageKidService{
         //아이 정보
         List<KidResponseDto> kidList = manageKidRepository.kidList();
 
-        for(KidResponseDto list : kidList){
-            System.out.println(list.getBirth());
-
-        }
 
         return kidList;
     }
