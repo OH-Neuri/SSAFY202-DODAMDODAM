@@ -13,9 +13,9 @@ public interface NoticeRepositoryCustom {
     //알림장 정보 불러오기 - 부모님
     List<ClassNoticeResponseDto> noticeInfoByParent(long kidSeq);
     //알림장 월별 검색 - 선생님
-    List<ClassNoticeResponseDto> noticeSearchByTeacher(int month, long classSeq);
+    List<ClassNoticeResponseDto> noticeSearchByTeacher(int month, int year, long classSeq);
     //알림장 월별 검색 - 부모님
-    List<ClassNoticeResponseDto> noticeSearchByParent(int month, long kidSeq);
+    List<ClassNoticeResponseDto> noticeSearchByParent(int month, int year, long kidSeq);
     //알림장 사진 불러오기
     List<String> noticePhoto(long noticeSeq);
     //알림장 //아이 선택

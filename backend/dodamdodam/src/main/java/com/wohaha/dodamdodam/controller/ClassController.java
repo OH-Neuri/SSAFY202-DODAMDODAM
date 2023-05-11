@@ -147,10 +147,12 @@ public class ClassController {
         }
     }
 
-    @GetMapping("/noticeSearchByTeacher/{month}")
-    public BaseResponseDto<List<ClassNoticeResponseDto>> noticeSearchByTeacher(@PathVariable int month, @RequestParam Long classSeq){
+    @GetMapping("/noticeSearchByTeacher")
+    public BaseResponseDto<List<ClassNoticeResponseDto>> noticeSearchByTeacher(@RequestParam Long classSeq,
+                                                                               @RequestParam int month,
+                                                                               @RequestParam int year){
         try{
-            return new BaseResponseDto<>(noticeService.noticeSearchByTeacher(month, classSeq));
+            return new BaseResponseDto<>(noticeService.noticeSearchByTeacher(month, year, classSeq));
         }catch (Exception e){
             if(e instanceof BaseException){
                 throw e;
@@ -160,10 +162,12 @@ public class ClassController {
         }
     }
 
-    @GetMapping("/noticeSearchByParent/{month}")
-    public BaseResponseDto<List<ClassNoticeResponseDto>> noticeSearchByParent(@PathVariable int month, @RequestParam Long kidSeq){
+    @GetMapping("/noticeSearchByParent")
+    public BaseResponseDto<List<ClassNoticeResponseDto>> noticeSearchByParent(@RequestParam Long kidSeq,
+                                                                              @RequestParam int month,
+                                                                              @RequestParam int year){
         try{
-            return new BaseResponseDto<>(noticeService.noticeSearchByParent(month, kidSeq));
+            return new BaseResponseDto<>(noticeService.noticeSearchByParent(month, year, kidSeq));
         }catch (Exception e){
             if(e instanceof BaseException){
                 throw e;
