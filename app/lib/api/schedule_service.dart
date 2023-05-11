@@ -72,4 +72,20 @@ class ScheduleService {
       print(e);
     }
   }
+
+  // 일정 삭제하기
+  static void deleteSchedule(int scheduleSeq) async {
+    try {
+      TodayController tc = Get.put(TodayController());
+      String URL = '${url}kindergarten/schedule/$scheduleSeq';
+      final response = await http.delete(Uri.parse(URL));
+      if(response.statusCode == 200) {
+        tc.setOneDayInfo(DateTime(tc.choiceDay.year, tc.choiceDay.month, tc.choiceDay.day));
+      } else {
+        print('일정 삭제 실패!');
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 }
