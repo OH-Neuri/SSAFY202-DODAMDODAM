@@ -16,6 +16,8 @@ public class CorsConfig {
 
     //origin 설정 ??
     config.addAllowedOriginPattern("*");
+    config.addAllowedOrigin("http://localhost:3000");
+    config.setAllowCredentials(true);
 
     //method 설정
     config.addAllowedMethod("*");
