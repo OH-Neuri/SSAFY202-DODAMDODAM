@@ -23,9 +23,9 @@ class SignupWelcome extends StatelessWidget {
                     Text('${c.name}님 환영합니다.', style: TextStyle(fontSize: titleTextSize, fontWeight: FontWeight.w600),),
                     Padding(
                       padding: const EdgeInsets.only(top: 10.0, bottom: 40.0),
-                      child: Text('지금 바로 도담도담과 함께 ${c.isTeacher.isTrue? '반':'아이'}관리를 시작하세요.', style: TextStyle(fontSize: contentTextSize),),
+                      child: Text('지금 바로 도담도담과 함께 ${c.isTeacher? '반':'아이'}관리를 시작하세요.', style: TextStyle(fontSize: contentTextSize),),
                     ),
-                    c.isTeacher.isTrue ?
+                    c.isTeacher ?
                     CustomButton(text: '반 코드 입력하기', height: 60, onPressed: (){}) :
                     CustomButton(text: '아이 코드 입력하기', height: 60, onPressed: (){}),
                   ],
