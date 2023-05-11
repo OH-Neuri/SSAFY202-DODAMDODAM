@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:app/constants.dart';
 import 'package:get/get.dart';
 
-class TodayFood extends StatelessWidget {
+class CalendarFood extends StatelessWidget {
+  const CalendarFood({super.key});
 
   @override
   Widget build(BuildContext context) {
     FoodController fc = Get.put(FoodController());
-
     return GetBuilder<FoodController>(
         builder: (_) =>
       Column(
@@ -20,64 +20,63 @@ class TodayFood extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                  "${fc.now.month}/${fc.now.day} ${fc.todayWeek} ",
-                  style: TextStyle(fontSize: buttonTextSize, fontWeight: FontWeight.w600
-                  )
-              ),
-              Image.asset('assets/images/common/diet_icon.png', height: 30, width: 30)
+                Text(
+                    "${fc.choiceDay.month}/${fc.choiceDay.day} ${fc.dayWeek} ",
+                    style: TextStyle(fontSize: buttonTextSize, fontWeight: FontWeight.w600)
+                ),
+              Image.asset('assets/images/common/diet_icon.png', height: 30, width: 30,)
             ],
           ),
         ),
         // 급식 내용 박스
         Container(
-            height: 250, width: double.infinity,
-            margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-              color: lightNavy,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 0,
-                  blurRadius: 5.0,
-                  offset: Offset(0, 10),
-                ),
-              ],
-            ),
+          height: 250, width: double.infinity,
+          margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            color: lightNavy,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 0,
+                blurRadius: 5.0,
+                offset: Offset(0, 10),
+              ),
+            ],
+          ),
           child: Padding(
             padding: const EdgeInsets.all(10),
             child: Row(
               children: [
                 // 점심 내용
                 Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(8, 0, 0, 8),
-                            child: Text("점심", style: TextStyle(fontWeight: FontWeight.w600 ,color: logoNavy)),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 200,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              OneLineFood(menu: FoodController.to.todayFood.rice),
-                              OneLineFood(menu: FoodController.to.todayFood.soup),
-                              OneLineFood(menu: FoodController.to.todayFood.dish1),
-                              OneLineFood(menu: FoodController.to.todayFood.dish2),
-                              OneLineFood(menu: FoodController.to.todayFood.dish3),
-                            ],
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(8, 0, 0, 8),
+                              child: Text("점심", style: TextStyle(fontWeight: FontWeight.w600 ,color: logoNavy)),
+                            )
+                          ],
                         ),
-                      )
-                    ],
-                  )
+                        SizedBox(
+                          height: 200,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              OneLineFood(menu: fc.food.rice),
+                              OneLineFood(menu: fc.food.soup),
+                              OneLineFood(menu: fc.food.dish1),
+                              OneLineFood(menu: fc.food.dish2),
+                              OneLineFood(menu: fc.food.dish3),
+                            ],
+                          ),
+                        )
+                      ],
+                    )
                 ),
                 // 간식 내용
                 Expanded(
@@ -100,11 +99,11 @@ class TodayFood extends StatelessWidget {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    OneLineFood(menu: FoodController.to.todayFood.morningSnack1),
-                                    OneLineFood(menu: FoodController.to.todayFood.morningSnack2),
+                                    OneLineFood(menu: fc.food.morningSnack1),
+                                    OneLineFood(menu: fc.food.morningSnack2),
                                   ],
                                 ),
-                                )
+                              )
                             ],
                           ),
                         ),
@@ -125,8 +124,8 @@ class TodayFood extends StatelessWidget {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    OneLineFood(menu: FoodController.to.todayFood.afternoonSnack1),
-                                    OneLineFood(menu: FoodController.to.todayFood.afternoonSnack2),
+                                    OneLineFood(menu: fc.food.afternoonSnack1),
+                                    OneLineFood(menu: fc.food.afternoonSnack2),
                                   ],
                                 ),
                               )

@@ -12,7 +12,7 @@ class NoticeService {
     DeviceInfoController c = Get.put(DeviceInfoController());
     try{
       c.setClassSeq(1); // 로그인 할 때, 저장
-      int? classSeq = c.classSeq.value;
+      int classSeq = c.classSeq;
       String URL = '${url}class/notice/$classSeq';
       final res = await http.get(Uri.parse(URL));
 
