@@ -35,6 +35,7 @@ public class KindergartenController {
     @Autowired
     private ManageFoodService manageFoodService;
 
+    // 반 관리
     @PostMapping("/class")
     public BaseResponseDto<?> createClass(@RequestBody CreateClassRequestDto createClassRequestDto) {
         try{
@@ -89,6 +90,7 @@ public class KindergartenController {
         }
     }
 
+    // 학생 관리
     @PostMapping("/kid")
     public BaseResponseDto<?> createKid(@ModelAttribute CreateKidRequestDto createKidRequestDto){
         try{
@@ -181,6 +183,21 @@ public class KindergartenController {
         try{
             return new BaseResponseDto<>(manageKidService.deleteKid(kidSeq));
         }catch(Exception e){
+            if(e instanceof BaseException){
+                throw e;
+            }else{
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
+    // 어린이집 관리
+    @PostMapping("")
+    public BaseResponseDto<Boolean> createKindergarten(@RequestBody KindergartenReqeustDto kindergartenReqeustDto) {
+        try{
+            return new BaseResponseDto<>(kindergartenService.createKindergarten(kindergartenReqeustDto));
+        }catch(Exception e){
+            e.printStackTrace();
             if(e instanceof BaseException){
                 throw e;
             }else{
