@@ -19,9 +19,9 @@ public interface NoticeService {
     //알림장 리스트 - 학부모
     List<ClassNoticeResponseDto> noticeListByParent(long kidSeq);
     //알림장 월별 검색 - 선생님
-    List<ClassNoticeResponseDto> noticeSearchByTeacher(int month, long classSeq);
+    List<ClassNoticeResponseDto> noticeSearchByTeacher(int month, int year, long classSeq);
     //알림장 월별 검색 - 학부모
-    List<ClassNoticeResponseDto> noticeSearchByParent(int month, long kidSeq);
+    List<ClassNoticeResponseDto> noticeSearchByParent(int month, int year, long kidSeq);
     //알림장 1개 정보
     ClassNoticeResponseDto noticeInfo(long noticeSeq);
     //알림장 수정
