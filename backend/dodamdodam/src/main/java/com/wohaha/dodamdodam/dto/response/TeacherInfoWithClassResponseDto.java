@@ -3,16 +3,14 @@ package com.wohaha.dodamdodam.dto.response;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
-@Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class TeacherInfoResponseDto {
+@NoArgsConstructor
+public class TeacherInfoWithClassResponseDto {
 
     private Long teacherSeq;
-
+    private String className;
     private String teacherName;
 
 }

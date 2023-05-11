@@ -44,14 +44,14 @@ public class MedicineRepositoryImpl implements MedicineRepositoryCustom{
         Timestamp endOfDate = Timestamp.valueOf(date.with(LocalTime.MAX));
 
         return query
-                .from(medicine)
-                .innerJoin(kid).on(medicine.kidSeq.eq(kid.kidSeq))
-                .where(kid.classSeq.eq(classSeq).and(medicine.requestDate.between(startOfDate, endOfDate)))
-                .orderBy(medicine.requestDate.asc())
                 .select(Projections.constructor(MedicineClassResponseDto.class,
                         medicine.medicineSeq.as("medicineSeq"),
                         kid.name.as("name"),
                         Expressions.stringTemplate("TIME_FORMAT({0}, '%H:%i')", medicine.responseDate).as("responseDate")))
+                .from(medicine)
+                .innerJoin(kid).on(medicine.kidSeq.eq(kid.kidSeq))
+                .where(kid.classSeq.eq(classSeq).and(medicine.requestDate.between(startOfDate, endOfDate)))
+                .orderBy(medicine.requestDate.asc())
                 .fetch();
     }
 
@@ -62,13 +62,12 @@ public class MedicineRepositoryImpl implements MedicineRepositoryCustom{
         Timestamp endOfMonth = Timestamp.valueOf(date.with(TemporalAdjusters.lastDayOfMonth()).with(LocalTime.MAX));
 
         return
-                query
+                query   .select(Projections.fields(MedicineKidResponseDto.class,
+                                medicine.responseDate.as("responseDate"),
+                                medicine.requestDate.as("requestDate")))
                         .from(medicine)
                         .where(medicine.kidSeq.eq(kidSeq)
                                 .and(medicine.requestDate.between(startOfMonth, endOfMonth)))
-                        .select(Projections.fields(MedicineKidResponseDto.class,
-                                medicine.responseDate.as("responseDate"),
-                                medicine.requestDate.as("requestDate")))
                         .orderBy(medicine.requestDate.asc())
                         .fetch();
 
