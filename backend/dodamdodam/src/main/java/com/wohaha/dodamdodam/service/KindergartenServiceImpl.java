@@ -3,6 +3,8 @@ package com.wohaha.dodamdodam.service;
 import com.wohaha.dodamdodam.domain.Kindergarten;
 import com.wohaha.dodamdodam.domain.KindergartenInfo;
 import com.wohaha.dodamdodam.dto.request.KindergartenReqeustDto;
+import com.wohaha.dodamdodam.exception.BaseException;
+import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.repository.KindergartenInfoRepository;
 import java.util.List;
 
@@ -37,12 +39,18 @@ public class KindergartenServiceImpl implements KindergartenService {
 
   @Override
   public Kindergarten getKindergarten() {
-    return null;
+    Long userSeq = ((CustomAuthenticatedUser)SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
+    Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
+            .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
+    return kindergartenRepository.findById(kindergartenSeq).orElseThrow(() -> new BaseException(BaseResponseStatus.KINDERGARTEN_NULL_FAIL));
   }
 
   @Override
   public Boolean updateKindergarten(KindergartenReqeustDto kindergartenReqeustDto) {
-    return null;
+    Long userSeq = ((CustomAuthenticatedUser)SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
+    Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
+            .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
+    return kindergartenRepository.updateKindergarten(kindergartenSeq, kindergartenReqeustDto) > 0;
   }
 
 

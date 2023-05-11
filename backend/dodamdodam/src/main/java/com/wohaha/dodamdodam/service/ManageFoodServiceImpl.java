@@ -28,7 +28,7 @@ public class ManageFoodServiceImpl implements ManageFoodService {
     public String modifyFood(FoodRequestDto foodRequestDto) {
         Long userSeq = 1L; // 원장선생님 시퀀스 토큰에서 가져옴
         Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
-                .orElseThrow(() -> new BaseException(BaseResponseStatus.KINDERGARTEN_NULL_FAIL));
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
         Optional<Long> foodSeq = foodRepository.findFoodSeq(kindergartenSeq, foodRequestDto.getDate());
 
         if (foodSeq.isPresent()) {
@@ -57,7 +57,7 @@ public class ManageFoodServiceImpl implements ManageFoodService {
     public FoodResponseDto getFood(String year, String month, String day) {
         Long userSeq = 1L; // 원장선생님 시퀀스 토큰에서 가져옴
         Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
-                .orElseThrow(() -> new BaseException(BaseResponseStatus.KINDERGARTEN_NULL_FAIL));
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
         return foodRepository.findFoodByKindergartenSeq(kindergartenSeq,
                         Integer.valueOf(year), Integer.valueOf(month), Integer.valueOf(day))
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.FOOD_NULL_FAIl));
@@ -67,7 +67,7 @@ public class ManageFoodServiceImpl implements ManageFoodService {
     public FoodListResponseDto getFoodList(String year, String month) {
         Long userSeq = 1L; // 원장선생님 시퀀스 토큰에서 가져옴
         Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
-                .orElseThrow(() -> new BaseException(BaseResponseStatus.KINDERGARTEN_NULL_FAIL));
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
         FoodListResponseDto foodList = new FoodListResponseDto(year, month);
         // 식단 있는 날짜 가져옴
         List<Integer> dateNumber = foodRepository.findFoodScheduleList(kindergartenSeq, Integer.valueOf(year), Integer.valueOf(month));

@@ -51,7 +51,7 @@ public class ManageClassServiceImpl implements ManageClassService {
     public List<ClassListResponseDto> classList() {
         Long userSeq = 1L; // 원장선생님 시퀀스 토큰에서 가져옴
         Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
-                .orElseThrow(() -> new BaseException(BaseResponseStatus.KINDERGARTEN_NULL_FAIL));
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
 
         //반 정보 (반시퀀스, 반이름, 반별 연령)
         List<ClassListResponseDto> classList = manageClassRepository.classInfoList(kindergartenSeq);
