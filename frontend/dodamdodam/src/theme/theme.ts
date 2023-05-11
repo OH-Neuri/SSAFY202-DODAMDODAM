@@ -8,5 +8,9 @@ export const theme = createTheme({
     secondary: {
       main: "#ACB4DB",
     },
+    error: {
+      main: "#646464",
+    },
+
   },
 });

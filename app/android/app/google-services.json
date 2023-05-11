@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1077299205570",
+    "project_id": "dodamdodam-94a8a",
+    "storage_bucket": "dodamdodam-94a8a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1077299205570:android:8e6d3ec4de423ade48f25b",
+        "android_client_info": {
+          "package_name": "com.ssafy.a202.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1077299205570-b3e3kge1ndot1ingp4reptjr2lbjth09.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMfJEQ4QNY73VZBk-jnPEECX7A82NjJLY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1077299205570-b3e3kge1ndot1ingp4reptjr2lbjth09.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1077299205570-u64rd7ecqmbe270rv4k0nr01rj9kgt17.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ssafy.a202.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
