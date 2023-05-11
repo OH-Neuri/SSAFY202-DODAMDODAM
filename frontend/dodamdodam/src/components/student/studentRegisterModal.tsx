@@ -220,7 +220,7 @@ export default function StudentRegisterModal(props: {
                 </div>
               </div>
               <div
-                onClick={() => { handleClose(); getRegisterKidInfo(); router.push("/student")}}
+                onClick={() => { handleClose(); getRegisterKidInfo();}}
                 className="cursor-pointer hover:bg-[#BF9831] flex justify-center items-center text-[20px] font-preM ml-3 w-[340px] h-[55px] bg-[#FFCD4A] rounded-lg mt-11"
               >
                 등록하기
