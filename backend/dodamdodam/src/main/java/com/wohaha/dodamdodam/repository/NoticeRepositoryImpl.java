@@ -7,10 +7,12 @@ import com.wohaha.dodamdodam.dto.response.ClassNoticeResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.server.header.ClearSiteDataServerHttpHeadersWriter;
 
+import static com.wohaha.dodamdodam.domain.QClassTeacher.classTeacher;
 import static com.wohaha.dodamdodam.domain.QNotice.notice;
 import static com.wohaha.dodamdodam.domain.QNoticePhoto.noticePhoto;
 import static com.wohaha.dodamdodam.domain.QKid.kid;
 import static com.wohaha.dodamdodam.domain.QNoticeKid.noticeKid;
+import static com.wohaha.dodamdodam.domain.QUser.user;
 
 import java.util.List;
 
@@ -29,13 +31,25 @@ public class NoticeRepositoryImpl implements NoticeRepositoryCustom {
     }
 
     @Override
-    public List<ClassNoticeResponseDto> noticeInfo(long classSeq) {
+    public List<ClassNoticeResponseDto> noticeInfoByTeacher(long classSeq) {
         return query
                 .select(Projections.fields(ClassNoticeResponseDto.class,
                         notice.noticeSeq, notice.createdAt.as("date"), notice.content,
                         notice.announcement))
                 .from(notice)
                 .where(notice.classSeq.eq(classSeq))
+                .fetch();
+
+    }
+    @Override
+    public List<ClassNoticeResponseDto> noticeInfoByParent(long kidSeq) {
+        return query
+                .select(Projections.fields(ClassNoticeResponseDto.class,
+                        notice.noticeSeq, notice.createdAt.as("date"), notice.content,
+                        notice.announcement))
+                .from(notice)
+                .join(noticeKid).on(notice.noticeSeq.eq(noticeKid.noticeSeq))
+                .where(noticeKid.kidSeq.eq(kidSeq))
                 .fetch();
 
     }

@@ -121,10 +121,23 @@ public class ClassController {
         }
     }
 
-    @GetMapping("/notice/{classSeq}")
-    public BaseResponseDto<List<ClassNoticeResponseDto>> noticeList(@PathVariable Long classSeq){
+    @GetMapping("/noticeByTeacher/{classSeq}")
+    public BaseResponseDto<List<ClassNoticeResponseDto>> noticeListByTeacher(@PathVariable Long classSeq){
         try{
-            return new BaseResponseDto<>(noticeService.noticeList(classSeq));
+            return new BaseResponseDto<>(noticeService.noticeListByTeacher(classSeq));
+        }catch (Exception e){
+            if(e instanceof BaseException){
+                throw e;
+            }else{
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
+    @GetMapping("/noticeByParent/{kidSeq}")
+    public BaseResponseDto<List<ClassNoticeResponseDto>> noticeListByParent(@PathVariable Long kidSeq){
+        try{
+            return new BaseResponseDto<>(noticeService.noticeListByParent(kidSeq));
         }catch (Exception e){
             if(e instanceof BaseException){
                 throw e;

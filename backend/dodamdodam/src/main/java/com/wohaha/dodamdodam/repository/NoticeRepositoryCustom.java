@@ -8,8 +8,10 @@ import java.util.List;
 public interface NoticeRepositoryCustom {
     //알림장 작성용 아이리스트
     List<ClassKidListResponseDto> getKidList(Long classSeq);
-    //알림장 정보 불러오기
-    List<ClassNoticeResponseDto> noticeInfo(long classSeq);
+    //알림장 정보 불러오기 - 선생님
+    List<ClassNoticeResponseDto> noticeInfoByTeacher(long classSeq);
+    //알림장 정보 불러오기 - 부모님
+    List<ClassNoticeResponseDto> noticeInfoByParent(long kidSeq);
     //알림장 사진 불러오기
     List<String> noticePhoto(long noticeSeq);
     //알림장 //아이 선택
