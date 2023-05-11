@@ -11,11 +11,11 @@ export default function index() {
   const [teacherList, setTeacherList] = useState<teacherList[]>([]);
 
 
-
+ // 선생님 리스트 불러오기
   async function getTeacherList() { 
     try {
       const response = await axios.get(
-        `https://dodamdodam.site/api/dodam/kindergarten/class`
+        `https://dodamdodam.site/api/dodam/kindergarten/teacher`
       );
       setTeacherList(response.data.result);
     } catch (error) { 

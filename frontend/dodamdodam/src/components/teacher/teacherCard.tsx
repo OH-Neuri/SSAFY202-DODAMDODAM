@@ -5,6 +5,9 @@ import Image from "next/image";
 
 
 export default function teacherCard(props: { teacher: teacherList }) {
+
+
+  const { teacher } = props;
   const [group, setGroup] = useState<string>("");
   const [name, setName] = useState<string>("");
 
