@@ -73,7 +73,6 @@ export default function studentPhoneInputModal(props: {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          {props.flag}
           {props.flag == 0 ? (
             <div className="flex flex-col mt-3  items-center ">
               <div className=" font-preB text-[27px]">
