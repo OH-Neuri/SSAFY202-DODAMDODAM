@@ -2,9 +2,14 @@ package com.wohaha.dodamdodam.repository;
 
 import static com.wohaha.dodamdodam.domain.QUser.user;
 import static com.wohaha.dodamdodam.domain.QKindergarten.kindergarten;
+import static com.wohaha.dodamdodam.domain.QClassTeacher.classTeacher;
+import static com.wohaha.dodamdodam.domain.QClassInfo.classInfo;
+import static com.wohaha.dodamdodam.domain.QKid.kid;
 
+import com.querydsl.core.Tuple;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.wohaha.dodamdodam.domain.ClassTeacher;
 import com.wohaha.dodamdodam.domain.User;
 
 import java.util.Optional;
@@ -63,22 +68,26 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 
     @Override
     public LoginTeacherResponseDto findClassInfoByUserSeq(Long userSeq) {
+        Tuple tuple = query
+                .select(classTeacher.classSeq, classInfo.name)
+                .from(classTeacher).join(classInfo).on(classTeacher.classSeq.eq(classInfo.classSeq))
+                .where(classTeacher.userSeq.eq(userSeq))
+                .fetchFirst();
 
-
-//        return query
-//                .select(classTeacher.classSeq, classInfo.name.as("className"))
-//                .from(classTeacher)
-//                .join(classInfo).on(classTeacher.classSeq.eq(classInfo.classSeq))
-//                .where(classTeacher.userSeq.eq(userSeq))
-//                .fetchFirst();
-        return null;
+        return new LoginTeacherResponseDto(tuple.get(classTeacher.classSeq), tuple.get(classInfo.name));
     }
 
 
 
     @Override
     public LoginParentResponseDto findKidInfoByUserSeq(Long userSeq) {
-        return null;
+        Tuple tuple = query
+                .select(kid.kidSeq, kid.name, kid.classSeq, classInfo.name)
+                .from(kid).join(classInfo).on(kid.classSeq.eq(classInfo.classSeq))
+                .where(kid.userSeq.eq(userSeq))
+                .fetchFirst();
+
+        return new LoginParentResponseDto(tuple.get(kid.kidSeq), tuple.get(kid.name), tuple.get(kid.classSeq), tuple.get(classInfo.name));
     }
 
 //    @Override

@@ -2,7 +2,8 @@ package com.wohaha.dodamdodam.controller;
 
 import com.wohaha.dodamdodam.dto.BaseResponseDto;
 import com.wohaha.dodamdodam.dto.request.*;
-import com.wohaha.dodamdodam.dto.response.ClassNameResponseDto;
+import com.wohaha.dodamdodam.dto.response.ClassInfoResponseDto;
+import com.wohaha.dodamdodam.dto.response.KidInfoResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.security.CustomAuthenticatedUser;
@@ -67,11 +68,10 @@ public class SmsController {
   }
 
   @PostMapping("/teacher/check")
-  public BaseResponseDto<ClassNameResponseDto> checkTeacherSms(@RequestBody SmsCheckRequestDto smsCheckRequestDto) {
+  public BaseResponseDto<ClassInfoResponseDto> checkTeacherSms(@RequestBody SmsCheckRequestDto smsCheckRequestDto) {
     try {
       Long userSeq = ((CustomAuthenticatedUser)SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
-      ClassNameResponseDto classNameResponseDto = smsService.checkTeacherSms(smsCheckRequestDto, userSeq);
-      return new BaseResponseDto<>(classNameResponseDto);
+      return new BaseResponseDto<>(smsService.checkTeacherSms(smsCheckRequestDto, userSeq));
     } catch (Exception e) {
       e.printStackTrace();
       if (e instanceof BaseException) {
@@ -98,11 +98,10 @@ public class SmsController {
   }
 
   @PostMapping("/parent/check")
-  public BaseResponseDto<Boolean> checkParentSms(@RequestBody SmsCheckRequestDto smsCheckRequestDto) {
+  public BaseResponseDto<KidInfoResponseDto> checkParentSms(@RequestBody SmsCheckRequestDto smsCheckRequestDto) {
     try {
       Long userSeq = ((CustomAuthenticatedUser)SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
-      boolean result = smsService.checkParentSms(smsCheckRequestDto, userSeq);
-      return new BaseResponseDto<>(result);
+      return new BaseResponseDto<>(smsService.checkParentSms(smsCheckRequestDto, userSeq));
     } catch (Exception e) {
       e.printStackTrace();
       if (e instanceof BaseException) {

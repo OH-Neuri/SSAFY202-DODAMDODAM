@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClassNameResponseDto {
+public class ClassInfoResponseDto {
     private Long classSeq;
     private String className;
 }

@@ -1,21 +1,20 @@
 package com.wohaha.dodamdodam.repository;
 
-import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.wohaha.dodamdodam.dto.request.UpdateKidRequestDto;
+import com.wohaha.dodamdodam.dto.response.KidInfoResponseDto;
 import com.wohaha.dodamdodam.dto.response.KidResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static com.wohaha.dodamdodam.domain.QKid.kid;
-import static com.wohaha.dodamdodam.domain.QClassInfo.classInfo;
-import static org.hibernate.internal.util.NullnessHelper.coalesce;
-
-
 import java.util.List;
+import java.util.Optional;
 
-public class ManageKidRepositoryImpl implements ManageKidRepositoryCustom{
+import static com.wohaha.dodamdodam.domain.QClassInfo.classInfo;
+import static com.wohaha.dodamdodam.domain.QKid.kid;
+
+public class ManageKidRepositoryImpl implements ManageKidRepositoryCustom {
 
     @Autowired
     private JPAQueryFactory query;
@@ -65,10 +64,10 @@ public class ManageKidRepositoryImpl implements ManageKidRepositoryCustom{
     public void updateKidNotPhoto(UpdateKidRequestDto updateKidRequestDto) {
         query
                 .update(kid)
-                .set(kid.name,updateKidRequestDto.getKidName())
-                .set(kid.birth,updateKidRequestDto.getBirth())
-                .set(kid.gender,updateKidRequestDto.getGender())
-                .set(kid.classSeq,updateKidRequestDto.getClassSeq())
+                .set(kid.name, updateKidRequestDto.getKidName())
+                .set(kid.birth, updateKidRequestDto.getBirth())
+                .set(kid.gender, updateKidRequestDto.getGender())
+                .set(kid.classSeq, updateKidRequestDto.getClassSeq())
                 .where(kid.kidSeq.eq(updateKidRequestDto.getKidSeq()))
                 .execute();
 
@@ -79,11 +78,11 @@ public class ManageKidRepositoryImpl implements ManageKidRepositoryCustom{
     public void updateKidWithPhoto(UpdateKidRequestDto updateKidRequestDto, String uploadUrl) {
         query
                 .update(kid)
-                .set(kid.name,updateKidRequestDto.getKidName())
-                .set(kid.birth,updateKidRequestDto.getBirth())
+                .set(kid.name, updateKidRequestDto.getKidName())
+                .set(kid.birth, updateKidRequestDto.getBirth())
                 .set(kid.photo, uploadUrl)
-                .set(kid.gender,updateKidRequestDto.getGender())
-                .set(kid.classSeq,updateKidRequestDto.getClassSeq())
+                .set(kid.gender, updateKidRequestDto.getGender())
+                .set(kid.classSeq, updateKidRequestDto.getClassSeq())
                 .where(kid.kidSeq.eq(updateKidRequestDto.getKidSeq()))
                 .execute();
     }
@@ -95,5 +94,16 @@ public class ManageKidRepositoryImpl implements ManageKidRepositoryCustom{
                 .where(kid.kidSeq.eq(kidSeq))
                 .execute();
 
+    }
+
+    @Override
+    public Optional<KidInfoResponseDto> findKidInfoByKidSeq(Long kidSeq) {
+        return Optional.ofNullable(
+                query.select(Projections.constructor(KidInfoResponseDto.class,
+                        kid.kidSeq, kid.name, kid.classSeq, classInfo.name))
+                        .from(kid).join(classInfo).on(kid.classSeq.eq(classInfo.classSeq))
+                        .where(kid.kidSeq.eq(kidSeq))
+                        .fetchOne()
+        );
     }
 }

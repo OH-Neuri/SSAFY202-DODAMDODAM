@@ -5,7 +5,8 @@ import com.wohaha.dodamdodam.domain.AuthParent;
 import com.wohaha.dodamdodam.domain.AuthTeacher;
 import com.wohaha.dodamdodam.domain.AuthUser;
 import com.wohaha.dodamdodam.dto.request.*;
-import com.wohaha.dodamdodam.dto.response.ClassNameResponseDto;
+import com.wohaha.dodamdodam.dto.response.ClassInfoResponseDto;
+import com.wohaha.dodamdodam.dto.response.KidInfoResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.repository.*;
@@ -15,6 +16,7 @@ import java.util.HashMap;
 import java.util.Optional;
 import java.util.Random;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,31 +26,18 @@ import static com.wohaha.dodamdodam.exception.BaseResponseStatus.WRONG_CODE;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class SmsServiceImpl implements SmsService {
 
-  @Autowired
-  private MessageService messageService;
-
-  @Autowired
-  private UserRepository userRepository;
-
-  @Autowired
-  private AuthUserRepository authUserRepository;
-
-  @Autowired
-  private AuthTeacherRepository authTeacherRepository;
-
-  @Autowired
-  private ManageClassService manageClassService;
-
-  @Autowired
-  private AuthParentRepository authParentRepository;
-
-  @Autowired
-  private ManageKidService manageKidService;
-
-  @Autowired
-  private ClassRepository classRepository;
+  private final MessageService messageService;
+  private final UserRepository userRepository;
+  private final AuthUserRepository authUserRepository;
+  private final AuthTeacherRepository authTeacherRepository;
+  private final ManageClassService manageClassService;
+  private final AuthParentRepository authParentRepository;
+  private final ManageKidService manageKidService;
+  private final ClassRepository classRepository;
+  private final ManageKidRepository manageKidRepository;
 
 
   //유저 회원가입 시 메세지 인증
@@ -143,7 +132,7 @@ public class SmsServiceImpl implements SmsService {
   }
 
   @Override
-  public ClassNameResponseDto checkTeacherSms(SmsCheckRequestDto smsCheckRequestDto, Long userSeq) {
+  public ClassInfoResponseDto checkTeacherSms(SmsCheckRequestDto smsCheckRequestDto, Long userSeq) {
     AuthTeacher authTeacher = authTeacherRepository.findById(smsCheckRequestDto.getPhone()).orElseThrow(() -> {throw new BaseException(UNREQUESTED_SMS_USER);});
 
     if(!authTeacher.getCodeMap().containsKey(smsCheckRequestDto.getCode())){
@@ -159,7 +148,7 @@ public class SmsServiceImpl implements SmsService {
 
 
     // 리턴 값 생성
-    return new ClassNameResponseDto(classSeq,
+    return new ClassInfoResponseDto(classSeq,
             classRepository.findNameById(classSeq).orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_CLASS)));
   }
 
@@ -223,7 +212,7 @@ public class SmsServiceImpl implements SmsService {
   }
 
   @Override
-  public boolean checkParentSms(SmsCheckRequestDto smsCheckRequestDto, Long userSeq) {
+  public KidInfoResponseDto checkParentSms(SmsCheckRequestDto smsCheckRequestDto, Long userSeq) {
     AuthParent authParent = authParentRepository.findById(smsCheckRequestDto.getPhone()).orElseThrow(() -> {throw new BaseException(UNREQUESTED_SMS_USER);});
 
     if(!authParent.getCodeMap().containsKey(smsCheckRequestDto.getCode())){
@@ -237,7 +226,7 @@ public class SmsServiceImpl implements SmsService {
     //code를 인증했으므로 기존 코드를 삭제한다.
     authParent.getCodeMap().remove(smsCheckRequestDto.getCode());
 
-    return true;
+    return manageKidRepository.findKidInfoByKidSeq(kidSeq).orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KID));
   }
 
 }
