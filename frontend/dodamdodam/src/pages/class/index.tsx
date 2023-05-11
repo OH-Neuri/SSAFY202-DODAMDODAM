@@ -200,7 +200,7 @@ export default function index() {
                   return (
                   <div key={t.classTeacherSeq} className='flex w-full mt-2 mb-8'>
                     <input readOnly={true} className='outline-none bg-stone-200/50 rounded w-3/5 h-[50px] px-4 mr-4' value={t.teacherName} type="text" />
-                    <div onClick={()=>{deleteTeacher(t.classTeacherSeq); toastOK('삭제되었습니다.')}} className='flex justify-center items-center font-preR bg-stone-200 h-[50px] w-[38%] rounded cursor-pointer hover:bg-stone-300/70'>삭제하기</div>  
+                    <div onClick={()=>{deleteTeacher(t.classTeacherSeq); toastOK('삭제되었습니다.'); close();}} className='flex justify-center items-center font-preR bg-stone-200 h-[50px] w-[38%] rounded cursor-pointer hover:bg-stone-300/70'>삭제하기</div>  
                   </div> 
                   )})
                 )
