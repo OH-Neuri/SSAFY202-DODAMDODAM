@@ -70,7 +70,8 @@ public class SmsController {
   public BaseResponseDto<ClassNameResponseDto> checkTeacherSms(@RequestBody SmsCheckRequestDto smsCheckRequestDto) {
     try {
       Long userSeq = ((CustomAuthenticatedUser)SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
-      return new BaseResponseDto<>(smsService.checkTeacherSms(smsCheckRequestDto, userSeq));
+      ClassNameResponseDto classNameResponseDto = smsService.checkTeacherSms(smsCheckRequestDto, userSeq);
+      return new BaseResponseDto<>(classNameResponseDto);
     } catch (Exception e) {
       e.printStackTrace();
       if (e instanceof BaseException) {

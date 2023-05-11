@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-public class LoginUserResponseDto {
-    private Boolean kindergarten;
+public class LoginResponseDto {
     private String id;
     private String name;
     private Integer role;

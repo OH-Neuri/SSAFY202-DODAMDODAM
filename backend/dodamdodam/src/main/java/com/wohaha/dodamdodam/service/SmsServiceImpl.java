@@ -157,6 +157,7 @@ public class SmsServiceImpl implements SmsService {
     //code를 인증했으므로 기존 코드를 삭제한다.
     authTeacher.getCodeMap().remove(smsCheckRequestDto.getCode());
 
+
     // 리턴 값 생성
     return new ClassNameResponseDto(classSeq,
             classRepository.findNameById(classSeq).orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_CLASS)));

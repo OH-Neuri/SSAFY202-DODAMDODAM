@@ -1,15 +1,19 @@
 package com.wohaha.dodamdodam.repository;
 
 import static com.wohaha.dodamdodam.domain.QClassInfo.classInfo;
+import static com.wohaha.dodamdodam.domain.QClassTeacher.classTeacher;
 import static com.wohaha.dodamdodam.domain.QUser.user;
 import static com.wohaha.dodamdodam.domain.QKindergarten.kindergarten;
 
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.wohaha.dodamdodam.domain.User;
 import java.util.Optional;
 
 import com.wohaha.dodamdodam.dto.request.UpdateUserRequestDto;
+import com.wohaha.dodamdodam.dto.response.LoginParentResponseDto;
+import com.wohaha.dodamdodam.dto.response.LoginTeacherResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class UserRepositoryImpl implements UserRepositoryCustom {
@@ -57,6 +61,21 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
                 .from(kindergarten)
                 .where(kindergarten.userSeq.eq(userSeq))
                 .fetchOne();
+    }
+
+    @Override
+    public LoginTeacherResponseDto findClassInfoByUserSeq(Long userSeq) {
+
+//        return query.select(Projections.fields(LoginTeacherResponseDto.class),
+//                classTeacher.classSeq, );
+        return null;
+    }
+
+
+
+    @Override
+    public LoginParentResponseDto findKidInfoByUserSeq(Long userSeq) {
+        return null;
     }
 
 //    @Override
