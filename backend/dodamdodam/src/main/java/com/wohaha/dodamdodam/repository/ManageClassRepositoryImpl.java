@@ -32,14 +32,16 @@ public class ManageClassRepositoryImpl implements ManageClassRepositoryCustom {
     public List<TeacherInfoResponseDto> teacherInfo(long classSeq) {
         return query
                 .select(Projections.fields(TeacherInfoResponseDto.class,
-                        user.userSeq.as("teacherSeq"), user.name.as("teacherName")))
+                        classTeacher.classTeacherSeq.as("classTeacherSeq"), user.name.as("teacherName")))
                 .from(user)
-                .where(user.userSeq.in(
-                        JPAExpressions.select(classTeacher.userSeq)
-                                .from(classTeacher)
-                                .where(classTeacher.classSeq.eq(classSeq))
-                ))
+                .join(classTeacher).on(classTeacher.userSeq.eq(user.userSeq))
+                .where(classTeacher.classSeq.eq(classSeq))
                 .fetch();
+//
+//        user.userSeq.in(
+//                JPAExpressions.select(classTeacher.userSeq)
+//                        .from(classTeacher)
+//                        .where(classTeacher.classSeq.eq(classSeq))
     }
 
     @Override
