@@ -121,10 +121,10 @@ public class ClassController {
         }
     }
 
-    @GetMapping("/notice/{classSeq}")
-    public BaseResponseDto<List<ClassNoticeResponseDto>> noticeList(@PathVariable Long classSeq){
+    @GetMapping("/notice/{kidSeq}")
+    public BaseResponseDto<List<ClassNoticeResponseDto>> noticeList(@PathVariable Long kidSeq){
         try{
-            return new BaseResponseDto<>(noticeService.noticeList(classSeq));
+            return new BaseResponseDto<>(noticeService.noticeList(kidSeq));
         }catch (Exception e){
             if(e instanceof BaseException){
                 throw e;

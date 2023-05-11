@@ -9,7 +9,7 @@ public interface NoticeRepositoryCustom {
     //알림장 작성용 아이리스트
     List<ClassKidListResponseDto> getKidList(Long classSeq);
     //알림장 정보 불러오기
-    List<ClassNoticeResponseDto> noticeInfo(long classSeq);
+    List<ClassNoticeResponseDto> noticeInfo(long kidSeq);
     //알림장 사진 불러오기
     List<String> noticePhoto(long noticeSeq);
     //알림장 //아이 선택
