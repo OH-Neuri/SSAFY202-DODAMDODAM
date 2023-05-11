@@ -35,6 +35,16 @@ public class KindergartenServiceImpl implements KindergartenService {
     return true;
   }
 
+  @Override
+  public Kindergarten getKindergarten() {
+    return null;
+  }
+
+  @Override
+  public Boolean updateKindergarten(KindergartenReqeustDto kindergartenReqeustDto) {
+    return null;
+  }
+
 
   @Override
   public List<KindergartenInfo> getKindergartenInfoList(String keyword) {
