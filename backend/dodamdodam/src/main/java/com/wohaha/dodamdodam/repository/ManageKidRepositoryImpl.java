@@ -48,6 +48,11 @@ public class ManageKidRepositoryImpl implements ManageKidRepositoryCustom{
                         kid.kidSeq, kid.name.as("kidName"),
                         kid.birth,
                         kid.photo, kid.gender, kid.classSeq,
+                        Expressions.cases()
+                                .when(kid.userSeq.isNull())
+                                .then(0L)
+                                .otherwise(kid.userSeq)
+                                .as("parentSeq"),
                         classInfo.name.as("className")))
                 .from(kid)
                 .join(classInfo)
