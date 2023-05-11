@@ -81,10 +81,10 @@ public class NoticeServiceImpl implements NoticeService{
 
 
     @Override
-    public List<ClassNoticeResponseDto> noticeList(long classSeq) {
+    public List<ClassNoticeResponseDto> noticeList(long kidSeq) {
         List<ClassNoticeResponseDto> noticeList = new ArrayList<>();
         //알림장 정보 불러오기
-        noticeList = noticeRepository.noticeInfo(classSeq);
+        noticeList = noticeRepository.noticeInfo(kidSeq);
 
         for(ClassNoticeResponseDto notice : noticeList) {
             //알림장 사진 불러와 넣기
