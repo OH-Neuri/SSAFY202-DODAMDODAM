@@ -1,6 +1,7 @@
 package com.wohaha.dodamdodam.service;
 
 import com.wohaha.dodamdodam.dto.request.*;
+import com.wohaha.dodamdodam.dto.response.ClassNameResponseDto;
 
 public interface SmsService {
 
@@ -12,7 +13,7 @@ public interface SmsService {
 //  SingleMessageSentResponse sendOneMessage(String toNumber, String randomNumber);
 //
   boolean checkUserSms(SmsCheckRequestDto smsCheckRequestDto);
-  boolean checkTeacherSms(SmsCheckRequestDto smsCheckRequestDto, Long userSeq);
+  ClassNameResponseDto checkTeacherSms(SmsCheckRequestDto smsCheckRequestDto, Long userSeq);
 
   String generateRandomSixDigitCode();
 

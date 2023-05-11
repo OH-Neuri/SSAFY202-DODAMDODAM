@@ -2,6 +2,7 @@ package com.wohaha.dodamdodam.controller;
 
 import com.wohaha.dodamdodam.dto.BaseResponseDto;
 import com.wohaha.dodamdodam.dto.request.*;
+import com.wohaha.dodamdodam.dto.response.ClassNameResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.security.CustomAuthenticatedUser;
@@ -66,11 +67,10 @@ public class SmsController {
   }
 
   @PostMapping("/teacher/check")
-  public BaseResponseDto<Boolean> checkTeacherSms(@RequestBody SmsCheckRequestDto smsCheckRequestDto) {
+  public BaseResponseDto<ClassNameResponseDto> checkTeacherSms(@RequestBody SmsCheckRequestDto smsCheckRequestDto) {
     try {
       Long userSeq = ((CustomAuthenticatedUser)SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
-      boolean result = smsService.checkTeacherSms(smsCheckRequestDto, userSeq);
-      return new BaseResponseDto<>(result);
+      return new BaseResponseDto<>(smsService.checkTeacherSms(smsCheckRequestDto, userSeq));
     } catch (Exception e) {
       e.printStackTrace();
       if (e instanceof BaseException) {
