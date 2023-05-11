@@ -10,6 +10,17 @@ export type student = {
   parentSeq: number;
 };
 
+export const studentInit : student = {
+  kidSeq: 0,
+  photo: '',
+  kidName: '',
+  birth: '',
+  gender: '',
+  classSeq: 0,
+  className: '',
+  parentSeq: 0,
+}
+
 export type classList = {
   [index: string]: string | number;
   classSeq: number;

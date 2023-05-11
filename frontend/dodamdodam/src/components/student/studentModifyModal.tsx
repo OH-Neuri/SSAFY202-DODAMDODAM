@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useState, useEffect } from "react";
-import { student, classList } from "@/types/DataTypes";
+import { student, classList, studentInit } from "@/types/DataTypes";
 import DatePicker from "react-datepicker";
 import FormControl from "@mui/material/FormControl";
 import axios from "axios";
@@ -31,7 +31,7 @@ export default function StudentModifyModal(props: {
   const [photo, setPhoto] = useState<any>("");
   const [gender, setGender] = useState<string>("");
   const [startDate, setStartDate] = useState(new Date("2023-05-4"));
-  const [student, setStudent] = useState<student>('');
+  const [student, setStudent] = useState<student>(studentInit);
   const [classList, setClassList] = useState<classList[]>([])
   const [selectedImg, setSelectedImg] = useState<File | null>(null);
   const [isRegisterd, setIsRegisterd] = useState<number>(0);
