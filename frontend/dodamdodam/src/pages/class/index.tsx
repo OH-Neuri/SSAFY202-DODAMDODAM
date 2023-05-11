@@ -1,21 +1,22 @@
 import NavBar from '@/components/common/navBar'
-import { ClassTeacherType, ClassType, RegistClassType } from '@/types/classType'
+import { ClassTeacherType, ModifyClassType, RegistClassType } from '@/types/classType'
 import { Chip, Modal } from '@mui/material'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import CloseIcon from '@mui/icons-material/Close';
 import React, { useState } from 'react';
-import { useQueryClient, useMutation } from 'react-query';
 import PageHeader from '@/components/common/pageHeader';
-import { useRegistClass, useClass } from '@/hooks/useClass';
-import { toastError } from '@/components/common/toast';
+import { useManageClass, useClass } from '@/hooks/classHook';
+import { toastError, toastOK } from '@/components/common/toast';
 
 export default function index() {
   const { data } = useClass()
-  const { registClass } = useRegistClass()
+  const { registClass, modifyClass, deleteClass } = useManageClass()
 
   const [name, setName] = useState<string>('')
   const [teacher, setTeacher] = useState<ClassTeacherType[]|null>(null)
+  const [classSeq, setClassSeq] = useState<number>(0)
+  const [deleteSeq, setDeleteSeq] = useState<number>(0)
   const [idx, setIdx] = useState<number>(-1)
 
   const [open, setOpen] = useState<boolean>(false)
@@ -39,6 +40,7 @@ export default function index() {
       setName(data[i].className)
       setTeacher(data[i].teacherInfo)
       setAgeList(data[i].age.split(','))
+      setClassSeq(data[i].classSeq)
       setIdx(i)
     }
 
@@ -46,6 +48,7 @@ export default function index() {
       setName('')
       setTeacher(null)
       setAgeList([])
+      setClassSeq(0)
       setIdx(-1)
     }
 
@@ -67,6 +70,30 @@ export default function index() {
       setAgeList([]);
     }
 
+    const modify = () => {
+      if(name == ''){
+        toastError('반 이름을 입력해주세요.')
+        return
+      }
+      if(ageList.length == 0) {
+        toastError('나이를 선택해주세요.')
+        return
+      }
+      const data : ModifyClassType = {
+        classSeq : classSeq,
+        name: name,
+        age: ageList.toString()
+      }
+      modifyClass(data);
+      close();
+    }
+
+    const erase = () => {
+      deleteClass(deleteSeq);
+      setOpen2(false);
+      toastOK('삭제되었습니다');
+    }
+
   return (
     <>
       <div className='grid grid-cols-7'>
@@ -86,7 +113,7 @@ export default function index() {
               { data && (data.length != 0 ? (data.map((c, i)=>{
                 return (
                   <div key={c.classSeq} className='flex items-center px-8 py-4 rounded-lg shadow w-full h-[100px] mb-4 bg-red-100'>
-                    <div className='text-[22px] font-preSB pl-6 w-[20%]'>{c.className}</div>
+                    <div className='text-[22px] font-preSB pl-6 w-[20%] truncate'>{c.className}</div>
                     <div className='w-[20%]'>{c.age}</div>
                     <div className='flex justify-center w-[50%] pr-20'>
                     {c.teacherInfo.length != 0 ?
@@ -98,7 +125,7 @@ export default function index() {
                     <div onClick={()=>{update(i)}}>
                       <DriveFileRenameOutlineIcon className='mr-10 text-stone-500 hover:text-stone-700 cursor-pointer' />
                     </div>
-                    <div onClick={()=>setOpen2(true)}>
+                    <div onClick={()=>{setOpen2(true); setDeleteSeq(c.classSeq)}}>
                       <DeleteForeverIcon className='text-red-400/80 cursor-pointer hover:text-red-400'/>
                     </div>
                   </div>
@@ -114,7 +141,7 @@ export default function index() {
               <div className='font-preB text-[#191919] text-[26px] mt-10 mb-16'>반 추가하기</div>
               <div className='w-full'>
                 <div className='font-preR text-grey-800 font-preR'>이름</div>
-                <input onChange={(e)=>{setName(e.target.value)}} className='outline-none bg-stone-200/50 rounded w-full h-[50px] mt-2 mb-8 px-4' type="text" />
+                <input onChange={(e)=>{setName(e.target.value)}} value={name} className='outline-none bg-stone-200/50 rounded w-full h-[50px] mt-2 mb-8 px-4' type="text" />
                 <div className='font-preR text-grey-800 font-preR'>연령</div>
                 <div className='flex mt-2 bg-white/70 rounded w-full p-2'>
                   {chips.map((c, i)=>{
@@ -158,7 +185,7 @@ export default function index() {
                 :
                 <input readOnly={true} className='outline-none bg-stone-200/50 rounded w-full h-[50px] mt-2 px-4 mr-4' value='미등록' type="text" />
               }
-                <div className='flex justify-center items-center w-full h-[60px] bg-m_yellow rounded text-[18px] font-preM mt-[60px] cursor-pointer hover:bg-h_yellow'>수정하기</div>
+                <div onClick={()=>modify()} className='flex justify-center items-center w-full h-[60px] bg-m_yellow rounded text-[18px] font-preM mt-[60px] cursor-pointer hover:bg-h_yellow'>수정하기</div>
               </div>
               </>
             }
@@ -184,7 +211,7 @@ export default function index() {
                 <div>삭제된 반은 다시 복구할 수 없습니다.</div>
                 <div>정말로 삭제하시겠습니까?</div>
               </div>
-              <div className='flex justify-center items-center w-full h-[60px] bg-m_yellow rounded text-[18px] font-preM mt-10 cursor-pointer hover:bg-h_yellow'>삭제하기</div>             
+              <div onClick={()=>erase()} className='flex justify-center items-center w-full h-[60px] bg-m_yellow rounded text-[18px] font-preM mt-10 cursor-pointer hover:bg-h_yellow'>삭제하기</div>             
               <div onClick={()=>setOpen2(false)} className='flex justify-center items-center w-full h-[60px] bg-stone-200 rounded text-[18px] font-preM mt-5 cursor-pointer hover:bg-stone-300'>취소</div>             
             </div>
           </Modal>

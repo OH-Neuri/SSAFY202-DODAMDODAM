@@ -16,10 +16,10 @@ export const toastError = (content: string) => {
     )
 }
 
-export const toastOK = (content: string, icon : string, position: ToastPosition) => {
+export const toastOK = (content: string) => {
     return (
         toast.info(content, {
-            position: position,
+            position: 'top-right',
             autoClose: 1500,
             hideProgressBar: true,
             closeOnClick: true,
@@ -27,7 +27,7 @@ export const toastOK = (content: string, icon : string, position: ToastPosition)
             draggable: true,
             progress: undefined,
             theme: "colored",
-            icon: icon,
+            icon: '⭐',
             })
     )
 }

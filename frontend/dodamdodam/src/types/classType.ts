@@ -17,3 +17,10 @@ export type RegistClassType = {
     name : string,
     age : string
 }
+
+export type ModifyClassType = {
+    [index : string] : number | string,
+    classSeq : number,
+    name: string,
+    age: string,
+}
