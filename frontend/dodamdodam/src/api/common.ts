@@ -11,7 +11,7 @@ export const authAxios: AxiosInstance = axios.create({
   },
 });
 
-// 주석 취소하면 에러남.... 왜...?
+// 주석 취소하면 CORS 에러남.... 왜...?
 // authAxios.defaults.withCredentials = true;
 
 // 로그인이 필요없는 axios

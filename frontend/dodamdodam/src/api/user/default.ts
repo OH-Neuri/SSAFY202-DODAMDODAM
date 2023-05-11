@@ -60,11 +60,13 @@ export const userLogin = async (id: string, pw: string, role: number) => {
     await defaultAxios.post(`user/login`, data
     ).then((res)=>{
         console.log(res.data.result)
-        sessionStorage.setItem('isLogin', 'true')
-        sessionStorage.setItem('token', res.data.result.loginResponseDto.token)
-        sessionStorage.setItem('name', res.data.result.loginResponseDto.name)
-        payload.bool = true
-        payload.kinder = res.data.result.kindergarten
+        if(res.data.isSuccess){
+            sessionStorage.setItem('isLogin', 'true')
+            sessionStorage.setItem('token', res.data.result.loginResponseDto.token)
+            sessionStorage.setItem('name', res.data.result.loginResponseDto.name)
+            payload.bool = true
+            payload.kinder = res.data.result.kindergarten
+        }
     }).catch((err)=>{
         console.log(err)
     })

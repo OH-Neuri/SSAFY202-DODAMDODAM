@@ -198,7 +198,7 @@ export default function index() {
                 {teacher && teacher.length != 0 ?
                 (teacher.map((t)=>{
                   return (
-                  <div key={t.classTeacherSeq} className='flex w-full mt-2 mb-8'>
+                  <div key={t.classTeacherSeq} className='flex w-full mt-2 mb-3'>
                     <input readOnly={true} className='outline-none bg-stone-200/50 rounded w-3/5 h-[50px] px-4 mr-4' value={t.teacherName} type="text" />
                     <div onClick={()=>{deleteTeacher(t.classTeacherSeq); toastOK('삭제되었습니다.'); close();}} className='flex justify-center items-center font-preR bg-stone-200 h-[50px] w-[38%] rounded cursor-pointer hover:bg-stone-300/70'>삭제하기</div>  
                   </div> 
@@ -207,7 +207,7 @@ export default function index() {
                 :
                 <input readOnly={true} className='outline-none bg-stone-200/50 rounded w-full h-[50px] mt-2 px-4 mr-4' value='미등록' type="text" />
               }
-                <div onClick={()=>modify()} className='flex justify-center items-center w-full h-[60px] bg-m_yellow rounded text-[18px] font-preM mt-[60px] cursor-pointer hover:bg-h_yellow'>수정하기</div>
+                <div onClick={()=>modify()} className='flex justify-center items-center w-full h-[60px] bg-m_yellow rounded text-[18px] font-preM mt-[60px] mb-8 cursor-pointer hover:bg-h_yellow'>수정하기</div>
               </div>
               </>
             }
