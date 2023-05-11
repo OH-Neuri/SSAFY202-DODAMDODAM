@@ -29,11 +29,6 @@ export default function StudentModifyModal(props: {
   const [group, setGroup] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [photo, setPhoto] = useState<any>("");
-  const { open, handleClose, idx } = props;
-  const [age, setAge] = useState<string>("");
-  const [group, setGroup] = useState<string>("");
-  const [name, setName] = useState<string>("");
-  const [photo, setPhoto] = useState<any>("");
   const [gender, setGender] = useState<string>("");
   const [startDate, setStartDate] = useState(new Date("2023-05-4"));
   const [student, setStudent] = useState<student>(studentInit);
@@ -41,21 +36,23 @@ export default function StudentModifyModal(props: {
   const [selectedImg, setSelectedImg] = useState<File | null>(null);
   const [isRegisterd, setIsRegisterd] = useState<number>(0);
   const [openPh, setOpenPh] = useState<boolean>(false);
-
+  const [flag, setFlag] = useState<number>(0);
   const handleOpenPh = () => setOpenPh(true);
   const handleClosePh = () => setOpenPh(false);
 
-  // 반 변경 저장
   // 반 변경 저장
   const handleChangeGroup = (event: SelectChangeEvent) => {
     setGroup(event.target.value);
   };
 
   // 성별 변경 저장
-  // 성별 변경 저장
   const handleChangeGender = (event: SelectChangeEvent) => {
     setGender(event.target.value);
   };
+
+  function flagReset() {
+    setFlag(0);
+  }
 
   // 아이 수정하기
   async function getModifyKidInfo() {
@@ -232,9 +229,9 @@ export default function StudentModifyModal(props: {
                 onChange={(e) => setName(e.target.value)}
               ></input>
             </div>
+            {/* 원생 나이 */}
             <div className="pt-[20px] w-[340px]">
               <div className="flex">
-                {/* 원생 나이 */}
                 <div>
                   <div className="ml-[5px]">생년월일</div>
                   <div className="ml-[5px] mt-[3px]  w-[150px] h-[60px]">
@@ -288,6 +285,7 @@ export default function StudentModifyModal(props: {
                 </div>
               </div>
               <div className="flex mt-[20px]">
+                {/* 학부모 인증 완료 여부에 따른 화면 */}
                 {isRegisterd != 0 ? (
                   <div className="flex">
                     <div
@@ -323,6 +321,7 @@ export default function StudentModifyModal(props: {
                     <div
                       onClick={() => {
                         handleOpenPh();
+                        flagReset();
                       }}
                       className="cursor-pointer hover:bg-[#D76861] flex justify-center items-center text-[15px] font-preM ml-3 w-[103px] h-[50px] bg-[#FF655B] rounded-lg mt-11"
                     >
@@ -338,6 +337,8 @@ export default function StudentModifyModal(props: {
                       삭제하기
                     </div>
                     <StudentPhoneInputModal
+                      setFlag={setFlag}
+                      flag={flag}
                       idx={props.idx}
                       open={openPh}
                       handleOpen={handleOpenPh}
