@@ -2,6 +2,7 @@ package com.wohaha.dodamdodam.repository;
 
 import static com.wohaha.dodamdodam.domain.QClassInfo.classInfo;
 import static com.wohaha.dodamdodam.domain.QUser.user;
+import static com.wohaha.dodamdodam.domain.QKindergarten.kindergarten;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -49,6 +50,14 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
                 .execute();
     }
 
+    @Override
+    public Long findKindergartenSeq(Long userSeq) {
+        return query
+                .select(kindergarten.kindergartenSeq)
+                .from(kindergarten)
+                .where(kindergarten.userSeq.eq(userSeq))
+                .fetchOne();
+    }
 
 //    @Override
 //    public Optional<Auth> findAuthByPhone(String phone) {

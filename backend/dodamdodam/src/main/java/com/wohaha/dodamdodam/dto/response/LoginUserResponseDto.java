@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 public class LoginUserResponseDto {
+    private Boolean kindergarten;
     private String id;
     private String name;
     private Integer role;

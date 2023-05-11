@@ -20,99 +20,108 @@ import static com.wohaha.dodamdodam.exception.BaseResponseStatus.*;
 
 @Service
 @Transactional
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
-  @Autowired
-  private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-  @Autowired
-  private SmsService smsService;
+    @Autowired
+    private SmsService smsService;
 
-  @Override
-  public RegisterUserResponseDto registerUser(RegisterUserRequestDto registerUserRequestDto) {
+    @Override
+    public RegisterUserResponseDto registerUser(RegisterUserRequestDto registerUserRequestDto) {
 
-    //1. 이미 해당 핸드폰번호와 권한으로 가입된 유저인지 체크
-    if(userRepository.isSignedUp(registerUserRequestDto.getPhone(), registerUserRequestDto.getRole())){
-     //이미 가입된 유저입니다.
-      throw new BaseException(BaseResponseStatus.ALREADY_SIGNED_UP);
+        //1. 이미 해당 핸드폰번호와 권한으로 가입된 유저인지 체크
+        if (userRepository.isSignedUp(registerUserRequestDto.getPhone(), registerUserRequestDto.getRole())) {
+            //이미 가입된 유저입니다.
+            throw new BaseException(BaseResponseStatus.ALREADY_SIGNED_UP);
+        }
+
+        //2. 해당 유저의 휴대폰 인증이 완료됐는지 체크
+        if (!smsService.isCheckedUser(registerUserRequestDto.getPhone())) {
+            //휴대폰 인증을 먼저 진행해주세요
+            throw new BaseException(BaseResponseStatus.FAIL);
+        }
+
+        //가입시킨다.
+        User user = User.builder()
+                .name(registerUserRequestDto.getName())
+                .phoneNumber(registerUserRequestDto.getPhone())
+                .role(registerUserRequestDto.getRole())
+                .id(registerUserRequestDto.getId())
+                .password(EncodeUtils.encode(registerUserRequestDto.getPassword()))
+                .build();
+
+        userRepository.save(user);
+
+        //토큰 발급
+        JwtTokenInfo jwtTokenInfo = JwtTokenUtils.allocateToken(user.getUserSeq(), user.getRole());
+
+        //휴대폰 인증 삭제
+        smsService.deleteCheckedUser(user.getPhoneNumber());
+
+        //return
+        RegisterUserResponseDto result = RegisterUserResponseDto.builder()
+                .id(user.getId())
+                .name(user.getName())
+                .role(user.getRole())
+                .token(jwtTokenInfo.getAccessToken())
+                .build();
+
+        return result;
     }
 
-    //2. 해당 유저의 휴대폰 인증이 완료됐는지 체크
-    if(!smsService.isCheckedUser(registerUserRequestDto.getPhone())){
-      //휴대폰 인증을 먼저 진행해주세요
-      throw new BaseException(BaseResponseStatus.FAIL);
+    @Override
+    public LoginUserResponseDto loginUser(LoginUserRequestDto loginUserRequestDto) {
+
+        //아이디, 권한으로 유저 찾아오기
+        User user = userRepository.findUserByIdAndRole(loginUserRequestDto.getId(),
+                loginUserRequestDto.getRole()).orElseThrow(() -> {
+            throw new BaseException(SIGNUP_REQUIRED);
+        });
+
+        //아이디 비밀번호 일치 여부 확인하기
+        if (!EncodeUtils.matches(loginUserRequestDto.getPassword(), user.getPassword())) {
+            throw new BaseException(WRONG_PASSWORD);
+        }
+
+        //토큰 발급
+        JwtTokenInfo jwtTokenInfo = JwtTokenUtils.allocateToken(user.getUserSeq(), user.getRole());
+
+        // 유치원 등록여부 확인
+
+        Boolean kindergarten = userRepository.findKindergartenSeq(user.getUserSeq()) != null;
+
+        LoginUserResponseDto result = LoginUserResponseDto.builder()
+                .kindergarten(kindergarten)
+                .name(user.getName())
+                .id(user.getId())
+                .role(user.getRole())
+                .token(jwtTokenInfo.getAccessToken())
+                .build();
+
+        return result;
     }
 
-    //가입시킨다.
-    User user = User.builder()
-        .name(registerUserRequestDto.getName())
-        .phoneNumber(registerUserRequestDto.getPhone())
-        .role(registerUserRequestDto.getRole())
-        .id(registerUserRequestDto.getId())
-        .password(EncodeUtils.encode(registerUserRequestDto.getPassword()))
-        .build();
-
-    userRepository.save(user);
-
-    //토큰 발급
-    JwtTokenInfo jwtTokenInfo = JwtTokenUtils.allocateToken(user.getUserSeq(), user.getRole());
-
-    //휴대폰 인증 삭제
-    smsService.deleteCheckedUser(user.getPhoneNumber());
-
-    //return
-    RegisterUserResponseDto result = RegisterUserResponseDto.builder()
-        .id(user.getId())
-        .name(user.getName())
-        .role(user.getRole())
-        .token(jwtTokenInfo.getAccessToken())
-        .build();
-
-    return result;
-  }
-
-  @Override
-  public LoginUserResponseDto loginUser(LoginUserRequestDto loginUserRequestDto) {
-
-    //아이디, 권한으로 유저 찾아오기
-    User user = userRepository.findUserByIdAndRole(loginUserRequestDto.getId(),
-        loginUserRequestDto.getRole()).orElseThrow(()->{throw new BaseException(SIGNUP_REQUIRED);});
-
-    //아이디 비밀번호 일치 여부 확인하기
-    if(!EncodeUtils.matches(loginUserRequestDto.getPassword(), user.getPassword())){
-      throw new BaseException(WRONG_PASSWORD);
+    @Override
+    public User getUser(Long userSeq) {
+        return userRepository.findById(userSeq).orElseThrow(() -> {
+            throw new BaseException(UNREGISTERED_USER);
+        });
     }
 
-    //토큰 발급
-    JwtTokenInfo jwtTokenInfo = JwtTokenUtils.allocateToken(user.getUserSeq(), user.getRole());
+    @Override
+    public boolean updateUser(UpdateUserRequestDto updateUserRequestDto, Long userSeq) {
+        updateUserRequestDto.setPassword(EncodeUtils.encode(updateUserRequestDto.getPassword()));
+        updateUserRequestDto.setUserSeq(userSeq);
+        userRepository.updateUser(updateUserRequestDto);
+        return true;
+    }
 
-    LoginUserResponseDto result = LoginUserResponseDto.builder()
-        .name(user.getName())
-        .id(user.getId())
-        .role(user.getRole())
-        .token(jwtTokenInfo.getAccessToken())
-        .build();
-
-    return result;
-  }
-
-  @Override
-  public User getUser(Long userSeq) {
-    return userRepository.findById(userSeq).orElseThrow(()->{throw new BaseException(UNREGISTERED_USER);});
-  }
-
-  @Override
-  public boolean updateUser(UpdateUserRequestDto updateUserRequestDto, Long userSeq) {
-    updateUserRequestDto.setPassword(EncodeUtils.encode(updateUserRequestDto.getPassword()));
-    updateUserRequestDto.setUserSeq(userSeq);
-    userRepository.updateUser(updateUserRequestDto);
-    return true;
-  }
-
-  @Override
-  public boolean isExist(Long userSeq) {
-    return userRepository.existsById(userSeq);
-  }
+    @Override
+    public boolean isExist(Long userSeq) {
+        return userRepository.existsById(userSeq);
+    }
 
 
 }
