@@ -1,6 +1,8 @@
 package com.wohaha.dodamdodam.repository;
 
+import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.wohaha.dodamdodam.dto.request.UpdateKidRequestDto;
 import com.wohaha.dodamdodam.dto.response.KidResponseDto;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import static com.wohaha.dodamdodam.domain.QKid.kid;
 import static com.wohaha.dodamdodam.domain.QClassInfo.classInfo;
+import static org.hibernate.internal.util.NullnessHelper.coalesce;
 
 
 import java.util.List;
@@ -25,6 +28,11 @@ public class ManageKidRepositoryImpl implements ManageKidRepositoryCustom{
                         kid.kidSeq, kid.name.as("kidName"),
                         kid.birth,
                         kid.photo, kid.gender, kid.classSeq,
+                        Expressions.cases()
+                                .when(kid.userSeq.isNull())
+                                .then(0L)
+                                .otherwise(kid.userSeq)
+                                .as("parentSeq"),
                         classInfo.name.as("className")))
                 .from(kid)
                 .join(classInfo)
@@ -40,6 +48,11 @@ public class ManageKidRepositoryImpl implements ManageKidRepositoryCustom{
                         kid.kidSeq, kid.name.as("kidName"),
                         kid.birth,
                         kid.photo, kid.gender, kid.classSeq,
+                        Expressions.cases()
+                                .when(kid.userSeq.isNull())
+                                .then(0L)
+                                .otherwise(kid.userSeq)
+                                .as("parentSeq"),
                         classInfo.name.as("className")))
                 .from(kid)
                 .join(classInfo)

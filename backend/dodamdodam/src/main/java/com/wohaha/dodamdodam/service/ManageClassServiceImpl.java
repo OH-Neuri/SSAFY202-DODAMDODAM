@@ -95,7 +95,7 @@ public class ManageClassServiceImpl implements ManageClassService {
 
     @Override
     public boolean deleteClassTeacher(Long classTeacherSeq) {
-        classTeacherRepository.deleteById(classTeacherSeq);
+        classTeacherRepository.deleteClassTeacher(classTeacherSeq);
         return true;
     }
 

@@ -1,6 +1,7 @@
 package com.wohaha.dodamdodam.repository;
 
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.wohaha.dodamdodam.dto.response.ClassKidListResponseDto;
 import com.wohaha.dodamdodam.dto.response.ClassNoticeResponseDto;
@@ -52,6 +53,31 @@ public class NoticeRepositoryImpl implements NoticeRepositoryCustom {
                 .where(noticeKid.kidSeq.eq(kidSeq))
                 .fetch();
 
+    }
+
+    @Override
+    public List<ClassNoticeResponseDto> noticeSearchByTeacher(int month, long classSeq) {
+        return query
+                .select(Projections.fields(ClassNoticeResponseDto.class,
+                        notice.noticeSeq, notice.createdAt.as("date"), notice.content,
+                        notice.announcement))
+                .from(notice)
+                .where(notice.classSeq.eq(classSeq)
+                        .and(Expressions.numberTemplate(Integer.class, "MONTH({0})", notice.createdAt).eq(month)))
+                .fetch();
+    }
+
+    @Override
+    public List<ClassNoticeResponseDto> noticeSearchByParent(int month, long kidSeq) {
+        return query
+                .select(Projections.fields(ClassNoticeResponseDto.class,
+                        notice.noticeSeq, notice.createdAt.as("date"), notice.content,
+                        notice.announcement))
+                .from(notice)
+                .join(noticeKid).on(notice.noticeSeq.eq(noticeKid.noticeSeq))
+                .where(noticeKid.kidSeq.eq(kidSeq)
+                        .and(Expressions.numberTemplate(Integer.class, "MONTH({0})", notice.createdAt).eq(month)))
+                .fetch();
     }
 
     @Override
