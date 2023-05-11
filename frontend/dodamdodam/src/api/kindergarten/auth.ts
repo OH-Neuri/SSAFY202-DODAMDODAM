@@ -18,21 +18,3 @@ export const registKindergarten = async (name: string, address: string) => {
     })
     return bool;
 }
-
-export const getKindergartenInfo = async () => {
-    let info : KindergartenType = {
-        name: '',
-        address: ''
-    }
-    await authAxios.get(`kindergarten`
-    ).then((res)=>{
-        info = res.data.result
-    }).catch((err)=>{
-        console.log(err)
-    })
-    return info
-}
-
-export const modifyKindergarten = () => {
-    
-}

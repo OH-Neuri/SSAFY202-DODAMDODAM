@@ -24,3 +24,10 @@ export type ModifyClassType = {
     name: string,
     age: string,
 }
+
+export type SendTeacherAuthType = {
+    [index: string]: number | string,
+    phone: string,
+    classSeq: number,
+    className: string
+}

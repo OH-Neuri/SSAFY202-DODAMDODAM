@@ -55,5 +55,19 @@ export const useManageClass = () => {
     }
   }
 
-  return { registClass, modifyClass, deleteClass };
+  const eraseTeacher = useMutation((teacherSeq: number) =>
+    defaultAxios.delete(`kindergarten/teacher/${teacherSeq}`) 
+  )
+
+  const deleteTeacher = async (teacherSeq : number) => {
+    try {
+      console.log(teacherSeq)
+      await eraseTeacher.mutateAsync(teacherSeq)
+      queryClient.invalidateQueries(['class', 'list'])
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  return { registClass, modifyClass, deleteClass, deleteTeacher };
   };

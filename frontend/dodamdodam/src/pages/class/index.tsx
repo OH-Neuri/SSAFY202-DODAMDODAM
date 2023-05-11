@@ -1,5 +1,5 @@
 import NavBar from '@/components/common/navBar'
-import { ClassTeacherType, ModifyClassType, RegistClassType } from '@/types/classType'
+import { ClassTeacherType, ClassType, ModifyClassType, RegistClassType, SendTeacherAuthType } from '@/types/classType'
 import { Chip, Modal } from '@mui/material'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
@@ -8,16 +8,21 @@ import React, { useState } from 'react';
 import PageHeader from '@/components/common/pageHeader';
 import { useManageClass, useClass } from '@/hooks/classHook';
 import { toastError, toastOK } from '@/components/common/toast';
+import { sendAddTeacherAuthCode } from '@/api/class/auth';
 
 export default function index() {
   const { data } = useClass()
-  const { registClass, modifyClass, deleteClass } = useManageClass()
+  const { registClass, modifyClass, deleteClass, deleteTeacher } = useManageClass()
 
   const [name, setName] = useState<string>('')
   const [teacher, setTeacher] = useState<ClassTeacherType[]|null>(null)
   const [classSeq, setClassSeq] = useState<number>(0)
   const [deleteSeq, setDeleteSeq] = useState<number>(0)
   const [idx, setIdx] = useState<number>(-1)
+  const [phone, setPhone] = useState<string>('')
+  const [selectClass, setSelectClass] = useState<ClassType>({
+    className: '', age: '', classSeq: 0, teacherInfo: []
+  })
 
   const [open, setOpen] = useState<boolean>(false)
   const [open2, setOpen2] = useState<boolean>(false)
@@ -94,6 +99,23 @@ export default function index() {
       toastOK('삭제되었습니다');
     }
 
+    const sendSms = () => {
+      if (phone == '') {
+        toastError('번호를 입력해주세요.')
+        return
+      }
+      const data :SendTeacherAuthType = {
+        phone: phone,
+        classSeq: selectClass.classSeq,
+        className: selectClass.className,
+      }
+      console.log(data)
+      sendAddTeacherAuthCode(data);
+      toastOK('인증번호가 전송되었습니다.')
+      setPhone('')
+      setOpen(false)
+    }
+
   return (
     <>
       <div className='grid grid-cols-7'>
@@ -119,7 +141,7 @@ export default function index() {
                     {c.teacherInfo.length != 0 ?
                     <div className=''><span className='font-preM'>담당교사</span> : {c.teacherInfo.map((t)=>`${t.teacherName} `)}</div>
                     :
-                    <span onClick={()=>setOpen(true)} className='flex justify-center items-center w-[180px] font-preR px-4 py-2 rounded-full bg-red-300 cursor-pointer hover:bg-red-400'>담당 교사 연결하기</span>
+                    <span onClick={()=>{setOpen(true); setSelectClass(c);}} className='flex justify-center items-center w-[180px] font-preR px-4 py-2 rounded-full bg-red-300 cursor-pointer hover:bg-red-400'>담당 교사 연결하기</span>
                     }
                     </div>
                     <div onClick={()=>{update(i)}}>
@@ -176,9 +198,9 @@ export default function index() {
                 {teacher && teacher.length != 0 ?
                 (teacher.map((t)=>{
                   return (
-                  <div className='flex w-full mt-2 mb-8'>
+                  <div key={t.teacherSeq} className='flex w-full mt-2 mb-8'>
                     <input readOnly={true} className='outline-none bg-stone-200/50 rounded w-3/5 h-[50px] px-4 mr-4' value={t.teacherName} type="text" />
-                    <div className='flex justify-center items-center font-preR bg-stone-200 h-[50px] w-[38%] rounded cursor-pointer hover:bg-stone-300/70'>삭제하기</div>  
+                    <div onClick={()=>{deleteTeacher(t.teacherSeq); toastOK('삭제되었습니다.')}} className='flex justify-center items-center font-preR bg-stone-200 h-[50px] w-[38%] rounded cursor-pointer hover:bg-stone-300/70'>삭제하기</div>  
                   </div> 
                   )})
                 )
@@ -200,8 +222,8 @@ export default function index() {
                 <div>2. 문자로 인증코드가 전송됩니다.</div>
                 <div>3. 도담도담 앱으로 인증코드를 입력하면 자동으로 등록됩니다.</div>
               </div>
-              <input className='outline-none bg-stone-200/50 rounded w-full h-[50px] mt-5 px-5' placeholder='ex) 01012341234' type="text" />
-              <div className='flex justify-center items-center w-full h-[60px] bg-m_yellow rounded text-[18px] font-preM mt-10 cursor-pointer hover:bg-h_yellow'>인증코드 전송하기</div>             
+              <input onChange={(e)=>setPhone(e.target.value)} value={phone} className='outline-none bg-stone-200/50 rounded w-full h-[50px] mt-5 px-5' placeholder='ex) 01012341234' type="text" />
+              <div onClick={()=>sendSms()} className='flex justify-center items-center w-full h-[60px] bg-m_yellow rounded text-[18px] font-preM mt-10 cursor-pointer hover:bg-h_yellow'>인증코드 전송하기</div>             
             </div>
           </Modal>
           <Modal className='flex justify-center items-center' open={open2} onClose={()=>{setOpen2(false)}}>
