@@ -30,7 +30,7 @@ public class ManageScheduleServiceImpl implements ManageScheduleService {
     public boolean createSchedule(CreateScheduleRequestDto createScheduleRequestDto) {
         Long userSeq = 1L; // 원장선생님 시퀀스 토큰에서 가져옴
         Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
-                .orElseThrow(() -> new BaseException(BaseResponseStatus.KINDERGARTEN_NULL_FAIL));
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
         ScheduleType st = scheduleTypeRepository.findById(createScheduleRequestDto.getScheduleTypeSeq())
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.SCHEDULE_TYPE_NULL_FAIL));
         Schedule schedule = Schedule.builder()
@@ -47,7 +47,7 @@ public class ManageScheduleServiceImpl implements ManageScheduleService {
     public KindergartenScheduleListResponseDto getMonthScheduleList(String year, String month) {
         Long userSeq = 1L; // 원장선생님 시퀀스 토큰에서 가져옴
         Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
-                .orElseThrow(() -> new BaseException(BaseResponseStatus.KINDERGARTEN_NULL_FAIL));
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
         KindergartenScheduleListResponseDto kindergartenScheduleListResponseDto = new KindergartenScheduleListResponseDto(year, month);
         // 행사가 있는 dateNumber가져옴
         List<Integer> dateNumber = scheduleRepository.findScheduleDateList(kindergartenSeq, year, month);
@@ -68,7 +68,7 @@ public class ManageScheduleServiceImpl implements ManageScheduleService {
         // 구현
         Long userSeq = 1L; // 원장선생님 시퀀스 토큰에서 가져옴
         Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
-                .orElseThrow(() -> new BaseException(BaseResponseStatus.KINDERGARTEN_NULL_FAIL));
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
         return scheduleRepository.findScheduleListByKindergartenSeq(kindergartenSeq, Integer.valueOf(year), Integer.valueOf(month), Integer.valueOf(day));
     }
 
@@ -82,7 +82,7 @@ public class ManageScheduleServiceImpl implements ManageScheduleService {
     public boolean createScheduleType(String content) {
         Long userSeq = 1L; // 원장선생님 시퀀스 토큰에서 가져옴
         Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
-                .orElseThrow(() -> new BaseException(BaseResponseStatus.KINDERGARTEN_NULL_FAIL));
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
         ScheduleType scheduleType = ScheduleType.builder()
                 .kindergartenSeq(kindergartenSeq)
                 .name(content)
@@ -95,7 +95,7 @@ public class ManageScheduleServiceImpl implements ManageScheduleService {
     public List<ScheduleTypeResponseDto> getScheduleTypeList() {
         Long userSeq = 1L; // 원장선생님 시퀀스 토큰에서 가져옴
         Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
-                .orElseThrow(() -> new BaseException(BaseResponseStatus.KINDERGARTEN_NULL_FAIL));
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
         return scheduleTypeRepository.findScheduleTypeByKindergartenSeq(kindergartenSeq);
     }
 

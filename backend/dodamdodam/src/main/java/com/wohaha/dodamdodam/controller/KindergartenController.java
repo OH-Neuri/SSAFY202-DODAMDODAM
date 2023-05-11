@@ -1,5 +1,6 @@
 package com.wohaha.dodamdodam.controller;
 
+import com.wohaha.dodamdodam.domain.Kindergarten;
 import com.wohaha.dodamdodam.domain.KindergartenInfo;
 import com.wohaha.dodamdodam.dto.BaseResponseDto;
 import com.wohaha.dodamdodam.dto.request.*;
@@ -35,28 +36,32 @@ public class KindergartenController {
     @Autowired
     private ManageFoodService manageFoodService;
 
+    @Autowired
+    private ManageTeacherService manageTeacherService;
+
+    // 반 관리
     @PostMapping("/class")
     public BaseResponseDto<?> createClass(@RequestBody CreateClassRequestDto createClassRequestDto) {
-        try{
+        try {
             boolean result = manageClassService.createClass(createClassRequestDto);
             return new BaseResponseDto<>(result);
-        }catch (Exception e){
-            if(e instanceof BaseException){
+        } catch (Exception e) {
+            if (e instanceof BaseException) {
                 throw e;
-            }else{
+            } else {
                 throw new BaseException(BaseResponseStatus.FAIL);
             }
         }
     }
 
     @GetMapping("class")
-    public BaseResponseDto<List<ClassListResponseDto>> classList(){
-        try{
+    public BaseResponseDto<List<ClassListResponseDto>> classList() {
+        try {
             return new BaseResponseDto<>(manageClassService.classList());
-        }catch (Exception e){
-            if(e instanceof BaseException){
+        } catch (Exception e) {
+            if (e instanceof BaseException) {
                 throw e;
-            }else{
+            } else {
                 throw new BaseException(BaseResponseStatus.FAIL);
             }
         }
@@ -64,48 +69,49 @@ public class KindergartenController {
 
 
     @PutMapping("class")
-    public BaseResponseDto<?> updateClass(@RequestBody UpdateClassRequestDto updateClassRequestDto){
-        try{
+    public BaseResponseDto<?> updateClass(@RequestBody UpdateClassRequestDto updateClassRequestDto) {
+        try {
             return new BaseResponseDto<>(manageClassService.updateClass(updateClassRequestDto));
-        }catch (Exception e){
-            if( e instanceof BaseException){
+        } catch (Exception e) {
+            if (e instanceof BaseException) {
                 throw e;
-            }else{
+            } else {
                 throw new BaseException(BaseResponseStatus.FAIL);
             }
         }
     }
 
     @DeleteMapping("class/{classSeq}")
-    public BaseResponseDto<?> deleteClass(@PathVariable Long classSeq){
-        try{
+    public BaseResponseDto<?> deleteClass(@PathVariable Long classSeq) {
+        try {
             return new BaseResponseDto<>(manageClassService.deleteClass(classSeq));
-        }catch(Exception e){
-            if(e instanceof BaseException){
+        } catch (Exception e) {
+            if (e instanceof BaseException) {
                 throw e;
-            }else{
+            } else {
                 throw new BaseException(BaseResponseStatus.FAIL);
             }
         }
     }
 
+    // 학생 관리
     @PostMapping("/kid")
-    public BaseResponseDto<?> createKid(@ModelAttribute CreateKidRequestDto createKidRequestDto){
-        try{
+    public BaseResponseDto<?> createKid(@ModelAttribute CreateKidRequestDto createKidRequestDto) {
+        try {
 
             String uploadUrl = null;
             //이미지 s3 업로드 후 링크 가져오기
-            if(!createKidRequestDto.getPhoto().isEmpty()) {
+            if (!createKidRequestDto.getPhoto().isEmpty()) {
                 uploadUrl = s3UploadService.upload(createKidRequestDto.getPhoto(), "kidProfile");
             }
             //db 저장
             boolean result = manageKidService.createKid(createKidRequestDto, uploadUrl);
 
             return new BaseResponseDto<>(result);
-        }catch(Exception e){
-            if( e instanceof  BaseException){
+        } catch (Exception e) {
+            if (e instanceof BaseException) {
                 throw e;
-            }else{
+            } else {
                 throw new BaseException(BaseResponseStatus.FAIL);
             }
         }
@@ -113,44 +119,44 @@ public class KindergartenController {
     }
 
     @GetMapping("/kid")
-    public BaseResponseDto<List<KidResponseDto>> kidList(){
-        try{
+    public BaseResponseDto<List<KidResponseDto>> kidList() {
+        try {
             return new BaseResponseDto<>(manageKidService.kidList());
-        }catch (Exception e){
-            if(e instanceof BaseException){
-                throw  e;
-            }else{
+        } catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw e;
+            } else {
                 throw new BaseException(BaseResponseStatus.FAIL);
             }
         }
     }
 
     @GetMapping("/kidInfo/{kidSeq}")
-    public BaseResponseDto<KidResponseDto> kidInfo(@PathVariable Long kidSeq){
-        try{
+    public BaseResponseDto<KidResponseDto> kidInfo(@PathVariable Long kidSeq) {
+        try {
             return new BaseResponseDto<>(manageKidService.kidInfo(kidSeq));
-        }catch (Exception e){
-            if(e instanceof BaseException){
-                throw  e;
-            }else{
+        } catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw e;
+            } else {
                 throw new BaseException(BaseResponseStatus.FAIL);
             }
         }
     }
 
     @PostMapping("/Image")
-    public BaseResponseDto<String> Image(@ModelAttribute KidImageFileRequestDto kidImageFileRequestDto){
-        try{
+    public BaseResponseDto<String> Image(@ModelAttribute KidImageFileRequestDto kidImageFileRequestDto) {
+        try {
             //이미지 s3 업로드 후 링크 가져오기
-            if(!kidImageFileRequestDto.getPhoto().isEmpty()){
-                String uploadUrl = s3UploadService.upload(kidImageFileRequestDto.getPhoto(),"kidProfile");
+            if (!kidImageFileRequestDto.getPhoto().isEmpty()) {
+                String uploadUrl = s3UploadService.upload(kidImageFileRequestDto.getPhoto(), "kidProfile");
                 return new BaseResponseDto<>(uploadUrl);
             }
             return new BaseResponseDto<>("No Image");
-        }catch (Exception e){
-            if(e instanceof BaseException){
-                throw  e;
-            }else{
+        } catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw e;
+            } else {
                 throw new BaseException(BaseResponseStatus.FAIL);
             }
         }
@@ -158,42 +164,96 @@ public class KindergartenController {
 
 
     @PutMapping("kid")
-    public BaseResponseDto<?> updateKid(@ModelAttribute UpdateKidRequestDto updateKidRequestDto){
-        try{
+    public BaseResponseDto<?> updateKid(@ModelAttribute UpdateKidRequestDto updateKidRequestDto) {
+        try {
             String uploadUrl = null;
             //이미지 s3 업로드 후 링크 가져오기
-            if(!updateKidRequestDto.getPhoto().isEmpty()) {
+            if (!updateKidRequestDto.getPhoto().isEmpty()) {
                 uploadUrl = s3UploadService.upload(updateKidRequestDto.getPhoto(), "kidProfile");
             }
 
-            return new BaseResponseDto<>(manageKidService.updateKid(updateKidRequestDto,uploadUrl));
-        }catch (Exception e){
-            if( e instanceof BaseException){
+            return new BaseResponseDto<>(manageKidService.updateKid(updateKidRequestDto, uploadUrl));
+        } catch (Exception e) {
+            if (e instanceof BaseException) {
                 throw e;
-            }else{
+            } else {
                 throw new BaseException(BaseResponseStatus.FAIL);
             }
         }
     }
 
     @DeleteMapping("kid/{kidSeq}")
-    public BaseResponseDto<?> deleteKid(@PathVariable Long kidSeq){
-        try{
+    public BaseResponseDto<?> deleteKid(@PathVariable Long kidSeq) {
+        try {
             return new BaseResponseDto<>(manageKidService.deleteKid(kidSeq));
-        }catch(Exception e){
-            if(e instanceof BaseException){
+        } catch (Exception e) {
+            if (e instanceof BaseException) {
                 throw e;
-            }else{
+            } else {
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
+    // 어린이집 관리
+    @PostMapping("")
+    public BaseResponseDto<Boolean> createKindergarten(@RequestBody KindergartenReqeustDto kindergartenReqeustDto) {
+        try {
+            return new BaseResponseDto<>(kindergartenService.createKindergarten(kindergartenReqeustDto));
+        } catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw e;
+            } else {
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
+    @GetMapping("")
+    public BaseResponseDto<Kindergarten> getKindergarten() {
+        try {
+            return new BaseResponseDto<>(kindergartenService.getKindergarten());
+        } catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw e;
+            } else {
                 throw new BaseException(BaseResponseStatus.FAIL);
             }
         }
     }
 
     @GetMapping("/search")
-    public BaseResponseDto<List<KindergartenInfo>> searchKindergartenInfo(@RequestParam String keyword){
-        try{
+    public BaseResponseDto<List<KindergartenInfo>> searchKindergartenInfo(@RequestParam String keyword) {
+        try {
             return new BaseResponseDto<>(kindergartenService.getKindergartenInfoList(keyword));
-        }catch(Exception e){
+        } catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw e;
+            } else {
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
+    @PutMapping("")
+    public BaseResponseDto<Boolean> updateKindergarten(@RequestBody KindergartenReqeustDto kindergartenReqeustDto) {
+        try {
+            return new BaseResponseDto<>(kindergartenService.updateKindergarten(kindergartenReqeustDto));
+        } catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw e;
+            } else {
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
+    // 선생님 관리
+    @GetMapping("teacher")
+    public BaseResponseDto<List<TeacherInfoWithClassResponseDto>> teacherList(){
+        try{
+            return new BaseResponseDto<>(manageTeacherService.getTeacher());
+        }catch (Exception e){
             if(e instanceof BaseException){
                 throw e;
             }else{
@@ -203,14 +263,14 @@ public class KindergartenController {
     }
 
     @DeleteMapping("/teacher/{classTeacherSeq}")
-    public BaseResponseDto<Boolean> deleteClassTeacher(@PathVariable Long classTeacherSeq){
-        try{
+    public BaseResponseDto<Boolean> deleteClassTeacher(@PathVariable Long classTeacherSeq) {
+        try {
             //api 완성되면 -> method security (원장만)
             return new BaseResponseDto<>(manageClassService.deleteClassTeacher(classTeacherSeq));
-        }catch(Exception e){
-            if(e instanceof BaseException){
+        } catch (Exception e) {
+            if (e instanceof BaseException) {
                 throw e;
-            }else{
+            } else {
                 throw new BaseException(BaseResponseStatus.FAIL);
             }
         }

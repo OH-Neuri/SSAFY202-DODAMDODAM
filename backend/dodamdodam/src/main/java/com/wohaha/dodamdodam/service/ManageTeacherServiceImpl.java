@@ -22,7 +22,7 @@ public class ManageTeacherServiceImpl implements ManageTeacherService{
     public List<TeacherInfoWithClassResponseDto> getTeacher() {
         Long userSeq = 1L; // 원장선생님 시퀀스 토큰에서 가져옴
         Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
-                .orElseThrow(() -> new BaseException(BaseResponseStatus.KINDERGARTEN_NULL_FAIL));
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
 
         return manageTeacherRepository.teacherList(kindergartenSeq);
     }

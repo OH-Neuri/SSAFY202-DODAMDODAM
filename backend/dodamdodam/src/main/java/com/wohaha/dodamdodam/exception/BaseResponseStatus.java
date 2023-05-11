@@ -12,19 +12,7 @@ public enum BaseResponseStatus {
   //FAIL
   //임시생성 -> 추후 코드 정리 예정
   FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 1999, "일단 실패했습니다??"),
-  KINDERGARTEN_NULL_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 1998, "해당 유저의 어린이집 정보가 없습니다."),
-  // 일정 분류
-  SCHEDULE_TYPE_NULL_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 1997, "해당 시퀀스의 일정 분류가 없습니다."),
-  SCHEDULE_TYPE_CREATE_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 1996, "일정 분류 생성이 실패했습니다."),
-  SCHEDULE_TYPE_DELETE_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 1995, "일정 분류 삭제가 실패했습니다."),
-  SCHEDULE_TYPE_UPDATE_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 1994, "일정 분류 수정이 실패했습니다."),
 
-  // 식단 관리
-  FOOD_NULL_FAIl(HttpStatus.INTERNAL_SERVER_ERROR, 1993, "해당 날의 식단이 없습니다."),
-
-  // 출석 관리
-  ATTENDANCE_NULL_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 1980, "해당 시퀀스의 등하원 정보가 없습니다."),
-  ATTENDANCE_FORM_NULL_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 1981, "해당 날짜의 등하원 정보가 없습니다."),
 
   //인증관련 에러
   SIGNUP_REQUIRED(HttpStatus.OK, 4001, "회원가입이 필요한 유저입니다."),
@@ -67,7 +55,23 @@ public enum BaseResponseStatus {
   UNREGISTERED_KID(HttpStatus.INTERNAL_SERVER_ERROR, 4060, "존재하지 않는 아이입니다."),
 
   //Medicine 관련
-  UNREGISTERED_MEDICINE(HttpStatus.INTERNAL_SERVER_ERROR, 4070, "존재하지 않는 투약의뢰서입니다.");
+  UNREGISTERED_MEDICINE(HttpStatus.INTERNAL_SERVER_ERROR, 4070, "존재하지 않는 투약의뢰서입니다."),
+
+  // 어린이집 관련 에러
+  UNREGISTERED_KINDERGARTEN(HttpStatus.INTERNAL_SERVER_ERROR, 4080, "어린이집을 등록하지 않은 유저입니다."),
+  KINDERGARTEN_NULL_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 4081, "해당 유저의 어린이집 정보를 찾을 수 없습니다."),
+  // 출석 관리
+  ATTENDANCE_NULL_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 4090, "해당 시퀀스의 등하원 정보가 없습니다."),
+  ATTENDANCE_FORM_NULL_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 4091, "해당 날짜의 등하원 정보가 없습니다."),
+  // 일정 분류
+  SCHEDULE_TYPE_NULL_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 4100, "해당 시퀀스의 일정 분류가 없습니다."),
+  SCHEDULE_TYPE_CREATE_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 4101, "일정 분류 생성이 실패했습니다."),
+  SCHEDULE_TYPE_DELETE_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 4102, "일정 분류 삭제가 실패했습니다."),
+  SCHEDULE_TYPE_UPDATE_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 4103, "일정 분류 수정이 실패했습니다."),
+  // 식단 관리
+  FOOD_NULL_FAIl(HttpStatus.INTERNAL_SERVER_ERROR, 4200, "해당 날의 식단이 없습니다.");
+
+
 
 //  UNAUTHORIZED_USER(HttpStatus.INTERNAL_SERVER_ERROR, 4051, "권한이 없는 유저입니다.");
 //
