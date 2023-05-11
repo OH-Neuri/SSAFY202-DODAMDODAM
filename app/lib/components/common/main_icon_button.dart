@@ -22,7 +22,7 @@ class _MainIconButtonState extends State<MainIconButton> {
   @override
   void initState() {
     super.initState();
-    isTeacher = c.isTeacher.value;
+    isTeacher = c.isTeacher;
   }
   @override
   Widget build(BuildContext context) {
@@ -68,7 +68,7 @@ class _MainIconButtonState extends State<MainIconButton> {
       },
       child: Container(
         height: 100, width: double.infinity,
-        margin: EdgeInsets.symmetric(horizontal: 15),
+        margin: EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20)),
           color: Colors.white,
