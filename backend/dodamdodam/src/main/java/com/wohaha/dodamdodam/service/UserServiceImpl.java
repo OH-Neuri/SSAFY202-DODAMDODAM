@@ -1,5 +1,6 @@
 package com.wohaha.dodamdodam.service;
 
+import com.querydsl.core.Tuple;
 import com.wohaha.dodamdodam.domain.JwtTokenInfo;
 import com.wohaha.dodamdodam.domain.User;
 import com.wohaha.dodamdodam.dto.request.LoginUserRequestDto;

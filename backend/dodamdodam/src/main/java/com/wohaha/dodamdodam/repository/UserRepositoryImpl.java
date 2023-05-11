@@ -1,14 +1,12 @@
 package com.wohaha.dodamdodam.repository;
 
-import static com.wohaha.dodamdodam.domain.QClassInfo.classInfo;
-import static com.wohaha.dodamdodam.domain.QClassTeacher.classTeacher;
 import static com.wohaha.dodamdodam.domain.QUser.user;
 import static com.wohaha.dodamdodam.domain.QKindergarten.kindergarten;
 
-import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.wohaha.dodamdodam.domain.User;
+
 import java.util.Optional;
 
 import com.wohaha.dodamdodam.dto.request.UpdateUserRequestDto;
@@ -66,8 +64,13 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     @Override
     public LoginTeacherResponseDto findClassInfoByUserSeq(Long userSeq) {
 
-//        return query.select(Projections.fields(LoginTeacherResponseDto.class),
-//                classTeacher.classSeq, );
+
+//        return query
+//                .select(classTeacher.classSeq, classInfo.name.as("className"))
+//                .from(classTeacher)
+//                .join(classInfo).on(classTeacher.classSeq.eq(classInfo.classSeq))
+//                .where(classTeacher.userSeq.eq(userSeq))
+//                .fetchFirst();
         return null;
     }
 
