@@ -69,3 +69,13 @@
 .op .MuiModal-backdrop {
   background: rgba(0, 0, 0, 0) !important;
 }
+
+/* react-toastify 억지 적용 */
+.Toastify__toast-theme--colored.Toastify__toast--error {
+  background-color: #ef3a27d4 !important;
+}
+
+.Toastify__toast-theme--colored.Toastify__toast--info {
+  background-color: #fff1e2 !important;
+  color: #000 !important;
+}

@@ -29,6 +29,11 @@ export default function StudentModifyModal(props: {
   const [group, setGroup] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [photo, setPhoto] = useState<any>("");
+  const { open, handleClose, idx } = props;
+  const [age, setAge] = useState<string>("");
+  const [group, setGroup] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [photo, setPhoto] = useState<any>("");
   const [gender, setGender] = useState<string>("");
   const [startDate, setStartDate] = useState(new Date("2023-05-4"));
   const [student, setStudent] = useState<student>(studentInit);
@@ -41,10 +46,12 @@ export default function StudentModifyModal(props: {
   const handleClosePh = () => setOpenPh(false);
 
   // 반 변경 저장
+  // 반 변경 저장
   const handleChangeGroup = (event: SelectChangeEvent) => {
     setGroup(event.target.value);
   };
 
+  // 성별 변경 저장
   // 성별 변경 저장
   const handleChangeGender = (event: SelectChangeEvent) => {
     setGender(event.target.value);

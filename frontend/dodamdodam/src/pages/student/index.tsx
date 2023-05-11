@@ -85,7 +85,7 @@ export default function index() {
             <StudentModifyModal
               idx={studentIdx}
               open={openMo}
-              // student={studentList[studentIdx+1]}
+              // student={studentList[0]}
               handleOpen={handleOpenMo}
               handleClose={handleCloseMo}
             ></StudentModifyModal>

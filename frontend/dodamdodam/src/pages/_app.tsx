@@ -4,20 +4,28 @@ import { ThemeProvider } from '@mui/material'
 import React from 'react'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
-import { QueryClient, QueryClientProvider } from 'react-query'
-import { ReactQueryDevtools } from 'react-query/devtools'
+import { useState } from 'react'
+import { QueryClientProvider, QueryClient } from 'react-query'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+
+declare module "react-query/types/react/QueryClientProvider" {
+  interface QueryClientProviderProps {
+    children?: React.ReactNode;
+  }
+}
 
 export default function App({ Component, pageProps }: AppProps) {
-  const queryClient = new QueryClient();
+  const [queryClient] = useState(()=> new QueryClient());
   return (
     <>
+      <Head>
+        <title>도담도담</title>
+      </Head>
       <QueryClientProvider client={queryClient}>
-        {process.env.NODE_ENV !== 'production' ? <ReactQueryDevtools initialIsOpen={false} /> : null}
-        <Head>
-          <title>도담도담</title>
-        </Head>
         <ThemeProvider theme={theme}>
           <Component {...pageProps} />
+          <ToastContainer />
         </ThemeProvider>
       </QueryClientProvider>
     </>

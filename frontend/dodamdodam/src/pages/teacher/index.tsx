@@ -1,39 +1,34 @@
-import React, { useState} from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import TeacherCard from "@/components/teacher/teacherCard";
-import { teacher } from "@/types/DataTypes";
+import { teacher, teacherList } from "@/types/DataTypes";
 import NavBar from "@/components/common/navBar";
 import PageHeader from "@/components/common/pageHeader";
 import TeacherRegisterModal from "@/components/teacher/teacherRegisterModal";
 import TeacherModifyModal from "@/components/teacher/teacherModifyModal";
+import axios from "axios";
 export default function index() {
+  const [teacherList, setTeacherList] = useState<teacherList[]>([]);
 
-  const teacherList: teacher[] = [
-    {
-      name: "여니",
-      class: "꽃님반",
-    },
-    {
-      name: "쒸스키",
-      class: "햇살반",
-    },
-    {
-      name: "젼스킈",
-      class: "새싹반",
-    },
-    {
-      name: "나현스킈",
-      class: "햇살반",
-    },
-    {
-      name: "줼레나",
-      class: "구름반",
-    },
-    {
-      name: "줼레나",
-      class: "꽃님반",
-    },
-  ];
+
+ // 선생님 리스트 불러오기
+  async function getTeacherList() { 
+    try {
+      const response = await axios.get(
+        `https://dodamdodam.site/api/dodam/kindergarten/teacher`
+      );
+      setTeacherList(response.data.result);
+    } catch (error) { 
+      console.log("선생님 리스트 불러오기 에러 발생")
+    }
+  }
+
+
+  
+  useEffect(() => { 
+    getTeacherList();
+  },[])
+
 
   return (
     <div className=" grid grid-cols-7 h-[935px] ">
