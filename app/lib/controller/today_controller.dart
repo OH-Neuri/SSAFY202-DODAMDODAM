@@ -34,6 +34,9 @@ class TodayController extends GetxController {
     dayWeek = getDayOfWeek(choiceDay.year, choiceDay.month, choiceDay.day);
     try {
       scheduleList = await ScheduleService.getOneDayScheduleList(choiceDay.year, choiceDay.month, choiceDay.day);
+      if (choiceDay.year == now.year && choiceDay.month == now.month && choiceDay.day == now.day) {
+        todayScheduleList = scheduleList;
+      }
     } catch (e) {
       print(e);
     }
