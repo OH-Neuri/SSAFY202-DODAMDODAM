@@ -9,4 +9,5 @@ public class LoginTeacherResponseDto {
     private Long classSeq;
     private String className;
     private LoginResponseDto loginResponseDto;
+
 }
