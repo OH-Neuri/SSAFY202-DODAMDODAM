@@ -10,8 +10,9 @@ import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.repository.KindergartenRepository;
 import com.wohaha.dodamdodam.repository.ScheduleRepository;
 import com.wohaha.dodamdodam.repository.ScheduleTypeRepository;
+import com.wohaha.dodamdodam.security.CustomAuthenticatedUser;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,9 +34,9 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public boolean createClassSchedule(Long classSeq, CreateScheduleRequestDto createScheduleRequestDto) {
-        Long userSeq = 1L; // 원장선생님 시퀀스 토큰에서 가져옴
+        Long userSeq = ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
         Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
-                .orElseThrow(() -> new BaseException(BaseResponseStatus.KINDERGARTEN_NULL_FAIL));
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
         ScheduleType st = scheduleTypeRepository.findById(createScheduleRequestDto.getScheduleTypeSeq())
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.SCHEDULE_TYPE_NULL_FAIL));
         Schedule schedule = Schedule.builder()
@@ -51,17 +52,17 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public List<ClassScheduleResponseDto> getDayScheduleList(Long classSeq, String year, String month, String day) {
-        Long userSeq = 1L; // 원장선생님 시퀀스 토큰에서 가져옴
+        Long userSeq = ((CustomAuthenticatedUser)SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
         Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
-                .orElseThrow(() -> new BaseException(BaseResponseStatus.KINDERGARTEN_NULL_FAIL));
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
         return scheduleRepository.findClassScheduleByClassSeq(kindergartenSeq, classSeq, Integer.valueOf(year), Integer.valueOf(month), Integer.valueOf(day));
     }
 
     @Override
     public ClassScheduleListResponseDto getMonthScheduleList(Long classSeq, String year, String month) {
-        Long userSeq = 1L; // 원장선생님 시퀀스 토큰에서 가져옴
+        Long userSeq = ((CustomAuthenticatedUser)SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
         Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
-                .orElseThrow(() -> new BaseException(BaseResponseStatus.KINDERGARTEN_NULL_FAIL));
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
         ClassScheduleListResponseDto classScheduleListResponseDto = new ClassScheduleListResponseDto(year, month);
         // 행사가 있는 dateNumber가져옴
         List<Integer> dateNumber = scheduleRepository.findScheduleDateList(kindergartenSeq, classSeq, year, month);
