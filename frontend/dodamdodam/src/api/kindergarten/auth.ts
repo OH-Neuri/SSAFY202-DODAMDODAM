@@ -7,6 +7,7 @@ export const registKindergarten = async (name: string, address: string) => {
         name: name,
         address: address
     }
+    console.log(data)
     await authAxios.post(`kindergarten`, data
     ).then((res)=>{
         console.log(res.data)

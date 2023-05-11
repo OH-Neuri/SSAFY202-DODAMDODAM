@@ -26,3 +26,12 @@ export type KinderGartenSearchType = {
     director : string,
     address : string,
 }
+
+export type KindergartenInfoType = {
+    [index : string] : string | number,
+    kindergartenSeq : number,
+    name : string, 
+    address : string,
+    createdAt : number,
+    updatedAt : number,
+}

@@ -1,5 +1,5 @@
 import { searchKindergarten } from '@/api/kindergarten/default';
-import { KinderGartenSearchType, kindergartenType } from '@/types/DataTypes'
+import { KinderGartenSearchType } from '@/types/DataTypes'
 import { Modal } from '@mui/material';
 import React, { useState } from 'react'
 import DaumPostcode from 'react-daum-postcode';
@@ -69,7 +69,7 @@ export default function RegistModal() {
         const res = await registKindergarten(kinder.name, add)
         if(res) {
             toastOK('등록되었습니다.')
-            router.push('/calendadr')
+            router.push('/calendar')
         }else {
             toastError('유치원 등록에 실패했습니다.')
             return
@@ -124,7 +124,7 @@ export default function RegistModal() {
             <div className='mt-4 pl-2'>선택한 유치원/어린이집이 없습니다.</div>
         </div>
         }
-        <div className='flex justify-center items-center w-full h-[60px] bg-m_yellow rounded text-[18px] font-preM mt-12 cursor-pointer hover:bg-h_yellow'>등록하기</div>
+        <div onClick={()=>regist()} className='flex justify-center items-center w-full h-[60px] bg-m_yellow rounded text-[18px] font-preM mt-12 cursor-pointer hover:bg-h_yellow'>등록하기</div>
         <div onClick={()=>{setIdx(0); setKinder(null)}} className='mt-6 font-preR hover:font-preM cursor-pointer text-stone-700'>뒤로가기</div>
         </>
         }

@@ -11,7 +11,8 @@ export const authAxios: AxiosInstance = axios.create({
   },
 });
 
-authAxios.defaults.withCredentials = true;
+// 주석 취소하면 에러남.... 왜...?
+// authAxios.defaults.withCredentials = true;
 
 // 로그인이 필요없는 axios
 export const defaultAxios: AxiosInstance = axios.create({
