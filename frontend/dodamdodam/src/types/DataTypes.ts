@@ -29,3 +29,9 @@ export type kindergartenType = {
   address: string;
   phone_number: string;
 };
+
+export type teacherList = {
+  [index: string]: string;
+  teacherName: string,
+  className : string
+}
