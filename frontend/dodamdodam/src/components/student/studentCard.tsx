@@ -3,6 +3,7 @@ import { useState } from "react";
 import { student } from "@/types/DataTypes";
 import Divider from "@mui/material/Divider";
 import Image from "next/image";
+
 export default function StudentCard(props: { student: student }) {
   return (
     <div className="hover:bg-[#F3C1BF] cursor-pointer shadow-lg flex flex-col items-center mb-[35px] w-[200px] h-[250px] bg-[#FFE5E4] text-[30px] rounded-3xl">

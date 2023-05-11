@@ -8,22 +8,24 @@ import PageHeader from "@/components/common/pageHeader";
 import StudentModifyModal from "@/components/student/studentModifyModal";
 import axios from "axios";
 
-import { QueryOptions, useQuery } from "react-query";
-import { BACKEND_URL } from "@/config/config";
 export default function index() {
   const [openRe, setOpenRe] = useState<boolean>(false);
   const [openMo, setOpenMo] = useState<boolean>(false);
   const [studentIdx, setStudentIdx] = useState<number>(1);
   const [studentList, setStudentList] = useState<student[] | any>([]);
 
+  // 아이 등록 모달 컨트롤 함수 +Re
   const handleOpenRe = () => setOpenRe(true);
   const handleCloseRe = () => setOpenRe(false);
+
+  // 아이 수정 모달 컨트롤 함수 +Mo
   const handleOpenMo = (v: number) => {
     setStudentIdx(v);
     setOpenMo(true);
   };
   const handleCloseMo = () => setOpenMo(false);
 
+  // 원생 리스트 가져오기
   async function fetchStudentList() {
     try {
       const response = await axios.get(
@@ -49,7 +51,6 @@ export default function index() {
         <PageHeader name={"원생 목록"}></PageHeader>
         {/* 원생 카드 */}
         <div className=" grid grid-cols-6 gap-1 w-[1500px] h-[100px] mt-[100px] ml-10">
-          {/* <StudentList /> */}
           {studentList.map((v: any, i: any) => {
             return (
               <div key={i}>
@@ -76,16 +77,17 @@ export default function index() {
               height={105}
             />
           </div>
+          {/* 아이 등록 모달 */}
           <StudentRegisterModal
             open={openRe}
             handleOpen={handleOpenRe}
             handleClose={handleCloseRe}
           ></StudentRegisterModal>
+          {/* 아이 수정 모달 */}
           <div className="">
             <StudentModifyModal
               idx={studentIdx}
               open={openMo}
-              // student={studentList[0]}
               handleOpen={handleOpenMo}
               handleClose={handleCloseMo}
             ></StudentModifyModal>
