@@ -49,7 +49,7 @@ export default function index() {
   return (
     <div className=" grid grid-cols-7 h-[935px] ">
       <div className="fixed">
-        <NavBar tarStudentCardget="원생" />
+        <NavBar target="원생" />
       </div>
       <div className="col-span-1"></div>
       <div className="col-span-6 pl-20 pt-4">
