@@ -8,24 +8,28 @@ import com.wohaha.dodamdodam.dto.request.UpdateUserRequestDto;
 import com.wohaha.dodamdodam.dto.response.*;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
+import com.wohaha.dodamdodam.repository.ClassTeacherRepository;
+import com.wohaha.dodamdodam.repository.ManageKidRepository;
 import com.wohaha.dodamdodam.repository.UserRepository;
 import com.wohaha.dodamdodam.util.EncodeUtils;
 import com.wohaha.dodamdodam.util.JwtTokenUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import static com.wohaha.dodamdodam.exception.BaseResponseStatus.*;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private SmsService smsService;
+    private final UserRepository userRepository;
+    private final ClassTeacherRepository classTeacherRepository;
+    private final ManageKidRepository kidRepository;
+    private final SmsService smsService;
 
     @Override
     public RegisterUserResponseDto registerUser(RegisterUserRequestDto registerUserRequestDto) {
@@ -141,6 +145,19 @@ public class UserServiceImpl implements UserService {
         return userRepository.findUserIdCntByUserId(id) > 0;
     }
 
+    @Override
+    public List<ClassInfoResponseDto> getTeacherClassList() {
+        Long userSeq = 1L;
+//                ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
+        return classTeacherRepository.findClassListByUserSeq(userSeq);
+    }
+
+    @Override
+    public List<KidInfoResponseDto> getParentKidList() {
+        Long userSeq = 18L;
+//                ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
+        return kidRepository.findKidListByUserSeq(userSeq);
+    }
 
 
 }

@@ -99,11 +99,22 @@ public class ManageKidRepositoryImpl implements ManageKidRepositoryCustom {
     @Override
     public Optional<KidInfoResponseDto> findKidInfoByKidSeq(Long kidSeq) {
         return Optional.ofNullable(
-                query.select(Projections.constructor(KidInfoResponseDto.class,
-                        kid.kidSeq, kid.name, kid.classSeq, classInfo.name))
+                query
+                        .select(Projections.constructor(KidInfoResponseDto.class,
+                                kid.kidSeq, kid.name, kid.classSeq, classInfo.name))
                         .from(kid).join(classInfo).on(kid.classSeq.eq(classInfo.classSeq))
                         .where(kid.kidSeq.eq(kidSeq))
                         .fetchOne()
         );
     }
+
+    @Override
+    public List<KidInfoResponseDto> findKidListByUserSeq(Long userSeq) {
+        return query.select(Projections.constructor(KidInfoResponseDto.class,
+                        kid.kidSeq, kid.name, kid.classSeq, classInfo.name))
+                .from(kid).join(classInfo).on(kid.classSeq.eq(classInfo.classSeq))
+                .where(kid.userSeq.eq(userSeq))
+                .fetch();
+    }
+
 }

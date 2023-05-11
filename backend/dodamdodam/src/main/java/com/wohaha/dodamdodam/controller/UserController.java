@@ -1,10 +1,14 @@
 package com.wohaha.dodamdodam.controller;
 
+import com.fasterxml.jackson.databind.ser.Serializers;
 import com.wohaha.dodamdodam.domain.User;
 import com.wohaha.dodamdodam.dto.BaseResponseDto;
 import com.wohaha.dodamdodam.dto.request.LoginUserRequestDto;
 import com.wohaha.dodamdodam.dto.request.RegisterUserRequestDto;
 import com.wohaha.dodamdodam.dto.request.UpdateUserRequestDto;
+import com.wohaha.dodamdodam.dto.response.ClassInfoResponseDto;
+import com.wohaha.dodamdodam.dto.response.KidInfoResponseDto;
+import com.wohaha.dodamdodam.dto.response.KidResponseDto;
 import com.wohaha.dodamdodam.dto.response.RegisterUserResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
@@ -13,6 +17,8 @@ import com.wohaha.dodamdodam.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static com.wohaha.dodamdodam.exception.BaseResponseStatus.UNAUTHORIZED_USER;
 
@@ -83,9 +89,10 @@ public class UserController {
     }
 
     @GetMapping("/class")
-    public BaseResponseDto<?> getTeacherClassList() {
+    public BaseResponseDto<List<ClassInfoResponseDto>> getTeacherClassList() {
         try {
-            return null;
+            List<ClassInfoResponseDto> result = userService.getTeacherClassList();
+            return new BaseResponseDto<>(result);
         } catch (Exception e) {
             if (e instanceof BaseException) {
                 throw e;
@@ -96,9 +103,10 @@ public class UserController {
     }
 
     @GetMapping("/kid")
-    public BaseResponseDto<?> getParentKidList() {
+    public BaseResponseDto<List<KidInfoResponseDto>> getParentKidList() {
         try {
-            return null;
+            List<KidInfoResponseDto> result = userService.getParentKidList();
+            return new BaseResponseDto<>(result);
         } catch (Exception e) {
             if (e instanceof BaseException) {
                 throw e;

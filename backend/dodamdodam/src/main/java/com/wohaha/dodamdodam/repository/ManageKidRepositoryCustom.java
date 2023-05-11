@@ -24,4 +24,6 @@ public interface ManageKidRepositoryCustom {
     void deleteKid(long kidSeq);
 
     Optional<KidInfoResponseDto> findKidInfoByKidSeq(Long kidSeq);
+
+    List<KidInfoResponseDto> findKidListByUserSeq(Long userSeq);
 }
