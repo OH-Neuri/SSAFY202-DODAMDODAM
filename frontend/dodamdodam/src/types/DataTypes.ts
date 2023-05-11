@@ -7,6 +7,7 @@ export type student = {
   gender: string;
   classSeq: number;
   className: string;
+  parentSeq: number;
 };
 
 export type classList = {

@@ -16,7 +16,7 @@ import DatePicker from "react-datepicker";
 import FormControl from "@mui/material/FormControl";
 import axios from "axios";
 import { useQuery } from "react-query";
-
+import StudentPhoneInputModal from "./studentPhoneInputModal";
 
 export default function StudentModifyModal(props: {
   idx: number;
@@ -34,32 +34,31 @@ export default function StudentModifyModal(props: {
   const [student, setStudent] = useState<student>('');
   const [classList, setClassList] = useState<classList[]>([])
   const [selectedImg, setSelectedImg] = useState<File | null>(null);
+  const [isRegisterd, setIsRegisterd] = useState<number>(0);
+  const [openPh, setOpenPh] = useState<boolean>(false);
+
+  const handleOpenPh = () => setOpenPh(true);
+  const handleClosePh = () => setOpenPh(false);
 
 
+  // 반 변경 저장
   const handleChangeGroup = (event: SelectChangeEvent) => {
     setGroup(event.target.value);
   };
 
+  // 성별 변경 저장
   const handleChangeGender = (event: SelectChangeEvent) => {
     setGender(event.target.value);
   };
 
-  // 사진 안바뀌면 null로 보낼 수 있게 수희님이 수정해주셔야함 
-  async function getModifyKidInfo (){
-    console.log("아이 수정 보낼 데이터>>>>>>>>>>>>>>")
+  // 아이 수정하기 
+  async function getModifyKidInfo() {
+    
     const changeDate = new Date(startDate)
     const year = changeDate.getFullYear()
     const month = changeDate.getMonth() + 1
     const date = changeDate.getDate()
     const resultDate = `${year}-${month >= 10 ? month : '0' + month}-${date >= 10 ? date : '0' + date}`
-
-    console.log(student.kidSeq.toString())
-    console.log(name)
-    console.log(resultDate)
-    console.log(selectedImg)
-    console.log(gender)
-    console.log(student.classSeq.toString())
-
 
     try {
       var formData = new FormData();
@@ -87,21 +86,35 @@ export default function StudentModifyModal(props: {
 
   }
 
-
-
+  // 아이 가져오기
   async function fetchKid(idx: number) {
+    // API 38번
     const kidSeq = idx;
     try {
       const response = await axios.get(
         `https://dodamdodam.site/api/dodam/kindergarten/kidInfo/${kidSeq}`
       );
       setStudent(response.data.result);
-
     } catch (error) {
       console.log("에러났습니다.");
     }
   }
 
+  // 아이 삭제하기
+  async function deleteKid(idx: number) { 
+      const kidSeq = idx;
+      try {
+        const response = await axios.delete(
+          `https://dodamdodam.site/api/dodam/kindergarten/kid/${kidSeq}`
+        );
+        console.log(`원생삭제 :>>>>>>>>>>>`);
+        console.log(response.data.result);
+      } catch (error) {
+        console.log("원생 삭제에서 에러났습니다.???????????????????????????????????//");
+      }
+  }
+  
+  // 반 이름 가져오기
   async function getClassName() {
     try {
       const response = await axios.get(
@@ -114,20 +127,6 @@ export default function StudentModifyModal(props: {
     }
   }
 
-  async function deleteKid(idx: number) { 
-    const kidSeq = idx;
-    try {
-      const response = await axios.delete(
-        `https://dodamdodam.site/api/dodam/kindergarten/kid/${kidSeq}`
-      );
-      console.log(`원생삭제 :>>>>>>>>>>>`);
-      console.log(response.data.result);
-    } catch (error) {
-      console.log("원생 삭제에서 에러났습니다.???????????????????????????????????//");
-    }
-
-  }
-
 
   useEffect(() => {
     fetchKid(props.idx)
@@ -137,7 +136,10 @@ export default function StudentModifyModal(props: {
     setPhoto(student.photo);
     setGroup(student.className);
     setGender(student.gender);
+    setIsRegisterd(student.parentSeq);
+    // setIsRegiseterd()
   }, [props]);
+
 
 
   // 모달 스타일
@@ -278,22 +280,57 @@ export default function StudentModifyModal(props: {
                 </div>
               </div>
               <div className="flex mt-[20px]">
-                <div
-                  onClick={() => { 
-                    handleClose();
-                    getModifyKidInfo();
-                  }
-                  }
-                  className="cursor-pointer hover:bg-[#BF9831] flex justify-center items-center text-[20px] font-preM ml-3 w-[165px] h-[50px] bg-[#FFCD4A] rounded-lg mt-11"
-                >
-                  수정하기
+                {isRegisterd != 0 ?
+                <div className="flex">
+                  <div
+                    onClick={() => { 
+                      handleClose();
+                      getModifyKidInfo();
+                    }
+                    }
+                    className="cursor-pointer hover:bg-[#BF9831] flex justify-center items-center text-[20px] font-preM ml-3 w-[165px] h-[50px] bg-[#FFCD4A] rounded-lg mt-11"
+                  >
+                    저장하기
+                  </div>
+                  <div
+                    onClick={() => { handleClose(); deleteKid(props.idx); }}
+                    className="cursor-pointer hover:bg-[#9A9A9A] flex justify-center items-center text-[20px] font-preM ml-3 w-[165px] h-[50px] bg-[#CACACA] rounded-lg mt-11"
+                  >
+                    삭제하기
+                  </div>
                 </div>
-                <div
-                  onClick={() => { handleClose(); deleteKid(props.idx); }}
-                  className="cursor-pointer hover:bg-[#C34139] flex justify-center items-center text-[20px] font-preM ml-3 w-[165px] h-[50px] bg-[#FF5F55] rounded-lg mt-11"
-                >
-                  삭제하기
-                </div>
+                  :
+                  <div className="flex">
+                    <div
+                      onClick={() => { 
+                        handleClose();
+                        getModifyKidInfo();
+                      }
+                      }
+                      className="cursor-pointer hover:bg-[#BF9831] flex justify-center items-center text-[15px] font-preM ml-3 w-[103px] h-[50px] bg-[#FFCD4A] rounded-lg mt-11"
+                    >
+                      저장하기
+                    </div>
+                    <div
+                      onClick={() => {handleOpenPh() }}
+                      className="cursor-pointer hover:bg-[#D76861] flex justify-center items-center text-[15px] font-preM ml-3 w-[103px] h-[50px] bg-[#FF655B] rounded-lg mt-11"
+                    >
+                      코드전송
+                    </div>
+                    <div
+                      onClick={() => { handleClose(); deleteKid(props.idx); }}
+                      className="cursor-pointer hover:bg-[#9A9A9A] flex justify-center items-center text-[15px] font-preM ml-3 w-[103px] h-[50px] bg-[#CACACA] rounded-lg mt-11"
+                    >
+                      삭제하기
+                    </div>
+                    <StudentPhoneInputModal
+                      idx={props.idx}
+                      open={openPh}
+                      handleOpen={handleOpenPh}
+                      handleClose={handleClosePh}>
+                    </StudentPhoneInputModal>
+                  </div>
+                }
               </div>
             </div>
           </div>
