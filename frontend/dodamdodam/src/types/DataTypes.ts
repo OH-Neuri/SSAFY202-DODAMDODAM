@@ -13,11 +13,10 @@ export type teacher = {
     class: string;
 }
 
-export type kindergartenType = {
+export type KindergartenType = {
     [index: string] : string
     name: string
     address: string
-    phone_number: string
 }
 
 export type KinderGartenSearchType = {

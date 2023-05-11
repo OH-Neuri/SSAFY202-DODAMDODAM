@@ -5,11 +5,11 @@ import React, { useEffect, useState } from 'react'
 
 export default function Login() {
     const [open, setOpen] = useState<boolean>(false)
-    const [userName, setUserName] = useState<string>('쿨냥이')
+    const [userName, setUserName] = useState<string>('')
     const router = useRouter()
 
     useEffect(()=>{
-        const name = sessionStorage.getItem('userName')
+        const name = sessionStorage.getItem('name')
         if (name) setUserName(name)
     },[])
 

@@ -1,7 +1,7 @@
+import { userLogin } from '@/api/user/default'
 import { toastError } from '@/components/common/toast'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
-import { toast } from 'react-toastify'
 
 export default function Login() {
     const router = useRouter()
@@ -9,7 +9,7 @@ export default function Login() {
     const [id, setId] = useState<string>('')
     const [pw, setPw] = useState<string>('')
 
-    const login = () => {
+    const login = async () => {
         if(id == '') {
             toastError('아이디를 입력해주세요');
             return
@@ -18,11 +18,16 @@ export default function Login() {
             toastError('비밀번호를 입력해주세요');
             return
         }
-        const data = {
-            id: id,
-            pw: pw
+        const res = await userLogin(id, pw, 1);
+        if(res.bool){
+            if(!res.kinder){
+                router.push('/user/welcome');
+            }else{
+                router.push('/calendar');
+            }
+        }else{
+            toastError('아이디나 비밀번호를 다시 확인해주세요.')
         }
-        console.log(data)
     }
   return (
     <>

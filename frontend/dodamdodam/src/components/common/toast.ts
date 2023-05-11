@@ -11,6 +11,7 @@ export const toastError = (content: string) => {
             draggable: true,
             progress: undefined,
             theme: "colored",
+            style: {width: '360px', right: '40px'},
             icon: '🚨',
             })
     )

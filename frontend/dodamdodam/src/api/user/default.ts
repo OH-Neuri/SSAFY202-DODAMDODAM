@@ -48,7 +48,10 @@ export const userSignup = async (user : SignupUserType) => {
 }
 
 export const userLogin = async (id: string, pw: string, role: number) => {
-    let bool;
+    const payload = {
+        bool: false,
+        kinder: false,
+    }
     const data = {
         id: id,
         password: pw,
@@ -57,10 +60,13 @@ export const userLogin = async (id: string, pw: string, role: number) => {
     await defaultAxios.post(`user/login`, data
     ).then((res)=>{
         console.log(res.data.result)
-        bool = true
+        sessionStorage.setItem('isLogin', 'true')
+        sessionStorage.setItem('token', res.data.result.token)
+        sessionStorage.setItem('name', res.data.result.name)
+        payload.bool = true
+        payload.kinder = res.data.result.kindergarten
     }).catch((err)=>{
         console.log(err)
-        bool = false
     })
-    return bool
+    return payload
 }
