@@ -147,6 +147,32 @@ public class ClassController {
         }
     }
 
+    @GetMapping("/noticeSearchByTeacher/{month}")
+    public BaseResponseDto<List<ClassNoticeResponseDto>> noticeSearchByTeacher(@PathVariable int month, @RequestParam Long classSeq){
+        try{
+            return new BaseResponseDto<>(noticeService.noticeSearchByTeacher(month, classSeq));
+        }catch (Exception e){
+            if(e instanceof BaseException){
+                throw e;
+            }else{
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
+    @GetMapping("/noticeSearchByParent/{month}")
+    public BaseResponseDto<List<ClassNoticeResponseDto>> noticeSearchByParent(@PathVariable int month, @RequestParam Long kidSeq){
+        try{
+            return new BaseResponseDto<>(noticeService.noticeSearchByParent(month, kidSeq));
+        }catch (Exception e){
+            if(e instanceof BaseException){
+                throw e;
+            }else{
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
     @GetMapping("/notice/info/{noticeSeq}")
     public BaseResponseDto<ClassNoticeResponseDto> noticeInfo(@PathVariable Long noticeSeq){
         try{
