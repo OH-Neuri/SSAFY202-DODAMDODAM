@@ -1,4 +1,6 @@
+import 'package:app/components/today/add_calendar_dialog.dart';
 import 'package:app/constants.dart';
+import 'package:app/controller/calendar_type_controller.dart';
 import 'package:app/controller/deviceInfo_controller.dart';
 import 'package:app/controller/today_controller.dart';
 import 'package:app/models/schedule/singleday_schedule_model.dart';
@@ -12,7 +14,8 @@ class CalendarInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TodayController tc = Get.put(TodayController());
-    DeviceInfoController dc = Get.put(DeviceInfoController());
+    CalendarTypeController ctc = Get.put(CalendarTypeController());
+
     return GetBuilder<TodayController>(
         builder: (_) =>
       Column(
@@ -39,7 +42,16 @@ class CalendarInfo extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   InkWell(
-                    onTap: () { },
+                    onTap: () {
+                      CalendarTypeController.to.setTypeList();
+                      showDialog(
+                          context: context,
+                          barrierDismissible: true, // 바깥 터치 할 시 닫음
+                          builder: (BuildContext context) {
+                            return AddCalendarDialog();
+                          }
+                      );
+                    },
                     child: Container(
                       width: 30, height: 30,
                       margin: EdgeInsets.all(10),

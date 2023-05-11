@@ -20,8 +20,8 @@ class DeviceInfoController extends GetxController {
     super.onInit();
     _prefs = await SharedPreferences.getInstance();
     // SharedPreferences에 저장된 isTeacher 값을 읽어와서 RxBool 변수에 저장
-    isTeacher = _prefs!.getBool('isTeacher') ?? false;
-    classSeq = _prefs!.getInt('classSeq') ?? 0;
+    isTeacher = _prefs!.getBool('isTeacher') ?? true;
+    classSeq = _prefs!.getInt('classSeq') ?? 1;
     isLogin = _prefs!.getBool('isLogin') ?? false;
     token = _prefs!.getString('token') ?? '';
     name = _prefs!.getString('name') ?? '';
