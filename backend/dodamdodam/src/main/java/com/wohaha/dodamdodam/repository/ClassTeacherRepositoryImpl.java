@@ -32,4 +32,12 @@ public class ClassTeacherRepositoryImpl implements ClassTeacherRepositoryCustom 
                 .fetchFirst() != null;
     }
 
+    @Override
+    public void deleteClassTeacher(Long classTeacherSeq) {
+        query.delete(classTeacher)
+                .where(classTeacher.classTeacherSeq.eq(classTeacherSeq))
+                .execute();
+
+    }
+
 }
