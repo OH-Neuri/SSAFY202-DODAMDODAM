@@ -105,10 +105,10 @@ public class ManageKidServiceImpl implements ManageKidService{
     @Override
     public List<KidParentResponseDto> getKidParentList(Long classSeq) {
         //선생님만 조회가능
-        String role = ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getRole();
-        if(!role.equals("1") && !role.equals("2")) {
-            throw new BaseException(UNPERMISSION_ROLE);
-        }
+//        String role = ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getRole();
+//        if(!role.equals("1") && !role.equals("2")) {
+//            throw new BaseException(UNPERMISSION_ROLE);
+//        }
         return manageKidRepository.getKidParentList(classSeq);
     }
 
