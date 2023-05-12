@@ -22,7 +22,7 @@ class _MainIconButtonState extends State<MainIconButton> {
   @override
   void initState() {
     super.initState();
-    isTeacher = c.isTeacher.value;
+    isTeacher = c.isTeacher;
   }
   @override
   Widget build(BuildContext context) {
@@ -30,11 +30,11 @@ class _MainIconButtonState extends State<MainIconButton> {
     dynamic link;
     switch (widget.title) {
       case '알림장':
-        icon = Image.asset('/images/common/notebook_icon.png');
+        icon = Image.asset('assets/images/common/notebook_icon.png');
         link = NoticeList();
         break;
       case '등하원 확인서':
-        icon = Image.asset('/images/common/goback_icon.png');
+        icon = Image.asset('assets/images/common/goback_icon.png');
         // 선생님이면?
         if (isTeacher) {
           link = AttendanceList();
@@ -45,7 +45,7 @@ class _MainIconButtonState extends State<MainIconButton> {
         }
         break;
       case '투약 의뢰서':
-        icon = Image.asset('/images/common/medicine_icon.png');
+        icon = Image.asset('assets/images/common/medicine_icon.png');
         // 선생님이면?
         if (isTeacher) {
           link = MedicineTeacherPage();
@@ -68,7 +68,7 @@ class _MainIconButtonState extends State<MainIconButton> {
       },
       child: Container(
         height: 100, width: double.infinity,
-        margin: EdgeInsets.symmetric(horizontal: 15),
+        margin: EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20)),
           color: Colors.white,

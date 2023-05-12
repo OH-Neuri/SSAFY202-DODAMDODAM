@@ -7,6 +7,7 @@ class RootController extends GetxController {
   static RootController get to => Get.find();
 
   RxInt rootPageIndex = 0.obs;
+  int lastSelectedTabIndex = 0;
 
   final GlobalKey<NavigatorState> mainNavigatorKey = GlobalKey<NavigatorState>();
   final GlobalKey<NavigatorState> chatNavigatorKey = GlobalKey<NavigatorState>();
@@ -15,16 +16,50 @@ class RootController extends GetxController {
   RxBool isCategoryPageOpen = false.obs;
 
   void changeRootPageIndex(int index) {
-    rootPageIndex(index);
+    lastSelectedTabIndex = index;
+    rootPageIndex.value = index;
+  }
+
+  void navigateToRootPage(int index) {
+    if (lastSelectedTabIndex == index) {
+      switch (index) {
+        case 0:
+          mainNavigatorKey.currentState!.popUntil((route) => route.isFirst);
+          break;
+        case 1:
+          calendarNavigatorKey.currentState!.popUntil((route) => route.isFirst);
+          break;
+        case 2:
+          chatNavigatorKey.currentState!.popUntil((route) => route.isFirst);
+          break;
+        case 3:
+          settingNavigatorKey.currentState!.popUntil((route) => route.isFirst);
+          break;
+      }
+      rootPageIndex.value = index;
+    }
+    else {
+      lastSelectedTabIndex = index;
+      rootPageIndex.value = index;
+    }
   }
 
   Future<bool> onWillPop() async {
-    // pop 할게 있으면 false, 아니면 true
-    // 뒤로 계속 가면 앱 꺼짐. 근데 pop할 게 있으면 뒤로 감.
-    // setCategoryPage(false);
-    // return !await navigatorKey.currentState!.maybePop();
-    // 근데 페이지마다 어떻게 처리해야 할 지 모르겠네..
-    return false;
+    if (mainNavigatorKey.currentState!.canPop()) {
+      mainNavigatorKey.currentState!.pop();
+      return false;
+    } else if (chatNavigatorKey.currentState!.canPop()) {
+      chatNavigatorKey.currentState!.pop();
+      return false;
+    } else if (calendarNavigatorKey.currentState!.canPop()) {
+      calendarNavigatorKey.currentState!.pop();
+      return false;
+    } else if (settingNavigatorKey.currentState!.canPop()) {
+      settingNavigatorKey.currentState!.pop();
+      return false;
+    } else {
+      return true;
+    }
   }
 
   // 화살표랑 타이틀 처리를 위한 것. 나중에 숫자로 바꿔서

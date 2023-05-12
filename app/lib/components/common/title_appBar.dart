@@ -1,3 +1,4 @@
+import 'package:app/constants.dart';
 import 'package:flutter/material.dart';
 
 class TitleAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -11,12 +12,16 @@ class TitleAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: true,
-      backgroundColor: Colors.amberAccent,
-      elevation: 3,
+      backgroundColor: bottomYellow,
+      elevation: 0,
       title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Text(title, style: TextStyle(fontSize: contentTextSize, color: Colors.black, fontWeight: FontWeight.w700)),
+            ),
             Image.asset('assets/images/logo.png', height: 40),
-            Text(title),
           ]
       ),
     );
