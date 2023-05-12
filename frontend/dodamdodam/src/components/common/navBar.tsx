@@ -49,8 +49,8 @@ export default function NavBar(props: {target: string}) {
         </div>
         <div className='relative bottom-[-25%] flex justify-center w-full'>
             <div className='flex items-center justify-between pl-12 pr-6 w-[90%] bg-yellow-400/50 h-[90px] rounded-full'>
-                <div className='flex flex-col w-[120px]'>
-                    <div className='font-preM text-[20px]'>{data?.name}</div>
+                <div className='flex flex-col w-[90%]'>
+                    <div className='font-preM text-[20px] truncate'>{data?.name}</div>
                     <div>{userName}원장님</div>
                 </div>
                 <div onBlur={()=>setTab(false)} tabIndex={0}>
