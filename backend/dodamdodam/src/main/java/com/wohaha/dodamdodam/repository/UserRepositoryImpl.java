@@ -1,22 +1,21 @@
 package com.wohaha.dodamdodam.repository;
 
-import static com.wohaha.dodamdodam.domain.QUser.user;
-import static com.wohaha.dodamdodam.domain.QKindergarten.kindergarten;
-import static com.wohaha.dodamdodam.domain.QClassTeacher.classTeacher;
-import static com.wohaha.dodamdodam.domain.QClassInfo.classInfo;
-import static com.wohaha.dodamdodam.domain.QKid.kid;
-
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.wohaha.dodamdodam.domain.User;
-
-import java.util.Optional;
-
 import com.wohaha.dodamdodam.dto.request.UpdateUserRequestDto;
 import com.wohaha.dodamdodam.dto.response.LoginParentResponseDto;
 import com.wohaha.dodamdodam.dto.response.LoginTeacherResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Optional;
+
+import static com.wohaha.dodamdodam.domain.QClassInfo.classInfo;
+import static com.wohaha.dodamdodam.domain.QClassTeacher.classTeacher;
+import static com.wohaha.dodamdodam.domain.QKid.kid;
+import static com.wohaha.dodamdodam.domain.QKindergarten.kindergarten;
+import static com.wohaha.dodamdodam.domain.QUser.user;
 
 public class UserRepositoryImpl implements UserRepositoryCustom {
     @Autowired
@@ -25,30 +24,30 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     @Override
     public boolean isSignedUp(String phone, Integer role) {
         BooleanExpression predicate = user.phoneNumber.eq(phone)
-            .and(user.role.eq(role));
+                .and(user.role.eq(role));
         return query.selectOne()
-            .from(user)
-            .where(predicate)
-            .fetchFirst() != null;
+                .from(user)
+                .where(predicate)
+                .fetchFirst() != null;
     }
 
     @Override
     public Optional<User> findUserByIdAndRole(String id, Integer role) {
         BooleanExpression predicate = user.id.eq(id)
-            .and(user.role.eq(role));
+                .and(user.role.eq(role));
 
         return Optional.ofNullable((
-            query
-                .selectFrom(user)
-                .where(predicate)
-                .fetchOne()));
+                query
+                        .selectFrom(user)
+                        .where(predicate)
+                        .fetchOne()));
     }
 
     @Override
     public void updateUser(UpdateUserRequestDto updateUserRequestDto) {
         query
                 .update(user)
-                .set(user.name,updateUserRequestDto.getName())
+                .set(user.name, updateUserRequestDto.getName())
                 .set(user.id, updateUserRequestDto.getId())
                 .set(user.password, updateUserRequestDto.getPassword())
                 .set(user.phoneNumber, updateUserRequestDto.getPhone())
@@ -66,27 +65,31 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     }
 
     @Override
-    public LoginTeacherResponseDto findClassInfoByUserSeq(Long userSeq) {
+    public void findClassInfoByUserSeq(LoginTeacherResponseDto loginTeacherResponseDto, Long userSeq) {
         Tuple tuple = query
                 .select(classTeacher.classSeq, classInfo.name)
                 .from(classTeacher).join(classInfo).on(classTeacher.classSeq.eq(classInfo.classSeq))
                 .where(classTeacher.userSeq.eq(userSeq))
                 .fetchFirst();
-
-        return new LoginTeacherResponseDto(tuple.get(classTeacher.classSeq), tuple.get(classInfo.name));
+        if (tuple == null) return;
+        loginTeacherResponseDto.setClassSeq(tuple.get(classTeacher.classSeq));
+        loginTeacherResponseDto.setClassName(tuple.get(classInfo.name));
     }
 
 
-
     @Override
-    public LoginParentResponseDto findKidInfoByUserSeq(Long userSeq) {
+    public void findKidInfoByUserSeq(LoginParentResponseDto loginParentResponseDto, Long userSeq) {
         Tuple tuple = query
                 .select(kid.kidSeq, kid.name, kid.photo, kid.classSeq, classInfo.name)
                 .from(kid).join(classInfo).on(kid.classSeq.eq(classInfo.classSeq))
                 .where(kid.userSeq.eq(userSeq))
                 .fetchFirst();
-
-        return new LoginParentResponseDto(tuple.get(kid.kidSeq), tuple.get(kid.name), tuple.get(kid.photo), tuple.get(kid.classSeq), tuple.get(classInfo.name));
+        if (tuple == null) return;
+        loginParentResponseDto.setKidSeq(tuple.get(kid.kidSeq));
+        loginParentResponseDto.setKidName(tuple.get(kid.name));
+        loginParentResponseDto.setKidPhoto(tuple.get(kid.photo));
+        loginParentResponseDto.setClassSeq(tuple.get(kid.classSeq));
+        loginParentResponseDto.setClassName(tuple.get(classInfo.name));
     }
 
     @Override

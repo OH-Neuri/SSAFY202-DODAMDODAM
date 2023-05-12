@@ -2,6 +2,7 @@ package com.wohaha.dodamdodam.service;
 
 import com.wohaha.dodamdodam.domain.JwtTokenInfo;
 import com.wohaha.dodamdodam.domain.User;
+import com.wohaha.dodamdodam.dto.BaseResponseDto;
 import com.wohaha.dodamdodam.dto.request.LoginUserRequestDto;
 import com.wohaha.dodamdodam.dto.request.RegisterUserRequestDto;
 import com.wohaha.dodamdodam.dto.request.UpdateUserRequestDto;
@@ -106,18 +107,18 @@ public class UserServiceImpl implements UserService {
                 break;
 
             case 2: // 선생님
-                LoginTeacherResponseDto loginTeacherResponseDto = userRepository.findClassInfoByUserSeq(user.getUserSeq());
-                loginTeacherResponseDto.setLoginResponseDto(result);
+                LoginTeacherResponseDto loginTeacherResponseDto = new LoginTeacherResponseDto(result);
+                userRepository.findClassInfoByUserSeq(loginTeacherResponseDto, user.getUserSeq());
                 response = loginTeacherResponseDto;
                 break;
             case 3: // 부모님
-                LoginParentResponseDto loginParentResponseDto = userRepository.findKidInfoByUserSeq(user.getUserSeq());
-                loginParentResponseDto.setLoginResponseDto(result);
+                LoginParentResponseDto loginParentResponseDto = new LoginParentResponseDto(result);
+                userRepository.findKidInfoByUserSeq(loginParentResponseDto, user.getUserSeq());
                 response = loginParentResponseDto;
                 break;
         }
 
-        return (response instanceof LoginResponseDto) ? new BaseException(BaseResponseStatus.WRONG_ROLE) : response;
+        return (response instanceof LoginResponseDto) ? new BaseException(BaseResponseStatus.WRONG_ROLE) : new BaseResponseDto<>(response);
     }
 
     @Override
