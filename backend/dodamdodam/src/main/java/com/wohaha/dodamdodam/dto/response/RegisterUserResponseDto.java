@@ -14,5 +14,6 @@ public class RegisterUserResponseDto {
     private String id;
     private String name;
     private Integer role;
+    private String phone;
     private String token;
 }
