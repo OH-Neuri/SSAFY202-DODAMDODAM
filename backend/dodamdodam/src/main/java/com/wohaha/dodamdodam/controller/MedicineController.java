@@ -38,27 +38,10 @@ public class MedicineController {
         }
     }
 
-    //투약 완료서(?) 작성
-    @PutMapping("/{medicineSeq}")
-    public BaseResponseDto<Boolean> completeMedicine(@PathVariable Long medicineSeq,
-                                                     @ModelAttribute CompleteMedicineRequestDto completeMedicineRequestDto) {
-        try {
-            completeMedicineRequestDto.setMedicineSeq(medicineSeq);
-            boolean result = medicineService.completeMedicine(completeMedicineRequestDto);
-            return new BaseResponseDto<>(result);
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (e instanceof BaseException) {
-                throw e;
-            } else {
-                throw new BaseException(BaseResponseStatus.FAIL);
-            }
-        }
-    }
 
     //투약 의뢰서 조회
     @GetMapping("/{medicineSeq}")
-    public BaseResponseDto<Medicine> getMedicine(@PathVariable Long medicineSeq) {
+    public BaseResponseDto<MedicineInfoResponseDto> getMedicine(@PathVariable Long medicineSeq) {
         try {
             return new BaseResponseDto<>(medicineService.getMedicine(medicineSeq));
         } catch (Exception e) {
@@ -103,4 +86,21 @@ public class MedicineController {
         }
     }
 
+    //투약 완료서(?) 작성
+    @PutMapping("/{medicineSeq}")
+    public BaseResponseDto<Boolean> completeMedicine(@PathVariable Long medicineSeq,
+                                                     @ModelAttribute CompleteMedicineRequestDto completeMedicineRequestDto) {
+        try {
+            completeMedicineRequestDto.setMedicineSeq(medicineSeq);
+            boolean result = medicineService.completeMedicine(completeMedicineRequestDto);
+            return new BaseResponseDto<>(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (e instanceof BaseException) {
+                throw e;
+            } else {
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
 }
