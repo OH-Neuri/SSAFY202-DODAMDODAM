@@ -1,11 +1,14 @@
 package com.wohaha.dodamdodam.service;
 
+import com.wohaha.dodamdodam.dto.response.TeacherInfoResponseDto;
 import com.wohaha.dodamdodam.dto.response.TeacherInfoWithClassResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.repository.KindergartenRepository;
 import com.wohaha.dodamdodam.repository.ManageTeacherRepository;
+import com.wohaha.dodamdodam.security.CustomAuthenticatedUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,4 +29,15 @@ public class ManageTeacherServiceImpl implements ManageTeacherService{
 
         return manageTeacherRepository.teacherList(kindergartenSeq);
     }
+
+    @Override
+    public List<TeacherInfoResponseDto> getTeacherList(Long kidSeq) {
+        //부모님만 조회가능
+        String role  = ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getRole();
+        if(!role.equals("3")) {
+            throw new BaseException(BaseResponseStatus.UNPERMISSION_ROLE);
+        }
+        return manageTeacherRepository.getTeacherList(kidSeq);
+    }
+
 }

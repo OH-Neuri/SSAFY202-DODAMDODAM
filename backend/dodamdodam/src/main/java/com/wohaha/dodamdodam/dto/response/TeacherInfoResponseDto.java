@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class TeacherInfoResponseDto {
 
-    private Long classTeacherSeq;
+    private Long teacherSeq;
 
     private String teacherName;
 
