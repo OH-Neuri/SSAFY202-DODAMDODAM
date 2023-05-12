@@ -26,6 +26,10 @@ repositories {
 	mavenCentral()
 }
 
+ext {
+	set('springCloudVersion', "2021.0.6")
+}
+
 dependencies {
 	//basic spring boot
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -34,8 +38,8 @@ dependencies {
 
 	//spring security
 	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-	testImplementation 'org.springframework.security:spring-security-test'
+//	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+//	testImplementation 'org.springframework.security:spring-security-test'
 
 	//lombok + configuration processor
 	compileOnly 'org.projectlombok:lombok'
@@ -51,9 +55,32 @@ dependencies {
 	implementation 'com.querydsl:querydsl-jpa'
 	annotationProcessor 'com.querydsl:querydsl-apt'
 	implementation 'com.querydsl:querydsl-apt'
+	implementation 'com.querydsl:querydsl-sql'
+
 
 	//swagger
 	implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
+//	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+
+	//aws s3
+	//s3 객체로 저장하기 위해선 sdk 설치해야함
+	implementation platform('software.amazon.awssdk:bom:2.15.0')
+	implementation 'software.amazon.awssdk:s3'
+
+
+	//coolsms
+	implementation 'net.nurigo:sdk:4.3.0'
+
+	//jwt
+	implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+	implementation group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.3.2'
+
+	implementation 'org.springframework.security:spring-security-crypto:5.6.0'
+
+	//Redis
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis'
+
+
 }
 
 tasks.named('test') {

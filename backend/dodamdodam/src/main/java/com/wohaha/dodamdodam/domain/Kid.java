@@ -1,7 +1,6 @@
 package com.wohaha.dodamdodam.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -10,6 +9,9 @@ import java.util.Date;
 @Entity
 @Table(name = "tbl_kid")
 @Getter
+@Setter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class Kid {
     @Id
@@ -26,10 +28,14 @@ public class Kid {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "photo", nullable = false)
+    @Column(name = "photo")
     private String photo;
 
     @Column(name = "birth", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birth;
+
+    @Column(name = "gender")
+    private String gender;
+
 }

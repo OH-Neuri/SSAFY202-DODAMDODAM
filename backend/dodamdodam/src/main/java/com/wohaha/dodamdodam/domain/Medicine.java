@@ -1,5 +1,7 @@
 package com.wohaha.dodamdodam.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +12,8 @@ import java.sql.Timestamp;
 @Table(name = "tbl_medicine")
 @Getter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class Medicine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +44,6 @@ public class Medicine {
     @Column(name = "content")
     private String content;
 
-    @Column(name = "request_date", nullable = false)
     private Timestamp requestDate;
 
     @Column(name = "request_name", nullable = false)
@@ -48,6 +51,7 @@ public class Medicine {
 
     @Column(name = "request_sign", nullable = false)
     private String requestSign;
+
     @Column(name = "response_date")
     private Timestamp responseDate;
 

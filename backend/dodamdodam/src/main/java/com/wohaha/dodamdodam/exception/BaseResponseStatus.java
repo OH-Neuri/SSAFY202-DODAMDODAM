@@ -21,7 +21,14 @@ public enum BaseResponseStatus {
   TOKEN_ALLOCATE_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 4004, "Jwt 생성에 실패했습니다."),
   TOKEN_NULL_ERROR(HttpStatus.UNAUTHORIZED, 4005, "Jwt 토큰이 존재하지 않습니다."),
   TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, 4006, "Jwt 토큰 유효기간이 만료됐습니다."),
-
+  SMS_AUTHENTICATION_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 4007, "휴대폰 인증에 실패했습니다."),
+  SMS_AUTHENTICATION_COUNT(HttpStatus.INTERNAL_SERVER_ERROR, 4008, "휴대폰 인증 횟수 초과입니다. 내일 이용해주세요"),
+  ALREADY_SIGNED_UP(HttpStatus.INTERNAL_SERVER_ERROR, 4009, "이미 가입된 유저입니다."),
+  UNREQUESTED_SMS_USER(HttpStatus.INTERNAL_SERVER_ERROR, 4010, "sms 인증을 요청하지 않은 유저의 접근입니다."),
+  WRONG_CODE(HttpStatus.INTERNAL_SERVER_ERROR, 4011, "코드가 일치하지 않습니다."),
+  SMS_UNAUTHENTICATION(HttpStatus.INTERNAL_SERVER_ERROR, 4012, "sms 인증을 먼저 진행해주세요."),
+  WRONG_PASSWORD(HttpStatus.INTERNAL_SERVER_ERROR, 4013, "아이디와 비밀번호가 일치하지 않습니다."),
+  WRONG_ROLE(HttpStatus.INTERNAL_SERVER_ERROR, 4014, "권환을 다시 확인해주십시오."),
   // 파일 에러
   FILE_SAVE_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 4010, "파일 변환 및 로컬 저장 과정에서 에러가 발생했습니다."),
   FILE_UPLOAD_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 4011, "파일 s3 서버 업로드 과정에서 에러가 발생했습니다."),
@@ -36,10 +43,39 @@ public enum BaseResponseStatus {
   UNAUTHORIZED_USER(HttpStatus.UNAUTHORIZED, 4016, "토큰 인증 정보와 요청 내의 userSeq가 다릅니다."),
 
   //리뷰 에러
-  REVIEW_DELETE_ERROR(HttpStatus.INTERNAL_SERVER_ERROR,4017, "리뷰 삭제에 실패했습니다.");
-  
+  REVIEW_DELETE_ERROR(HttpStatus.INTERNAL_SERVER_ERROR,4017, "리뷰 삭제에 실패했습니다."),
+
+  //ClassTeacher 관련
+  ALREADY_REGISTERED_TEACHER(HttpStatus.INTERNAL_SERVER_ERROR, 4040, "이미 해당 반에 등록된 선생님입니다."),
+  UNREGISTERED_TEACHER(HttpStatus.INTERNAL_SERVER_ERROR, 4041, "해당 반에 선생님이 등록되어있지 않습니다."),
+
+  //User 관련
+  UNREGISTERED_USER(HttpStatus.INTERNAL_SERVER_ERROR, 4050, "존재하지 않는 유저입니다."),
+
+  //Kid 관련
+  UNREGISTERED_KID(HttpStatus.INTERNAL_SERVER_ERROR, 4060, "존재하지 않는 아이입니다."),
+
+  //Medicine 관련
+  UNREGISTERED_MEDICINE(HttpStatus.INTERNAL_SERVER_ERROR, 4070, "존재하지 않는 투약의뢰서입니다."),
+
+  // 어린이집 관련 에러
+  UNREGISTERED_KINDERGARTEN(HttpStatus.INTERNAL_SERVER_ERROR, 4080, "어린이집을 등록하지 않은 유저입니다."),
+  KINDERGARTEN_NULL_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 4081, "해당 유저의 어린이집 정보를 찾을 수 없습니다."),
+  UNREGISTERED_CLASS(HttpStatus.INTERNAL_SERVER_ERROR, 4082, "존재하지 않는 반입니다."),
+  // 출석 관리
+  ATTENDANCE_NULL_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 4090, "해당 시퀀스의 등하원 정보가 없습니다."),
+  ATTENDANCE_FORM_NULL_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 4091, "해당 날짜의 등하원 정보가 없습니다."),
+  // 일정 분류
+  SCHEDULE_TYPE_NULL_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 4100, "해당 시퀀스의 일정 분류가 없습니다."),
+  SCHEDULE_TYPE_CREATE_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 4101, "일정 분류 생성이 실패했습니다."),
+  SCHEDULE_TYPE_DELETE_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 4102, "일정 분류 삭제가 실패했습니다."),
+  SCHEDULE_TYPE_UPDATE_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, 4103, "일정 분류 수정이 실패했습니다."),
+  // 식단 관리
+  FOOD_NULL_FAIl(HttpStatus.INTERNAL_SERVER_ERROR, 4200, "해당 날의 식단이 없습니다.");
 
 
+
+//  UNAUTHORIZED_USER(HttpStatus.INTERNAL_SERVER_ERROR, 4051, "권한이 없는 유저입니다.");
 //
 //  REQUEST_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "요청에 실패하였습니다."),
 //  UNVALID_USER(HttpStatus.INTERNAL_SERVER_ERROR, "권한 없는 유저입니다."),

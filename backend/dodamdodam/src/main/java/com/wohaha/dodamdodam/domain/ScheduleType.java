@@ -1,7 +1,6 @@
 package com.wohaha.dodamdodam.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -9,6 +8,9 @@ import javax.persistence.*;
 @Table(name = "tbl_schedule_type")
 @Getter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
+@ToString
 public class ScheduleType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,4 +22,8 @@ public class ScheduleType {
 
     @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "is_valid", nullable = false, columnDefinition = "TINYINT(1) default 1")
+    @Builder.Default
+    private Boolean isValid = true;
 }

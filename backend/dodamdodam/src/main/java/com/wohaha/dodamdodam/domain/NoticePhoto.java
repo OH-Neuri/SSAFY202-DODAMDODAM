@@ -1,5 +1,7 @@
 package com.wohaha.dodamdodam.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +10,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "tbl_notice_photo")
 @Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class NoticePhoto {
     @Id
@@ -21,6 +25,6 @@ public class NoticePhoto {
     @Column(name = "photo")
     private String photo;
 
-    @Column(name = "index", nullable = false)
-    private Integer index;
+    @Column(name = "idx")
+    private Integer idx;
 }
