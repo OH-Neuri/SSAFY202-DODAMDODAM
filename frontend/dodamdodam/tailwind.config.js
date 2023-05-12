@@ -15,6 +15,7 @@ module.exports = {
       colors: {
         b_yellow : '#FFF1A1',
         m_yellow : '#F8CF1C',
+        h_yellow : '#E7B83E',
       },
       fontFamily: {
         preBl : ['preBl'],
