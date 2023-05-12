@@ -99,9 +99,9 @@ public class KindergartenController {
     public BaseResponseDto<?> createKid(@ModelAttribute CreateKidRequestDto createKidRequestDto) {
         try {
 
-            String uploadUrl = null;
+            String uploadUrl = "https://dodamdodam.s3.ap-northeast-2.amazonaws.com/kidProfile/%EA%B8%B0%EB%B3%B8+%EC%95%84%EA%B8%B0+%EC%82%AC%EC%A7%84.png";
             //이미지 s3 업로드 후 링크 가져오기
-            if (!createKidRequestDto.getPhoto().isEmpty()) {
+            if (createKidRequestDto.getPhoto() != null) {
                 uploadUrl = s3UploadService.upload(createKidRequestDto.getPhoto(), "kidProfile");
             }
             //db 저장
@@ -109,6 +109,7 @@ public class KindergartenController {
 
             return new BaseResponseDto<>(result);
         } catch (Exception e) {
+            e.printStackTrace();
             if (e instanceof BaseException) {
                 throw e;
             } else {
