@@ -8,7 +8,11 @@ Map<String, String> postHeaders = {
   "Content-Type" : "application/json",
 };
 
-Map<String, String> authHeaders = {
+Map<String, String> authPostHeaders = {
   "Content-Type" : "application/json",
+  "Authorization" : "Bearer $token",
+};
+
+Map<String, String> authGetHeaders = {
   "Authorization" : "Bearer $token",
 };

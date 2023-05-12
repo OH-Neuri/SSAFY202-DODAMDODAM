@@ -1,3 +1,5 @@
+import 'package:app/models/code/add_class_model.dart';
+import 'package:app/models/code/add_kid_model.dart';
 import 'package:app/models/user/login_parent_model.dart';
 import 'package:app/models/user/login_teacher_model.dart';
 import 'package:app/models/user/login_user_model.dart';
@@ -16,6 +18,7 @@ class DeviceInfoController extends GetxController {
   bool isLogin = false;
   String token = '';
   String name = '';
+  String phone = '';
   String className = '';
   String kidName = '';
   String kidPhoto = '';
@@ -32,6 +35,7 @@ class DeviceInfoController extends GetxController {
     isLogin = _prefs!.getBool('isLogin') ?? false;
     token = _prefs!.getString('token') ?? '';
     name = _prefs!.getString('name') ?? '';
+    phone = _prefs!.getString('phone') ?? '';
     className = _prefs!.getString('className') ?? '';
     kidName = _prefs!.getString('kidName') ?? '';
     kidPhoto = _prefs!.getString('kidPhoto') ?? '';
@@ -87,6 +91,14 @@ class DeviceInfoController extends GetxController {
     update();
   }
 
+  void setPhone(String value) {
+    phone = value;
+    if (_prefs != null) {
+      _prefs!.setString('phone', value);
+    }
+    update();
+  }
+
   void setClassName(String value) {
     className = value;
     if (_prefs != null) {
@@ -120,27 +132,44 @@ class DeviceInfoController extends GetxController {
     }
     setToken(user.token);
     setName(user.name);
+    setPhone(user.phone);
   }
 
   void loginSettingForTeacher(LoginTeacher user) {
     setIsLogin(true);
     setIsTeacher(true);
-    setClassSeq(user.classSeq as int);
-    setClassName(user.className as String);
+    setClassSeq(user.classSeq);
+    setClassName(user.className);
     setToken(user.loginResponseDto.token);
     setName(user.loginResponseDto.name);
+    setPhone(user.loginResponseDto.phone);
+    print(phone);
   }
 
   void loginSettingForParent(LoginParent user) {
     setIsLogin(true);
     setIsTeacher(false);
-    setClassSeq(user.classSeq as int);
-    setClassName(user.className as String);
-    setKidSeq(user.kidSeq as int);
-    setKidName(user.kidName as String);
-    setKidPhoto(user.kidPhoto as String);
+    setClassSeq(user.classSeq);
+    setClassName(user.className );
+    setKidSeq(user.kidSeq);
+    setKidName(user.kidName);
+    setKidPhoto(user.kidPhoto);
     setToken(user.loginResponseDto.token);
     setName(user.loginResponseDto.name);
+    setPhone(user.loginResponseDto.phone);
+  }
+
+  void classSetting(AddClass addClass) {
+    setClassSeq(addClass.classSeq);
+    setClassName(addClass.className);
+  }
+
+  void kidSetting(AddKid kid) {
+    setClassSeq(kid.classSeq);
+    setClassName(kid.className);
+    setKidSeq(kid.kidSeq);
+    setKidName(kid.kidName);
+    setKidPhoto(kid.kidPhoto);
   }
 
 }
