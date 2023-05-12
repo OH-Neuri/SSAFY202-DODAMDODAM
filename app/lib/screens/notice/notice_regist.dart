@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:app/components/common/logout_app_bar.dart';
 import 'package:app/components/notice/add_image_icon.dart';
 import 'package:app/constants.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
