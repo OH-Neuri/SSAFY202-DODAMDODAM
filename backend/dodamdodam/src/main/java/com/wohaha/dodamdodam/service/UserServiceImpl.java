@@ -109,13 +109,13 @@ public class UserServiceImpl implements UserService {
                 break;
 
             case 2: // 선생님
-                LoginTeacherResponseDto loginTeacherResponseDto = new LoginTeacherResponseDto(result);
-                userRepository.findClassInfoByUserSeq(loginTeacherResponseDto, user.getUserSeq());
+                LoginTeacherResponseDto loginTeacherResponseDto = userRepository.findClassInfoByUserSeq(user.getUserSeq());
+                loginTeacherResponseDto.setLoginResponseDto(result);
                 response = loginTeacherResponseDto;
                 break;
             case 3: // 부모님
-                LoginParentResponseDto loginParentResponseDto = new LoginParentResponseDto(result);
-                userRepository.findKidInfoByUserSeq(loginParentResponseDto, user.getUserSeq());
+                LoginParentResponseDto loginParentResponseDto = userRepository.findKidInfoByUserSeq(user.getUserSeq());
+                loginParentResponseDto.setLoginResponseDto(result);
                 response = loginParentResponseDto;
                 break;
         }

@@ -18,10 +18,10 @@ public interface UserRepositoryCustom {
   Long findKindergartenSeq(Long userSeq);
 
   // 선생님시퀀스로 반정보
-  void findClassInfoByUserSeq(LoginTeacherResponseDto loginTeacherResponseDto, Long userSeq);
+  LoginTeacherResponseDto findClassInfoByUserSeq(Long userSeq);
 
   // 부모시퀀스로 아이정보, 아이의반정보
-  void findKidInfoByUserSeq(LoginParentResponseDto loginParentResponseDto, Long userSeq);
+  LoginParentResponseDto findKidInfoByUserSeq(Long userSeq);
 
   int findUserIdCntByUserId(String id);
 
