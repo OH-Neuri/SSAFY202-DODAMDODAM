@@ -6,13 +6,11 @@ import 'dart:convert';
 
 AttendanceListModel attendanceListModelFromJson(String str) => AttendanceListModel.fromJson(json.decode(str));
 
-String attendanceListModelToJson(AttendanceListModel data) => json.encode(data.toJson());
-
 class AttendanceListModel {
   bool isSuccess;
   int code;
   String message;
-  AttendanceList attendanceList;
+  List<AttendanceListItem> attendanceList;
 
   AttendanceListModel({
     required this.isSuccess,
@@ -21,22 +19,17 @@ class AttendanceListModel {
     required this.attendanceList,
   });
 
-  factory AttendanceListModel.fromJson(Map<String, dynamic> json) => AttendanceListModel(
-    isSuccess: json["isSuccess"],
-    code: json["code"],
-    message: json["message"],
-    attendanceList: AttendanceList.fromJson(json["result"]),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "isSuccess": isSuccess,
-    "code": code,
-    "message": message,
-    "attendanceList": attendanceList.toJson(),
-  };
+  factory AttendanceListModel.fromJson(Map<String, dynamic> json) =>
+      AttendanceListModel(
+        isSuccess: json["isSuccess"],
+        code: json["code"],
+        message: json["message"],
+        attendanceList: List<AttendanceListItem>.from(
+            json["result"].map((x) => AttendanceListItem.fromJson(x))),
+      );
 }
 
-class AttendanceList {
+class AttendanceListItem {
   int kidSeq;
   String name;
   String photo;
@@ -44,7 +37,7 @@ class AttendanceList {
   String forthTimeCheck;
   dynamic backTimeCheck;
 
-  AttendanceList({
+  AttendanceListItem({
     required this.kidSeq,
     required this.name,
     required this.photo,
@@ -53,7 +46,7 @@ class AttendanceList {
     this.backTimeCheck,
   });
 
-  factory AttendanceList.fromJson(Map<String, dynamic> json) => AttendanceList(
+  factory AttendanceListItem.fromJson(Map<String, dynamic> json) => AttendanceListItem(
     kidSeq: json["kidSeq"],
     name: json["name"],
     photo: json["photo"],
