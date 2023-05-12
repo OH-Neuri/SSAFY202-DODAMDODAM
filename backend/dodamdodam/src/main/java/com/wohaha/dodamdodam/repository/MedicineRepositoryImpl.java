@@ -75,7 +75,7 @@ public class MedicineRepositoryImpl implements MedicineRepositoryCustom {
     public Optional<MedicineInfoResponseDto> findMedicineById(Long medicineSeq) {
         return Optional.ofNullable(query.select(Projections.constructor(MedicineInfoResponseDto.class,
                         medicine.medicineSeq, medicine.kidSeq, medicine.symptom, medicine.pill, medicine.capacity, medicine.count,
-                        medicine.time, medicine.keep, medicine.content, medicine.requestDate, medicine.requestName, medicine.responseDate, medicine.requestName))
+                        medicine.time, medicine.keep, medicine.content, medicine.requestDate, medicine.requestName, medicine.responseDate, medicine.responseName))
                 .from(medicine).where(medicine.medicineSeq.eq(medicineSeq))
                 .fetchOne());
     }
