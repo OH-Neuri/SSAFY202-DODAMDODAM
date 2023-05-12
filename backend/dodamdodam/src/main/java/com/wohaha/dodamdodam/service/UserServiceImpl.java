@@ -96,6 +96,7 @@ public class UserServiceImpl implements UserService {
                 .name(user.getName())
                 .id(user.getId())
                 .role(user.getRole())
+                .phone(user.getPhoneNumber())
                 .token(jwtTokenInfo.getAccessToken())
                 .build();
 
