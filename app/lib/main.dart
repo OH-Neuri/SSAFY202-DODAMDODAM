@@ -21,8 +21,8 @@ class MyApp extends StatelessWidget {
       initialBinding: BindingsBuilder(() {
         Get.put(RootController());
       }),
-      home: Root()
-      // home: LoginSelect(),
+      // home: Root()
+      home: LoginSelect(),
 
     );
   }

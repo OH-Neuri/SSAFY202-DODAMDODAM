@@ -1,14 +1,19 @@
 import 'dart:convert';
 
+import 'package:app/api/http_header.dart';
 import 'package:app/api/url_mapping.dart';
 import 'package:app/controller/deviceInfo_controller.dart';
+import 'package:app/models/user/login_parent_model.dart';
+import 'package:app/models/user/login_result.dart';
+import 'package:app/models/user/login_teacher_model.dart';
 import 'package:app/models/user/login_user_model.dart';
 import 'package:app/models/user/signup_user.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class UserService {
-  static Future<bool> userLogin(String id, String pw, int role) async {
+  static Future<LoginResult> userLogin(String id, String pw, int role) async {
+    LoginResult result = LoginResult(result: false, code: false);
     DeviceInfoController c = Get.put(DeviceInfoController());
     try {
       Map<String, dynamic> data = {
@@ -19,19 +24,37 @@ class UserService {
       String URL = '${url}user/login';
       final res = await http.post(
           Uri.parse(URL),
-          headers: {"Content-Type" : "application/json"},
+          headers: postHeaders,
           body: jsonEncode(data));
       if(res.statusCode == 200) {
-        final LoginUser loginUser = loginUserModelFromJson(utf8.decode(res.bodyBytes)).loginUser;
-        c.loginSetting(loginUser);
-        return true;
+        result.result = true;
+        if(role == 3) {
+          final LoginParent loginParent = loginParentModelFromJson(utf8.decode(res.bodyBytes)).loginParent;
+          if(loginParent.classSeq == null){
+            c.loginSetting(loginParent.loginResponseDto);
+            result.code = false;
+          }else{
+            c.loginSettingForParent(loginParent);
+            result.code = true;
+          }
+        }else{
+          final LoginTeacher loginTeacher = loginTeacherModelFromJson(utf8.decode(res.bodyBytes)).loginTeacher;
+          if(loginTeacher.classSeq == null){
+            c.loginSetting(loginTeacher.loginResponseDto);
+            result.code = false;
+          }else{
+            c.loginSettingForTeacher(loginTeacher);
+            result.code = true;
+          }
+        }
+        return result;
       }else{
         print(res.statusCode);
-        return false;
+        return result;
       }
     } catch(e) {
       print(e);
-      return false;
+      return result;
     }
   }
 

@@ -1,3 +1,5 @@
+import 'package:app/models/user/login_parent_model.dart';
+import 'package:app/models/user/login_teacher_model.dart';
 import 'package:app/models/user/login_user_model.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,9 +12,13 @@ class DeviceInfoController extends GetxController {
   // RxBool 변수
   bool isTeacher = false;
   int classSeq = 1;
+  int kidSeq = 1;
   bool isLogin = false;
   String token = '';
   String name = '';
+  String className = '';
+  String kidName = '';
+  String kidPhoto = '';
 
   // 컨트롤러 초기화 함수
   @override
@@ -22,9 +28,14 @@ class DeviceInfoController extends GetxController {
     // SharedPreferences에 저장된 isTeacher 값을 읽어와서 RxBool 변수에 저장
     isTeacher = _prefs!.getBool('isTeacher') ?? true;
     classSeq = _prefs!.getInt('classSeq') ?? 1;
+    kidSeq = _prefs!.getInt('kidSeq') ?? 1;
     isLogin = _prefs!.getBool('isLogin') ?? false;
     token = _prefs!.getString('token') ?? '';
     name = _prefs!.getString('name') ?? '';
+    className = _prefs!.getString('className') ?? '';
+    kidName = _prefs!.getString('kidName') ?? '';
+    kidPhoto = _prefs!.getString('kidPhoto') ?? '';
+
     update();
   }
 
@@ -40,6 +51,14 @@ class DeviceInfoController extends GetxController {
     classSeq = value;
     if (_prefs != null) {
       _prefs!.setInt('classSeq', value);
+    }
+    update();
+  }
+
+  void setKidSeq(int value) {
+    kidSeq = value;
+    if (_prefs != null) {
+      _prefs!.setInt('kidSeq', value);
     }
     update();
   }
@@ -68,14 +87,60 @@ class DeviceInfoController extends GetxController {
     update();
   }
 
+  void setClassName(String value) {
+    className = value;
+    if (_prefs != null) {
+      _prefs!.setString('className', value);
+    }
+    update();
+  }
+
+  void setKidName(String value) {
+    kidName = value;
+    if (_prefs != null) {
+      _prefs!.setString('kidName', value);
+    }
+    update();
+  }
+
+  void setKidPhoto(String value) {
+    kidName = value;
+    if (_prefs != null) {
+      _prefs!.setString('kidPhoto', value);
+    }
+    update();
+  }
+
   void loginSetting(LoginUser user) {
     setIsLogin(true);
-    if (user.role == 3) {
+    if(user.role == 3) {
       setIsTeacher(false);
-    } else {
+    }else{
       setIsTeacher(true);
     }
     setToken(user.token);
     setName(user.name);
   }
+
+  void loginSettingForTeacher(LoginTeacher user) {
+    setIsLogin(true);
+    setIsTeacher(true);
+    setClassSeq(user.classSeq as int);
+    setClassName(user.className as String);
+    setToken(user.loginResponseDto.token);
+    setName(user.loginResponseDto.name);
+  }
+
+  void loginSettingForParent(LoginParent user) {
+    setIsLogin(true);
+    setIsTeacher(false);
+    setClassSeq(user.classSeq as int);
+    setClassName(user.className as String);
+    setKidSeq(user.kidSeq as int);
+    setKidName(user.kidName as String);
+    setKidPhoto(user.kidPhoto as String);
+    setToken(user.loginResponseDto.token);
+    setName(user.loginResponseDto.name);
+  }
+
 }
