@@ -6,13 +6,13 @@ import 'dart:convert';
 
 MedicineKidMonthModel medicineKidMonthModelFromJson(String str) => MedicineKidMonthModel.fromJson(json.decode(str));
 
-String medicineKidMonthModelToJson(MedicineKidMonthModel data) => json.encode(data.toJson());
+// String medicineKidMonthModelToJson(MedicineKidMonthModel data) => json.encode(data.toJson());
 
 class MedicineKidMonthModel {
   bool isSuccess;
   int code;
   String message;
-  MedicineKidMonth medicineKidMonth;
+  List<MedicineKidMonth> medicineKidMonth;
 
   MedicineKidMonthModel({
     required this.isSuccess,
@@ -25,15 +25,9 @@ class MedicineKidMonthModel {
     isSuccess: json["isSuccess"],
     code: json["code"],
     message: json["message"],
-    medicineKidMonth: MedicineKidMonth.fromJson(json["result"]),
+    medicineKidMonth: List<MedicineKidMonth>.from(json["result"].map((x) => MedicineKidMonth.fromJson(x))),
   );
 
-  Map<String, dynamic> toJson() => {
-    "isSuccess": isSuccess,
-    "code": code,
-    "message": message,
-    "medicineKidMonth": medicineKidMonth.toJson(),
-  };
 }
 
 class MedicineKidMonth {

@@ -12,7 +12,7 @@ class MedicineClassListModel {
   bool isSuccess;
   int code;
   String message;
-  MedicineClassList medicineClassList;
+  List<MedicineClassList> medicineClassList;
 
   MedicineClassListModel({
     required this.isSuccess,
@@ -25,14 +25,14 @@ class MedicineClassListModel {
     isSuccess: json["isSuccess"],
     code: json["code"],
     message: json["message"],
-    medicineClassList: MedicineClassList.fromJson(json["result"]),
+    medicineClassList: List<MedicineClassList>.from(json["result"].map((x) => MedicineClassList.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "isSuccess": isSuccess,
     "code": code,
     "message": message,
-    "medicineClassList": medicineClassList.toJson(),
+    "medicineClassList":List<dynamic>.from(medicineClassList.map((x) => x.toJson())),
   };
 }
 
