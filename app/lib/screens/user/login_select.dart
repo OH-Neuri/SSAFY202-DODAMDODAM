@@ -1,3 +1,4 @@
+import 'package:app/screens/user/login_parent.dart';
 import 'package:app/screens/user/login_teacher.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -29,7 +30,7 @@ class LoginSelect extends StatelessWidget {
                         children: [
                           Container(
                               padding: EdgeInsets.symmetric(vertical: 16),
-                              child: RoundButton(text: '학부모로 로그인하기', color: darkYellow, onPressed: (){Get.to(LoginTeacher());})
+                              child: RoundButton(text: '학부모로 로그인하기', color: darkYellow, onPressed: (){Get.to(LoginParent());})
                           ),
                           RoundButton(text: '교사로 로그인하기', color: darkNavy, onPressed: (){Get.to(LoginTeacher());},)
                         ],

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:app/controller/deviceInfo_controller.dart';
 import 'package:app/models/notice/class_kid_list_model.dart';
 import 'package:app/models/notice/notice_detail_model.dart';
@@ -48,23 +49,47 @@ class NoticeService {
     }
   }
 
+  // 알림장 등록 함수
+  static Future<void> registNotice(int classSeq, bool announcement, String content, List<int> kids, List<File> photos) async {
+    DeviceInfoController c = Get.put(DeviceInfoController());
+    try {
+      c.setClassSeq(1); // 로그인 할 때, 저장
+      int? classSeq = c.classSeq;
+      String URL = '${url}class/notice';
+      var req = http.MultipartRequest('POST', Uri.parse(URL));
+      req.fields['classSeq'] = classSeq.toString();
+      req.fields['announcement'] = announcement.toString();
+      req.fields['content'] = content;
+      for(int kid in kids) {
+        req.fields['kid'] = kid.toString();
+      }
+      for (var image in photos) {
+        req.files.add(await http.MultipartFile.fromPath('photos', image.path));
+      }
+      var res = await req.send();
+      if (res.statusCode == 200) {
+
+      }
+      print(res.statusCode);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   // 알림장 삭제
-  static Future<bool> deleteNotice(int noticeSeq) async {
+  static Future<void> deleteNotice(int noticeSeq) async {
     try {
       String URL = '${url}class/notice/$noticeSeq';
       final res = await http.delete(Uri.parse(URL));
       if (res.statusCode == 200) {
         print('삭제 성공');
-        return true;
-      } else {
-        return false;
       }
     } catch (e) {
       print(e);
-      return false;
     }
   }
 
+  // 반 별 원생 리스트 함수
   static Future<List<ClassKid>> getClassKidList() async {
     DeviceInfoController c = Get.put(DeviceInfoController());
     try {
