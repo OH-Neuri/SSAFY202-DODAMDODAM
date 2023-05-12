@@ -14,11 +14,7 @@ public class LoginParentResponseDto {
 
     private LoginResponseDto loginResponseDto;
 
-    public LoginParentResponseDto(Long kidSeq, String kidName, String kidPhoto, Long classSeq, String className) {
-        this.kidSeq = kidSeq;
-        this.kidName = kidName;
-        this.kidPhoto = kidPhoto;
-        this.classSeq = classSeq;
-        this.className = className;
+    public LoginParentResponseDto(LoginResponseDto loginResponseDto) {
+        this.loginResponseDto = loginResponseDto;
     }
 }
