@@ -4,7 +4,7 @@ import 'package:app/components/common/custom_button.dart';
 import 'package:app/components/user/user_textform_field.dart';
 import 'package:app/constants.dart';
 import 'package:app/root.dart';
-import 'package:app/screens/main/main_page.dart';
+import 'package:app/screens/user/Signup_welcome.dart';
 import 'package:app/screens/user/signup_select.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -97,7 +97,11 @@ class _LoginParentState extends State<LoginParent> {
     }
     final res = await UserService.userLogin(id, pw, 3);
     if(res.result) {
-      Get.to(Root());
+      if(res.code){
+        Get.to(Root());
+      }else{
+        Get.to(SignupWelcome());
+      }
     }else {
       CustomSnackBar.errorSnackbar(context, '아이디나 비밀번호를 다시 확인해주세요.');
       // 아이디로 포커스가 가도록 이동 (추후)

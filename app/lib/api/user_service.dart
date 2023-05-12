@@ -21,6 +21,7 @@ class UserService {
         'password' : pw,
         'role' : role,
       };
+      print(jsonEncode(data));
       String URL = '${url}user/login';
       final res = await http.post(
           Uri.parse(URL),
@@ -29,17 +30,21 @@ class UserService {
       if(res.statusCode == 200) {
         result.result = true;
         if(role == 3) {
+          print('난 학부모야');
           final LoginParent loginParent = loginParentModelFromJson(utf8.decode(res.bodyBytes)).loginParent;
-          if(loginParent.classSeq == null){
+          if(loginParent.classSeq == 0){
+            print('애 없는 엄마');
             c.loginSetting(loginParent.loginResponseDto);
             result.code = false;
           }else{
+            print('애 있는 엄마');
+            print(loginParent.classSeq);
             c.loginSettingForParent(loginParent);
             result.code = true;
           }
         }else{
           final LoginTeacher loginTeacher = loginTeacherModelFromJson(utf8.decode(res.bodyBytes)).loginTeacher;
-          if(loginTeacher.classSeq == null){
+          if(loginTeacher.classSeq == 0){
             c.loginSetting(loginTeacher.loginResponseDto);
             result.code = false;
           }else{
@@ -50,6 +55,7 @@ class UserService {
         return result;
       }else{
         print(res.statusCode);
+        print('여기222');
         return result;
       }
     } catch(e) {
