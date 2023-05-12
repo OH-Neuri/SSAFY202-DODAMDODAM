@@ -9,6 +9,7 @@ import 'package:app/screens/notice/notice_regist.dart';
 import 'package:flutter/material.dart';
 import 'package:app/models/notice/notice_list_model.dart';
 import 'package:get/get.dart';
+import 'package:month_picker_dialog/month_picker_dialog.dart';
 
 class NoticeList extends StatefulWidget {
   const NoticeList({Key? key}) : super(key: key);
@@ -58,9 +59,38 @@ class _NoticeListState extends State<NoticeList> {
                                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                                 child: Row(
                                   children: [
-                                    Expanded(child: SizedBox(
-                                      height: 50,
-                                      child: Text('날짜 picker'),
+                                    Expanded(child: InkWell(
+                                      onTap: (){
+                                        showMonthPicker(
+                                          context: context,
+                                          headerColor: darkNavy,
+                                          unselectedMonthTextColor: textColor,
+                                          selectedMonthBackgroundColor: mainPink,
+                                          dismissible: true,
+                                          roundedCornersRadius: 20,
+                                          locale: const Locale('KO'),
+                                          confirmWidget: Text('선택', style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: logoNavy,
+                                          ),),
+                                          cancelWidget: Text('닫기', style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.grey
+                                          ),),
+                                          initialDate: DateTime.now(),
+                                        ).then((DateTime? date) {
+                                          if (date != null) {
+                                            // setState(() {
+                                            //   // selectedDate = date;
+                                            // });
+                                            print(date);
+                                          }
+                                        });
+                                      },
+                                      child: SizedBox(
+                                        height: 50,
+                                        child: Text('날짜 picker'),
+                                      ),
                                     )),
                                     Expanded(child: SizedBox(
                                       height: 50,

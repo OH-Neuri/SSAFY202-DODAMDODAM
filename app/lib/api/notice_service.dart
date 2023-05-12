@@ -30,8 +30,28 @@ class NoticeService {
       print(e);
       return <NoticeListItem>[];
     }
-
   }
+
+  // 선택한 월에 해당하는 알림장 리스트
+  static Future<List<NoticeListItem>> getNoticeListByMonth (int year, int month) async {
+    DeviceInfoController c = Get.put(DeviceInfoController());
+    try {
+      String URL = c.isTeacher
+          ? '${url}class/noticeSearchByTeacher?classSeq=${c.classSeq}&year=$year&month=$month'
+          : '${url}class/noticeSearchByParent?kidSeq=${c.kidSeq}&year=$year&month=$month';
+      final res = await http.get(Uri.parse(URL));
+      if(res.statusCode == 200) {
+        List<NoticeListItem> noticeList = noticeListModelFromJson(utf8.decode(res.bodyBytes)).noticeList;
+        return noticeList;
+      }else{
+        return [];
+      }
+    } catch (e) {
+      print(e);
+      return [];
+    }
+  }
+
   // 알림장 상세 페이지
   static Future<NoticeDetail> getNoticeDetail(int noticeSeq) async {
     try {
