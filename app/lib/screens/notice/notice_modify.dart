@@ -4,17 +4,17 @@ import 'package:app/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class NoticeRegist extends StatefulWidget {
-  const NoticeRegist({Key? key}) : super(key: key);
+class NoticeModify extends StatefulWidget {
+  const NoticeModify({Key? key}) : super(key: key);
 
   @override
-  State<NoticeRegist> createState() => _NoticeRegistState();
+  State<NoticeModify> createState() => _NoticeModifyState();
 }
 
 TextEditingController _controller = TextEditingController();
 bool isAnnouncement = false;
 
-class _NoticeRegistState extends State<NoticeRegist> {
+class _NoticeModifyState extends State<NoticeModify> {
   @override
   Widget build(BuildContext context) {
     List<String> images = ['1', '2', '3'];

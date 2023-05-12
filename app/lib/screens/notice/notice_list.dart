@@ -1,28 +1,38 @@
 import 'package:app/api/notice_service.dart';
 import 'package:app/components/common/logout_app_bar.dart';
 import 'package:app/components/notice/notice_item.dart';
+import 'package:app/components/notice/notice_item_announcement.dart';
 import 'package:app/constants.dart';
+import 'package:app/controller/deviceInfo_controller.dart';
+import 'package:app/screens/notice/notice_detail.dart';
+import 'package:app/screens/notice/notice_regist.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:app/models/notice/notice_list_model.dart';
+import 'package:get/get.dart';
 
 class NoticeList extends StatefulWidget {
   const NoticeList({Key? key}) : super(key: key);
-
   @override
   State<NoticeList> createState() => _NoticeListState();
 }
 
 class _NoticeListState extends State<NoticeList> {
   List<NoticeListItem> _noticeList = <NoticeListItem>[];
+  int kidCnt = 0;
+  bool isTeacher = false;
 
   @override
   void initState() {
     super.initState();
-    NoticeService.getNoticeList().then((value) => {
+    getNoticeListInfo();
+    NoticeService.getClassKidList().then((value) => {
       setState((){
-        _noticeList = value;
+        kidCnt = value.length;
       })
+    });
+    DeviceInfoController c = Get.put(DeviceInfoController());
+    setState(() {
+      isTeacher = c.isTeacher;
     });
   }
 
@@ -34,90 +44,79 @@ class _NoticeListState extends State<NoticeList> {
       body: Stack(
           children: [
             Positioned(
-              child: SingleChildScrollView(
-                child: Row(
-                  children: [
-                    Expanded(child: SizedBox()),
-                    Flexible(flex: 12,
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: 200,
-                                  height: 70,
-                                  child: Text('zzz'),
-                                ),
-                              ],
-                            ),
-                            for(NoticeListItem item in _noticeList)
+              child: SizedBox(
+                width: double.infinity,
+                height: double.infinity,
+                child: SingleChildScrollView(
+                  child: Row(
+                    children: [
+                      Expanded(child: SizedBox()),
+                      Flexible(flex: 12,
+                          child: Column(
+                            children: [
                               Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 0, 0, 20.0),
-                                child: NoticeItem(
-                                  date: item.date,
-                                  students: '@전체 아동',
-                                  content: item.content,
+                                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                child: Row(
+                                  children: [
+                                    Expanded(child: SizedBox(
+                                      height: 50,
+                                      child: Text('날짜 picker'),
+                                    )),
+                                    Expanded(child: SizedBox(
+                                      height: 50,
+                                      child: Text('검색창'),
+                                    ))
+                                  ],
                                 ),
                               ),
-                            ElevatedButton(onPressed: (){Get.toNamed('/notice/detail');},
-                                style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                                    backgroundColor: lightYellow,
-                                    foregroundColor: textColor,
-                                    minimumSize: Size(double.infinity, 120),
-                                    padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 30.0)
+                              for(NoticeListItem item in _noticeList)
+                                item.announcement ?
+                                NoticeItemAnnouncement(
+                                  date: item.date,
+                                  content: item.content,
+                                  onPressed: () async {
+                                    final res = await Navigator.push(context, MaterialPageRoute(builder:
+                                        (context) => NoticeDetailPage(noticeSeq : item.noticeSeq)
+                                    ));
+                                    if(res) {
+                                      getNoticeListInfo();
+                                    }
+                                  },
+                                ):
+                                NoticeItem(
+                                  date: item.date,
+                                  kids: item.kid.length == kidCnt ? '@전체 원생' : (item.kid.length == 1 ? '@${item.kid[0]}' :'@${item.kid[0]} 외 ${item.kid.length - 1}명'),
+                                  content: item.content,
+                                  onPressed: () async {
+                                    final res = await Navigator.push(context, MaterialPageRoute(builder:
+                                        (context) => NoticeDetailPage(noticeSeq : item.noticeSeq)
+                                    ));
+                                    if(res) {
+                                      getNoticeListInfo();
+                                    }
+                                  },
                                 ),
-                                child: SizedBox(
-                                  height: 120,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Text('2023-05-03'),
-                                              Padding(
-                                                padding: const EdgeInsets.fromLTRB(8.0, 0, 0, 0),
-                                                child: Image.asset('images/notice/calendar.png', width: 20,),
-                                              )
-                                            ],
-                                          ),
-                                          Text('전체 공지', style: TextStyle(
-                                            color: textColor,
-                                          ),)
-                                        ],
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 16),
-                                        child: Divider(thickness: 1, height: 1, color: Colors.grey,),
-                                      ),
-                                      SizedBox(
-                                          width: double.infinity,
-                                          child: Text('룰루랄라',
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 3,
-                                          )
-                                      )
-                                    ],
-                                  ),
-                                )
-                            )
-                          ],
-                        )
-                    ),
-                    Expanded(child: SizedBox()),
-                  ],
+                            ],
+                          )
+                      ),
+                      Expanded(child: SizedBox()),
+                    ],
+                  ),
                 ),
               ),
             ),
+            isTeacher ?
             Positioned(
-                bottom: 40,
-                right: 40,
+                bottom: 20,
+                right: 30,
                 child: ElevatedButton(
-                  onPressed: (){Get.toNamed('notice/regist');},
+                  onPressed: () async {
+                    final res = await Navigator.push(context,
+                        MaterialPageRoute(builder: (context)=>NoticeRegist()));
+                    if(res) {
+                      getNoticeListInfo();
+                    }
+                  },
                   style: ElevatedButton.styleFrom(
                       minimumSize: Size(80, 80),
                       backgroundColor: logoNavy,
@@ -129,9 +128,18 @@ class _NoticeListState extends State<NoticeList> {
                   ),
                   child: Icon(Icons.create),
                 )
-            )
+            ) :
+            SizedBox()
           ]
       ),
     );
+  }
+
+  void getNoticeListInfo() {
+    NoticeService.getNoticeList().then((value) => {
+      setState((){
+        _noticeList = value;
+      })
+    });
   }
 }

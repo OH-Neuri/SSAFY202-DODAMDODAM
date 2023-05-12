@@ -1,3 +1,4 @@
+import 'package:app/screens/user/login_parent.dart';
 import 'package:app/screens/user/login_teacher.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -29,9 +30,9 @@ class LoginSelect extends StatelessWidget {
                         children: [
                           Container(
                               padding: EdgeInsets.symmetric(vertical: 16),
-                              child: RoundButton(text: '학부모로 로그인하기', color: darkYellow,)
+                              child: RoundButton(text: '학부모로 로그인하기', color: darkYellow, onPressed: (){Get.to(LoginParent());})
                           ),
-                          RoundButton(text: '교사로 로그인하기', color: darkNavy,)
+                          RoundButton(text: '교사로 로그인하기', color: darkNavy, onPressed: (){Get.to(LoginTeacher());},)
                         ],
                       ),
                     )
@@ -50,25 +51,28 @@ class RoundButton extends StatelessWidget {
 
   final String text;
   final Color color;
+  final Function() onPressed;
 
-  const RoundButton({required this.text, required this.color});
+  const RoundButton({required this.text, required this.color, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(onPressed: (){Get.toNamed('/login/teacher');},
+    return ElevatedButton(onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           textStyle: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w500,
             fontSize: contentTextSize
           ),
-          minimumSize: Size(double.infinity, 66),
+          minimumSize: Size(double.infinity, 60),
           backgroundColor: color,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50),
           )
         ),
-        child: Text(text)
+        child: Text(text, style: TextStyle(
+          fontWeight: FontWeight.w500
+        ),)
     );
   }
 }

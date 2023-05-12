@@ -22,8 +22,8 @@ const bottomYellow = Color(0xffFFF1A1);
 const textColor = Color(0xff191919);
 
 // 폰트 설정
-const titleTextSize = 30.0;
-const subTitleTextSize = 24.0;
+const titleTextSize = 24.0;
+const subTitleTextSize = 20.0;
 const buttonTextSize = 18.0;
 const contentTextSize = 16.0;
 const subContentTextSize = 14.0;

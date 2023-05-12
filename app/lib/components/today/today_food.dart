@@ -1,57 +1,38 @@
-import 'package:app/api/food_service.dart';
 import 'package:app/components/today/oneline_food.dart';
-import 'package:app/utils/convert_dayToWeek.dart';
+import 'package:app/controller/food_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:app/constants.dart';
-import 'package:app/models/schedule/singleday_food_model.dart';
+import 'package:get/get.dart';
 
-class TodayFood extends StatefulWidget {
-  final String year;
-  final String month;
-  final String day;
-  final String week;
-
-  TodayFood({super.key, required this.year, required this.month, required this.day})
-    : week = getDayOfWeek(int.parse(year), int.parse(month), int.parse(day));
-  @override
-  State<TodayFood> createState() => _TodayFoodState();
-}
-
-class _TodayFoodState extends State<TodayFood> {
-  OneDayFood _onedayFood = OneDayFood(foodSeq: 1, rice: null, soup: null, dish1: null, dish2: null, dish3: null, morningSnack1: null, morningSnack2: null, afternoonSnack1: null, afternoonSnack2: null);
-  bool loading = false;
-
-  // 처음에 오늘 급식 리스트 받아와서 띄워주기
-  @override
-  void initState() {
-    super.initState();
-    FoodService.getOneDayFood(widget.year, widget.month, widget.day).then((value) => {
-      setState(() {
-        _onedayFood = value;
-        loading = true;
-      })
-    });
-  }
+class TodayFood extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    FoodController fc = Get.put(FoodController());
+
+    return GetBuilder<FoodController>(
+        builder: (_) =>
+      Column(
       children: [
         // 오늘의 급식 타이틀
         Padding(
-          padding: const EdgeInsets.fromLTRB(10, 30, 0, 5),
+          padding: const EdgeInsets.fromLTRB(10, 5, 0, 5),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("${widget.month}/${widget.day} ${widget.week} ", style: TextStyle(fontSize: buttonTextSize, fontWeight: FontWeight.w600)),
-              Image.asset('assets/images/common/diet_icon.png', height: 30, width: 30,)
+              Text(
+                  "${fc.now.month}/${fc.now.day} ${fc.todayWeek} ",
+                  style: TextStyle(fontSize: buttonTextSize, fontWeight: FontWeight.w600
+                  )
+              ),
+              Image.asset('assets/images/common/diet_icon.png', height: 30, width: 30)
             ],
           ),
         ),
         // 급식 내용 박스
         Container(
             height: 250, width: double.infinity,
-            margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+            margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(20)),
               color: lightNavy,
@@ -87,11 +68,11 @@ class _TodayFoodState extends State<TodayFood> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              OneLineFood(menu: _onedayFood.rice),
-                              OneLineFood(menu: _onedayFood.soup),
-                              OneLineFood(menu: _onedayFood.dish1),
-                              OneLineFood(menu: _onedayFood.dish2),
-                              OneLineFood(menu: _onedayFood.dish3),
+                              OneLineFood(menu: FoodController.to.todayFood.rice),
+                              OneLineFood(menu: FoodController.to.todayFood.soup),
+                              OneLineFood(menu: FoodController.to.todayFood.dish1),
+                              OneLineFood(menu: FoodController.to.todayFood.dish2),
+                              OneLineFood(menu: FoodController.to.todayFood.dish3),
                             ],
                         ),
                       )
@@ -119,11 +100,11 @@ class _TodayFoodState extends State<TodayFood> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    OneLineFood(menu: _onedayFood.morningSnack1),
-                                    OneLineFood(menu: _onedayFood.morningSnack2),
+                                    OneLineFood(menu: FoodController.to.todayFood.morningSnack1),
+                                    OneLineFood(menu: FoodController.to.todayFood.morningSnack2),
                                   ],
                                 ),
-                              )
+                                )
                             ],
                           ),
                         ),
@@ -144,8 +125,8 @@ class _TodayFoodState extends State<TodayFood> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    OneLineFood(menu: _onedayFood.afternoonSnack1),
-                                    OneLineFood(menu: _onedayFood.afternoonSnack2),
+                                    OneLineFood(menu: FoodController.to.todayFood.afternoonSnack1),
+                                    OneLineFood(menu: FoodController.to.todayFood.afternoonSnack2),
                                   ],
                                 ),
                               )
@@ -160,6 +141,6 @@ class _TodayFoodState extends State<TodayFood> {
           ),
         ),
       ],
-    );
+    ));
   }
 }
