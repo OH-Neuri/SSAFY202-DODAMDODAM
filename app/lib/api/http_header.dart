@@ -12,3 +12,7 @@ Map<String, String> authHeaders = {
   "Content-Type" : "application/json",
   "Authorization" : "Bearer $token",
 };
+
+Map<String, String> authGetHeaders = {
+  "Authorization" : "Bearer $token",
+};
