@@ -46,12 +46,10 @@ class MedicineKidDetail {
   String time;
   dynamic keep;
   String content;
-  int requestDate;
+  String requestDate;
   String requestName;
-  String requestSign;
-  int responseDate;
-  String responseName;
-  String responseSign;
+  dynamic responseDate;
+  dynamic responseName;
 
   MedicineKidDetail({
     required this.medicineSeq,
@@ -65,10 +63,8 @@ class MedicineKidDetail {
     required this.content,
     required this.requestDate,
     required this.requestName,
-    required this.requestSign,
-    required this.responseDate,
-    required this.responseName,
-    required this.responseSign,
+    this.responseDate,
+    this.responseName,
   });
 
   factory MedicineKidDetail.fromJson(Map<String, dynamic> json) => MedicineKidDetail(
@@ -83,10 +79,8 @@ class MedicineKidDetail {
     content: json["content"],
     requestDate: json["requestDate"],
     requestName: json["requestName"],
-    requestSign: json["requestSign"],
     responseDate: json["responseDate"],
     responseName: json["responseName"],
-    responseSign: json["responseSign"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -101,9 +95,7 @@ class MedicineKidDetail {
     "content": content,
     "requestDate": requestDate,
     "requestName": requestName,
-    "requestSign": requestSign,
     "responseDate": responseDate,
     "responseName": responseName,
-    "responseSign": responseSign,
   };
 }
