@@ -111,10 +111,10 @@ public class NoticeServiceImpl implements NoticeService{
     }
 
     @Override
-    public List<ClassNoticeResponseDto> noticeSearchByTeacher(int month, long classSeq) {
+    public List<ClassNoticeResponseDto> noticeSearchByTeacher(int month, int year, long classSeq) {
         List<ClassNoticeResponseDto> noticeList = new ArrayList<>();
         //알림장 정보 불러오기
-        noticeList = noticeRepository.noticeSearchByTeacher(month, classSeq);
+        noticeList = noticeRepository.noticeSearchByTeacher(month, year, classSeq);
 
         for(ClassNoticeResponseDto notice : noticeList) {
             //알림장 사진 불러와 넣기
@@ -126,10 +126,10 @@ public class NoticeServiceImpl implements NoticeService{
     }
 
     @Override
-    public List<ClassNoticeResponseDto> noticeSearchByParent(int month, long kidSeq) {
+    public List<ClassNoticeResponseDto> noticeSearchByParent(int month, int year, long kidSeq) {
         List<ClassNoticeResponseDto> noticeList = new ArrayList<>();
         //알림장 정보 불러오기
-        noticeList = noticeRepository.noticeSearchByParent(month, kidSeq);
+        noticeList = noticeRepository.noticeSearchByParent(month, year, kidSeq);
 
         for(ClassNoticeResponseDto notice : noticeList) {
             //알림장 사진 불러와 넣기
