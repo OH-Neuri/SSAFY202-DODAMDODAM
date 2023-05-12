@@ -120,7 +120,7 @@ public class UserServiceImpl implements UserService {
                 break;
         }
 
-        return (response instanceof LoginResponseDto) ? new BaseException(BaseResponseStatus.WRONG_ROLE) : new BaseResponseDto<>(response);
+        return (response instanceof LoginResponseDto) ? new BaseException(BaseResponseStatus.WRONG_ROLE) : response;
     }
 
     @Override
