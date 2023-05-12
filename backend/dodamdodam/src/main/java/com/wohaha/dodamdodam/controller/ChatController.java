@@ -35,17 +35,17 @@ public class ChatController {
         }
     }
 
-//    @GetMapping("/teacher/{kidSeq}")
-//    public BaseResponseDto<List<TeacherInfoResponseDto>> getTeacherList(@PathVariable Long kidSeq) {
-//        try {
-//            return new BaseResponseDto<>(teacherService.getTeacherList(kidSeq));
-//        } catch (Exception e) {
-//            if (e instanceof BaseException) {
-//                throw e;
-//            } else {
-//                throw new BaseException(BaseResponseStatus.FAIL);
-//            }
-//        }
-//    }
+    @GetMapping("/teacher/{kidSeq}")
+    public BaseResponseDto<List<TeacherInfoResponseDto>> getTeacherList(@PathVariable Long kidSeq) {
+        try {
+            return new BaseResponseDto<>(teacherService.getTeacherList(kidSeq));
+        } catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw e;
+            } else {
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
 
 }
