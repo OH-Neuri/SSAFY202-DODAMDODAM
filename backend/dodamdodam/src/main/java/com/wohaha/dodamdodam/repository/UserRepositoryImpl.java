@@ -81,12 +81,12 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     @Override
     public LoginParentResponseDto findKidInfoByUserSeq(Long userSeq) {
         Tuple tuple = query
-                .select(kid.kidSeq, kid.name, kid.classSeq, classInfo.name)
+                .select(kid.kidSeq, kid.name, kid.photo, kid.classSeq, classInfo.name)
                 .from(kid).join(classInfo).on(kid.classSeq.eq(classInfo.classSeq))
                 .where(kid.userSeq.eq(userSeq))
                 .fetchFirst();
 
-        return new LoginParentResponseDto(tuple.get(kid.kidSeq), tuple.get(kid.name), tuple.get(kid.classSeq), tuple.get(classInfo.name));
+        return new LoginParentResponseDto(tuple.get(kid.kidSeq), tuple.get(kid.name), tuple.get(kid.photo), tuple.get(kid.classSeq), tuple.get(classInfo.name));
     }
 
     @Override
