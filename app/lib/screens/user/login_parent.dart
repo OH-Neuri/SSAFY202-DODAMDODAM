@@ -5,22 +5,21 @@ import 'package:app/components/user/user_textform_field.dart';
 import 'package:app/constants.dart';
 import 'package:app/root.dart';
 import 'package:app/screens/main/main_page.dart';
-import 'package:app/screens/user/Signup_welcome.dart';
 import 'package:app/screens/user/signup_select.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LoginTeacher extends StatefulWidget {
-  const LoginTeacher({Key? key}) : super(key: key);
+class LoginParent extends StatefulWidget {
+  const LoginParent({Key? key}) : super(key: key);
 
   @override
-  State<LoginTeacher> createState() => _LoginTeacherState();
+  State<LoginParent> createState() => _LoginParentState();
 }
 
 String id = '';
 String pw = '';
 
-class _LoginTeacherState extends State<LoginTeacher> {
+class _LoginParentState extends State<LoginParent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +35,7 @@ class _LoginTeacherState extends State<LoginTeacher> {
                   ),
                   Container(
                     margin : EdgeInsets.only(bottom: 60),
-                    child: Text('교사로 로그인하기', style: TextStyle(
+                    child: Text('학부모로 로그인하기', style: TextStyle(
                         fontSize: titleTextSize,
                         fontWeight: FontWeight.w700
                     ),),
@@ -96,13 +95,9 @@ class _LoginTeacherState extends State<LoginTeacher> {
       CustomSnackBar.errorSnackbar(context, '비밀번호를 입력해주세요.');
       return;
     }
-    final res = await UserService.userLogin(id, pw, 2);
+    final res = await UserService.userLogin(id, pw, 3);
     if(res.result) {
-      if(res.code) {
-        Get.to(Root());
-      }else {
-        Get.to(SignupWelcome());
-      }
+      Get.to(Root());
     }else {
       CustomSnackBar.errorSnackbar(context, '아이디나 비밀번호를 다시 확인해주세요.');
       // 아이디로 포커스가 가도록 이동 (추후)

@@ -1,4 +1,5 @@
 import 'package:app/api/notice_service.dart';
+import 'package:app/components/common/check_delete_modal.dart';
 import 'package:app/components/common/logout_app_bar.dart';
 import 'package:app/constants.dart';
 import 'package:app/models/notice/notice_detail_model.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 class NoticeDetailPage extends StatefulWidget {
   const NoticeDetailPage({Key? key, required this.noticeSeq}) : super(key: key);
   final int noticeSeq;
+
   @override
   State<NoticeDetailPage> createState() => _NoticeDetailPageState();
 }
@@ -46,7 +48,10 @@ class _NoticeDetailPageState extends State<NoticeDetailPage> {
                               foregroundColor: logoNavy,
                             ),
                             child: Icon(Icons.create_outlined)),
-                        TextButton(onPressed: (){},
+                        TextButton(
+                            onPressed: (){
+                              checkDelete(context, deleteNoticeAfterCheck);
+                            },
                             style: TextButton.styleFrom(
                               shape: CircleBorder(),
                               foregroundColor: logoNavy,
@@ -111,5 +116,9 @@ class _NoticeDetailPageState extends State<NoticeDetailPage> {
         ],
       ),
     );
+  }
+  void deleteNoticeAfterCheck() {
+      NoticeService.deleteNotice(widget.noticeSeq);
+      Navigator.pop(context, true);
   }
 }
