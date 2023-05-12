@@ -65,31 +65,26 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     }
 
     @Override
-    public void findClassInfoByUserSeq(LoginTeacherResponseDto loginTeacherResponseDto, Long userSeq) {
+    public LoginTeacherResponseDto findClassInfoByUserSeq(Long userSeq) {
         Tuple tuple = query
                 .select(classTeacher.classSeq, classInfo.name)
                 .from(classTeacher).join(classInfo).on(classTeacher.classSeq.eq(classInfo.classSeq))
                 .where(classTeacher.userSeq.eq(userSeq))
                 .fetchFirst();
-        if (tuple == null) return;
-        loginTeacherResponseDto.setClassSeq(tuple.get(classTeacher.classSeq));
-        loginTeacherResponseDto.setClassName(tuple.get(classInfo.name));
+        if (tuple == null) return new LoginTeacherResponseDto();
+        return new LoginTeacherResponseDto(tuple.get(classTeacher.classSeq), tuple.get(classInfo.name));
     }
 
 
     @Override
-    public void findKidInfoByUserSeq(LoginParentResponseDto loginParentResponseDto, Long userSeq) {
+    public LoginParentResponseDto findKidInfoByUserSeq(Long userSeq) {
         Tuple tuple = query
                 .select(kid.kidSeq, kid.name, kid.photo, kid.classSeq, classInfo.name)
                 .from(kid).join(classInfo).on(kid.classSeq.eq(classInfo.classSeq))
                 .where(kid.userSeq.eq(userSeq))
                 .fetchFirst();
-        if (tuple == null) return;
-        loginParentResponseDto.setKidSeq(tuple.get(kid.kidSeq));
-        loginParentResponseDto.setKidName(tuple.get(kid.name));
-        loginParentResponseDto.setKidPhoto(tuple.get(kid.photo));
-        loginParentResponseDto.setClassSeq(tuple.get(kid.classSeq));
-        loginParentResponseDto.setClassName(tuple.get(classInfo.name));
+        if (tuple == null) return new LoginParentResponseDto();
+        return new LoginParentResponseDto(tuple.get(kid.kidSeq), tuple.get(kid.name), tuple.get(kid.photo), tuple.get(kid.classSeq), tuple.get(classInfo.name));
     }
 
     @Override
