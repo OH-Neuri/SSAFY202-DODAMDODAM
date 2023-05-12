@@ -5,6 +5,7 @@ import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.wohaha.dodamdodam.dto.request.UpdateKidRequestDto;
 import com.wohaha.dodamdodam.dto.response.KidInfoResponseDto;
+import com.wohaha.dodamdodam.dto.response.KidParentResponseDto;
 import com.wohaha.dodamdodam.dto.response.KidResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 import static com.wohaha.dodamdodam.domain.QClassInfo.classInfo;
 import static com.wohaha.dodamdodam.domain.QKid.kid;
+import static com.wohaha.dodamdodam.domain.QUser.user;
 
 public class ManageKidRepositoryImpl implements ManageKidRepositoryCustom {
 
@@ -116,5 +118,15 @@ public class ManageKidRepositoryImpl implements ManageKidRepositoryCustom {
                 .where(kid.userSeq.eq(userSeq))
                 .fetch();
     }
+
+    @Override
+    public List<KidParentResponseDto> getKidParentList(Long classSeq) {
+        return query.select(Projections.constructor(KidParentResponseDto.class,
+                        kid.name, kid.photo, kid.userSeq, user.name))
+                .from(kid).join(user).on(kid.userSeq.eq(user.userSeq))
+                .where(kid.classSeq.eq(classSeq))
+                .fetch();
+    }
+
 
 }

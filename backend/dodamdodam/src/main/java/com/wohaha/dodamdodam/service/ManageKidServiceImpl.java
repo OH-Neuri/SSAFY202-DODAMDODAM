@@ -3,21 +3,23 @@ package com.wohaha.dodamdodam.service;
 import com.wohaha.dodamdodam.domain.Kid;
 import com.wohaha.dodamdodam.dto.request.CreateKidRequestDto;
 import com.wohaha.dodamdodam.dto.request.UpdateKidRequestDto;
+import com.wohaha.dodamdodam.dto.response.KidParentResponseDto;
 import com.wohaha.dodamdodam.dto.response.KidResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.repository.KindergartenRepository;
 import com.wohaha.dodamdodam.repository.ManageKidRepository;
 import com.wohaha.dodamdodam.repository.UserRepository;
+import com.wohaha.dodamdodam.security.CustomAuthenticatedUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static com.wohaha.dodamdodam.exception.BaseResponseStatus.UNREGISTERED_KID;
-import static com.wohaha.dodamdodam.exception.BaseResponseStatus.UNREGISTERED_USER;
+import static com.wohaha.dodamdodam.exception.BaseResponseStatus.*;
 
 @Service
 @Transactional
@@ -89,7 +91,6 @@ public class ManageKidServiceImpl implements ManageKidService{
 
     @Override
     public boolean createParentKid(Long userSeq, Long kidSeq) {
-
         //연관관계 덮어씌우기
         Kid kid = manageKidRepository.findById(kidSeq).orElseThrow(()->{throw new BaseException(UNREGISTERED_KID);});
         if(!userRepository.existsById(userSeq)) throw new BaseException(UNREGISTERED_USER);
@@ -100,5 +101,15 @@ public class ManageKidServiceImpl implements ManageKidService{
 
         return true;
     }
+
+    @Override
+    public List<KidParentResponseDto> getKidParentList(Long classSeq) {
+        String role = ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getRole();
+        if(!role.equals("1") && !role.equals("2")) {
+            throw new BaseException(UNPERMISSION_ROLE);
+        }
+        return manageKidRepository.getKidParentList(classSeq);
+    }
+
 
 }
