@@ -3,6 +3,7 @@ package com.wohaha.dodamdodam.service;
 import com.wohaha.dodamdodam.domain.Medicine;
 import com.wohaha.dodamdodam.dto.request.*;
 import com.wohaha.dodamdodam.dto.response.MedicineClassResponseDto;
+import com.wohaha.dodamdodam.dto.response.MedicineInfoResponseDto;
 import com.wohaha.dodamdodam.dto.response.MedicineKidResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.repository.MedicineRepository;
@@ -66,9 +67,9 @@ public class MedicineServiceImpl implements MedicineService{
     }
 
     @Override
-    public Medicine getMedicine(Long medicineSeq) {
+    public MedicineInfoResponseDto getMedicine(Long medicineSeq) {
 
-        return medicineRepository.findById(medicineSeq).orElseThrow(()->{throw new BaseException(UNREGISTERED_MEDICINE);});
+        return medicineRepository.findMedicineById(medicineSeq).orElseThrow(()->{throw new BaseException(UNREGISTERED_MEDICINE);});
     }
 
     @Override

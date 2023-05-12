@@ -1,14 +1,11 @@
 package com.wohaha.dodamdodam.repository;
 
 import com.querydsl.core.types.Projections;
-
-import static com.querydsl.core.types.dsl.Expressions.asString;
-import static com.querydsl.core.types.dsl.Expressions.dateTemplate;
-
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.wohaha.dodamdodam.dto.request.CompleteMedicineRequestDto;
 import com.wohaha.dodamdodam.dto.response.MedicineClassResponseDto;
+import com.wohaha.dodamdodam.dto.response.MedicineInfoResponseDto;
 import com.wohaha.dodamdodam.dto.response.MedicineKidResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,11 +14,12 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.TemporalAdjusters;
 import java.util.List;
+import java.util.Optional;
 
 import static com.wohaha.dodamdodam.domain.QKid.kid;
 import static com.wohaha.dodamdodam.domain.QMedicine.medicine;
 
-public class MedicineRepositoryImpl implements MedicineRepositoryCustom{
+public class MedicineRepositoryImpl implements MedicineRepositoryCustom {
 
     @Autowired
     private JPAQueryFactory query;
@@ -62,7 +60,7 @@ public class MedicineRepositoryImpl implements MedicineRepositoryCustom{
         Timestamp endOfMonth = Timestamp.valueOf(date.with(TemporalAdjusters.lastDayOfMonth()).with(LocalTime.MAX));
 
         return
-                query   .select(Projections.fields(MedicineKidResponseDto.class,
+                query.select(Projections.fields(MedicineKidResponseDto.class,
                                 medicine.responseDate.as("responseDate"),
                                 medicine.requestDate.as("requestDate")))
                         .from(medicine)
@@ -72,5 +70,15 @@ public class MedicineRepositoryImpl implements MedicineRepositoryCustom{
                         .fetch();
 
     }
+
+    @Override
+    public Optional<MedicineInfoResponseDto> findMedicineById(Long medicineSeq) {
+        return Optional.ofNullable(query.select(Projections.constructor(MedicineInfoResponseDto.class,
+                        medicine.medicineSeq, medicine.kidSeq, medicine.symptom, medicine.pill, medicine.capacity, medicine.count,
+                        medicine.time, medicine.keep, medicine.content, medicine.requestDate, medicine.requestName, medicine.responseDate, medicine.requestName))
+                .from(medicine).where(medicine.medicineSeq.eq(medicineSeq))
+                .fetchOne());
+    }
+
 
 }
