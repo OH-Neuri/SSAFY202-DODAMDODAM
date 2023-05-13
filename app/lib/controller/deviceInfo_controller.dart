@@ -116,7 +116,7 @@ class DeviceInfoController extends GetxController {
   }
 
   void setKidPhoto(String value) {
-    kidName = value;
+    kidPhoto = value;
     if (_prefs != null) {
       _prefs!.setString('kidPhoto', value);
     }
