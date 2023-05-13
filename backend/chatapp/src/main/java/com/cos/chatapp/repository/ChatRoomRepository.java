@@ -12,4 +12,6 @@ public interface ChatRoomRepository extends ReactiveMongoRepository<ChatRoom, St
 
     @Query("{'roomId':  ?0 }")
     Mono<ChatRoom> findByRoomNumber(String roomId);
+
+    Mono<ChatRoom> findByUserSeqIn(Long userSeq1, Long userSeq2);
 }

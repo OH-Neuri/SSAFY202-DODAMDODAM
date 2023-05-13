@@ -27,12 +27,14 @@ public class ChatController {
     private final ChatRoomRepository chatRoomRepository;
 
     //채팅방 최초 생성 로직 :: 메인 서버에서 바꾸 승낙을 하게 되면 프론트에서 userIdxA,userIdxB를 보내준다.
-    //이미 생성된 채팅방이 있는 상태라면 해당 채팅방 반환 -> 수정해야함
+    //이미 생성된 채팅방이 있는 상태라면 해당 채팅방 반환 
     //chatRoomRepository에 채팅방 정보 저장.
     @CrossOrigin
     @PostMapping("/chatRoom")
-    public Mono<ChatRoom> createChatRoom(@RequestBody ChatRoomDto chatRoomDto) {
-        // 있는지 확인 후 있으면 그거 반환
+    public ChatRoom createChatRoom(@RequestBody ChatRoomDto chatRoomDto) {
+        ChatRoom result = chatRoomRepository.findByUserSeqIn(chatRoomDto.getUserSeq()[0], chatRoomDto.getUserSeq()[1]).block();
+        if(result != null) return result; // 이미 있는 방이면 그 방 반환
+
         ChatRoom chatRoom = new ChatRoom();
         chatRoom.setUserSeq(chatRoomDto.getUserSeq());
         chatRoom.setName(chatRoomDto.getName());
@@ -40,7 +42,7 @@ public class ChatController {
         chatRoom.setCreatedAt(LocalDateTime.now());
         chatRoom.setLastContent("채팅방이 개설되었습니다.");
 
-        return chatRoomRepository.save(chatRoom);
+        return chatRoomRepository.save(chatRoom).block();
 
     }
 
