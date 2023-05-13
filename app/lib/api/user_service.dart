@@ -28,34 +28,38 @@ class UserService {
           headers: postHeaders,
           body: jsonEncode(data));
       if(res.statusCode == 200) {
-        result.result = true;
         if(role == 3) {
-          print('난 학부모야');
-          final LoginParent loginParent = loginParentModelFromJson(utf8.decode(res.bodyBytes)).loginParent;
-          if(loginParent.classSeq == 0){
-            print('애 없는 엄마');
-            c.loginSetting(loginParent.loginResponseDto);
-            result.code = false;
-          }else{
-            print('애 있는 엄마');
-            print(loginParent.classSeq);
-            c.loginSettingForParent(loginParent);
-            result.code = true;
+          try{
+            final LoginParent loginParent = loginParentModelFromJson(utf8.decode(res.bodyBytes)).loginParent;
+            result.result = true;
+            if(loginParent.classSeq == 0){
+              c.loginSetting(loginParent.loginResponseDto);
+            }else{
+              print(loginParent.classSeq);
+              c.loginSettingForParent(loginParent);
+              result.code = true;
+            }
+          }catch (e) {
+            print(e);
           }
         }else{
-          final LoginTeacher loginTeacher = loginTeacherModelFromJson(utf8.decode(res.bodyBytes)).loginTeacher;
-          if(loginTeacher.classSeq == 0){
-            c.loginSetting(loginTeacher.loginResponseDto);
-            result.code = false;
-          }else{
-            c.loginSettingForTeacher(loginTeacher);
-            result.code = true;
+          try {
+            final LoginTeacher loginTeacher = loginTeacherModelFromJson(utf8.decode(res.bodyBytes)).loginTeacher;
+            result.result = true;
+            if(loginTeacher.classSeq == 0){
+              c.loginSetting(loginTeacher.loginResponseDto);
+              result.code = false;
+            }else{
+              c.loginSettingForTeacher(loginTeacher);
+              result.code = true;
+            }
+          }catch (e) {
+            print(e);
           }
         }
         return result;
       }else{
         print(res.statusCode);
-        print('여기222');
         return result;
       }
     } catch(e) {
