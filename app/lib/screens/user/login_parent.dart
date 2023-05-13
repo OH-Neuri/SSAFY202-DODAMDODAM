@@ -98,9 +98,9 @@ class _LoginParentState extends State<LoginParent> {
     final res = await UserService.userLogin(id, pw, 3);
     if(res.result) {
       if(res.code){
-        Get.to(Root());
+        Get.to(()=>Root());
       }else{
-        Get.to(SignupWelcome());
+        Get.to(()=>SignupWelcome());
       }
     }else {
       CustomSnackBar.errorSnackbar(context, '아이디나 비밀번호를 다시 확인해주세요.');
