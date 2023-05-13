@@ -238,10 +238,23 @@ public class ClassController {
         }
     }
 
-    @GetMapping("/attendance/list")
+    @PostMapping("/attendance/list")
     public BaseResponseDto<List<AttendanceListResponseDto>> getKidAttendanceList(@RequestBody AttendanceRequestDto classAttendanceRequestDto) {
         try {
             return new BaseResponseDto<>(attendanceService.getAttendanceList(classAttendanceRequestDto));
+        }catch (Exception e) {
+            e.printStackTrace();
+            if (e instanceof BaseException) {
+                throw e;
+            } else {
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+    @PostMapping("/attendance/form")
+    public BaseResponseDto<AttendanceFormResponseDto> getKidAttendanceForm(@RequestBody AttendanceRequestDto kidAttendanceRequestDto) {
+        try {
+            return new BaseResponseDto<>(attendanceService.getAttendanceForm(kidAttendanceRequestDto));
         }catch (Exception e) {
             e.printStackTrace();
             if (e instanceof BaseException) {
@@ -266,19 +279,6 @@ public class ClassController {
         }
     }
 
-    @GetMapping("/attendance/form")
-    public BaseResponseDto<AttendanceFormResponseDto> getKidAttendanceForm(@RequestBody AttendanceRequestDto kidAttendanceRequestDto) {
-        try {
-            return new BaseResponseDto<>(attendanceService.getAttendanceForm(kidAttendanceRequestDto));
-        }catch (Exception e) {
-            e.printStackTrace();
-            if (e instanceof BaseException) {
-                throw e;
-            } else {
-                throw new BaseException(BaseResponseStatus.FAIL);
-            }
-        }
-    }
 
     @PutMapping("/attendance/{attendanceSeq}")
     public BaseResponseDto<Boolean> updateAttendanceTime(@PathVariable Long attendanceSeq, @RequestBody AttendanceTimeRequestDto attendanceTimeRequestDto) {
