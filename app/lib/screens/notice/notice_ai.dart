@@ -44,18 +44,18 @@ class _NoticeAIState extends State<NoticeAI> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(left: 74.0),
+                              padding: const EdgeInsets.only(right: 10.0),
                               child: Text('알림장 자동완성', style: TextStyle(
                                 fontSize: subTitleTextSize,
                                 fontWeight: FontWeight.w600
                                 ),
                               ),
                             ),
-                            TextButton(
-                              onPressed: (){
+                            InkWell(
+                              onTap: (){
                                 showModalBottomSheet(
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.only(
@@ -69,13 +69,9 @@ class _NoticeAIState extends State<NoticeAI> {
                                     }
                                 );
                               },
-                              style: ButtonStyle(
-                                overlayColor: MaterialStateProperty.all(Colors.white),
-                                backgroundColor: MaterialStateProperty.all(Colors.white),
-                                foregroundColor: MaterialStateProperty.all(Colors.grey)
-                              ),
-                              child: Icon(Icons.info_outline)
-                            )
+                              overlayColor: MaterialStateProperty.all(Colors.white),
+                              child: Icon(Icons.info_outline, color: Colors.grey,),
+                            ),
                           ],
                         ),
                         Padding(
@@ -174,6 +170,9 @@ class _NoticeAIState extends State<NoticeAI> {
                     padding: const EdgeInsets.fromLTRB(0, 14, 0, 30),
                     child: ElevatedButton(
                         onPressed: (){
+                          setState(() {
+                            keyword.clear();
+                          });
                           Navigator.pop(context);
                         },
                         style: ElevatedButton.styleFrom(

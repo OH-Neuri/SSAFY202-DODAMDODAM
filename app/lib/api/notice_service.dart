@@ -78,12 +78,14 @@ class NoticeService {
       for(int kid in kids) {
         req.fields['kid'] = kid.toString();
       }
+      print(req.toString());
       for (var image in photos) {
         req.files.add(await http.MultipartFile.fromPath('photos', image.path));
       }
       var res = await req.send();
       if (res.statusCode == 200) {
         nc.setNoticeList();
+        nc.setSelectKid([]);
       }
       print(res.statusCode);
     } catch (e) {
