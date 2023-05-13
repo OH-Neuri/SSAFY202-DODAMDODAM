@@ -13,13 +13,8 @@ class NoticeService {
   static Future<List<NoticeListItem>> getNoticeList() async {
     DeviceInfoController c = Get.put(DeviceInfoController());
     try{
-      c.setClassSeq(1); // 임시
-      int classSeq = c.classSeq;
-      int kidSeq = 3; // 임시
-      // int kidSeq = c.kidSeq; // 추후에 로그인 다시 구현 .......
-      String URL = c.isTeacher ? '${url}class/noticeByTeacher/$classSeq' : '${url}class/noticeByParent/$kidSeq';
+      String URL = c.isTeacher ? '${url}class/noticeByTeacher/${c.classSeq}' : '${url}class/noticeByParent/${c.kidSeq}';
       final res = await http.get(Uri.parse(URL));
-
       if (res.statusCode == 200) {
         final List<NoticeListItem> noticeList = noticeListModelFromJson(utf8.decode(res.bodyBytes)).noticeList;
         return noticeList;
@@ -30,8 +25,28 @@ class NoticeService {
       print(e);
       return <NoticeListItem>[];
     }
-
   }
+
+  // 선택한 월에 해당하는 알림장 리스트
+  static Future<List<NoticeListItem>> getNoticeListByMonth (int year, int month) async {
+    DeviceInfoController c = Get.put(DeviceInfoController());
+    try {
+      String URL = c.isTeacher
+          ? '${url}class/noticeSearchByTeacher?classSeq=${c.classSeq}&year=$year&month=$month'
+          : '${url}class/noticeSearchByParent?kidSeq=${c.kidSeq}&year=$year&month=$month';
+      final res = await http.get(Uri.parse(URL));
+      if(res.statusCode == 200) {
+        List<NoticeListItem> noticeList = noticeListModelFromJson(utf8.decode(res.bodyBytes)).noticeList;
+        return noticeList;
+      }else{
+        return [];
+      }
+    } catch (e) {
+      print(e);
+      return [];
+    }
+  }
+
   // 알림장 상세 페이지
   static Future<NoticeDetail> getNoticeDetail(int noticeSeq) async {
     try {
@@ -53,11 +68,9 @@ class NoticeService {
   static Future<void> registNotice(int classSeq, bool announcement, String content, List<int> kids, List<File> photos) async {
     DeviceInfoController c = Get.put(DeviceInfoController());
     try {
-      c.setClassSeq(1); // 로그인 할 때, 저장
-      int? classSeq = c.classSeq;
       String URL = '${url}class/notice';
       var req = http.MultipartRequest('POST', Uri.parse(URL));
-      req.fields['classSeq'] = classSeq.toString();
+      req.fields['classSeq'] = c.classSeq.toString();
       req.fields['announcement'] = announcement.toString();
       req.fields['content'] = content;
       for(int kid in kids) {
@@ -93,9 +106,7 @@ class NoticeService {
   static Future<List<ClassKid>> getClassKidList() async {
     DeviceInfoController c = Get.put(DeviceInfoController());
     try {
-      c.setClassSeq(1);
-      int classSeq = c.classSeq;
-      String URL = '${url}class/notice/kid/$classSeq';
+      String URL = '${url}class/notice/kid/${c.classSeq}';
       final res = await http.get(Uri.parse(URL));
       if(res.statusCode == 200) {
         final List<ClassKid> classKidList = classKidListModelFromJson(utf8.decode(res.bodyBytes)).classKid;
