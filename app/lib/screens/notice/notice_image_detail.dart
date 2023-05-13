@@ -1,7 +1,7 @@
 import 'package:app/components/common/logout_app_bar.dart';
 import 'package:app/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 
 class NoticeImageDetail extends StatefulWidget {
   const NoticeImageDetail({Key? key, required this.images, required this.index}) : super(key: key);
@@ -43,7 +43,13 @@ class _NoticeImageDetailState extends State<NoticeImageDetail> {
                         style: TextButton.styleFrom(
                           foregroundColor: textColor,
                         ),
-                        onPressed: (){},
+                        onPressed: (){
+                          GallerySaver.saveImage(widget.images[idx]
+                          ).then((value) => print('성공?')
+                          ).catchError((e){
+                            print(e);
+                          });
+                        },
                         child: Icon(Icons.save_alt_outlined)
                       ),
                     ]
@@ -66,7 +72,7 @@ class _NoticeImageDetailState extends State<NoticeImageDetail> {
                         for(int i=0; i<widget.images.length; i++)
                           Container(
                             decoration: BoxDecoration(
-                              border: idx == i ? Border.all(color: logoYellow, width: 4) : null
+                              border: idx == i ? Border.all(color: darkNavy, width: 4) : null
                             ),
                             child: InkWell(
                                 onTap: () {setState(() {

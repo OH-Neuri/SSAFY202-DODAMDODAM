@@ -78,16 +78,17 @@ class NoticeService {
       for(int kid in kids) {
         req.fields['kid'] = kid.toString();
       }
-      print(req.toString());
       for (var image in photos) {
         req.files.add(await http.MultipartFile.fromPath('photos', image.path));
       }
       var res = await req.send();
       if (res.statusCode == 200) {
+        print('알림장 등록 성공했다우');
         nc.setNoticeList();
-        nc.setSelectKid([]);
+        nc.setSelectKidClear();
+      } else{
+        print(res.statusCode);
       }
-      print(res.statusCode);
     } catch (e) {
       print(e);
     }

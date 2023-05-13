@@ -248,7 +248,16 @@ class _NoticeRegistState extends State<NoticeRegist> {
                                   child: Container(
                                       padding: EdgeInsets.only(right: 4),
                                       height: 40,
-                                      child: ElevatedButton(onPressed: (){ Navigator.pop(context); },
+                                      child: ElevatedButton(onPressed: (){
+                                          setState(() {
+                                            isAnnouncement = false;
+                                            content = '';
+                                            _images.clear();
+                                          });
+                                          _controller.clear();
+                                          nc.setSelectKidClear();
+                                          Navigator.pop(context);
+                                          },
                                           style: ElevatedButton.styleFrom(
                                               backgroundColor: Color(0xffA2A2A2)
                                           ),
@@ -262,12 +271,14 @@ class _NoticeRegistState extends State<NoticeRegist> {
                                       height: 40,
                                       child: ElevatedButton(
                                           onPressed: (){
+                                            NoticeService.registNotice(1, isAnnouncement, content, nc.selectKids, _images);
+                                            print('보낸 입력이얌 $content');
                                             setState(() {
                                               isAnnouncement = false;
                                               content = '';
                                               _images.clear();
                                             });
-                                            NoticeService.registNotice(1, isAnnouncement, content, nc.selectKids, _images);
+                                            _controller.clear();
                                             Navigator.pop(context);
                                           },
                                           style: ElevatedButton.styleFrom(

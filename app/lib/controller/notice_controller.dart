@@ -83,4 +83,9 @@ class NoticeController extends GetxController {
     selectKids = selectKidList;
     update();
   }
+
+  void setSelectKidClear() {
+    selectKids.clear();
+    update();
+  }
 }

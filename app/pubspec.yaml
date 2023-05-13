@@ -53,6 +53,7 @@ dependencies:
   text_divider: ^1.0.0
   flutter_calendar_carousel: ^2.4.2
   month_picker_dialog: ^2.0.0
+  gallery_saver: ^2.3.2
 
 dev_dependencies:
   flutter_test:
