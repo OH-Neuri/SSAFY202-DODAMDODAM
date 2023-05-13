@@ -44,8 +44,11 @@ class NoticeDetailPage extends StatelessWidget {
                               ),
                               InkWell(
                                 onTap: (){
-                                  checkDelete(context, (){NoticeService.deleteNotice(nc.noticeDetail.noticeSeq);});
-                                  Navigator.pop(context);
+                                  checkDelete(context, (){
+                                    NoticeService.deleteNotice(nc.noticeDetail.noticeSeq);
+                                    nc.setNoticeList();
+                                    Navigator.pop(context);
+                                  });
                                 },
                                 overlayColor: MaterialStateProperty.all(darkNavy),
                                 borderRadius: BorderRadius.circular(50),

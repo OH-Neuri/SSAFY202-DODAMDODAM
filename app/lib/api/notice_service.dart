@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:app/controller/deviceInfo_controller.dart';
+import 'package:app/controller/notice_controller.dart';
 import 'package:app/models/notice/class_kid_list_model.dart';
 import 'package:app/models/notice/notice_detail_model.dart';
 import 'package:get/get.dart';
@@ -67,6 +68,7 @@ class NoticeService {
   // 알림장 등록 함수
   static Future<void> registNotice(int classSeq, bool announcement, String content, List<int> kids, List<File> photos) async {
     DeviceInfoController c = Get.put(DeviceInfoController());
+    NoticeController nc = Get.put(NoticeController());
     try {
       String URL = '${url}class/notice';
       var req = http.MultipartRequest('POST', Uri.parse(URL));
@@ -81,7 +83,7 @@ class NoticeService {
       }
       var res = await req.send();
       if (res.statusCode == 200) {
-
+        nc.setNoticeList();
       }
       print(res.statusCode);
     } catch (e) {
@@ -91,10 +93,12 @@ class NoticeService {
 
   // 알림장 삭제
   static Future<void> deleteNotice(int noticeSeq) async {
+    NoticeController nc = Get.put(NoticeController());
     try {
       String URL = '${url}class/notice/$noticeSeq';
       final res = await http.delete(Uri.parse(URL));
       if (res.statusCode == 200) {
+        nc.setNoticeList();
         print('삭제 성공');
       }
     } catch (e) {

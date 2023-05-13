@@ -262,7 +262,7 @@ class _NoticeRegistState extends State<NoticeRegist> {
                           child: Container(
                             padding: EdgeInsets.only(right: 4),
                             height: 40,
-                            child: ElevatedButton(onPressed: (){Navigator.pop(context, false); },
+                            child: ElevatedButton(onPressed: (){ Navigator.pop(context, false); },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Color(0xffA2A2A2)
                                 ),

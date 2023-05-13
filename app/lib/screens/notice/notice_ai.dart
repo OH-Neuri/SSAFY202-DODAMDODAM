@@ -35,7 +35,7 @@ class _NoticeAIState extends State<NoticeAI> {
                   Container(
                     height: 460,
                     margin: EdgeInsets.fromLTRB(0, 40, 0, 0),
-                    padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+                    padding: EdgeInsets.all(20),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: Colors.white,
@@ -79,7 +79,7 @@ class _NoticeAIState extends State<NoticeAI> {
                           ],
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          padding: const EdgeInsets.only(top: 8, bottom: 16),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -87,10 +87,14 @@ class _NoticeAIState extends State<NoticeAI> {
                                 child: TextFormField(
                                   autofocus: true,
                                   focusNode: inputFocus,
+                                  maxLength: 20,
                                   controller: keywordController,
                                   keyboardType: TextInputType.text,
                                   textInputAction: TextInputAction.next,
                                   cursorColor: darkNavy,
+                                  style: TextStyle(
+                                    fontSize: 12.0
+                                  ),
                                   decoration: InputDecoration(
                                     contentPadding: EdgeInsets.symmetric(horizontal: 8),
                                     hintText: '키워드를 입력하세요',
@@ -131,20 +135,25 @@ class _NoticeAIState extends State<NoticeAI> {
                             ],
                           ),
                         ),
-                        SizedBox(
-                          width: double.infinity,
-                          child: Wrap(
-                            alignment: WrapAlignment.start,
-                            spacing: 6,
-                            runSpacing: 10,
-                            children: [
-                              for(int i=0; i<keyword.length; i++)
-                                KeywordChip(text: keyword[i], onPressed: (){
-                                  setState(() {
-                                    keyword.removeAt(i);
-                                  });
-                                })
-                            ],
+                        Expanded(
+                          child: SizedBox(
+                            width: double.infinity,
+                            // height: 200,
+                            child: SingleChildScrollView(
+                              child: Wrap(
+                                alignment: WrapAlignment.start,
+                                spacing: 6,
+                                runSpacing: 10,
+                                children: [
+                                  for(int i=0; i<keyword.length; i++)
+                                    KeywordChip(text: keyword[i], onPressed: (){
+                                      setState(() {
+                                        keyword.removeAt(i);
+                                      });
+                                    })
+                                ],
+                              ),
+                            ),
                           ),
                         )
                       ],
