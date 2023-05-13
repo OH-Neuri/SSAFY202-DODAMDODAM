@@ -21,8 +21,6 @@ class ChattingController extends GetxController {
     else {
       teacherList = await ChattingService.getChatTeacherList();
     }
-    print('ct : $teacherList');
-    print('ut: $userList');
     super.onInit();
     update();
   }

@@ -52,7 +52,7 @@ class ChattingUserList extends StatelessWidget {
                         ),
                         isTeacher ? Row(
                           children: [
-                            Text('${DeviceInfoController.to.className} ${singleUser.kidName} 부모님 ', style: TextStyle(fontSize: buttonTextSize)),
+                            Text('${singleUser.kidName} 부모님 ', style: TextStyle(fontSize: buttonTextSize)),
                             (singleUser.parentSeq != null) ? Text('(${singleUser.parentName}님)', style: TextStyle(color: Colors.grey, fontSize: subContentTextSize)) : Text(' ')
                           ],
                         ) :

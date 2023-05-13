@@ -31,7 +31,6 @@ class ChattingService {
       final response = await http.get(Uri.parse(URL));
       if(response.statusCode == 200){
         final List<SingleTeacher> teacherList = chattingTeacherListFromJson(utf8.decode(response.bodyBytes)).teacherList;
-        print('선생님 리스트: $teacherList');
         return teacherList;
       }else {
         print('$URL 학부모: 선생님들 Error 발생 ');

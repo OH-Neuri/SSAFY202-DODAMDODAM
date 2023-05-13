@@ -1,4 +1,3 @@
-import 'package:app/components/chatting/chatting_teacher_list.dart';
 import 'package:app/components/chatting/chatting_user_list.dart';
 import 'package:app/components/common/title_appBar.dart';
 import 'package:app/constants.dart';
