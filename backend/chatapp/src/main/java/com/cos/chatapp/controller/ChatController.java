@@ -27,7 +27,7 @@ public class ChatController {
     private final ChatRoomRepository chatRoomRepository;
 
     //채팅방 최초 생성 로직 :: 메인 서버에서 바꾸 승낙을 하게 되면 프론트에서 userIdxA,userIdxB를 보내준다.
-    //이미 생성된 채팅방이 있는 상태라면 해당 채팅방 반환 
+    //이미 생성된 채팅방이 있는 상태라면 해당 채팅방 반환
     //chatRoomRepository에 채팅방 정보 저장.
     @CrossOrigin
     @PostMapping("/chatRoom")
@@ -66,6 +66,7 @@ public class ChatController {
         return chatRoomRepository.findByRoomNumber(chat.getRoomId()).switchIfEmpty(Mono.error(new ChangeSetPersister.NotFoundException())).map(b -> {
             b.setCreatedAt(chat.getCreatedAt());
             b.setLastContent(chat.getMsg());
+            b.setLastContentTime(chat.getCreatedAt());
             Long[] arr = b.getReadNotCnt();
             if (Objects.equals(chat.getReceiverSeq(), b.getUserSeq()[0])) {
                 if (!b.getUserActive()[0]) arr[0]++;
