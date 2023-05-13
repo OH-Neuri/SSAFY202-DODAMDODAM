@@ -1,3 +1,4 @@
+import 'package:app/controller/deviceInfo_controller.dart';
 import 'package:app/controller/root_controller.dart';
 import 'package:app/root.dart';
 import 'package:app/screens/user/login_select.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialBinding: BindingsBuilder(() {
         Get.put(RootController());
+        Get.put(DeviceInfoController());
       }),
       home: FutureBuilder(
         future: SharedPreferences.getInstance(),

@@ -1,4 +1,5 @@
 import 'package:app/controller/deviceInfo_controller.dart';
+import 'package:app/controller/root_controller.dart';
 import 'package:app/main.dart';
 import 'package:app/screens/user/login_select.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class SettingMain extends StatelessWidget {
         InkWell(
           onTap: () {
             DeviceInfoController.to.setIsLogin(false);
+            RootController.to.changeRootPageIndex(0);
             Get.offAll(LoginSelect());
           },
           child: Container(
