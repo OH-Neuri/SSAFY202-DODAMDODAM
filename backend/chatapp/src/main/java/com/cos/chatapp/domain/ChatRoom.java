@@ -17,7 +17,7 @@ public class ChatRoom {
     private Boolean [] userActive = new Boolean[]{false, false};
     private String [] name = new String[2];
     private String lastContent;
-    //시간도 같이 보내야함
+    private LocalDateTime lastContentTime;
     private LocalDateTime createdAt;
 
 }
