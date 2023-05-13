@@ -69,8 +69,7 @@ class ChattingMain extends StatelessWidget {
             ),
             cc.isChattingList ?
                 ChattingUserList() : // 채팅 '방' 리스트로 바꾸기
-                // (DeviceInfoController.to.isTeacher ? ChattingTeacherList() : ChattingUserList())
-            (DeviceInfoController.to.isTeacher ? ChattingUserList() : ChattingUserList())
+                  ChattingUserList()
           ],
         )
       )

@@ -1,4 +1,6 @@
 import 'package:app/api/chatting_service.dart';
+import 'package:app/controller/deviceInfo_controller.dart';
+import 'package:app/models/chatting/chatting_teacher_list_model.dart';
 import 'package:app/models/chatting/chatting_user_list_model.dart';
 import 'package:get/get.dart';
 
@@ -9,10 +11,18 @@ class ChattingController extends GetxController {
   // 사용자 목록 -> false, 채팅 리스트 -> true
   bool isChattingList = false;
   List<SingleUser> userList = <SingleUser>[];
+  List<SingleTeacher> teacherList = <SingleTeacher>[];
 
   @override
   void onInit() async {
-    userList = await ChattingService.getChatUserList();
+    if (DeviceInfoController.to.isTeacher) {
+      userList = await ChattingService.getChatUserList();
+    }
+    else {
+      teacherList = await ChattingService.getChatTeacherList();
+    }
+    print('ct : $teacherList');
+    print('ut: $userList');
     super.onInit();
     update();
   }
