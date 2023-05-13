@@ -15,6 +15,7 @@ class NoticeController extends GetxController {
   int selectedYear = 0;
   int selectedMonth = 0;
   List<ClassKid> kidList = <ClassKid>[];
+  List<int> selectKids = <int>[];
 
   @override
   void onInit() async {
@@ -74,6 +75,17 @@ class NoticeController extends GetxController {
     } catch (e) {
       print(e);
     }
+    update();
+  }
+
+  // 글 등록할 때, 선택한 원생 리스트
+  void setSelectKid(List<int> selectKidList) {
+    selectKids = selectKidList;
+    update();
+  }
+
+  void setSelectKidClear() {
+    selectKids.clear();
     update();
   }
 }
