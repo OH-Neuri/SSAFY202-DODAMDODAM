@@ -71,7 +71,7 @@ public class MedicineController {
     }
 
     //(학부모) 자식 의뢰서 리스트
-    @PostMapping("/kid/{kidSeq}")
+    @PostMapping("/kidList/{kidSeq}")
     public BaseResponseDto<List<MedicineKidResponseDto>> getMedicineByKid(@PathVariable Long kidSeq,
                                                                           @RequestBody MedicineRequestDto medicineRequestDto) {
         try {
