@@ -1,12 +1,12 @@
-import 'package:app/controller/deviceInfo_controller.dart';
 import 'package:app/controller/root_controller.dart';
 import 'package:app/root.dart';
 import 'package:app/screens/user/login_select.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -14,16 +14,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DeviceInfoController dc = Get.put(DeviceInfoController());
     return GetMaterialApp(
       title: 'Do-damDo-dam',
       debugShowCheckedModeBanner: false,
       initialBinding: BindingsBuilder(() {
         Get.put(RootController());
       }),
-      // home: Root(),
-      home: LoginSelect(),
-
+      home: FutureBuilder(
+        future: SharedPreferences.getInstance(),
+        builder: (BuildContext context, AsyncSnapshot<SharedPreferences> snapshot) {
+          if (!snapshot.hasData) {
+            return Center(child: CircularProgressIndicator());
+          }
+          final SharedPreferences prefs = snapshot.data!;
+          final bool isLogin = prefs.getBool('isLogin') ?? false;
+          return isLogin ? Root() : LoginSelect();
+        },
+      ),
     );
   }
 }
+
