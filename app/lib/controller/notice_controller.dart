@@ -16,6 +16,7 @@ class NoticeController extends GetxController {
   int selectedMonth = 0;
   List<ClassKid> kidList = <ClassKid>[];
   List<int> selectKids = <int>[];
+  bool isLoading = true;
 
   @override
   void onInit() async {
@@ -86,6 +87,11 @@ class NoticeController extends GetxController {
 
   void setSelectKidClear() {
     selectKids.clear();
+    update();
+  }
+
+  void setIsLoading(bool value) {
+    isLoading = value;
     update();
   }
 }

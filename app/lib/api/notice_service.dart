@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:app/controller/deviceInfo_controller.dart';
 import 'package:app/controller/notice_controller.dart';
+import 'package:app/models/notice/ai_response_model.dart';
 import 'package:app/models/notice/class_kid_list_model.dart';
 import 'package:app/models/notice/notice_detail_model.dart';
 import 'package:get/get.dart';
@@ -125,5 +126,39 @@ class NoticeService {
       print(e);
       return [];
     }
+  }
+
+  // 자동완성
+  static Future<String> generateNotice(List<String> keywords) async {
+    try {
+      String token = 'Bearer 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';
+      String url = "https://api.openai.com/v1/engines/text-davinci-003/completions";
+      Map<String, dynamic> data = {
+        "prompt" : "너는 유치원 선생님이야 다음과 같은 키워드들로 알림장을 작성해줘, '봄소풍', '준비물은 도시락', '9시에 출발 16시에 도착예정'",
+        "temperature" : 1.0,
+        "max_tokens" : 300,
+        "top_p" : 1,
+        "frequency_penalty": 0,
+        "presence_penalty": 0
+      };
+      final res = await http.post(
+        Uri.parse(url),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": token,
+        },
+        body: jsonEncode(data)
+      );
+      if(res.statusCode == 200) {
+        String text = aiResponseModelFromJson(utf8.decode(res.bodyBytes)).choices[0].text;
+        return text;
+      }
+      return '';
+
+    }catch (e) {
+      print(e);
+      return '';
+    }
+
   }
 }
