@@ -1,13 +1,23 @@
+import 'package:app/components/attendance/attendance_list_timepicker.dart';
 import 'package:app/components/common/paint_page.dart';
-import 'package:app/components/attendance/attendance_sign_button.dart';
 import 'package:app/components/common/input_form.dart';
+import 'package:app/components/common/sign_button_custom.dart';
 import 'package:app/components/common/text_form_field_custom.dart';
 import 'package:app/constants.dart';
+import 'package:app/controller/attendance_controller.dart';
+import 'package:app/controller/deviceInfo_controller.dart';
+import 'package:app/models/attendance/attendance_list_model.dart';
 import 'package:flutter/material.dart';
-import 'package:app/components/attendance/attendance_list_timepicker.dart';
+import 'package:get/get.dart';
 
 class AttendanceDetailParent extends StatefulWidget {
-  const AttendanceDetailParent({Key? key}) : super(key: key);
+  const AttendanceDetailParent({Key? key,
+    this.kidSeq,
+    this.selectedDay
+  }) : super(key: key);
+
+  final int? kidSeq;
+  final DateTime? selectedDay;
 
   @override
   _AttendanceDetailParentState createState() => _AttendanceDetailParentState();
@@ -19,12 +29,14 @@ class _AttendanceDetailParentState extends State<AttendanceDetailParent> {
   TextEditingController();
   final TextEditingController _leaveTimeController = TextEditingController();
 
+
   @override
   Widget build(BuildContext context) {
+    DeviceInfoController dc = Get.put(DeviceInfoController());
+    AttendacneController ac = Get.put(AttendacneController());
     const title = 'Grid List';
-    return MaterialApp(
-      title: title,
-      home: Scaffold(
+    return GetBuilder<AttendacneController>(builder: (_)=>
+        Scaffold(
         resizeToAvoidBottomInset:true,
         appBar: AppBar(
           automaticallyImplyLeading: true,
@@ -45,11 +57,11 @@ class _AttendanceDetailParentState extends State<AttendanceDetailParent> {
                   child: Row(
                       children: [
                         Flexible(
-                          flex:4,
+                          flex:10,
                           child: Row(
                             children: [
                               Icon(
-                                Icons.circle_notifications_sharp, size: 60,
+                                Icons.circle_notifications_sharp, size: 55,
                               ),
                               Padding(
                                 padding:
@@ -59,9 +71,8 @@ class _AttendanceDetailParentState extends State<AttendanceDetailParent> {
                                   children: [
                                     Text(
                                       "이연희",
-                                      style: TextStyle(fontSize: 16),
+                                      style: TextStyle(fontSize: 18),
                                     ),
-                                            Text("꽃님반")
                                   ],
                                 ),
                               )
@@ -69,11 +80,13 @@ class _AttendanceDetailParentState extends State<AttendanceDetailParent> {
                           ),
                         ),
                         Flexible(
-                          flex: 2,
+                          flex: 7,
                           child: AttendaneListTimePicker(
                               onDateSelected: (date) {
                                 setState(() {
+                                  // 해당 날짜 등하원 정보 가져오기
                                   _selectedDate = date;
+                                  ac.setAttendacneDetail(dc.kidSeq,_selectedDate);
                                 });
                               },
                           ),
@@ -82,11 +95,11 @@ class _AttendanceDetailParentState extends State<AttendanceDetailParent> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+                padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 8),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -97,7 +110,7 @@ class _AttendanceDetailParentState extends State<AttendanceDetailParent> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 8),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -108,7 +121,7 @@ class _AttendanceDetailParentState extends State<AttendanceDetailParent> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 8),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -126,7 +139,7 @@ class _AttendanceDetailParentState extends State<AttendanceDetailParent> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 8),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -137,7 +150,7 @@ class _AttendanceDetailParentState extends State<AttendanceDetailParent> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 8),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -152,19 +165,36 @@ class _AttendanceDetailParentState extends State<AttendanceDetailParent> {
               ),
 
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
+                padding: const EdgeInsets.symmetric(vertical: 23),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("위 보호자 이외의 다른 사람에게 인계할 때는 사전에 반드시 연락을 취하겠습니다.",
-                      style: TextStyle(fontSize: 12.5),),
-                    Text("원에서는 부모가 희망하더라도 영유아를 혼자 귀가시키지 않습니다.",
-                        style:TextStyle(fontSize: 14)),
+                    Text("위 보호자 이외의 다른 사람에게 인계할 때는 사전에 반드시 연락을 취하겠습니다.  원 에서는 부모가 희망하더라도 영유아를 혼자 귀가시키지 않습니다.",
+                      style: TextStyle(fontSize: 10),textAlign: TextAlign.center,),
                     Text(" 금일 자녀의 귀가를 선생님께 의뢰합니다.",
-                      style:TextStyle(fontSize: 20 ) ,)
+                      style:TextStyle(fontSize: 18, fontWeight: FontWeight.w500),textAlign: TextAlign.center ,)
                   ],
                 ),
               ),
-              AttendanceSignButton(),
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                    Text("2022년 8월 13일 김부모",  style: TextStyle(fontSize: 16)),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+                      child: Row(
+                        children: [
+                          SignButtonCustom(),
+                        ],
+                      ),
+                    ),
+                  ]
+                ),
+              ),
             ]),
           ),
           Expanded(child: SizedBox()),
