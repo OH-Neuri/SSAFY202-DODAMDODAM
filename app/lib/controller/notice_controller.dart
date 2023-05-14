@@ -52,8 +52,19 @@ class NoticeController extends GetxController {
   }
 
   // ai가 작성한 알림장
-  void setAiNotice(String value) {
-    aiNotice = value;
+  void setAiNotice(List<String> keywords) async {
+    setIsLoading(true);
+    try {
+      aiNotice = await NoticeService.generateNotice(keywords);
+      setIsLoading(false);
+    }catch(e) {
+      print(e);
+    }
+    update();
+  }
+
+  void setAiNoticeClear() {
+    aiNotice = '';
     update();
   }
 

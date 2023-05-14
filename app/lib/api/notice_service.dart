@@ -7,6 +7,7 @@ import 'package:app/models/notice/image_url_model.dart';
 import 'package:app/models/notice/ai_response_model.dart';
 import 'package:app/models/notice/class_kid_list_model.dart';
 import 'package:app/models/notice/notice_detail_model.dart';
+import 'package:app/utils/keyword_to_text.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:app/api/url_mapping.dart';
@@ -177,10 +178,11 @@ class NoticeService {
     try {
       String token = 'Bearer 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';
       String url = "https://api.openai.com/v1/engines/text-davinci-003/completions";
+      String text = keywordToText(keywords);
       Map<String, dynamic> data = {
-        "prompt" : "너는 유치원 선생님이야 다음과 같은 키워드들로 알림장을 작성해줘, '봄소풍', '준비물은 도시락', '9시에 출발 16시에 도착예정'",
+        "prompt" : "너는 유치원 선생님이야 다음과 같은 키워드들로 알림장을 작성해줘, $text 500자를 채워줘",
         "temperature" : 1.0,
-        "max_tokens" : 300,
+        "max_tokens" : 500,
         "top_p" : 1,
         "frequency_penalty": 0,
         "presence_penalty": 0
