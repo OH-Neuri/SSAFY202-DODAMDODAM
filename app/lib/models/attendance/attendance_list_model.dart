@@ -33,8 +33,8 @@ class AttendanceListItem {
   int kidSeq;
   String name;
   String photo;
-  int attendanceSeq;
-  String forthTimeCheck;
+  int? attendanceSeq;
+  dynamic forthTimeCheck;
   dynamic backTimeCheck;
 
   AttendanceListItem({
@@ -42,7 +42,7 @@ class AttendanceListItem {
     required this.name,
     required this.photo,
     required this.attendanceSeq,
-    required this.forthTimeCheck,
+    this.forthTimeCheck,
     this.backTimeCheck,
   });
 
