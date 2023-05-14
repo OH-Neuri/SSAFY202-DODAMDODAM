@@ -56,11 +56,7 @@ public class MedicineServiceImpl implements MedicineService{
     @Override
     public boolean completeMedicine(CompleteMedicineRequestDto completeMedicineRequestDto) {
 
-        //response 사인 s3에 업로드하기.
-        String url = s3UploadService.upload(completeMedicineRequestDto.getResponseSign(), "medicine");
-
         //업데이트
-        completeMedicineRequestDto.setResponseSignUrl(url);
         medicineRepository.updateMedicine(completeMedicineRequestDto);
 
         return true;
