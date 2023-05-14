@@ -7,6 +7,7 @@ import 'package:app/controller/deviceInfo_controller.dart';
 import 'package:app/controller/notice_controller.dart';
 import 'package:app/screens/notice/notice_detail.dart';
 import 'package:app/screens/notice/notice_regist.dart';
+import 'package:app/utils/kid_lenght_to_text.dart';
 import 'package:flutter/material.dart';
 import 'package:app/models/notice/notice_list_model.dart';
 import 'package:get/get.dart';
@@ -52,7 +53,7 @@ class NoticeList extends StatelessWidget {
                                     ):
                                     NoticeItem(
                                       date: item.date,
-                                      kids: item.kid.length == nc.kidList.length ? '@전체 원생' : (item.kid.length == 1 ? '@${item.kid[0]}' :'@${item.kid[0]} 외 ${item.kid.length - 1}명'),
+                                      kids: kidLengthToText(item.kid),
                                       content: item.content,
                                       photo: item.photo,
                                       onPressed: () {
