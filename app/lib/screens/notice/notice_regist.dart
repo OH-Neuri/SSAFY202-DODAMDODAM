@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:app/api/notice_service.dart';
+import 'package:app/components/common/CustomSnackBar.dart';
 import 'package:app/components/common/logout_app_bar.dart';
 import 'package:app/components/notice/add_image_icon.dart';
 import 'package:app/components/notice/select_kid_modal.dart';
@@ -17,10 +18,16 @@ class NoticeRegist extends StatefulWidget {
 
 TextEditingController _controller = TextEditingController();
 bool isAnnouncement = false;
-String content = '';
 List<File> _images = [];
 
 class _NoticeRegistState extends State<NoticeRegist> {
+  @override
+  void initState() {
+    super.initState();
+    if(NoticeController.to.aiNotice != '') {
+      _controller.text = NoticeController.to.aiNotice;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -203,11 +210,6 @@ class _NoticeRegistState extends State<NoticeRegist> {
                                   children: [
                                     Expanded(
                                       child: TextField(
-                                        onChanged: (value){
-                                          setState(() {
-                                            content = value;
-                                          });
-                                        },
                                         style: TextStyle(
                                             fontSize: 12.0
                                         ),
@@ -251,7 +253,6 @@ class _NoticeRegistState extends State<NoticeRegist> {
                                       child: ElevatedButton(onPressed: (){
                                           setState(() {
                                             isAnnouncement = false;
-                                            content = '';
                                             _images.clear();
                                           });
                                           _controller.clear();
@@ -271,11 +272,21 @@ class _NoticeRegistState extends State<NoticeRegist> {
                                       height: 40,
                                       child: ElevatedButton(
                                           onPressed: (){
-                                            NoticeService.registNotice(1, isAnnouncement, content, nc.selectKids, _images);
-                                            print('보낸 입력이얌 $content');
+                                            if(!isAnnouncement && nc.selectKids.isEmpty){
+                                              CustomSnackBar.errorSnackbar(context, '원생을 선택해주세요.');
+                                              return;
+                                            }else if(_controller.value.text.trim() == '') {
+                                              CustomSnackBar.errorSnackbar(context, '내용을 입력해주세요.');
+                                              return;
+                                            }
+                                            if(isAnnouncement) {
+                                              List<int> kidSeqs = nc.kidList.map((kid) => kid.kidSeq).toList();
+                                              NoticeService.registNotice(1, isAnnouncement, _controller.value.text, kidSeqs, _images);
+                                            }else{
+                                              NoticeService.registNotice(1, isAnnouncement, _controller.value.text, nc.selectKids, _images);
+                                            }
                                             setState(() {
                                               isAnnouncement = false;
-                                              content = '';
                                               _images.clear();
                                             });
                                             _controller.clear();

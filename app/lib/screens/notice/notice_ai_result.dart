@@ -1,5 +1,6 @@
 import 'package:app/constants.dart';
 import 'package:app/controller/notice_controller.dart';
+import 'package:app/screens/notice/notice_regist.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -46,9 +47,12 @@ class NoticeAIResult extends StatelessWidget {
                                 ),),
                             ],
                           ),
-                          Text('키워드를 사용해 자동 완성된 알림장입니다.'),
                           Padding(
-                            padding: const EdgeInsets.only(top: 12.0, bottom: 20),
+                            padding: const EdgeInsets.only(top: 12.0),
+                            child: Text('키워드를 사용해 자동 완성된 알림장입니다.'),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 14.0, bottom: 10),
                             child: Divider(color: Colors.grey, thickness: 1, height: 1,),
                           ),
                           Text(nc.aiNotice)
@@ -68,6 +72,8 @@ class NoticeAIResult extends StatelessWidget {
                         onPressed: (){
                           Navigator.pop(context);
                           Navigator.pop(context);
+                          Navigator.pop(context);
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>NoticeRegist(),));
                         },
                         child: Text('작성창에 반영하기')),
                   ),

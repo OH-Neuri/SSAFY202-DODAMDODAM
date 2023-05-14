@@ -16,6 +16,11 @@ List<int> selectKidList = <int>[];
 class _SelectKidModalState extends State<SelectKidModal> {
   NoticeController nc = Get.put(NoticeController());
   @override
+  void initState() {
+    super.initState();
+    selectKidList.addAll(nc.selectKids);
+  }
+  @override
   Widget build(BuildContext context) {
     return GetBuilder<NoticeController>(builder: (_) =>
         AlertDialog(
@@ -126,6 +131,7 @@ class _SelectKidModalState extends State<SelectKidModal> {
                                 backgroundColor: Color(0xffB5B5B5)
                               ),
                               onPressed: (){
+                                selectKidList.clear();
                                 Navigator.pop(context);
                               },
                               child: Text('닫기')),
@@ -138,7 +144,9 @@ class _SelectKidModalState extends State<SelectKidModal> {
                               ),
                               onPressed: (){
                                 nc.setSelectKid(selectKidList);
+                                selectKidList = [];
                                 Navigator.pop(context);
+                                // selectKidList.clear();
                               },
                               child: Text('선택')),
                         )),

@@ -162,9 +162,9 @@ class _NoticeAIState extends State<NoticeAI> {
                         onPressed: (){
                           NoticeController.to.setAiNotice(keyword);
                           Navigator.push(context, MaterialPageRoute(builder: (context) => NoticeAIResult(keywords: keyword,),));
-                          setState(() {
-                            keyword = [];
-                          });
+                          // setState(() {
+                          //   keyword = [];
+                          // });
                         },
                         style: ElevatedButton.styleFrom(
                           minimumSize: Size(double.infinity, 50),

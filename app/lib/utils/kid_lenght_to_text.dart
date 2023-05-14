@@ -5,7 +5,7 @@ String kidLengthToText(List<String> kid) {
   NoticeController nc = Get.put(NoticeController());
   int l = nc.kidList.length;
   if (l == kid.length) {
-    return '전체원생';
+    return '@전체원생';
   }
   if (kid.length == 1) {
     return '@${kid[0]}';
