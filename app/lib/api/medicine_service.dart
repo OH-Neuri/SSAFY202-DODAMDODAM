@@ -7,11 +7,12 @@ import 'package:http/http.dart' as http;
 import 'package:app/api/url_mapping.dart';
 import 'package:app/controller/deviceInfo_controller.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class MedicineService {
 
-  // 반별 투약 확인서 리스트 가져오기 (선생님용) - 32 ---------- 수정 필요
-  static Future<List<MedicineClassList>> getMedicineClassList() async {
+  // 반별 투약 확인서 리스트 가져오기 (선생님용) - 32
+  static Future<List<MedicineClassList>> getMedicineClassList(DateTime day) async {
     // request
     //{
     //     "day": "2023-05-09"
@@ -21,15 +22,26 @@ class MedicineService {
       DeviceInfoController c = Get.put(DeviceInfoController());
       int classSeq = c.classSeq;
       String URL = '${url}medicine/class/${c.classSeq}';
-      final res = await http.get(Uri.parse(URL));
+      final data = {
+        "day" : DateFormat('yyyy-MM-dd').format(day),
+      };
+      final res = await http.post(
+          Uri.parse(URL),
+          headers: {"Content-Type" : "application/json"},
+          body: jsonEncode(data)
+
+      );
       if(res.statusCode == 200){
         final List<MedicineClassList> medicineClassList = medicineClassListModelFromJson(utf8.decode(res.bodyBytes)).medicineClassList;
+        print("32 통신 성공");
         return medicineClassList;
       }else {
+        print("32 통신 실패 error");
         print('$URL 오늘의 일정 에러 발생');
         return <MedicineClassList>[];
       }
     }catch(e){
+      print("32 통신 실패 catch");
       print(e);
       return <MedicineClassList>[];
     }
@@ -46,17 +58,17 @@ class MedicineService {
         final MedicineKidDetail noticeDetail = medicineKidDetailModelFromJson(utf8.decode(res.bodyBytes)).medicineKidDetail;
         return noticeDetail;
       }else{
-        return MedicineKidDetail(medicineSeq: 0, kidSeq: 0, symptom: '', pill: "", capacity: '', count: "", time: "", content: "", requestDate: "", requestName: "", responseDate: "", responseName: "");
+        return MedicineKidDetail(medicineSeq: 0, kidSeq: 0, symptom: '', pill: "", capacity: '', count: "", time: "", content: "", requestDate: "", requestName: "", responseDate: "", responseName: "",keep: "");
       }
     } catch(e) {
       print(e);
-      return MedicineKidDetail(medicineSeq: 0, kidSeq: 0, symptom: '', pill: "", capacity: '', count: "", time: "", content: "", requestDate: "", requestName: "", responseDate: "", responseName: "");
+      return MedicineKidDetail(medicineSeq: 0, kidSeq: 0, symptom: '', pill: "", capacity: '', count: "", time: "", content: "", requestDate: "", requestName: "", responseDate: "", responseName: "",keep: "");
     }
   }
 
 
-  // 투약 의뢰서 리스트 (학부모용) - 34  -------------- 수정 필요
-  static Future<List<MedicineKidMonth>> getMedicineKidMonthList() async {
+  // 투약 의뢰서 리스트 (학부모용) - 34
+  static Future<List<MedicineKidMonth>> getMedicineKidMonthList(DateTime day) async {
     //request
     //{
     //     "day": "2023-05-09"
@@ -65,8 +77,15 @@ class MedicineService {
     DeviceInfoController c = Get.put(DeviceInfoController());
     try{
       int kidSeq = 3; // 임시
-      String URL =  '${url}medicine/kid/${c.kidSeq}';
-      final res = await http.get(Uri.parse(URL));
+      String URL =  '${url}medicine/kidList/${c.kidSeq}';
+      final data = {
+          "day" : day
+      };
+      final res = await http.post(
+        Uri.parse(URL),
+        headers: {"Content-Type" : "application/json"},
+        body:jsonEncode(data)
+      );
       if (res.statusCode == 200) {
         final List<MedicineKidMonth> noticeList = medicineKidMonthModelFromJson(utf8.decode(res.bodyBytes)).medicineKidMonth;
         return noticeList;
