@@ -10,7 +10,7 @@ import com.wohaha.dodamdodam.dto.response.AttendanceListResponseDto;
 import java.util.List;
 
 public interface AttendanceService {
-    boolean createAttendance(CreateAttendanceRequestDto createAttendanceRequestDto, String uploadUrl);
+    boolean createAttendance(CreateAttendanceRequestDto createAttendanceRequestDto);
     List<AttendanceListResponseDto> getAttendanceList(AttendanceRequestDto classAttendanceRequestDto);
 
     AttendanceDetailResponseDto getAttendanceDetail(Long attendanceSeq);
