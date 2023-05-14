@@ -40,7 +40,7 @@ public class AttendanceRepositoryImpl implements AttendanceRepositoryCustom {
     public Optional<AttendanceDetailResponseDto> getAttendanceDetail(Long attendanceSeq) {
         return Optional.ofNullable(query.select(Projections.constructor(AttendanceDetailResponseDto.class,
                 kid.name, kid.photo, attendance.createdAt, attendance.forthTime, attendance.backTime,
-                attendance.forthTimeCheck, attendance.backTimeCheck, attendance.parentName, attendance.phoneNumber, attendance.tempParentName, attendance.tempPhoneNumber))
+                attendance.forthTimeCheck, attendance.backTimeCheck, attendance.parentName, attendance.phoneNumber, attendance.tempParentName, attendance.tempPhoneNumber, attendance.backWay))
                 .from(attendance)
                 .join(kid).on(attendance.kidSeq.eq(kid.kidSeq))
                 .where(attendance.attendanceSeq.eq(attendanceSeq))
