@@ -26,7 +26,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     private final AttendanceRepository attendanceRepository;
 
     @Override
-    public boolean createAttendance(CreateAttendanceRequestDto createAttendanceRequestDto, String uploadUrl) {
+    public boolean createAttendance(CreateAttendanceRequestDto createAttendanceRequestDto) {
         //dto to entity
         Attendance attendance = Attendance.builder()
                 .kidSeq(createAttendanceRequestDto.getKidSeq())
@@ -37,7 +37,6 @@ public class AttendanceServiceImpl implements AttendanceService {
                 .phoneNumber(createAttendanceRequestDto.getPhoneNumber())
                 .tempParentName(createAttendanceRequestDto.getTempParentName())
                 .tempPhoneNumber(createAttendanceRequestDto.getTempPhoneNumber())
-                .sign(uploadUrl)
                 .build();
         attendanceRepository.save(attendance);
         return true;

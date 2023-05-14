@@ -19,5 +19,5 @@ public class CreateAttendanceRequestDto {
     private String phoneNumber;
     private String tempParentName;
     private String tempPhoneNumber;
-    private MultipartFile sign;
+
 }
