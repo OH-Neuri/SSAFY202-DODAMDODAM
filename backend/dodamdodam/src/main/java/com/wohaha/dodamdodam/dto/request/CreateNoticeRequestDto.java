@@ -21,7 +21,7 @@ public class CreateNoticeRequestDto {
 
     private List<MultipartFile> photos;
 
-    private List<Long> kid;
+    private String kid;
 
     private String content;
 }
