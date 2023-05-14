@@ -2,8 +2,9 @@ import 'package:app/components/common/logout_app_bar.dart';
 import 'package:app/components/notice/ai_guide_modal.dart';
 import 'package:app/components/notice/keyword_chip.dart';
 import 'package:app/constants.dart';
+import 'package:app/controller/notice_controller.dart';
+import 'package:app/screens/notice/notice_ai_result.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class NoticeAI extends StatefulWidget {
   const NoticeAI({Key? key}) : super(key: key);
@@ -158,7 +159,13 @@ class _NoticeAIState extends State<NoticeAI> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 24, 0, 0),
                     child: ElevatedButton(
-                        onPressed: (){},
+                        onPressed: (){
+                          NoticeController.to.setAiNotice(keyword);
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => NoticeAIResult(keywords: keyword,),));
+                          setState(() {
+                            keyword = [];
+                          });
+                        },
                         style: ElevatedButton.styleFrom(
                           minimumSize: Size(double.infinity, 50),
                           backgroundColor: darkNavy
@@ -171,7 +178,7 @@ class _NoticeAIState extends State<NoticeAI> {
                     child: ElevatedButton(
                         onPressed: (){
                           setState(() {
-                            keyword.clear();
+                            keyword = [];
                           });
                           Navigator.pop(context);
                         },

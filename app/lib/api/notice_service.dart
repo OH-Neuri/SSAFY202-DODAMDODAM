@@ -1,9 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:app/api/http_header.dart';
 import 'package:app/controller/deviceInfo_controller.dart';
 import 'package:app/controller/notice_controller.dart';
+import 'package:app/models/notice/image_url_model.dart';
+import 'package:app/models/notice/ai_response_model.dart';
 import 'package:app/models/notice/class_kid_list_model.dart';
 import 'package:app/models/notice/notice_detail_model.dart';
+import 'package:app/utils/keyword_to_text.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:app/api/url_mapping.dart';
@@ -75,15 +79,13 @@ class NoticeService {
       req.fields['classSeq'] = c.classSeq.toString();
       req.fields['announcement'] = announcement.toString();
       req.fields['content'] = content;
-      for(int kid in kids) {
-        req.fields['kid'] = kid.toString();
-      }
+      req.fields['kid'] = kids.join(',');
       for (var image in photos) {
         req.files.add(await http.MultipartFile.fromPath('photos', image.path));
       }
+      print(kids.toString());
       var res = await req.send();
       if (res.statusCode == 200) {
-        print('알림장 등록 성공했다우');
         nc.setNoticeList();
         nc.setSelectKidClear();
       } else{
@@ -91,6 +93,50 @@ class NoticeService {
       }
     } catch (e) {
       print(e);
+    }
+  }
+
+  // 알림장 수정
+  static Future<void> modifyNotice(int noticeSeq, String content, List<String> photo) async {
+    NoticeController nc = Get.put(NoticeController());
+    try {
+      String URL = '${url}class/notice/$noticeSeq';
+      Map<String, dynamic> data = {
+        "content" : content,
+        "photo" : photo
+      };
+      final res = await http.put(
+        Uri.parse(URL),
+        headers: postHeaders,
+        body: jsonEncode(data)
+      );
+      if(res.statusCode == 200) {
+        nc.setNoticeDetail(noticeSeq);
+        nc.setNoticeList();
+      }
+    } catch(e) {
+      print(e);
+    }
+  }
+
+  // 알림장 사진 파일 -> url
+  static Future<String> imageToUrl(File file) async {
+    try {
+      String URL = '${url}kindergarten/Image';
+      var req = http.MultipartRequest('POST', Uri.parse(URL));
+      req.files.add(await http.MultipartFile.fromPath('photo', file.path));
+      var res = await req.send();
+      if (res.statusCode == 200) {
+        String resString = await res.stream.bytesToString();
+        String imageUrl = imageUrlModelFromJson(resString).result;
+        return imageUrl;
+      } else{
+        print(res.statusCode);
+        return '';
+      }
+    } catch (e) {
+      print(e);
+      return '';
     }
   }
 
@@ -125,5 +171,40 @@ class NoticeService {
       print(e);
       return [];
     }
+  }
+
+  // 자동완성
+  static Future<String> generateNotice(List<String> keywords) async {
+    try {
+      String token = 'Bearer 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';
+      String url = "https://api.openai.com/v1/engines/text-davinci-003/completions";
+      String text = keywordToText(keywords);
+      Map<String, dynamic> data = {
+        "prompt" : "너는 유치원 선생님이야 다음과 같은 키워드들로 알림장을 작성해줘, $text 500자를 채워줘",
+        "temperature" : 1.0,
+        "max_tokens" : 500,
+        "top_p" : 1,
+        "frequency_penalty": 0,
+        "presence_penalty": 0
+      };
+      final res = await http.post(
+        Uri.parse(url),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": token,
+        },
+        body: jsonEncode(data)
+      );
+      if(res.statusCode == 200) {
+        String text = aiResponseModelFromJson(utf8.decode(res.bodyBytes)).choices[0].text;
+        return text;
+      }
+      return '';
+
+    }catch (e) {
+      print(e);
+      return '';
+    }
+
   }
 }

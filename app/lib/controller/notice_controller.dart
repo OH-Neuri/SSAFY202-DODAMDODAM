@@ -16,6 +16,7 @@ class NoticeController extends GetxController {
   int selectedMonth = 0;
   List<ClassKid> kidList = <ClassKid>[];
   List<int> selectKids = <int>[];
+  bool isLoading = true;
 
   @override
   void onInit() async {
@@ -51,8 +52,19 @@ class NoticeController extends GetxController {
   }
 
   // ai가 작성한 알림장
-  void setAiNotice(String value) {
-    aiNotice = value;
+  void setAiNotice(List<String> keywords) async {
+    setIsLoading(true);
+    try {
+      aiNotice = await NoticeService.generateNotice(keywords);
+      setIsLoading(false);
+    }catch(e) {
+      print(e);
+    }
+    update();
+  }
+
+  void setAiNoticeClear() {
+    aiNotice = '';
     update();
   }
 
@@ -86,6 +98,11 @@ class NoticeController extends GetxController {
 
   void setSelectKidClear() {
     selectKids.clear();
+    update();
+  }
+
+  void setIsLoading(bool value) {
+    isLoading = value;
     update();
   }
 }

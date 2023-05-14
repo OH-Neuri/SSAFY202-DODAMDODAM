@@ -5,6 +5,7 @@ import 'package:app/constants.dart';
 import 'package:app/controller/deviceInfo_controller.dart';
 import 'package:app/controller/notice_controller.dart';
 import 'package:app/screens/notice/notice_image_detail.dart';
+import 'package:app/screens/notice/notice_modify.dart';
 import 'package:app/utils/kid_lenght_to_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -35,7 +36,11 @@ class NoticeDetailPage extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 InkWell(
-                                  onTap: (){},
+                                  onTap: (){
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(builder: (context) => NoticeModify(),)
+                                    );
+                                  },
                                   overlayColor: MaterialStateProperty.all(darkNavy),
                                   borderRadius: BorderRadius.circular(50),
                                   child: Padding(
