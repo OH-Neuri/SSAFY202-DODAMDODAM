@@ -7,7 +7,6 @@ import com.wohaha.dodamdodam.dto.response.AttendanceFormResponseDto;
 import com.wohaha.dodamdodam.dto.response.AttendanceListResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.swing.text.html.Option;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -16,7 +15,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.querydsl.core.types.ExpressionUtils.anyOf;
-import static com.querydsl.sql.SQLExpressions.date;
 import static com.wohaha.dodamdodam.domain.QKid.kid;
 import static com.wohaha.dodamdodam.domain.QAttendance.attendance;
 public class AttendanceRepositoryImpl implements AttendanceRepositoryCustom {

@@ -16,7 +16,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.wohaha.dodamdodam.domain.QKid.kid;
 
@@ -51,9 +53,14 @@ public class NoticeServiceImpl implements NoticeService{
     }
 
     @Override
-    public boolean createNoticeKidAndPhoto(long noticeSeq, List<Long> kids, List<String> uploadUrls) {
+    public boolean createNoticeKidAndPhoto(long noticeSeq, String kids, List<String> uploadUrls) {
+        List<Long> kidList = Arrays.stream(kids.split(","))
+                .map(Long::parseLong)
+                .collect(Collectors.toList());
+
+        System.out.println(kidList.toString());
         //아이 저장
-        for(Long kid : kids){
+        for(Long kid : kidList){
             NoticeKid noticeKid = NoticeKid.builder()
                     .noticeSeq(noticeSeq)
                     .kidSeq(kid)
