@@ -42,7 +42,7 @@ class AttendanceDetail {
   DateTime date;
   String forthTime;
   String backTime;
-  String forthTimeCheck;
+  dynamic forthTimeCheck;
   dynamic backTimeCheck;
   String parentName;
   String phoneNumber;
@@ -55,7 +55,7 @@ class AttendanceDetail {
     required this.date,
     required this.forthTime,
     required this.backTime,
-    required this.forthTimeCheck,
+    this.forthTimeCheck,
     this.backTimeCheck,
     required this.parentName,
     required this.phoneNumber,
