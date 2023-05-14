@@ -44,7 +44,7 @@ class MedicineKidDetail {
   String capacity;
   String count;
   String time;
-  dynamic keep;
+  String keep;
   String content;
   String requestDate;
   String requestName;
@@ -59,7 +59,7 @@ class MedicineKidDetail {
     required this.capacity,
     required this.count,
     required this.time,
-    this.keep,
+    required this.keep,
     required this.content,
     required this.requestDate,
     required this.requestName,
