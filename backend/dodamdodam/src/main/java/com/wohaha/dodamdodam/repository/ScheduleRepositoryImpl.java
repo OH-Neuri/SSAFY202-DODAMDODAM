@@ -21,6 +21,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepositoryCustom {
                 .selectDistinct(schedule.date.dayOfMonth())
                 .from(schedule)
                 .where(schedule.kindergartenSeq.eq(kindergartenSeq)
+                        .and(schedule.classSeq.isNull())
                         .and(schedule.date.month().eq(Integer.valueOf(month)))
                         .and(schedule.date.year().eq(Integer.valueOf(year))))
                 .fetch();
