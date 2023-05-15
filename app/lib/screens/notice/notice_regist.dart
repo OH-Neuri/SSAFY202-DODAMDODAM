@@ -53,8 +53,46 @@ class _NoticeRegistState extends State<NoticeRegist> {
                               padding: const EdgeInsets.only(top: 10),
                               child: ElevatedButton(
                                   onPressed: (){
-                                    Navigator.push(context, MaterialPageRoute(
-                                        builder: (context)=>NoticeAI()));
+                                    showDialog(context: context, builder: (context)=>
+                                      AlertDialog(
+                                        contentPadding: EdgeInsets.symmetric(vertical: 40, horizontal: 18),
+                                        content: SizedBox(
+                                          height: 200,
+                                          width: 300,
+                                          child: Column(
+                                            children: [
+                                              Text('알림장 자동완성 이용시'),
+                                              Text('작성중이던 글이 사라지게 됩니다.', style: TextStyle(
+                                                decoration: TextDecoration.underline
+                                              ),),
+                                              Padding(
+                                                padding: const EdgeInsets.only(top: 16.0, bottom: 28.0),
+                                                child: Text('계속 이용하시겠습니까?'),
+                                              ),
+                                              ElevatedButton(
+                                                  style: ElevatedButton.styleFrom(
+                                                    backgroundColor: darkNavy,
+                                                    minimumSize: Size(double.infinity, 50)
+                                                  ),
+                                                  onPressed: (){
+                                                    Navigator.pop(context);
+                                                    Navigator.of(context).push(MaterialPageRoute(builder: (context)=>NoticeAI()));
+                                                  },
+                                                  child: Text('계속하기', style: TextStyle(color: Colors.white, fontSize: 16),)),
+                                              Padding(
+                                                padding: const EdgeInsets.only(top: 10.0),
+                                                child: InkWell(
+                                                  onTap: (){Navigator.pop(context);},
+                                                  child: Text('취소', style: TextStyle(fontWeight: FontWeight.w600),),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    );
+                                    // Navigator.push(context, MaterialPageRoute(
+                                    //     builder: (context)=>NoticeAI()));
                                   },
                                   style: ElevatedButton.styleFrom(
                                       backgroundColor: logoNavy,
@@ -65,6 +103,7 @@ class _NoticeRegistState extends State<NoticeRegist> {
                                   ),
                                   child: Text('알림장 자동완성', style: TextStyle(
                                       fontWeight: FontWeight.w300,
+                                      color: Colors.white,
                                       fontSize: 12
                                   ),)
                               ),
