@@ -30,7 +30,7 @@ public class MedicineRepositoryImpl implements MedicineRepositoryCustom {
                 .update(medicine)
                 .set(medicine.responseDate, Timestamp.valueOf(completeMedicineRequestDto.getResponseDate()))
                 .set(medicine.responseName, completeMedicineRequestDto.getResponseName())
-                .set(medicine.responseSign, completeMedicineRequestDto.getResponseSignUrl())
+//                .set(medicine.responseSign, completeMedicineRequestDto.getResponseSignUrl())
                 .where(medicine.medicineSeq.eq(completeMedicineRequestDto.getMedicineSeq()))
                 .execute();
     }

@@ -7,7 +7,6 @@ import com.wohaha.dodamdodam.dto.response.AttendanceFormResponseDto;
 import com.wohaha.dodamdodam.dto.response.AttendanceListResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.swing.text.html.Option;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -16,7 +15,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.querydsl.core.types.ExpressionUtils.anyOf;
-import static com.querydsl.sql.SQLExpressions.date;
 import static com.wohaha.dodamdodam.domain.QKid.kid;
 import static com.wohaha.dodamdodam.domain.QAttendance.attendance;
 public class AttendanceRepositoryImpl implements AttendanceRepositoryCustom {
@@ -42,7 +40,7 @@ public class AttendanceRepositoryImpl implements AttendanceRepositoryCustom {
     public Optional<AttendanceDetailResponseDto> getAttendanceDetail(Long attendanceSeq) {
         return Optional.ofNullable(query.select(Projections.constructor(AttendanceDetailResponseDto.class,
                 kid.name, kid.photo, attendance.createdAt, attendance.forthTime, attendance.backTime,
-                attendance.forthTimeCheck, attendance.backTimeCheck, attendance.parentName, attendance.phoneNumber, attendance.tempParentName, attendance.tempPhoneNumber))
+                attendance.forthTimeCheck, attendance.backTimeCheck, attendance.parentName, attendance.phoneNumber, attendance.tempParentName, attendance.tempPhoneNumber, attendance.backWay))
                 .from(attendance)
                 .join(kid).on(attendance.kidSeq.eq(kid.kidSeq))
                 .where(attendance.attendanceSeq.eq(attendanceSeq))

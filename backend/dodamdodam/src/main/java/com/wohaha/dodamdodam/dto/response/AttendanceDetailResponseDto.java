@@ -25,5 +25,6 @@ public class AttendanceDetailResponseDto {
     private String phoneNumber;
     private String tempParentName;
     private String tempPhoneNumber;
+    private String backWay;
 
 }
