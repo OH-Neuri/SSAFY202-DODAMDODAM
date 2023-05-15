@@ -1,3 +1,4 @@
+import 'package:app/components/chatting/chatting_room_list.dart';
 import 'package:app/components/chatting/chatting_user_list.dart';
 import 'package:app/components/common/title_appBar.dart';
 import 'package:app/constants.dart';
@@ -67,7 +68,7 @@ class ChattingMain extends StatelessWidget {
               ],
             ),
             cc.isChattingList ?
-                ChattingUserList() : // 채팅 '방' 리스트로 바꾸기
+                ChattingRoomList() : // 채팅 '방' 리스트로 바꾸기
                   ChattingUserList()
           ],
         )
