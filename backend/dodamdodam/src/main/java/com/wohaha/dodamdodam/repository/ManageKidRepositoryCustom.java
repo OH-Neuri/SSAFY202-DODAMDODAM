@@ -25,6 +25,9 @@ public interface ManageKidRepositoryCustom {
     //아이 삭제
     void deleteKid(long kidSeq);
 
+    //아이 seq로 부모 seq 조회
+    long findParentSeqByKidSeq(long kidSeq);
+
     Optional<KidInfoResponseDto> findKidInfoByKidSeq(Long kidSeq);
 
     List<KidInfoResponseDto> findKidListByUserSeq(Long userSeq);
