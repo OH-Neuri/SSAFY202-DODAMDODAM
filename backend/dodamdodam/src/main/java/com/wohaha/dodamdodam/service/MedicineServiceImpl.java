@@ -31,7 +31,7 @@ public class MedicineServiceImpl implements MedicineService{
     public boolean createMedicine(CreateMedicineRequestDto createMedicineRequestDto) {
 
         //1. request 사인 s3에 업로드하기.
-        String url = s3UploadService.upload(createMedicineRequestDto.getRequestSign(), "medicine");
+//        String url = s3UploadService.upload(createMedicineRequestDto.getRequestSign(), "medicine");
 
         //객체 생성
         Medicine medicine = Medicine.builder()
@@ -45,7 +45,6 @@ public class MedicineServiceImpl implements MedicineService{
                 .content(createMedicineRequestDto.getContent())
                 .requestName(createMedicineRequestDto.getRequestName())
                 .requestDate(new Timestamp(createMedicineRequestDto.getRequestDate().getTime()))
-                .requestSign(url)
                 .build();
 
         medicineRepository.save(medicine);

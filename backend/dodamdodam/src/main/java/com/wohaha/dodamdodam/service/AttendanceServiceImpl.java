@@ -5,14 +5,13 @@ import com.wohaha.dodamdodam.dto.request.AttendanceRequestDto;
 import com.wohaha.dodamdodam.dto.request.AttendanceTimeRequestDto;
 import com.wohaha.dodamdodam.dto.request.CreateAttendanceRequestDto;
 import com.wohaha.dodamdodam.dto.response.AttendanceDetailResponseDto;
-import com.wohaha.dodamdodam.dto.response.AttendanceFormResponseDto;
+import com.wohaha.dodamdodam.dto.response.AttendanceInfoResponseDto;
 import com.wohaha.dodamdodam.dto.response.AttendanceListResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.repository.AttendanceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,8 +52,8 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
-    public AttendanceFormResponseDto getAttendanceForm(AttendanceRequestDto kidAttendanceRequestDto) {
-        return attendanceRepository.getAttendanceForm(kidAttendanceRequestDto.getSeq(), kidAttendanceRequestDto.getDay())
+    public AttendanceInfoResponseDto getAttendanceInfo(AttendanceRequestDto kidAttendanceRequestDto) {
+        return attendanceRepository.getAttendanceInfo(kidAttendanceRequestDto.getSeq(), kidAttendanceRequestDto.getDay())
                 .orElseThrow(() ->  new BaseException(BaseResponseStatus.ATTENDANCE_FORM_NULL_FAIL));
     }
 

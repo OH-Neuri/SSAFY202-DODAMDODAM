@@ -3,7 +3,7 @@ package com.wohaha.dodamdodam.repository;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.wohaha.dodamdodam.dto.response.AttendanceDetailResponseDto;
-import com.wohaha.dodamdodam.dto.response.AttendanceFormResponseDto;
+import com.wohaha.dodamdodam.dto.response.AttendanceInfoResponseDto;
 import com.wohaha.dodamdodam.dto.response.AttendanceListResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -48,13 +48,13 @@ public class AttendanceRepositoryImpl implements AttendanceRepositoryCustom {
     }
 
     @Override
-    public Optional<AttendanceFormResponseDto> getAttendanceForm(Long kidSeq, LocalDate day) {
+    public Optional<AttendanceInfoResponseDto> getAttendanceInfo(Long kidSeq, LocalDate day) {
         Timestamp startOfDay = Timestamp.valueOf(day.atStartOfDay());
         Timestamp endOfDay = Timestamp.valueOf(day.atTime(LocalTime.MAX));
         return Optional.ofNullable(query
-                .select(Projections.constructor(AttendanceFormResponseDto.class,
-                        kid.name, kid.photo, attendance.forthTime, attendance.backTime, attendance.backWay,
-                        attendance.parentName, attendance.phoneNumber, attendance.tempParentName, attendance.tempPhoneNumber))
+                .select(Projections.constructor(AttendanceInfoResponseDto.class,
+                        kid.name, kid.photo, attendance.createdAt, attendance.forthTime, attendance.backTime, attendance.backWay,
+                        attendance.forthTimeCheck, attendance.backTimeCheck, attendance.parentName, attendance.phoneNumber, attendance.tempParentName, attendance.tempPhoneNumber))
                 .from(attendance)
                 .leftJoin(kid).on(kid.kidSeq.eq(attendance.kidSeq))
                 .where(kid.kidSeq.eq(kidSeq),
