@@ -49,15 +49,10 @@ public class Medicine {
     @Column(name = "request_name", nullable = false)
     private String requestName;
 
-    @Column(name = "request_sign", nullable = false)
-    private String requestSign;
 
     @Column(name = "response_date")
     private Timestamp responseDate;
 
     @Column(name = "response_name")
     private String responseName;
-
-    @Column(name = "response_sign")
-    private String responseSign;
 }
