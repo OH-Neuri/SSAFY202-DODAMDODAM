@@ -24,4 +24,8 @@ public class AttendanceInfoResponseDto {
     private String tempParentName;
     private String tempPhoneNumber;
 
+    public AttendanceInfoResponseDto(String name, String photo) {
+        this.name = name;
+        this.photo = photo;
+    }
 }
