@@ -83,7 +83,7 @@ public class ClassController {
 
     // 알림장 관리
     @PostMapping("/notice")
-    public BaseResponseDto<?> createNotice(@ModelAttribute CreateNoticeRequestDto createNoticeRequestDto){
+    public BaseResponseDto<List<NotifyResponseDto>> createNotice(@ModelAttribute CreateNoticeRequestDto createNoticeRequestDto){
         try{
             List<String> uploadUrl = null;
             //이미지 s3 업로드 후 링크 가져오기
@@ -96,7 +96,7 @@ public class ClassController {
             }
             //db 저장
             Long noticeSeq = noticeService.createNotice(createNoticeRequestDto);
-            boolean result = noticeService.createNoticeKidAndPhoto(noticeSeq,createNoticeRequestDto.getKid(),uploadUrl);
+            List<NotifyResponseDto> result = noticeService.createNoticeKidAndPhoto(noticeSeq,createNoticeRequestDto.getKid(),uploadUrl);
             return new BaseResponseDto(result);
         }catch (Exception e){
             if(e instanceof BaseException){

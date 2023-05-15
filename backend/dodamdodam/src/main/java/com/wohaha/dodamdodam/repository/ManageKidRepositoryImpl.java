@@ -100,6 +100,15 @@ public class ManageKidRepositoryImpl implements ManageKidRepositoryCustom {
     }
 
     @Override
+    public long findParentSeqByKidSeq(long kidSeq) {
+        return query
+                .select(kid.userSeq)
+                .from(kid)
+                .where(kid.kidSeq.eq(kidSeq))
+                .fetchOne();
+    }
+
+    @Override
     public Optional<KidInfoResponseDto> findKidInfoByKidSeq(Long kidSeq) {
         return Optional.ofNullable(
                 query
