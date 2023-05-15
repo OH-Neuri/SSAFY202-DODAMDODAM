@@ -170,6 +170,7 @@ class DeviceInfoController extends GetxController {
     setKidSeq(kid.kidSeq);
     setKidName(kid.kidName);
     setKidPhoto(kid.kidPhoto);
+    print('세팅이 되었다...');
   }
 
 }
