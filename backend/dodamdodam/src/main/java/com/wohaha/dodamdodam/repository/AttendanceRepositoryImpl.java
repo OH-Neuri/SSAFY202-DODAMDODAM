@@ -53,7 +53,7 @@ public class AttendanceRepositoryImpl implements AttendanceRepositoryCustom {
         Timestamp endOfDay = Timestamp.valueOf(day.atTime(LocalTime.MAX));
         return Optional.ofNullable(query
                 .select(Projections.constructor(AttendanceInfoResponseDto.class,
-                        kid.name, kid.photo, attendance.createdAt, attendance.forthTime, attendance.backTime, attendance.backWay,
+                        kid.name, kid.photo, attendance.createdAt, attendance.attendanceSeq, attendance.forthTime, attendance.backTime, attendance.backWay,
                         attendance.forthTimeCheck, attendance.backTimeCheck, attendance.parentName, attendance.phoneNumber, attendance.tempParentName, attendance.tempPhoneNumber))
                 .from(attendance)
                 .leftJoin(kid).on(kid.kidSeq.eq(attendance.kidSeq))

@@ -14,6 +14,7 @@ public class AttendanceInfoResponseDto {
     private String photo;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date date;
+    private Long attendanceSeq;
     private Time forthTime;
     private Time backTime;
     private String backWay;
