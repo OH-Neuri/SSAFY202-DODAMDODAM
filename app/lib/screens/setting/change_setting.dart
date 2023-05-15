@@ -44,7 +44,7 @@ class ChangeSetting extends StatelessWidget {
                       InkWell(
                         onTap: (){
                           dc.classSetting(ac);
-                          Get.offAll(Root());
+                          Get.offAll(()=>Root());
                         },
                         child: Container(
                           margin: EdgeInsets.only(top: 10),

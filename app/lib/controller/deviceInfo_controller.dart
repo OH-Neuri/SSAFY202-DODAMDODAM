@@ -143,7 +143,6 @@ class DeviceInfoController extends GetxController {
     setToken(user.loginResponseDto.token);
     setName(user.loginResponseDto.name);
     setPhone(user.loginResponseDto.phone);
-    print(phone);
   }
 
   void loginSettingForParent(LoginParent user) {
@@ -170,7 +169,6 @@ class DeviceInfoController extends GetxController {
     setKidSeq(kid.kidSeq);
     setKidName(kid.kidName);
     setKidPhoto(kid.kidPhoto);
-    print('세팅이 되었다...');
   }
 
 }

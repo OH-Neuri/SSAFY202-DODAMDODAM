@@ -3,8 +3,11 @@ import 'package:app/components/common/CustomSnackBar.dart';
 import 'package:app/components/common/custom_button.dart';
 import 'package:app/components/user/user_textform_field.dart';
 import 'package:app/constants.dart';
+import 'package:app/controller/food_controller.dart';
+import 'package:app/controller/root_controller.dart';
+import 'package:app/controller/setting_controller.dart';
+import 'package:app/controller/today_controller.dart';
 import 'package:app/root.dart';
-import 'package:app/screens/main/main_page.dart';
 import 'package:app/screens/user/Signup_welcome.dart';
 import 'package:app/screens/user/signup_select.dart';
 import 'package:flutter/material.dart';
@@ -99,6 +102,14 @@ class _LoginTeacherState extends State<LoginTeacher> {
     final res = await UserService.userLogin(id, pw, 2);
     if(res.result) {
       if(res.code) {
+        Get.delete<RootController>();
+        Get.put(RootController());
+        Get.delete<SettingController>();
+        Get.put(SettingController());
+        Get.delete<TodayController>();
+        Get.put(TodayController());
+        Get.delete<FoodController>();
+        Get.put(FoodController());
         Get.to(Root());
       }else {
         Get.to(SignupWelcome());

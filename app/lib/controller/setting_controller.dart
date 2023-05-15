@@ -30,4 +30,14 @@ class SettingController extends GetxController {
     kidList = await SettingService.getKidList();
     update();
   }
+
+  void setClassListClear() {
+    classList = [];
+    update();
+  }
+
+  void setKidListClear() {
+    kidList = [];
+    update();
+  }
 }

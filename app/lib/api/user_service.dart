@@ -35,7 +35,6 @@ class UserService {
             if(loginParent.classSeq == 0){
               c.loginSetting(loginParent.loginResponseDto);
             }else{
-              print(loginParent.classSeq);
               c.loginSettingForParent(loginParent);
               result.code = true;
             }

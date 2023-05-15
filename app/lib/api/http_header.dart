@@ -2,7 +2,6 @@ import 'package:app/controller/deviceInfo_controller.dart';
 import 'package:get/get.dart';
 
 DeviceInfoController c = Get.put(DeviceInfoController());
-String token = c.token;
 
 Map<String, String> postHeaders = {
   "Content-Type" : "application/json",
@@ -10,9 +9,9 @@ Map<String, String> postHeaders = {
 
 Map<String, String> authPostHeaders = {
   "Content-Type" : "application/json",
-  "Authorization" : "Bearer $token",
+  "Authorization" : "Bearer ${c.token}",
 };
 
 Map<String, String> authGetHeaders = {
-  "Authorization" : "Bearer $token",
+  "Authorization" : "Bearer ${c.token}",
 };
