@@ -1,6 +1,7 @@
 package com.wohaha.dodamdodam.repository;
 
 import com.wohaha.dodamdodam.dto.request.UpdateKidRequestDto;
+import com.wohaha.dodamdodam.dto.response.AttendanceInfoResponseDto;
 import com.wohaha.dodamdodam.dto.response.KidInfoResponseDto;
 import com.wohaha.dodamdodam.dto.response.KidParentResponseDto;
 import com.wohaha.dodamdodam.dto.response.KidResponseDto;
@@ -29,4 +30,6 @@ public interface ManageKidRepositoryCustom {
     List<KidInfoResponseDto> findKidListByUserSeq(Long userSeq);
 
     List<KidParentResponseDto> getKidParentList(Long classSeq);
+
+    AttendanceInfoResponseDto getKidInfo(Long kidSeq);
 }
