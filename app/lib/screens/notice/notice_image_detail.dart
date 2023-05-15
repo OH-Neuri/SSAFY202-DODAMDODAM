@@ -2,6 +2,7 @@ import 'package:app/components/common/logout_app_bar.dart';
 import 'package:app/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:gallery_saver/gallery_saver.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class NoticeImageDetail extends StatefulWidget {
   const NoticeImageDetail({Key? key, required this.images, required this.index}) : super(key: key);
@@ -13,11 +14,15 @@ class NoticeImageDetail extends StatefulWidget {
 }
 
 class _NoticeImageDetailState extends State<NoticeImageDetail> {
+  final CarouselController _controller = CarouselController();
   int idx = -1;
+  List<Widget> imageWidgets = [];
   @override
   void initState() {
     super.initState();
     idx = widget.index;
+    imageWidgets = widget.images.map((img) => Image.network(img, height: 200, fit: BoxFit.contain,)).toList();
+    _controller.animateToPage(widget.index);
   }
   @override
   Widget build(BuildContext context) {
@@ -59,7 +64,20 @@ class _NoticeImageDetailState extends State<NoticeImageDetail> {
                     // margin: EdgeInsets.fromLTRB(0, 0, 0, 2),
                     width: double.infinity,
                     height: 380,
-                    child: Image.network(widget.images[idx], height: 200, fit: BoxFit.contain,)
+                    child: CarouselSlider(
+                        items: imageWidgets,
+                        options: CarouselOptions(
+                          enlargeCenterPage: true,
+                          height: 200,
+                          enableInfiniteScroll: false,
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              idx = index;
+                            });
+                          },
+                        ),
+                        carouselController: _controller,
+                        )
                   ),
                   SizedBox(
                     width: double.infinity,
@@ -77,6 +95,7 @@ class _NoticeImageDetailState extends State<NoticeImageDetail> {
                             child: InkWell(
                                 onTap: () {setState(() {
                                   idx = i;
+                                  _controller.animateToPage(i);
                                 });},
                                 child: Image.network(widget.images[i], fit: BoxFit.cover,)
                             ),
