@@ -245,24 +245,24 @@ public class ClassController {
             }
         }
     }
-    @PostMapping("/attendance/form")
-    public BaseResponseDto<AttendanceFormResponseDto> getKidAttendanceForm(@RequestBody AttendanceRequestDto kidAttendanceRequestDto) {
-        try {
-            return new BaseResponseDto<>(attendanceService.getAttendanceForm(kidAttendanceRequestDto));
-        }catch (Exception e) {
-            e.printStackTrace();
-            if (e instanceof BaseException) {
-                throw e;
-            } else {
-                throw new BaseException(BaseResponseStatus.FAIL);
-            }
-        }
-    }
+//    @PostMapping("/attendance/form")
+//    public BaseResponseDto<AttendanceInfoResponseDto> getKidAttendanceForm(@RequestBody AttendanceRequestDto kidAttendanceRequestDto) {
+//        try {
+//            return new BaseResponseDto<>(attendanceService.getAttendanceInfo(kidAttendanceRequestDto));
+//        }catch (Exception e) {
+//            e.printStackTrace();
+//            if (e instanceof BaseException) {
+//                throw e;
+//            } else {
+//                throw new BaseException(BaseResponseStatus.FAIL);
+//            }
+//        }
+//    }
 
-    @GetMapping("/attendance/{attendanceSeq}")
-    public BaseResponseDto<AttendanceDetailResponseDto> getKidAttendanceDetail(@PathVariable Long attendanceSeq) {
+    @PostMapping("/attendance/info")
+    public BaseResponseDto<AttendanceInfoResponseDto> getKidAttendanceDetail(@RequestBody AttendanceRequestDto kidAttendanceRequestDto) {
         try {
-            return new BaseResponseDto<>(attendanceService.getAttendanceDetail(attendanceSeq));
+            return new BaseResponseDto<>(attendanceService.getAttendanceInfo(kidAttendanceRequestDto));
         }catch (Exception e) {
             e.printStackTrace();
             if (e instanceof BaseException) {

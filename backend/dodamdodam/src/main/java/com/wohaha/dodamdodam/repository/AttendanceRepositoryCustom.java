@@ -1,7 +1,7 @@
 package com.wohaha.dodamdodam.repository;
 
 import com.wohaha.dodamdodam.dto.response.AttendanceDetailResponseDto;
-import com.wohaha.dodamdodam.dto.response.AttendanceFormResponseDto;
+import com.wohaha.dodamdodam.dto.response.AttendanceInfoResponseDto;
 import com.wohaha.dodamdodam.dto.response.AttendanceListResponseDto;
 
 import java.sql.Time;
@@ -14,7 +14,7 @@ public interface AttendanceRepositoryCustom {
 
     Optional<AttendanceDetailResponseDto> getAttendanceDetail(Long attendanceSeq);
 
-    Optional<AttendanceFormResponseDto> getAttendanceForm(Long kidSeq, LocalDate day);
+    Optional<AttendanceInfoResponseDto> getAttendanceInfo(Long kidSeq, LocalDate day);
 
     Long updateAttendanceForm(Long attendanceSeq, Time forthTimeCheck, Time backTimeCheck);
 }

@@ -23,7 +23,7 @@ public class MedicineController {
     //투약의뢰서 작성
     @PostMapping("/kid/{kidSeq}")
     public BaseResponseDto<Boolean> createMedicine(@PathVariable Long kidSeq,
-                                                   @ModelAttribute CreateMedicineRequestDto createMedicineRequestDto) {
+                                                   @RequestBody CreateMedicineRequestDto createMedicineRequestDto) {
         try {
             createMedicineRequestDto.setKidSeq(kidSeq);
             boolean result = medicineService.createMedicine(createMedicineRequestDto);
