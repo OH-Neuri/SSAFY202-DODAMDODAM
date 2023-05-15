@@ -32,7 +32,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepositoryCustom {
         return query
                 .select(
                         Projections.constructor(ScheduleResponseDto.class,
-                                schedule.scheduleSeq, schedule.content, scheduleType.name))
+                                schedule.scheduleSeq, scheduleType.name, schedule.content))
                 .from(schedule)
                 .join(schedule.scheduleType, scheduleType)
                 .where(schedule.kindergartenSeq.eq(kindergartenSeq)
