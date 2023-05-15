@@ -12,9 +12,11 @@ import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.repository.ClassTeacherRepository;
 import com.wohaha.dodamdodam.repository.ManageKidRepository;
 import com.wohaha.dodamdodam.repository.UserRepository;
+import com.wohaha.dodamdodam.security.CustomAuthenticatedUser;
 import com.wohaha.dodamdodam.util.EncodeUtils;
 import com.wohaha.dodamdodam.util.JwtTokenUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -157,8 +159,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<KidInfoResponseDto> getParentKidList() {
-        Long userSeq = 18L;
-//                ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
+        Long userSeq = ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
         return kidRepository.findKidListByUserSeq(userSeq);
     }
 
