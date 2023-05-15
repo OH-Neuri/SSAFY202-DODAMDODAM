@@ -4,6 +4,7 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.wohaha.dodamdodam.dto.request.UpdateKidRequestDto;
+import com.wohaha.dodamdodam.dto.response.AttendanceInfoResponseDto;
 import com.wohaha.dodamdodam.dto.response.KidInfoResponseDto;
 import com.wohaha.dodamdodam.dto.response.KidParentResponseDto;
 import com.wohaha.dodamdodam.dto.response.KidResponseDto;
@@ -126,6 +127,15 @@ public class ManageKidRepositoryImpl implements ManageKidRepositoryCustom {
                 .from(kid).join(user).on(kid.userSeq.eq(user.userSeq))
                 .where(kid.classSeq.eq(classSeq))
                 .fetch();
+    }
+
+    @Override
+    public AttendanceInfoResponseDto getKidInfo(Long kidSeq) {
+        return query.select(Projections.constructor(AttendanceInfoResponseDto.class,
+                kid.name, kid.photo))
+                .from(kid)
+                .where(kid.kidSeq.eq(kidSeq))
+                .fetchOne();
     }
 
 

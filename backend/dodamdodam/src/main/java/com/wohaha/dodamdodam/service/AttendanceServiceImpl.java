@@ -10,6 +10,7 @@ import com.wohaha.dodamdodam.dto.response.AttendanceListResponseDto;
 import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.repository.AttendanceRepository;
+import com.wohaha.dodamdodam.repository.ManageKidRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,8 +22,8 @@ import java.util.List;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class AttendanceServiceImpl implements AttendanceService {
-    @Autowired
     private final AttendanceRepository attendanceRepository;
+    private final ManageKidRepository kidRepository;
 
     @Override
     public boolean createAttendance(CreateAttendanceRequestDto createAttendanceRequestDto) {
@@ -54,7 +55,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     @Override
     public AttendanceInfoResponseDto getAttendanceInfo(AttendanceRequestDto kidAttendanceRequestDto) {
         return attendanceRepository.getAttendanceInfo(kidAttendanceRequestDto.getSeq(), kidAttendanceRequestDto.getDay())
-                .orElseThrow(() ->  new BaseException(BaseResponseStatus.ATTENDANCE_FORM_NULL_FAIL));
+                .orElseGet(() ->  kidRepository.getKidInfo(kidAttendanceRequestDto.getSeq()));
     }
 
     @Override
