@@ -113,7 +113,7 @@ public class ManageKidRepositoryImpl implements ManageKidRepositoryCustom {
     @Override
     public List<KidInfoResponseDto> findKidListByUserSeq(Long userSeq) {
         return query.select(Projections.constructor(KidInfoResponseDto.class,
-                        kid.kidSeq, kid.name, kid.classSeq, classInfo.name))
+                        kid.kidSeq, kid.name, kid.photo, kid.classSeq, classInfo.name))
                 .from(kid).join(classInfo).on(kid.classSeq.eq(classInfo.classSeq))
                 .where(kid.userSeq.eq(userSeq))
                 .fetch();

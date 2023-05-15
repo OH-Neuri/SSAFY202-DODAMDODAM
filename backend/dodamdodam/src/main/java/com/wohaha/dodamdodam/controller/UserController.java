@@ -108,6 +108,7 @@ public class UserController {
             List<KidInfoResponseDto> result = userService.getParentKidList();
             return new BaseResponseDto<>(result);
         } catch (Exception e) {
+            e.printStackTrace();
             if (e instanceof BaseException) {
                 throw e;
             } else {
