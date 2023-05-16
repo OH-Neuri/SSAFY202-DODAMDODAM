@@ -29,7 +29,6 @@ public class MedicineController {
             boolean result = medicineService.createMedicine(createMedicineRequestDto);
             return new BaseResponseDto<>(result);
         } catch (Exception e) {
-            e.printStackTrace();
             if (e instanceof BaseException) {
                 throw e;
             } else {
@@ -45,7 +44,6 @@ public class MedicineController {
         try {
             return new BaseResponseDto<>(medicineService.getMedicine(medicineSeq));
         } catch (Exception e) {
-            e.printStackTrace();
             if (e instanceof BaseException) {
                 throw e;
             } else {
@@ -61,7 +59,6 @@ public class MedicineController {
         try {
             return new BaseResponseDto<>(medicineService.getMedicineByClass(classSeq, medicineRequestDto));
         } catch (Exception e) {
-            e.printStackTrace();
             if (e instanceof BaseException) {
                 throw e;
             } else {
@@ -77,7 +74,6 @@ public class MedicineController {
         try {
             return new BaseResponseDto<>(medicineService.getMedicineByKid(kidSeq, medicineRequestDto));
         } catch (Exception e) {
-            e.printStackTrace();
             if (e instanceof BaseException) {
                 throw e;
             } else {
@@ -95,7 +91,6 @@ public class MedicineController {
             boolean result = medicineService.completeMedicine(completeMedicineRequestDto);
             return new BaseResponseDto<>(result);
         } catch (Exception e) {
-            e.printStackTrace();
             if (e instanceof BaseException) {
                 throw e;
             } else {
