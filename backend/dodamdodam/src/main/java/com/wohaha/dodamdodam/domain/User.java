@@ -44,11 +44,11 @@ public class User {
     @Column(name = "sleep_mode_end")
     private LocalTime sleepModeEnd;
 
-    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "created_at")
     private Timestamp createdAt;
 
-    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "updated_at")
     private Timestamp updatedAt;
 

@@ -1,24 +1,17 @@
-package com.wohaha.dodamdodam.dto.response;
+package com.wohaha.dodamdodam.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalTime;
 
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TeacherInfoResponseDto {
-
-    private Long teacherSeq;
-
-    private String teacherName;
-
+public class SleepModeRequestDto {
     @JsonFormat(pattern = "HH:mm:ss")
     @DateTimeFormat(pattern = "HH:mm:ss")
     private LocalTime sleepModeStart;

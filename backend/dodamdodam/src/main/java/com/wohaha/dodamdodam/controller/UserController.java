@@ -5,6 +5,7 @@ import com.wohaha.dodamdodam.domain.User;
 import com.wohaha.dodamdodam.dto.BaseResponseDto;
 import com.wohaha.dodamdodam.dto.request.LoginUserRequestDto;
 import com.wohaha.dodamdodam.dto.request.RegisterUserRequestDto;
+import com.wohaha.dodamdodam.dto.request.SleepModeRequestDto;
 import com.wohaha.dodamdodam.dto.request.UpdateUserRequestDto;
 import com.wohaha.dodamdodam.dto.response.ClassInfoResponseDto;
 import com.wohaha.dodamdodam.dto.response.KidInfoResponseDto;
@@ -125,6 +126,32 @@ public class UserController {
                 throw new BaseException(UNAUTHORIZED_USER);
             }
             return new BaseResponseDto<>(userService.updateUser(updateUserRequestDto, userSeq));
+        } catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw e;
+            } else {
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
+    @GetMapping("/userSleepMode")
+    public BaseResponseDto<SleepModeRequestDto> getSleepMode() {
+        try {
+            return new BaseResponseDto<>(userService.getSleepMode());
+        } catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw e;
+            } else {
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
+    @PutMapping("/userSleepMode")
+    public BaseResponseDto<Boolean> updateSleepMode(@RequestBody SleepModeRequestDto sleepModeRequestDto) {
+        try {
+            return new BaseResponseDto<>(userService.updateSleepMode(sleepModeRequestDto));
         } catch (Exception e) {
             if (e instanceof BaseException) {
                 throw e;

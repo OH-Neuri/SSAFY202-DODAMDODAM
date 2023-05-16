@@ -5,6 +5,7 @@ import com.wohaha.dodamdodam.domain.User;
 import com.wohaha.dodamdodam.dto.BaseResponseDto;
 import com.wohaha.dodamdodam.dto.request.LoginUserRequestDto;
 import com.wohaha.dodamdodam.dto.request.RegisterUserRequestDto;
+import com.wohaha.dodamdodam.dto.request.SleepModeRequestDto;
 import com.wohaha.dodamdodam.dto.request.UpdateUserRequestDto;
 import com.wohaha.dodamdodam.dto.response.*;
 import com.wohaha.dodamdodam.exception.BaseException;
@@ -161,6 +162,19 @@ public class UserServiceImpl implements UserService {
         Long userSeq = ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
         return kidRepository.findKidListByUserSeq(userSeq);
     }
+
+    @Override
+    public SleepModeRequestDto getSleepMode() {
+        Long userSeq = ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
+        return userRepository.findSleepMode(userSeq).orElseThrow(() -> new BaseException(UNREGISTERED_SLEEPMODE_TIME));
+    }
+
+    @Override
+    public Boolean updateSleepMode(SleepModeRequestDto sleepModeRequestDto) {
+        Long userSeq = ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
+        return userRepository.updateSleepMode(sleepModeRequestDto, userSeq) > 0;
+    }
+
 
 
 }

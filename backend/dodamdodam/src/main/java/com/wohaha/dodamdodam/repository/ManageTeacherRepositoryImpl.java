@@ -34,7 +34,7 @@ public class ManageTeacherRepositoryImpl implements ManageTeacherRepositoryCusto
     @Override
     public List<TeacherInfoResponseDto> getTeacherList(Long kidSeq) {
         return query.select(Projections.constructor(TeacherInfoResponseDto.class,
-                classTeacher.userSeq, user.name))
+                classTeacher.userSeq, user.name, user.sleepModeStart, user.sleepModeEnd))
                 .from(classTeacher)
                 .join(user).on(classTeacher.userSeq.eq(user.userSeq))
                 .join(kid).on(classTeacher.classSeq.eq(kid.classSeq))
