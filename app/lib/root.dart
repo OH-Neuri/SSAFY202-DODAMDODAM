@@ -1,3 +1,4 @@
+import 'package:app/components/common/logout_app_bar.dart';
 import 'package:app/constants.dart';
 import 'package:app/controller/root_controller.dart';
 import 'package:app/screens/chatting/chatting_main.dart';
@@ -47,75 +48,39 @@ class Root extends GetView<RootController> {
             ),
           ],
         ),
-        bottomNavigationBar: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                color: Colors.grey,
-                blurRadius: 10,
-              ),
-            ],
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-            child: BottomNavigationBar(
-              currentIndex: controller.rootPageIndex.value,
-              showSelectedLabels: false,
-              showUnselectedLabels: false,
-              elevation: 20,
-              type: BottomNavigationBarType.fixed,
-              fixedColor: textColor,
-              onTap: (index) => controller.navigateToRootPage(index),
-              items: [
-                // 메인
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.home, color: Colors.grey[500]),
-                  activeIcon: ActiveIconCustom(icon: Icon(Icons.home, color: Colors.grey[800]),),
-                  label: "메인",
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.calendar_month, color: Colors.grey[500]),
-                  activeIcon: ActiveIconCustom(icon: Icon(Icons.calendar_month, color: Colors.grey[800]),),
-                  label: "캘린더",
-                ),
-                // 채팅
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.chat, color: Colors.grey[500]),
-                  activeIcon: ActiveIconCustom(icon: Icon(Icons.chat, color: Colors.grey[800]),),
-                  label: "채팅",
-                ),
-                // 환경 설정
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.settings, color: Colors.grey[500]),
-                  activeIcon: ActiveIconCustom(icon: Icon(Icons.settings, color: Colors.grey[800]),),
-                  label: "환경설정",
-                ),
-              ],
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: controller.rootPageIndex.value,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          onTap: (index) => controller.navigateToRootPage(index),
+          items: [
+            // 메인
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home, color: Colors.grey),
+              activeIcon: Icon(Icons.home, color: logoNavy),
+              label: "메인",
             ),
-          ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.calendar_month, color: Colors.grey),
+              activeIcon: Icon(Icons.calendar_month, color: logoNavy),
+              label: "캘린더",
+            ),
+            // 채팅
+            BottomNavigationBarItem(
+              icon: Icon(Icons.chat, color: Colors.grey),
+              activeIcon: Icon(Icons.chat, color: logoNavy),
+              label: "채팅",
+            ),
+            // 환경 설정
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings, color: Colors.grey),
+              activeIcon: Icon(Icons.settings, color: logoNavy),
+              label: "환경설정",
+            ),
+          ],
         ),
       ),
       ),
-    );
-  }
-}
-
-class ActiveIconCustom extends StatelessWidget {
-  final Icon icon;
-
-  const ActiveIconCustom({super.key, required this.icon});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border(bottom: BorderSide(color: textColor, width: 3))
-      ),
-        child: Padding(
-          padding: const EdgeInsets.only(top: 3, bottom: 3),
-          child: icon,
-        )
     );
   }
 }

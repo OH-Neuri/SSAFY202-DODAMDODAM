@@ -34,14 +34,12 @@ class LoginUser {
   String id;
   String name;
   int role;
-  String phone;
   String token;
 
   LoginUser({
     required this.id,
     required this.name,
     required this.role,
-    required this.phone,
     required this.token,
   });
 
@@ -49,7 +47,6 @@ class LoginUser {
     id: json["id"],
     name: json["name"],
     role: json["role"],
-    phone: json["phone"],
     token: json["token"],
   );
 
@@ -57,7 +54,6 @@ class LoginUser {
     "id": id,
     "name": name,
     "role": role,
-    "phone": phone,
     "token": token,
   };
 }

@@ -3,7 +3,6 @@ import 'package:app/components/common/title_appBar.dart';
 import 'package:app/components/today/today_food.dart';
 import 'package:app/components/today/today_info.dart';
 import 'package:app/constants.dart';
-import 'package:app/controller/deviceInfo_controller.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatelessWidget {
@@ -35,30 +34,13 @@ class MainPage extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 8),
                             child: SizedBox(
                               width: 50, height: 50,
-                              child: DeviceInfoController.to.isTeacher?
-                                  CircleAvatar(
-                                    backgroundImage: AssetImage('assets/images/common/flower_icon.png')
-                                  ) :
-                                  CircleAvatar(
-                                    backgroundImage: NetworkImage(DeviceInfoController.to.kidPhoto)
-                                  ),
-                            )
+                              child: CircleAvatar(
+                                  backgroundImage: AssetImage('assets/images/sleepingCat.png')
+                              ),
+                            ),
                           ),
-                          DeviceInfoController.to.isTeacher ?
-                          // 선생일 때
-                            Row(
-                              children: [
-                                Text('${DeviceInfoController.to.className} 선생님, ', style: TextStyle(fontWeight: FontWeight.w700, fontSize: subTitleTextSize)),
-                                Text('안녕하세요!', style: TextStyle(fontSize: subTitleTextSize))
-                              ],
-                            )
-                            :
-                              Row(
-                                children: [
-                                  Text('${DeviceInfoController.to.kidName} 학부모님, ', style: TextStyle(fontWeight: FontWeight.w700, fontSize: subTitleTextSize)),
-                                  Text('안녕하세요!', style: TextStyle(fontSize: subTitleTextSize))
-                                ],
-                              )
+                          Text('융융이맘님, ', style: TextStyle(fontWeight: FontWeight.w700, fontSize: subTitleTextSize)),
+                          Text('안녕하세요!', style: TextStyle(fontSize: subTitleTextSize))
                         ],
                       ),
                     ),

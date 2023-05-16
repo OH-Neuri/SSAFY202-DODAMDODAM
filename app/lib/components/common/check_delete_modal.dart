@@ -30,7 +30,6 @@ void checkDelete(BuildContext context, Function onPressed) {
                   ),
                   SizedBox(
                       width: double.infinity,
-                      height: 50,
                       child: ElevatedButton(
                         onPressed: (){
                           Navigator.pop(context);

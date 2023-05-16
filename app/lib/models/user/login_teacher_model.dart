@@ -33,8 +33,8 @@ class LoginTeacherModel {
 }
 
 class LoginTeacher {
-  int classSeq;
-  String className;
+  int? classSeq;
+  String? className;
   LoginUser loginResponseDto;
 
   LoginTeacher({
