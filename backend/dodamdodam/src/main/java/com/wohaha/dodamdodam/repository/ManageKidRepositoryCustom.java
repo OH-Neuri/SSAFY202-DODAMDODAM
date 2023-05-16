@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface ManageKidRepositoryCustom {
     //아이리스트 조회
-    List<KidResponseDto> kidList();
+    List<KidResponseDto> kidList(Long kindergartenSeq);
 
     //아이 1명 조회
     KidResponseDto kidInfo(long kidSeq);

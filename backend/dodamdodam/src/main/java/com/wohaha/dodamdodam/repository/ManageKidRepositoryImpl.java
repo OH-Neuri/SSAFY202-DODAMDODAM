@@ -23,7 +23,7 @@ public class ManageKidRepositoryImpl implements ManageKidRepositoryCustom {
     private JPAQueryFactory query;
 
     @Override
-    public List<KidResponseDto> kidList() {
+    public List<KidResponseDto> kidList(Long kindergartenSeq) {
 
         return query
                 .select(Projections.fields(KidResponseDto.class,
@@ -37,10 +37,9 @@ public class ManageKidRepositoryImpl implements ManageKidRepositoryCustom {
                                 .as("parentSeq"),
                         classInfo.name.as("className")))
                 .from(kid)
-                .join(classInfo)
-                .on(kid.classSeq.eq(classInfo.classSeq))
+                .leftJoin(classInfo).on(kid.classSeq.eq(classInfo.classSeq))
+                .where(classInfo.kindergartenSeq.eq(kindergartenSeq))
                 .fetch();
-
     }
 
     @Override
