@@ -1,5 +1,7 @@
 import 'package:app/components/medicine/medicine_parent_card.dart';
 import 'package:app/constants.dart';
+import 'package:app/controller/deviceInfo_controller.dart';
+import 'package:app/controller/medicine_controller.dart';
 import 'package:app/screens/medicine/medicine_parent_regist_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,8 +19,12 @@ class _MedicineParentPageState extends State<MedicineParentPage> {
   
   @override
   Widget build(BuildContext context) {
+    DeviceInfoController dc = Get.put(DeviceInfoController());
+    MedicineController ac = Get.put(MedicineController());
     const title = 'Grid List';
-    return Scaffold(
+    return GetBuilder<MedicineController>(builder:
+    (_)=>
+      Scaffold(
         appBar: AppBar(automaticallyImplyLeading: true, title: const Text(title),),
       body: Stack(
           children: [
@@ -41,7 +47,7 @@ class _MedicineParentPageState extends State<MedicineParentPage> {
                                   child: Padding(
                                       padding: EdgeInsets.symmetric(vertical: 20),
                                       child: Text("투약 의뢰서", style: TextStyle(
-                                        fontSize: 25,
+                                        fontSize: 20,
                                         fontWeight: FontWeight.w700,
                                       ),)
                                   ),
@@ -103,6 +109,7 @@ class _MedicineParentPageState extends State<MedicineParentPage> {
             )
           ]
       ),
+      )
     );
   }
 }

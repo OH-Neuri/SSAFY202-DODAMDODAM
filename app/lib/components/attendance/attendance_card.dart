@@ -1,10 +1,15 @@
+import 'package:app/models/attendance/attendance_list_model.dart';
+import 'package:app/screens/attendance/attendance_list.dart';
 import 'package:flutter/material.dart';
 import 'package:app/constants.dart';
 
 class AttendanceCard extends StatelessWidget {
-  final name = "";
+
+
+  final AttendanceListItem kid;
   const AttendanceCard({
     super.key,
+    required this.kid
   });
 
   @override
@@ -14,42 +19,51 @@ class AttendanceCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.0),
       ),
       elevation: 4.0, //그림자 깊이
-      color: cardYellow,
+      color: kid.forthTimeCheck!=null&& kid.backTimeCheck!=null? cardYellow: cardGray,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
+        padding: const EdgeInsets.fromLTRB(12, 15, 12, 0),
         child: Column(
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Icon(Icons.circle,size: 70, color:Colors.white),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("이연희", style: TextStyle(fontSize: 20),),
-                      Text("꽃님반"),
-                    ],
-                  )
+                  SizedBox(
+                    width: 40, height: 40,
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      backgroundImage: NetworkImage(kid.photo),
+                    ),
+                  ),
+                 Container(
+                      width: 50, height: 40,
+                   child: Column(
+                     crossAxisAlignment: CrossAxisAlignment.center,
+                     mainAxisAlignment: MainAxisAlignment.center,
+                     children: [
+                       Text(kid.name, style: TextStyle(fontSize: 13)),
+                     ],
+                   ),
+                 )
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.all(5.0),
+                padding: const EdgeInsets.fromLTRB(3, 10, 3, 0),
                 child: Column(
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("등원 시간 :"),
-                        Text("08:30"),
+                        Text("등원 시간 :", style: TextStyle(fontSize: 11),),
+                        Text(kid.forthTimeCheck??"",style: TextStyle(fontSize: 11)),
                       ],
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 1),
+                      padding: const EdgeInsets.symmetric(vertical: 3),
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children:[
-                            Text("하원 시간:"),
-                            Text("18:00"),
+                            Text("하원 시간:",style: TextStyle(fontSize: 11)),
+                            Text(kid.backTimeCheck??"", style: TextStyle(fontSize: 11)),
                           ]
                       ),
                     ),
@@ -57,23 +71,23 @@ class AttendanceCard extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
+                padding: const EdgeInsets.symmetric(vertical: 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Container(
-                        width: 63,
-                        height: 26,
+                        width: 53,
+                        height: 20,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
-                          color: cardBtnYellow,
+                          color: kid.forthTimeCheck!=null&& kid.backTimeCheck!=null? cardBtnYellow:cardBtnGray,
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("미확인", style: TextStyle(
+                            Text(kid.forthTimeCheck!=null&& kid.backTimeCheck!=null?"확인완료":"미확인", style: TextStyle(
                               color: Colors.white,
-                              fontSize: 13,
+                              fontSize: 11,
                               fontWeight: FontWeight.w600,
                             ),
                             )

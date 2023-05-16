@@ -1,9 +1,13 @@
 import 'package:app/components/common/text_form_field_custom.dart';
 import 'package:app/components/medicine/medicine_sign_button.dart';
 import 'package:app/components/medicine/medicine_text_form.dart';
+import 'package:app/controller/deviceInfo_controller.dart';
+import 'package:app/controller/medicine_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:app/constants.dart';
-import 'package:text_divider/text_divider.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/get.dart';
+
 class MedicineParentRegistPage extends StatefulWidget {
 
   const MedicineParentRegistPage({Key? key}) : super(key: key);
@@ -13,7 +17,11 @@ class MedicineParentRegistPage extends StatefulWidget {
 class _MedicineParentRegistPageState extends State<MedicineParentRegistPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    DeviceInfoController dc = Get.put(DeviceInfoController());
+    MedicineController ac = Get.put(MedicineController());
+    return GetBuilder<MedicineController>(builder:
+    (_)=>
+      Scaffold(
       appBar: AppBar(),
       body: Row(
         children: [
@@ -215,6 +223,7 @@ class _MedicineParentRegistPageState extends State<MedicineParentRegistPage> {
           Expanded(child: SizedBox())
         ],
       ),
+      )
     );
   }
 }

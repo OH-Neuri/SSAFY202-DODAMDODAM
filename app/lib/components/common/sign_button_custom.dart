@@ -1,31 +1,37 @@
 
+import 'package:app/api/attendance_service.dart';
 import 'package:app/components/common/paint_page.dart';
 import 'package:app/constants.dart';
 import 'package:flutter/material.dart';
 
-class MedicineSignButton extends StatelessWidget {
-  const MedicineSignButton({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SignButtonCustom();
-  }
-}
-
 class SignButtonCustom extends StatelessWidget {
+  final String forthTime;
+  final String backTime;
+  final String backWay;
+  final String parentName;
+  final String phoneNumber;
+  final String tempParentName;
+  final String tempPhoneNumber;
+
   const SignButtonCustom({
+    required this.forthTime,
+    required this.backTime,
+    required this.backWay,
+    required this.parentName,
+    required this.phoneNumber,
+    required this.tempParentName,
+    required this.tempPhoneNumber,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
-      margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-      height: 26,
-      width: 80,
-      child: ElevatedButton(
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 0, 5, 27),
+      child: Container(
+        height: 28,
+        width: 83,
+        child: ElevatedButton(
           onPressed: () {
             showDialog(
               context: context,
@@ -34,31 +40,15 @@ class SignButtonCustom extends StatelessWidget {
                   title: Center(child: Text("서명하기",style:TextStyle(
                     fontSize:18,
                     color: Colors.black87,
-                    fontWeight: FontWeight.w700
+                    fontWeight: FontWeight.w600
                   ) )),
                   actions: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("금일 본 유치원/어린이집의 '이연희' 아동에 대해 ", style: TextStyle(
-                          fontSize: 12),),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("의뢰하신 내용대로 투약하였음을 보고합니다." , style: TextStyle(
-                        fontSize: 12),),
-                      ],
-                    ),
-
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
                           width: 270,
                           height: 180,
-                          margin: EdgeInsets.only(top: 15),
                           child: PaintPage(),
                           decoration: BoxDecoration(
                             border: Border.all(style: BorderStyle.solid, color: Colors.black26),
@@ -73,7 +63,8 @@ class SignButtonCustom extends StatelessWidget {
                         children: [
                           Container(
                             width: 80,
-                            height: 26,
+                            height: 30,
+
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -96,7 +87,7 @@ class SignButtonCustom extends StatelessWidget {
                           ),
                           Container(
                             width: 80,
-                            height: 26,
+                            height: 30,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -113,7 +104,9 @@ class SignButtonCustom extends StatelessWidget {
                                 ),
                               ),
                               onPressed: () {
-                                // TODO: 저장 코드 추가
+                                AttendanceService.registAttendance(
+                                  forthTime,backTime,backWay,parentName,phoneNumber,tempParentName,tempPhoneNumber
+                                );
                                 Navigator.of(context).pop();
                               },
                             ),
@@ -126,10 +119,18 @@ class SignButtonCustom extends StatelessWidget {
               },
             );
           },
-            child: Text("서명하기", style: TextStyle(fontSize: 13)),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: cardBtnPink,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+          style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.black26,
+              shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+          child: Padding(
+            padding: const EdgeInsets.all(1.0),
+            child: Text(
+              "서명하기",
+              style: TextStyle(fontSize: 13),
+            ),
+          ),
+        ),
       ),
     );
   }
