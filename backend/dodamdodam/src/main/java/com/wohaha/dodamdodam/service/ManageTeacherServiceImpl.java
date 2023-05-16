@@ -23,7 +23,7 @@ public class ManageTeacherServiceImpl implements ManageTeacherService{
 
     @Override
     public List<TeacherInfoWithClassResponseDto> getTeacher() {
-        Long userSeq = 1L; // 원장선생님 시퀀스 토큰에서 가져옴
+        Long userSeq = ((CustomAuthenticatedUser)SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
         Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
 
