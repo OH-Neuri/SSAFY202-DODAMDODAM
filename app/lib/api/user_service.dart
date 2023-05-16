@@ -21,30 +21,39 @@ class UserService {
         'password' : pw,
         'role' : role,
       };
+      print(jsonEncode(data));
       String URL = '${url}user/login';
       final res = await http.post(
           Uri.parse(URL),
           headers: postHeaders,
           body: jsonEncode(data));
       if(res.statusCode == 200) {
-        result.result = true;
         if(role == 3) {
-          final LoginParent loginParent = loginParentModelFromJson(utf8.decode(res.bodyBytes)).loginParent;
-          if(loginParent.classSeq == null){
-            c.loginSetting(loginParent.loginResponseDto);
-            result.code = false;
-          }else{
-            c.loginSettingForParent(loginParent);
-            result.code = true;
+          try{
+            final LoginParent loginParent = loginParentModelFromJson(utf8.decode(res.bodyBytes)).loginParent;
+            result.result = true;
+            if(loginParent.classSeq == 0){
+              c.loginSetting(loginParent.loginResponseDto);
+            }else{
+              c.loginSettingForParent(loginParent);
+              result.code = true;
+            }
+          }catch (e) {
+            print(e);
           }
         }else{
-          final LoginTeacher loginTeacher = loginTeacherModelFromJson(utf8.decode(res.bodyBytes)).loginTeacher;
-          if(loginTeacher.classSeq == null){
-            c.loginSetting(loginTeacher.loginResponseDto);
-            result.code = false;
-          }else{
-            c.loginSettingForTeacher(loginTeacher);
-            result.code = true;
+          try {
+            final LoginTeacher loginTeacher = loginTeacherModelFromJson(utf8.decode(res.bodyBytes)).loginTeacher;
+            result.result = true;
+            if(loginTeacher.classSeq == 0){
+              c.loginSetting(loginTeacher.loginResponseDto);
+              result.code = false;
+            }else{
+              c.loginSettingForTeacher(loginTeacher);
+              result.code = true;
+            }
+          }catch (e) {
+            print(e);
           }
         }
         return result;

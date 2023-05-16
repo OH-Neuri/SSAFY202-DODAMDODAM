@@ -5,9 +5,10 @@ class NoticeItem extends StatelessWidget {
   final String date;
   final String kids;
   final String content;
+  final List<String> photo;
   final Function() onPressed;
 
-  const NoticeItem({required this.date, required this.kids, required this.content, required this.onPressed});
+  const NoticeItem({required this.date, required this.kids, required this.content, required this.photo, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,7 @@ class NoticeItem extends StatelessWidget {
                         Text(date),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(8.0, 0, 0, 0),
-                          child: Image.asset('assets/images/notice/calendar.png', width: 20,),
+                          child: Image.asset('assets/images/notice/calendar2.png', width: 20,),
                         )
                       ],
                     ),
@@ -44,7 +45,7 @@ class NoticeItem extends StatelessWidget {
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 16),
                   child: Divider(thickness: 1, height: 1, color: Colors.grey,),
                 ),
                 SizedBox(
@@ -58,10 +59,11 @@ class NoticeItem extends StatelessWidget {
                             maxLines: 3,
                           ),
                         ),
+                        photo.isEmpty ? SizedBox() :
                         SizedBox(
-                          width: 60,
-                          height: 60,
-                          child: Image.asset('assets/images/bonggil.jpg', height: 40, fit: BoxFit.cover,)
+                          width: 70,
+                          height: 70,
+                          child: Image.network(photo[0], height: 40, fit: BoxFit.cover,)
                         )
                       ],
                     )

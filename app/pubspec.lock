@@ -286,6 +286,11 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.0"
+  flutter_localizations:
+    dependency: transitive
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_native_splash:
     dependency: "direct main"
     description:
@@ -320,6 +325,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  gallery_saver:
+    dependency: "direct main"
+    description:
+      name: gallery_saver
+      sha256: df8b7e207ca12d64c71e0710a7ee3bc48aa7206d51cc720716fedb1543a66712
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.2"
   get:
     dependency: "direct main"
     description:
@@ -404,10 +417,10 @@ packages:
     dependency: transitive
     description:
       name: intl
-      sha256: "3bc132a9dbce73a7e4a21a17d06e1878839ffbf975568bc875c60537824b0c4d"
+      sha256: a3715e3bc90294e971cb7dc063fbf3cd9ee0ebf8604ffeafabd9e6f16abbdbe6
       url: "https://pub.dev"
     source: hosted
-    version: "0.18.1"
+    version: "0.18.0"
   js:
     dependency: transitive
     description:
@@ -464,6 +477,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
+  month_picker_dialog:
+    dependency: "direct main"
+    description:
+      name: month_picker_dialog
+      sha256: e3ca4b40121cae046f0d5babc1aec7f6c600b1437f74356ea82274aeb0c34c92
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
+  nested:
+    dependency: transitive
+    description:
+      name: nested
+      sha256: "03bac4c528c64c95c722ec99280375a6f2fc708eec17c7b3f07253b626cd2a20"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   path:
     dependency: transitive
     description:
@@ -616,6 +645,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.2.4"
+  provider:
+    dependency: transitive
+    description:
+      name: provider
+      sha256: cdbe7530b12ecd9eb455bdaa2fcb8d4dad22e80b8afb4798b41479d5ce26847f
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.5"
   share_plus:
     dependency: "direct main"
     description:
@@ -885,6 +922,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
+  web_socket_channel:
+    dependency: "direct main"
+    description:
+      name: web_socket_channel
+      sha256: d88238e5eac9a42bb43ca4e721edba3c08c6354d4a53063afaa568516217621b
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.0"
   win32:
     dependency: transitive
     description:
