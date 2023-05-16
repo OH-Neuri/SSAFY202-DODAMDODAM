@@ -152,8 +152,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<ClassInfoResponseDto> getTeacherClassList() {
-        Long userSeq = 1L;
-//                ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
+        Long userSeq = ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
         return classTeacherRepository.findClassListByUserSeq(userSeq);
     }
 

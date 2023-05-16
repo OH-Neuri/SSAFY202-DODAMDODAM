@@ -10,8 +10,10 @@ import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.repository.ClassTeacherRepository;
 import com.wohaha.dodamdodam.repository.KindergartenRepository;
 import com.wohaha.dodamdodam.repository.ManageClassRepository;
+import com.wohaha.dodamdodam.security.CustomAuthenticatedUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,8 +34,9 @@ public class ManageClassServiceImpl implements ManageClassService {
 
     @Override
     public boolean createClass(CreateClassRequestDto createClassRequestDto) {
-        //수정할거!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        long kindergartenSeq = 1; //token에 있는 원장 seq로 kindergartenSeq 구해서 넣기
+        Long userSeq = ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
+        Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
 
         //dto to entity
         ClassInfo classInfo = ClassInfo.builder()
@@ -49,7 +52,7 @@ public class ManageClassServiceImpl implements ManageClassService {
 
     @Override
     public List<ClassListResponseDto> classList() {
-        Long userSeq = 1L; // 원장선생님 시퀀스 토큰에서 가져옴
+        Long userSeq = ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
         Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
 

@@ -8,7 +8,9 @@ import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.repository.FoodRepository;
 import com.wohaha.dodamdodam.repository.KindergartenRepository;
+import com.wohaha.dodamdodam.security.CustomAuthenticatedUser;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,7 +28,7 @@ public class ManageFoodServiceImpl implements ManageFoodService {
 
     @Override
     public String modifyFood(FoodRequestDto foodRequestDto) {
-        Long userSeq = 1L; // 원장선생님 시퀀스 토큰에서 가져옴
+        Long userSeq = ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
         Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
         Optional<Long> foodSeq = foodRepository.findFoodSeq(kindergartenSeq, foodRequestDto.getDate());
@@ -45,7 +47,6 @@ public class ManageFoodServiceImpl implements ManageFoodService {
                     .morningSnack1(foodRequestDto.getMorningSnack1()).morningSnack2(foodRequestDto.getMorningSnack2())
                     .afternoonSnack1(foodRequestDto.getAfternoonSnack1()).afternoonSnack2(foodRequestDto.getAfternoonSnack2())
                     .build();
-            System.out.println(food.toString());
             foodRepository.save(food);
 
             return "CREATE FOOD";
@@ -55,7 +56,7 @@ public class ManageFoodServiceImpl implements ManageFoodService {
 
     @Override
     public FoodResponseDto getFood(String year, String month, String day) {
-        Long userSeq = 1L; // 원장선생님 시퀀스 토큰에서 가져옴
+        Long userSeq = ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
         Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
         return foodRepository.findFoodByKindergartenSeq(kindergartenSeq,
@@ -65,7 +66,7 @@ public class ManageFoodServiceImpl implements ManageFoodService {
 
     @Override
     public FoodListResponseDto getFoodList(String year, String month) {
-        Long userSeq = 1L; // 원장선생님 시퀀스 토큰에서 가져옴
+        Long userSeq = ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
         Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
         FoodListResponseDto foodList = new FoodListResponseDto(year, month);

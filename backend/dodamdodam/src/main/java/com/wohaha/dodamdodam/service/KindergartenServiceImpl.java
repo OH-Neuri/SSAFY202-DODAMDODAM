@@ -27,7 +27,6 @@ public class KindergartenServiceImpl implements KindergartenService {
   @Override
   public Boolean createKindergarten(KindergartenReqeustDto kindergartenReqeustDto) {
     Long userSeq = ((CustomAuthenticatedUser)SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
-    System.out.println(userSeq);
     Kindergarten kindergarten = Kindergarten.builder()
             .userSeq(userSeq)
             .name(kindergartenReqeustDto.getName())
