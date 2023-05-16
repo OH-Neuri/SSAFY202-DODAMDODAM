@@ -1,19 +1,22 @@
 import 'package:app/api/attendance_service.dart';
+import 'package:app/controller/deviceInfo_controller.dart';
 import 'package:app/models/attendance/attendance_detail_model.dart';
 import 'package:app/models/attendance/attendance_list_model.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class AttendacneController extends GetxController {
   static AttendacneController get to => Get.find();
 
+  DeviceInfoController c = Get.put(DeviceInfoController());
   List<AttendanceListItem> attendaceList = <AttendanceListItem>[];
-  AttendanceDetail attendacneDetail = AttendanceDetail(name: "", photo: "", date: DateTime.now(), forthTime: "", backTime: "", forthTimeCheck: "", parentName: "", phoneNumber: "");
-
+  AttendanceDetail attendacneDetail = AttendanceDetail(name: "", tempPhoneNumber:"",tempParentName: "",backTimeCheck: "",photo: "", forthTime: "", backTime: "", forthTimeCheck: "", parentName: "", phoneNumber: "");
+  String today = DateFormat('yyyy-MM-dd').format(DateTime.now());
   @override
+
   void onInit() async{
-    // 원생 리스트 가져오기
     setAttendanceList(DateTime.now());
-    setAttendacneDetail(1, DateTime.now());
+    if(!c.isTeacher) setAttendacneDetail(c.kidSeq,DateFormat('yyyy-MM-dd').format(DateTime.now()));
     super.onInit();
     update();
   }
@@ -21,7 +24,7 @@ class AttendacneController extends GetxController {
   // 해당 날짜 등하원 리스트 가져오기
   void setAttendanceList(DateTime day) async {
    try{
-     attendaceList = await AttendacneService.getAttendanceList(day);
+     attendaceList = await AttendanceService.getAttendanceList(day);
    }catch(e){
      print(e);
    }
@@ -29,12 +32,15 @@ class AttendacneController extends GetxController {
   }
 
   // 해당 날짜의 원생 등하원 내용 가져오기
-  void setAttendacneDetail(int kidSeq, DateTime day) async{
+  Future<bool> setAttendacneDetail(int kidSeq, String day) async{
     try{
-      attendacneDetail = await AttendacneService.getAttendanceInput(kidSeq, day);
+      attendacneDetail = await AttendanceService.getAttendanceDetail(kidSeq, day);
+      update();
+      return true;
     }catch(e){
       print(e);
+      return false;
     }
-    update();
   }
+
 }
