@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:app/api/notice_service.dart';
-import 'package:app/components/common/CustomSnackBar.dart';
+import 'package:app/components/common/custom_snackbar.dart';
 import 'package:app/components/common/logout_app_bar.dart';
 import 'package:app/components/notice/add_image_icon.dart';
 import 'package:app/components/notice/select_kid_modal.dart';

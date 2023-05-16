@@ -7,7 +7,6 @@ import 'package:app/controller/today_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show CalendarCarousel;
-import 'package:get/get.dart';
 
 class CalendarPage extends StatefulWidget {
   const CalendarPage({Key? key}) : super(key: key);
@@ -24,7 +23,7 @@ class _CalendarPageState extends State<CalendarPage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: TitleAppBar(title: "어린이집 일정"),
+      appBar: TitleAppBar(title: "어린이집 일정 및 식단"),
       body:SingleChildScrollView(
         child: Container(
           decoration: BoxDecoration(color: Colors.white),

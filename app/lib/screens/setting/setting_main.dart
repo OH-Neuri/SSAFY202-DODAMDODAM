@@ -1,5 +1,5 @@
-import 'package:app/components/common/CustomSnackBar.dart';
-import 'package:app/components/common/logout_app_bar.dart';
+import 'package:app/components/common/custom_snackbar.dart';
+import 'package:app/components/common/notify_appbar.dart';
 import 'package:app/constants.dart';
 import 'package:app/controller/deviceInfo_controller.dart';
 import 'package:app/controller/root_controller.dart';
@@ -18,7 +18,19 @@ class SettingMain extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],
-      appBar: LogoutAppBar(),
+      appBar: NotifyAppBar(),
+      endDrawer: Drawer(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 70.0 ),
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('총 0개'),
+              Divider(color: Colors.grey, height: 1, thickness: 1,),
+            ],
+          ),
+        ),
+      ),
       body: Column(
         children: [
           Container(
