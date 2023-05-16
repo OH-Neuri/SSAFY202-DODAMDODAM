@@ -25,8 +25,31 @@ class SettingMain extends StatelessWidget {
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('총 0개'),
-              Divider(color: Colors.grey, height: 1, thickness: 1,),
+              Padding(
+                padding: const EdgeInsets.only(left: 18.0, bottom: 14.0),
+                child: Text('총 3개'),
+              ),
+              Divider(color: Colors.grey[400], height: 0.5, thickness: 0.5,),
+              for(int i=0; i<3; i++)
+              Container(
+                height: 80,
+                padding: EdgeInsets.symmetric(horizontal: 24),
+                decoration: BoxDecoration(
+                  color: Color(0x30FFCF2C),
+                  border: Border(
+                    bottom: BorderSide(color: Color(0x80FFCF2C), width: 0.4)
+                  )
+                ),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 24.0),
+                      child: Image.asset('assets/images/common/벨.png', height: 30,),
+                    ),
+                    Expanded(child: Text('[[2024-20-30]] 알림장이 등록되었습니다.😍'))
+                  ],
+                ),
+              )
             ],
           ),
         ),
