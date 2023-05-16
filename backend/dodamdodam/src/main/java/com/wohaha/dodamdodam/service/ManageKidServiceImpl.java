@@ -52,10 +52,6 @@ public class ManageKidServiceImpl implements ManageKidService{
 
     @Override
     public List<KidResponseDto> kidList() {
-        Long userSeq = ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
-        Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
-                .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
-
         //아이 정보
         return manageKidRepository.kidList();
     }
