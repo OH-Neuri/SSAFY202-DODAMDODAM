@@ -31,7 +31,7 @@ public class Kid {
     @Column(name = "photo")
     private String photo;
 
-    @Column(name = "birth", nullable = false)
+    @Column(name = "birth")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birth;
 

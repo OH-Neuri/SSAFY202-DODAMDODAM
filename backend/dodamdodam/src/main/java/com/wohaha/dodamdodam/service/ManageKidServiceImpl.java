@@ -36,6 +36,7 @@ public class ManageKidServiceImpl implements ManageKidService{
 
     @Override
     public boolean createKid(CreateKidRequestDto createKidRequestDto, String uploadUrl) {
+        System.out.println(createKidRequestDto.getBirth());
         //dto to entity
         Kid kid = Kid.builder()
                 .name(createKidRequestDto.getKidName())
