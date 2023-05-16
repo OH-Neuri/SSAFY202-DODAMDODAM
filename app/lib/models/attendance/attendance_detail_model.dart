@@ -39,26 +39,28 @@ class AttendanceDetailModel {
 class AttendanceDetail {
   String name;
   String photo;
-  DateTime date;
-  String forthTime;
-  String backTime;
+  dynamic attendanceSeq;
+  dynamic forthTime;
+  dynamic backTime;
   dynamic forthTimeCheck;
   dynamic backTimeCheck;
-  String parentName;
-  String phoneNumber;
+  dynamic parentName;
+  dynamic backWay;
+  dynamic phoneNumber;
   dynamic tempParentName;
   dynamic tempPhoneNumber;
 
   AttendanceDetail({
     required this.name,
     required this.photo,
-    required this.date,
-    required this.forthTime,
-    required this.backTime,
+    this.attendanceSeq,
+    this.forthTime,
+    this.backTime,
+    this.backWay,
     this.forthTimeCheck,
     this.backTimeCheck,
-    required this.parentName,
-    required this.phoneNumber,
+    this.parentName,
+    this.phoneNumber,
     this.tempParentName,
     this.tempPhoneNumber,
   });
@@ -66,9 +68,10 @@ class AttendanceDetail {
   factory AttendanceDetail.fromJson(Map<String, dynamic> json) => AttendanceDetail(
     name: json["name"],
     photo: json["photo"],
-    date: DateTime.parse(json["date"]),
+    attendanceSeq: json["attendanceSeq"],
     forthTime: json["forthTime"],
     backTime: json["backTime"],
+    backWay: json["backWay"],
     forthTimeCheck: json["forthTimeCheck"],
     backTimeCheck: json["backTimeCheck"],
     parentName: json["parentName"],
@@ -80,9 +83,10 @@ class AttendanceDetail {
   Map<String, dynamic> toJson() => {
     "name": name,
     "photo": photo,
-    "date": "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
+    "attendanceSeq": attendanceSeq,
     "forthTime": forthTime,
     "backTime": backTime,
+    "backWay":backWay,
     "forthTimeCheck": forthTimeCheck,
     "backTimeCheck": backTimeCheck,
     "parentName": parentName,
