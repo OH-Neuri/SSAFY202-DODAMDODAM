@@ -59,7 +59,8 @@ public class AttendanceRepositoryImpl implements AttendanceRepositoryCustom {
                 .leftJoin(kid).on(kid.kidSeq.eq(attendance.kidSeq))
                 .where(kid.kidSeq.eq(kidSeq),
                         anyOf(attendance.createdAt.between(startOfDay, endOfDay), attendance.isNull()))
-                .fetchOne());
+                .orderBy(attendance.createdAt.desc())
+                .fetchFirst());
     }
 
     @Override

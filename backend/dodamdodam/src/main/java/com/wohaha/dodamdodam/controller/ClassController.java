@@ -219,8 +219,9 @@ public class ClassController {
 
     // 출석부
     @PostMapping("/attendance")
-    public BaseResponseDto<Boolean> createAttendance(@ModelAttribute CreateAttendanceRequestDto createAttendanceRequestDto) {
+    public BaseResponseDto<Boolean> createAttendance(@RequestBody CreateAttendanceRequestDto createAttendanceRequestDto) {
         try {
+            System.out.println(createAttendanceRequestDto.getKidSeq());
             return new BaseResponseDto<>(attendanceService.createAttendance(createAttendanceRequestDto));
         }catch (Exception e) {
             e.printStackTrace();

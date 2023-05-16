@@ -45,9 +45,6 @@ public class Attendance {
     @Column(name = "temp_phone_number")
     private String tempPhoneNumber;
 
-    @Column(name = "sign")
-    private String sign;
-
     @Column(name = "forth_time_check")
     private Time forthTimeCheck;
 
