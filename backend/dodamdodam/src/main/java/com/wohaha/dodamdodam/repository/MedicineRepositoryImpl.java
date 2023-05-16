@@ -61,6 +61,7 @@ public class MedicineRepositoryImpl implements MedicineRepositoryCustom {
 
         return
                 query.select(Projections.fields(MedicineKidResponseDto.class,
+                                medicine.medicineSeq,
                                 medicine.responseDate.as("responseDate"),
                                 medicine.requestDate.as("requestDate")))
                         .from(medicine)

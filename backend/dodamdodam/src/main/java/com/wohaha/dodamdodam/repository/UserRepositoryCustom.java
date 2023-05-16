@@ -1,6 +1,7 @@
 package com.wohaha.dodamdodam.repository;
 
 import com.wohaha.dodamdodam.domain.User;
+import com.wohaha.dodamdodam.dto.request.SleepModeRequestDto;
 import com.wohaha.dodamdodam.dto.request.UpdateUserRequestDto;
 import com.wohaha.dodamdodam.dto.response.LoginParentResponseDto;
 import com.wohaha.dodamdodam.dto.response.LoginTeacherResponseDto;
@@ -24,5 +25,9 @@ public interface UserRepositoryCustom {
   LoginParentResponseDto findKidInfoByUserSeq(Long userSeq);
 
   int findUserIdCntByUserId(String id);
+
+  Optional<SleepModeRequestDto> findSleepMode(Long userSeq);
+
+  Long updateSleepMode(SleepModeRequestDto sleepModeRequestDto, Long userSeq);
 
 }

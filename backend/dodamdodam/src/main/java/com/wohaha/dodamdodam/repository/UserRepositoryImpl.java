@@ -1,9 +1,11 @@
 package com.wohaha.dodamdodam.repository;
 
 import com.querydsl.core.Tuple;
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.wohaha.dodamdodam.domain.User;
+import com.wohaha.dodamdodam.dto.request.SleepModeRequestDto;
 import com.wohaha.dodamdodam.dto.request.UpdateUserRequestDto;
 import com.wohaha.dodamdodam.dto.response.LoginParentResponseDto;
 import com.wohaha.dodamdodam.dto.response.LoginTeacherResponseDto;
@@ -93,6 +95,24 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
                 .selectFrom(user)
                 .where(user.id.eq(id))
                 .fetch().size();
+    }
+
+    @Override
+    public Optional<SleepModeRequestDto> findSleepMode(Long userSeq) {
+        return Optional.ofNullable(
+                query
+                        .select(Projections.constructor(SleepModeRequestDto.class, user.sleepModeStart, user.sleepModeEnd))
+                        .from(user).where(user.userSeq.eq(userSeq)).fetchOne()
+        );
+    }
+
+    @Override
+    public Long updateSleepMode(SleepModeRequestDto sleepModeRequestDto, Long userSeq) {
+        return query.update(user)
+                .set(user.sleepModeStart, sleepModeRequestDto.getSleepModeStart())
+                .set(user.sleepModeEnd, sleepModeRequestDto.getSleepModeEnd())
+                .where(user.userSeq.eq(userSeq))
+                .execute();
     }
 
 //    @Override

@@ -33,10 +33,10 @@ public class ManageTeacherServiceImpl implements ManageTeacherService{
     @Override
     public List<TeacherInfoResponseDto> getTeacherList(Long kidSeq) {
         //부모님만 조회가능
-//        String role  = ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getRole();
-//        if(!role.equals("3")) {
-//            throw new BaseException(BaseResponseStatus.UNPERMISSION_ROLE);
-//        }
+        String role  = ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getRole();
+        if(!role.equals("3")) {
+            throw new BaseException(BaseResponseStatus.UNPERMISSION_ROLE);
+        }
         return manageTeacherRepository.getTeacherList(kidSeq);
     }
 
