@@ -1,13 +1,14 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance } from "axios";
 
-const BACKEND_URL = 'https://dodamdodam.site/api/dodam/';
-const token = typeof window !== 'undefined' ? sessionStorage.getItem('token') : null;
+const BACKEND_URL = "https://dodamdodam.site/api/dodam/";
+const token =
+  typeof window !== "undefined" ? sessionStorage.getItem("token") : null;
 
 // 로그인 후 사용할 axios (-> 토큰이 필요한 경우)
 export const authAxios: AxiosInstance = axios.create({
   baseURL: `${BACKEND_URL}`,
   headers: {
-    Authorization: 'Bearer ' + token || '',
+    Authorization: "Bearer " + token || "",
   },
 });
 
@@ -50,9 +51,7 @@ export const defaultAxios: AxiosInstance = axios.create({
 //     });
 // };
 
-
 export const logout = () => {
-  localStorage.removeItem('token');
-  window.location.href = '/user/login';
+  localStorage.removeItem("token");
+  window.location.href = "/user/login";
 };
-

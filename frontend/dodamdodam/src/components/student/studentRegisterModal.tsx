@@ -74,12 +74,22 @@ export default function StudentRegisterModal(props: {
     }
   }
 
+  const token =
+    typeof window !== "undefined" ? sessionStorage.getItem("token") : null;
+
   // 반 이름 가져오기
   async function getClassName() {
     try {
+      const config = {
+        headers: {
+          Authorization: "Bearer " + token || "",
+        },
+      };
       const response = await axios.get(
-        `https://dodamdodam.site/api/dodam/kindergarten/class`
+        `https://dodamdodam.site/api/dodam/kindergarten/class`,
+        config
       );
+      console.log("여니반: ", response.data.result);
       setClassList(response.data.result);
     } catch (error) {
       console.log("에러났습니다.");

@@ -7,15 +7,35 @@ import PageHeader from "@/components/common/pageHeader";
 import TeacherRegisterModal from "@/components/teacher/teacherRegisterModal";
 import TeacherModifyModal from "@/components/teacher/teacherModifyModal";
 import axios from "axios";
+import { loginCheck } from "@/api/loginCheck";
+import router from "next/router";
 
 export default function index() {
+  const isLogin = () => {
+    if (loginCheck() == false) {
+      router.push("/error");
+    }
+  };
+  useEffect(() => {
+    isLogin();
+  }, []);
+
   const [teacherList, setTeacherList] = useState<teacherList[]>([]);
+
+  const token =
+    typeof window !== "undefined" ? sessionStorage.getItem("token") : null;
 
   // 선생님 리스트 불러오기
   async function getTeacherList() {
     try {
+      const config = {
+        headers: {
+          Authorization: "Bearer " + token || "",
+        },
+      };
       const response = await axios.get(
-        `https://dodamdodam.site/api/dodam/kindergarten/teacher`
+        `https://dodamdodam.site/api/dodam/kindergarten/teacher`,
+        config
       );
       setTeacherList(response.data.result);
     } catch (error) {

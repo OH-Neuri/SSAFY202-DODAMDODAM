@@ -17,6 +17,7 @@ import FormControl from "@mui/material/FormControl";
 import axios from "axios";
 import { useQuery } from "react-query";
 import StudentPhoneInputModal from "./studentPhoneInputModal";
+import { headers } from "next/dist/client/components/headers";
 
 export default function StudentModifyModal(props: {
   idx: number;
@@ -39,6 +40,9 @@ export default function StudentModifyModal(props: {
   const [flag, setFlag] = useState<number>(0);
   const handleOpenPh = () => setOpenPh(true);
   const handleClosePh = () => setOpenPh(false);
+
+  const token =
+    typeof window !== "undefined" ? sessionStorage.getItem("token") : null;
 
   // 반 변경 저장
   const handleChangeGroup = (event: SelectChangeEvent) => {
@@ -81,6 +85,7 @@ export default function StudentModifyModal(props: {
       const config = {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: "Bearer " + token || "",
         },
       };
       const response = axios.put(
@@ -126,8 +131,14 @@ export default function StudentModifyModal(props: {
   // 반 이름 가져오기
   async function getClassName() {
     try {
+      const config = {
+        headers: {
+          Authorization: "Bearer " + token || "",
+        },
+      };
       const response = await axios.get(
-        `https://dodamdodam.site/api/dodam/kindergarten/class`
+        `https://dodamdodam.site/api/dodam/kindergarten/class`,
+        config
       );
       setClassList(response.data.result);
     } catch (error) {
