@@ -24,17 +24,17 @@ class _PaintPageState extends State<PaintPage> {
         children: [
           CustomPaint(
             painter: SignaturePainter(_points),
-            size: Size(350, 200),
+            size: Size(300, 200),
           ),
           Positioned(
             left: 0,
             right: 0,
-            top: 85,
+            top: 75,
             child: Text(
               '(인)',
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 16,
                 fontWeight: FontWeight.w500,
                 color: Colors.black,
               ),

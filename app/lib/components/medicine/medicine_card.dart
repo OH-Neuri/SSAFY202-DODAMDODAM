@@ -16,31 +16,29 @@ class MedicineCard extends StatelessWidget {
       elevation: 4.0, //그림자 깊이
       color: cardYellow,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 12, 20, 0),
+        padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(Icons.circle,size: 70, color:Colors.white),
-              Text("이연희",style: TextStyle(
-                fontSize: 18
-              )),
+              Icon(Icons.circle,size: 50, color:Colors.white),
+              Text("이연희",style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 7,horizontal: 5),
+                padding: const EdgeInsets.symmetric(vertical: 0,horizontal: 0),
                 child: Column(
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("투약 여부 :"),
-                        Icon(Icons.check_circle_outline_rounded,size: 27, color:TextYellow),
+                        Text("투약 여부 :",style: TextStyle(fontSize: 12)),
+                        Icon(Icons.check_circle_outline_rounded,size: 23, color:TextYellow),
                       ],
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5),
+                      padding: const EdgeInsets.symmetric(vertical: 2),
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children:[
-                            Text("완료 시간 :"),
+                            Text("완료 시간 :",style: TextStyle(fontSize: 12)),
                             Text("18:00"),
                           ]
                       ),
