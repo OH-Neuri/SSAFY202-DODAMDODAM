@@ -1,7 +1,10 @@
+import 'dart:ffi';
+
 import 'package:app/components/common/input_form.dart';
 import 'package:app/components/common/sign_button_custom.dart';
 import 'package:app/components/common/text_form_field_custom.dart';
 import 'package:app/components/user/user_textform_field.dart';
+import 'package:app/api/attendance_service.dart';
 import 'package:app/constants.dart';
 import 'package:app/controller/attendance_controller.dart';
 import 'package:app/controller/deviceInfo_controller.dart';
@@ -21,15 +24,36 @@ class AttendanceDetailTeacher extends StatefulWidget {
 }
 
 class _AttendanceDetailTeacherState extends State<AttendanceDetailTeacher> {
+
+
   final TextEditingController _attendanceTimeController =
   TextEditingController();
   final TextEditingController _leaveTimeController = TextEditingController();
+  String _forthTimeCheck = '';
+  String _backTimeCheck = '';
+
+
+  void _useless(String newText){
+    setState(() {
+    });
+  }
+
+
+  @override
+  void initState(){
+    super.initState();
+    _forthTimeCheck = AttendacneController.to.attendacneDetail.forthTimeCheck ?? '등원 시간 입력';
+    _backTimeCheck = AttendacneController.to.attendacneDetail.backTimeCheck ?? '하원 시간 입력';
+
+  }
 
   @override
   Widget build(BuildContext context) {
+
     DeviceInfoController dc = Get.put(DeviceInfoController());
     AttendacneController ac = Get.put(AttendacneController());
     const title = 'Grid List';
+    // late bool isInvalid = ac.attendacneDetail.parentName!=null?true:false;
     return GetBuilder<AttendacneController>(builder:
     (_)=>
           Scaffold(
@@ -57,9 +81,14 @@ class _AttendanceDetailTeacherState extends State<AttendanceDetailTeacher> {
                               children: [
                                 Row(
                                   children: [
-                                    Icon(
-                                      Icons.circle_notifications_sharp,
-                                      size: 55,
+                                    Container(
+                                      margin: EdgeInsets.symmetric(horizontal: 5),
+                                      width: 45,
+                                      height: 45,
+                                      child:CircleAvatar(
+                                        backgroundColor: Colors.white,
+                                        backgroundImage: NetworkImage(ac.attendacneDetail.photo),
+                                       ),
                                     ),
                                     Padding(
                                       padding:
@@ -98,9 +127,9 @@ class _AttendanceDetailTeacherState extends State<AttendanceDetailTeacher> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              InputForm(hint:"등원 예정 시간",enabled: true,isTeacher:true),
+                              InputForm(updateText: _useless,hint:"등원 예정 시간",content:(ac.attendacneDetail.forthTime as String? ?? ""), enabled: false,isTeacher:true),
                               Expanded(child: SizedBox()),
-                              InputForm(hint:"귀가 예정 시간",enabled: true,isTeacher:true),
+                              InputForm(updateText: _useless, hint:"귀가 예정 시간",content:(ac.attendacneDetail.backTime as String? ?? ""), enabled: false,isTeacher:true),
                             ],
                           ),
                         ),
@@ -109,9 +138,83 @@ class _AttendanceDetailTeacherState extends State<AttendanceDetailTeacher> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              InputForm(hint:"등원 시간",enabled: false,isTeacher:true ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Text("등원 시간",style: TextStyle(
+                                      fontSize: 13
+                                    ),),
+                                  ),
+                                  GestureDetector(
+                                      onTap: (){
+                                        setState(() {
+                                         _forthTimeCheck = DateFormat('hh:mm:ss').format(DateTime.now());
+                                        });
+                                        AttendanceService.updateAttendanceTime(ac.attendacneDetail.attendanceSeq,_forthTimeCheck,_backTimeCheck,widget.kidSeq);
+                                        },
+                                    child:Container(
+                                        width: 140,
+                                        height: 40,
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(20),
+                                            color: cardYellow,
+                                            border:Border.all(
+                                                color: cardBtnYellow
+                                            )
+                                        ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.fromLTRB(15, 10, 0, 0),
+                                        child:
+
+                                        Text(
+
+                                          _forthTimeCheck, style: TextStyle(
+                                          fontSize: 14
+                                        ),),
+                                      ),
+                                    )
+                                  )
+                                ],
+                              ),
                               Expanded(child: SizedBox()),
-                              InputForm(hint:"귀가 시간",enabled: false,isTeacher:true),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Text("귀가 시간", style: TextStyle(
+                                      fontSize: 13
+                                    ),),
+                                  ),
+                                  GestureDetector(
+                                      onTap: (){
+                                        setState(() {
+                                        _backTimeCheck = DateFormat('hh:mm:ss').format(DateTime.now());
+                                        });
+                                        AttendanceService.updateAttendanceTime(ac.attendacneDetail.attendanceSeq,_forthTimeCheck,_backTimeCheck,widget.kidSeq);
+                                        },
+                                      child:Container(
+                                        width: 140,
+                                        height: 40,
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(20),
+                                            color: cardYellow,
+                                            border:Border.all(
+                                                color: cardBtnYellow
+                                            )
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.fromLTRB(15, 10, 0, 0),
+                                          child: Text(_backTimeCheck, style: TextStyle(
+                                              fontSize: 14
+                                          ),),
+                                        ),
+                                      )
+                                  )
+                                ],
+                              ),
                             ],
                           ),
                         ),
@@ -127,7 +230,7 @@ class _AttendanceDetailTeacherState extends State<AttendanceDetailTeacher> {
                                     padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
                                     child: Text("귀가 방법"),
                                   ),
-                                  TextFormFieldCustom(hint: '귀가 방법 입력', onChanged: (val){}, obscureText: false, isTeacher:true)
+                                  TextFormFieldCustom(updateText: _useless, hint: (ac.attendacneDetail.backWay as String? ?? ""), onChanged: (val){}, enabled: false, obscureText: false, isTeacher:true)
                                 ],
                               ))
                             ],
@@ -138,9 +241,9 @@ class _AttendanceDetailTeacherState extends State<AttendanceDetailTeacher> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              InputForm(hint:"보호자1",enabled: true, isTeacher:true),
+                              InputForm(updateText: _useless, hint:"보호자1", content:(ac.attendacneDetail.parentName as String? ?? ""),enabled: false, isTeacher:true),
                               Expanded(child: SizedBox()),
-                              InputForm(hint:"보호자1 연락처",enabled: true,isTeacher:true),
+                              InputForm(updateText: _useless,hint:"보호자1 연락처",content:(ac.attendacneDetail.phoneNumber as String? ?? ""),enabled: false,isTeacher:true),
                             ],
                           ),
                         ),
@@ -149,9 +252,9 @@ class _AttendanceDetailTeacherState extends State<AttendanceDetailTeacher> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              InputForm(hint:"보호자2",enabled: true,isTeacher:true),
+                              InputForm(updateText: _useless, hint:"보호자2",content:(ac.attendacneDetail.tempParentName as String? ?? ""), enabled: false,isTeacher:true),
                               Expanded(child: SizedBox()),
-                              InputForm(hint:"보호자2 연락처",enabled: true,isTeacher:true),
+                              InputForm(updateText: _useless,hint:"보호자2 연락처",content:(ac.attendacneDetail.tempParentName as String? ?? ""), enabled: false,isTeacher:true),
                             ],
                           ),
                         )
@@ -174,17 +277,20 @@ class _AttendanceDetailTeacherState extends State<AttendanceDetailTeacher> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 20),
+                    padding: const EdgeInsets.only(top: 50),
                     child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("2022년 8월 13일 김부모",  style: TextStyle(fontSize: 16)),
+                          if (ac.attendacneDetail.parentName is String)
+                            Text(DateFormat('yyyy년 MM월 dd일').format(widget.selectedDay) +" "+" "+(ac.attendacneDetail.parentName as String? ?? ""),  style: TextStyle(fontSize: 16)),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+                            padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
                             child: Row(
                               children: [
-                                SignButtonCustom(),
+                                if (ac.attendacneDetail.parentName is String)
+                                  Icon(Icons.check_circle_outline_rounded,color: cardBtnPink,size: 35,),
+                                Text("")
                               ],
                             ),
                           ),
@@ -194,6 +300,10 @@ class _AttendanceDetailTeacherState extends State<AttendanceDetailTeacher> {
                 ]),
               ),
               Expanded(child: SizedBox()),
+              Row(
+                children: [
+                ],
+              )
             ]),
           ),
     );
