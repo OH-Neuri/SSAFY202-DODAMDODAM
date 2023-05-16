@@ -34,8 +34,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public boolean createClassSchedule(Long classSeq, CreateScheduleRequestDto createScheduleRequestDto) {
-        Long userSeq = 1L;
-//                ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
+        Long userSeq = ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
         Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
         ScheduleType st = scheduleTypeRepository.findById(createScheduleRequestDto.getScheduleTypeSeq())
@@ -53,9 +52,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public List<ClassScheduleResponseDto> getDayScheduleList(Long classSeq, String year, String month, String day) {
-        Long userSeq = 1L;
-
-//        Long userSeq = ((CustomAuthenticatedUser)SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
+        Long userSeq = ((CustomAuthenticatedUser)SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
         Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
         return scheduleRepository.findClassScheduleByClassSeq(kindergartenSeq, classSeq, Integer.valueOf(year), Integer.valueOf(month), Integer.valueOf(day));
@@ -63,9 +60,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public ClassScheduleListResponseDto getMonthScheduleList(Long classSeq, String year, String month) {
-        Long userSeq = 1L;
-
-//        Long userSeq = ((CustomAuthenticatedUser)SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
+        Long userSeq = ((CustomAuthenticatedUser)SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
         Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
         ClassScheduleListResponseDto classScheduleListResponseDto = new ClassScheduleListResponseDto(year, month);
