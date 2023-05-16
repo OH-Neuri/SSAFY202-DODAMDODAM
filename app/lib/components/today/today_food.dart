@@ -16,32 +16,38 @@ class TodayFood extends StatelessWidget {
       children: [
         // 오늘의 급식 타이틀
         Padding(
-          padding: const EdgeInsets.fromLTRB(10, 5, 0, 5),
+          padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: Opacity(
+                    opacity: 0.9,
+                    child: Image.asset('assets/images/common/diet_icon.png', height: 24, width: 24)),
+              ),
               Text(
-                  "${fc.now.month}/${fc.now.day} ${fc.todayWeek} ",
+                  // "${fc.now.month}/${fc.now.day} ${fc.todayWeek} ",
+                  '오늘의 식단',
                   style: TextStyle(fontSize: buttonTextSize, fontWeight: FontWeight.w600
                   )
               ),
-              Image.asset('assets/images/common/diet_icon.png', height: 30, width: 30)
             ],
           ),
         ),
         // 급식 내용 박스
         Container(
             height: 250, width: double.infinity,
-            margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
+            margin: EdgeInsets.fromLTRB(0, 0, 0, 36),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(20)),
+              borderRadius: BorderRadius.all(Radius.circular(16)),
               color: lightNavy,
               boxShadow: [
                 BoxShadow(
                   color: Colors.grey.withOpacity(0.5),
                   spreadRadius: 0,
                   blurRadius: 5.0,
-                  offset: Offset(0, 10),
+                  offset: Offset(0, 4),
                 ),
               ],
             ),
@@ -59,7 +65,7 @@ class TodayFood extends StatelessWidget {
                         children: [
                           Padding(
                             padding: const EdgeInsets.fromLTRB(8, 0, 0, 8),
-                            child: Text("점심", style: TextStyle(fontWeight: FontWeight.w600 ,color: logoNavy)),
+                            child: Text("점심", style: TextStyle(fontWeight: FontWeight.w600 ,color: darkNavy)),
                           )
                         ],
                       ),
@@ -92,7 +98,7 @@ class TodayFood extends StatelessWidget {
                                 padding: const EdgeInsets.fromLTRB(8, 0, 0, 8),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [Text("오전 간식", style: TextStyle(fontWeight: FontWeight.w600 ,color: logoNavy))],
+                                  children: [Text("오전 간식", style: TextStyle(fontWeight: FontWeight.w600 ,color: darkNavy))],
                                 ),
                               ),
                               SizedBox(
@@ -117,7 +123,7 @@ class TodayFood extends StatelessWidget {
                                 padding: const EdgeInsets.fromLTRB(8, 0, 0, 8),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [Text("오후 간식", style: TextStyle(fontWeight: FontWeight.w600 ,color: logoNavy))],
+                                  children: [Text("오후 간식", style: TextStyle(fontWeight: FontWeight.w600 ,color: darkNavy))],
                                 ),
                               ),
                               SizedBox(

@@ -1,4 +1,4 @@
-import 'package:app/components/common/CustomSnackBar.dart';
+import 'package:app/components/common/custom_snackbar.dart';
 import 'package:app/components/common/custom_button.dart';
 import 'package:app/components/user/signup_step.dart';
 import 'package:app/constants.dart';

@@ -1,5 +1,5 @@
 import 'package:app/api/user_service.dart';
-import 'package:app/components/common/CustomSnackBar.dart';
+import 'package:app/components/common/custom_snackbar.dart';
 import 'package:app/components/common/custom_button.dart';
 import 'package:app/components/user/user_textform_field.dart';
 import 'package:app/constants.dart';

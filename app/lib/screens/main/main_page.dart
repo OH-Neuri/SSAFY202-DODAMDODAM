@@ -62,8 +62,9 @@ class MainPage extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: 150,
+                    Container(
+                      // height: 120,
+                      margin: EdgeInsets.only(top: 14, bottom: 34),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         // 알림장, 등/하원 확인서, 투약 의뢰서

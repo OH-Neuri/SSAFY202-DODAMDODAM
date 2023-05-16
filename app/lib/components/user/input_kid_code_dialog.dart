@@ -1,5 +1,5 @@
 import 'package:app/api/code_service.dart';
-import 'package:app/components/common/CustomSnackBar.dart';
+import 'package:app/components/common/custom_snackbar.dart';
 import 'package:app/constants.dart';
 import 'package:app/root.dart';
 import 'package:flutter/material.dart';

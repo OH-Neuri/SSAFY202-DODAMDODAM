@@ -144,6 +144,7 @@ class _SelectKidModalState extends State<SelectKidModal> {
                               ),
                               onPressed: (){
                                 nc.setSelectKid(selectKidList);
+                                print(selectKidList.toString());
                                 selectKidList = [];
                                 Navigator.pop(context);
                                 // selectKidList.clear();
