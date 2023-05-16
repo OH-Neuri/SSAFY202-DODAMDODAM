@@ -31,15 +31,17 @@ class ChattingMain extends StatelessWidget {
                       onTap: () {
                         cc.setIsChattingList(false);
                       },
+                      overlayColor: MaterialStateProperty.all(Colors.white),
                       child: Container(
-                        margin: EdgeInsets.all(10), height: 55,
+                        margin: EdgeInsets.fromLTRB(20, 14, 6, 0),
+                        height: 55,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
                           color: cc.isChattingList ?  lightPink : cardBtnPink,
                         ),
                         child: Center(
                             child: Text("사용자", style: TextStyle(
-                                color: cc.isChattingList ? Colors.grey : Colors.black, fontSize: buttonTextSize
+                                color: cc.isChattingList ? Colors.grey : Colors.black, fontSize: contentTextSize
                             )),
                         ),
                       ),
@@ -51,15 +53,16 @@ class ChattingMain extends StatelessWidget {
                       onTap: () {
                         cc.setIsChattingList(true);
                       },
+                      overlayColor: MaterialStateProperty.all(Colors.white),
                       child: Container(
-                        margin: EdgeInsets.all(10), height: 55,
+                        margin: EdgeInsets.fromLTRB(6, 14, 20, 0), height: 55,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
                           color: cc.isChattingList ? cardBtnPink : lightPink,
                         ),
                         child: Center(
                           child: Text("채팅방", style: TextStyle(
-                              color: cc.isChattingList ? Colors.black : Colors.grey, fontSize: buttonTextSize
+                              color: cc.isChattingList ? Colors.black : Colors.grey, fontSize: contentTextSize
                           )),
                         ),
                       ),
