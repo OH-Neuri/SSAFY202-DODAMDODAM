@@ -1,10 +1,26 @@
 
+import 'package:app/api/attendance_service.dart';
 import 'package:app/components/common/paint_page.dart';
 import 'package:app/constants.dart';
 import 'package:flutter/material.dart';
 
 class SignButtonCustom extends StatelessWidget {
+  final String forthTime;
+  final String backTime;
+  final String backWay;
+  final String parentName;
+  final String phoneNumber;
+  final String tempParentName;
+  final String tempPhoneNumber;
+
   const SignButtonCustom({
+    required this.forthTime,
+    required this.backTime,
+    required this.backWay,
+    required this.parentName,
+    required this.phoneNumber,
+    required this.tempParentName,
+    required this.tempPhoneNumber,
     super.key,
   });
 
@@ -88,7 +104,9 @@ class SignButtonCustom extends StatelessWidget {
                                 ),
                               ),
                               onPressed: () {
-                                // TODO: 저장 코드 추가
+                                AttendanceService.registAttendance(
+                                  forthTime,backTime,backWay,parentName,phoneNumber,tempParentName,tempPhoneNumber
+                                );
                                 Navigator.of(context).pop();
                               },
                             ),

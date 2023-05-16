@@ -3,6 +3,7 @@ import 'package:app/constants.dart';
 
 
 class TextFormFieldCustom extends StatelessWidget {
+  final Function(String) updateText;
   final String hint;
   final FormFieldSetter onChanged;
   final bool obscureText;
@@ -15,15 +16,16 @@ class TextFormFieldCustom extends StatelessWidget {
     required this.obscureText,
     this.enabled = true,
     this.isTeacher = true,
+    required this.updateText,
   });
 
   @override
   Widget build(BuildContext context) {
     Color fillColor;
     if (isTeacher) {
-      fillColor = enabled ? cardYellow : Colors.white;
+      fillColor = enabled ? cardYellow : Colors.white10;
     } else {
-      fillColor = enabled ? cardPink : Colors.white;
+      fillColor = enabled ? cardPink : Colors.white10;
     }
 
     return Container(
@@ -31,7 +33,9 @@ class TextFormFieldCustom extends StatelessWidget {
       child: TextFormField(
         keyboardType: TextInputType.text,
         textInputAction: TextInputAction.next,
-        onChanged: onChanged,
+        onChanged: (onChanged){
+          updateText(onChanged);
+          },
         obscureText: obscureText,
         enabled: enabled,
         decoration: InputDecoration(
