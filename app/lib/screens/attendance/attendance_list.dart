@@ -1,4 +1,5 @@
 import 'package:app/components/attendance/attendance_card.dart';
+import 'package:app/components/common/CustomSnackBar.dart';
 import 'package:app/constants.dart';
 import 'package:app/controller/attendance_controller.dart';
 import 'package:app/controller/deviceInfo_controller.dart';
@@ -103,12 +104,17 @@ class _AttendanceListState extends State<AttendanceList> {
                         children: [
                           for(AttendanceListItem item in ac.attendaceList)
                                GestureDetector(
-                                onTap:(){
-                                  ac.setAttendacneDetail(item.kidSeq,_selectedDate);
+                                onTap:() async {
+                                  final res = await ac.setAttendacneDetail(item.kidSeq,DateFormat('yyyy-MM-dd').format(_selectedDate));
+                                  if (res && ac.attendacneDetail.parentName == null) {
+                                    CustomSnackBar.errorSnackbar(context, '입력된 등하원 정보가 없습니다.');
+                                  }else{
                                   Navigator.push(context, MaterialPageRoute(builder: (context) =>
                                     // 선생님, 학부모 구분해서 페이지 이동
-                                    dc.isTeacher? AttendanceDetailTeacher(kidSeq:item.kidSeq, selectedDay: _selectedDate,)
-                                    : AttendanceDetailParent(kidSeq:item.kidSeq,selectedDay:_selectedDate,)));},
+                                   AttendanceDetailTeacher(kidSeq:item.kidSeq, selectedDay: _selectedDate,)
+                                  ));};
+
+                                  },
                                 child:
                                      AttendanceCard(kid:item),
                               )
