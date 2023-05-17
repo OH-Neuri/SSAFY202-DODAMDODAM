@@ -8,7 +8,7 @@ export const sendAuthSMS = async (phone: string, role: number) => {
     phone: phone,
     role: role,
   };
-  defaultAxios
+  await defaultAxios
     .post(`sms/user`, data)
     .then(() => {
       bool = true;

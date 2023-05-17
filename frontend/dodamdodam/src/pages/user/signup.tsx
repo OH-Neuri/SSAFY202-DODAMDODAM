@@ -82,8 +82,6 @@ export default function Signup() {
     const res = await sendAuthSMS(phone, 1);
     if(res) {
       setIsSend(true);
-    }else{
-      toastError('번호를 다시 확인해주세요.');
     }
     
   };
