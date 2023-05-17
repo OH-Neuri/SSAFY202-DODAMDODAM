@@ -18,12 +18,12 @@ class _MedicineTeacherPageState extends State<MedicineTeacherPage> {
   late DateTime _selectedDate = DateTime.now();
   String? _selectedChild;
 
-  final List<String> _children = [    '오하늘',    '김나현',    '이연희',  ];
+  // final List<String> _children = [    '오하늘',    '김나현',    '이연희',  ];
 
   @override
   Widget build(BuildContext context) {
     DeviceInfoController dc = Get.put(DeviceInfoController());
-    MedicineController ac = Get.put(MedicineController());
+    MedicineController mc = Get.put(MedicineController());
     const title = 'Grid List';
     return  GetBuilder<MedicineController>(builder:
         (_)=>
@@ -63,6 +63,7 @@ class _MedicineTeacherPageState extends State<MedicineTeacherPage> {
                               onDateSelected: (date) {
                                 setState(() {
                                   _selectedDate = date;
+                                  mc.setMedicineKidMonthList(_selectedDate);
                                 });
                               },
                             ),
@@ -96,7 +97,7 @@ class _MedicineTeacherPageState extends State<MedicineTeacherPage> {
                                 child: GestureDetector(
                                   onTap:(){
                                     // Get.toNamed('/medicine/teacher/detail')
-                                     Navigator.push(context, MaterialPageRoute(builder: (context) => MedicineDetailPage()));
+                                    //  Navigator.push(context, MaterialPageRoute(builder: (context) => MedicineDetailPage()));
                                   },
                                   child: MedicineCard(),
                                 ));

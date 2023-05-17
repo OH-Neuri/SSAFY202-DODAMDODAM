@@ -8,8 +8,16 @@ import 'package:text_divider/text_divider.dart';
 import 'package:get/get.dart';
 
 class MedicineDetailPage extends StatefulWidget {
+  final String kidName;
+  final String kidClassName;
+  final String kidPhoto;
+  const MedicineDetailPage({
+    Key? key,
+    required this.kidName,
+    required this.kidClassName,
+    required this.kidPhoto
+  }) : super(key: key);
 
-  const MedicineDetailPage({Key? key}) : super(key: key);
   _MedicineDetailPageState createState() => _MedicineDetailPageState();
 }
 
@@ -17,7 +25,7 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
   @override
   Widget build(BuildContext context) {
     DeviceInfoController dc = Get.put(DeviceInfoController());
-    MedicineController ac = Get.put(MedicineController());
+    MedicineController mc = Get.put(MedicineController());
     return GetBuilder<MedicineController>(builder:
     (_)=>
       Scaffold(
@@ -43,7 +51,7 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
                       children: [
                         Container(
                           margin: EdgeInsetsDirectional.symmetric(vertical: 10),
-                          padding: EdgeInsets.fromLTRB(10, 0, 25, 0),
+                          padding: EdgeInsets.fromLTRB(10, 0, 15, 0),
                           width: 150,
                           height: 37,
                           decoration: BoxDecoration(
@@ -54,13 +62,19 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Icon(Icons.circle,size: 35, color:Colors.white),
-                              Text("용용반",style: TextStyle(
-                                fontSize: 13,
+                              Container(
+                                width: 32,
+                                  height: 32,
+                                  child: CircleAvatar(backgroundImage: NetworkImage(widget.kidPhoto))),
+                              Text(widget.kidClassName ,style: TextStyle(
+                                fontSize: 12,
                               ),textAlign: TextAlign.center,),
-                              Text("이연희",style: TextStyle(
-                                fontSize: 13,
-                              ),),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 3),
+                                child: Text(widget.kidName,style: TextStyle(
+                                  fontSize: 12,
+                                ),),
+                              ),
                             ],
                           ),
                         ),
@@ -85,7 +99,7 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                 ),),
-                                Text(" 몸살 감기", style: TextStyle(
+                                Text(mc.medicineKidDetail.symptom, style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
                                 ),)
@@ -100,7 +114,7 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                 ),),
-                                Text(" 알약", style: TextStyle(
+                                Text(mc.medicineKidDetail.pill, style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
                                 ),)
@@ -115,7 +129,7 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                 ),),
-                                Text(" 개별 한 봉지 모두", style: TextStyle(
+                                Text(mc.medicineKidDetail.capacity, style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
                                 ),)
@@ -130,7 +144,7 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                 ),),
-                                Text(" 1회", style: TextStyle(
+                                Text(mc.medicineKidDetail.count, style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
                                 ),)
@@ -145,7 +159,7 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                 ),),
-                                Text(" 식후 30분", style: TextStyle(
+                                Text(mc.medicineKidDetail.time, style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
                                 ),)
@@ -160,7 +174,7 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                 ),),
-                                Text(" 실온 보관", style: TextStyle(
+                                Text(mc.medicineKidDetail.keep, style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
                                 ),)
@@ -173,7 +187,7 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                 ),),
-                                Text(" 연희는 약 먹고 나면 딸기 사탕 주세요.", style: TextStyle(
+                                Text(mc.medicineKidDetail.content, style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
                                 ),)
@@ -191,10 +205,10 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Text("2023.04.19",style: TextStyle(
+                          Text(mc.medicineKidDetail.requestDate,style: TextStyle(
                             fontSize: 16
                           ),),
-                          Text("김숙자",style: TextStyle(
+                          Text(dc.name,style: TextStyle(
                               fontSize: 16
                           ),),
                           Icon(Icons.check_circle_outline_rounded,size: 30, color:cardBtnPink)
@@ -211,7 +225,9 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
                               fontSize: 20,
                               fontWeight: FontWeight.w700
                           ),),
-                          MedicineSignButton(),
+                          if(mc.medicineKidDetail.responseName == null && dc.isTeacher)
+                          MedicineSignButton(symptom: "",keep: "", capacity: "",content: "",
+                          count: "", pill: "", time: ""),
                         ],
                       ),
                     ),
@@ -228,13 +244,14 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Text("2023.04.19",style: TextStyle(
+                          Text(mc.medicineKidDetail.responseDate ?? "",style: TextStyle(
                               fontSize: 16
                           ),),
-                          Text("오선생",style: TextStyle(
+                          Text(mc.medicineKidDetail.responseName ?? "",style: TextStyle(
                               fontSize: 16
                           ),),
-                          Icon(Icons.check_circle_outline_rounded,size: 30, color:Colors.black12)
+                          if(mc.medicineKidDetail.responseName != null)
+                          Icon(Icons.check_circle_outline_rounded,size: 30, color:cardBtnPink)
                         ],
                       ),
                     )
