@@ -15,7 +15,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 public class TeacherInfoResponseDto {
 
-    private Long teacherSeq;
+    private Long classTeacherSeq;
 
     private String teacherName;
 
