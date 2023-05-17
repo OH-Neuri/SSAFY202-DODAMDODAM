@@ -147,6 +147,9 @@ export default function StudentModifyModal(props: {
   }
 
   useEffect(() => {
+    if(props.idx == -1){
+      return;
+    }
     fetchKid(props.idx);
     getClassName();
     setName(student.kidName);

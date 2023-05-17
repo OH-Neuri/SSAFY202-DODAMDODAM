@@ -23,7 +23,7 @@ export default function index() {
 
   const [openRe, setOpenRe] = useState<boolean>(false);
   const [openMo, setOpenMo] = useState<boolean>(false);
-  const [studentIdx, setStudentIdx] = useState<number>(1);
+  const [studentIdx, setStudentIdx] = useState<number>(-1);
   const [studentList, setStudentList] = useState<student[] | any>([]);
 
   // 아이 등록 모달 컨트롤 함수 +Re
