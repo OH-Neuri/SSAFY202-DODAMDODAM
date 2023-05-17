@@ -68,6 +68,7 @@ export default function StudentRegisterModal(props: {
         formData,
         config
       );
+      location.reload();
     } catch (error) {
       console.log(error);
     }
