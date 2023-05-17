@@ -1,5 +1,5 @@
 import { KindergartenType } from "@/types/DataTypes"
-import { authAxios } from "../common";
+import axios from "axios";
 
 export const registKindergarten = async (name: string, address: string) => {
     let bool;
@@ -7,10 +7,16 @@ export const registKindergarten = async (name: string, address: string) => {
         name: name,
         address: address
     }
-    console.log(data)
-    await authAxios.post(`kindergarten`, data
+    const token = sessionStorage.getItem('token');
+    const config = {
+        headers: {
+          Authorization: "Bearer " + token || "",
+        },
+      };
+    await axios.post(`https://dodamdodam.site/api/dodam/kindergarten`, data, config
     ).then((res)=>{
         console.log(res.data)
+        sessionStorage.setItem('kindergarten', name);
         bool = true;
     }).catch((err)=>{
         console.log(err)
