@@ -98,6 +98,7 @@ export default function index() {
             month={day.month}
             today={singleday}
             key={singleday}
+            choiceDay={choiceDay}
             setChoiceDay={setChoiceDay}
             scheduleList={
               singleday > 0 &&

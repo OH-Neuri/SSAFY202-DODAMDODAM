@@ -70,7 +70,6 @@ export default function StudentRegisterModal(props: {
       );
     } catch (error) {
       console.log(error);
-      console.log("post 실패했습니다 조금만 더 힘 내십시오");
     }
   }
 
@@ -89,10 +88,9 @@ export default function StudentRegisterModal(props: {
         `https://dodamdodam.site/api/dodam/kindergarten/class`,
         config
       );
-      console.log("여니반: ", response.data.result);
       setClassList(response.data.result);
     } catch (error) {
-      console.log("에러났습니다.");
+      console.log(error);
     }
   }
 

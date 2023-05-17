@@ -1,8 +1,5 @@
 import React from "react";
-import { useState } from "react";
 import { student } from "@/types/DataTypes";
-import Divider from "@mui/material/Divider";
-import Image from "next/image";
 
 export default function StudentCard(props: { student: student }) {
   return (
@@ -25,7 +22,7 @@ export default function StudentCard(props: { student: student }) {
           <div className="pr-[5px]">
             {2023 - +props.student.birth.split("-")[0]}세 |
           </div>
-          <div>{props.student.gender == "f" ? "여자" : "남자"}</div>
+          <div>{props.student.gender == "F" ? "여자" : "남자"}</div>
         </div>
       </div>
       <div className="items-center justify-center text-white text-[18px] font-preR mt-[20px] w-[83px] h-[37px] bg-[#FF7070] flex rounded-full overflow-hidden">

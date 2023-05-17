@@ -74,13 +74,16 @@ export default function Signup() {
     setId(value);
   };
 
-  const sendAuthPhone = () => {
+  const sendAuthPhone = async () => {
     if (phone == "") {
       toastError("전화번호를 입력해주세요");
       return;
     }
-    setIsSend(true);
-    sendAuthSMS(phone, 1);
+    const res = await sendAuthSMS(phone, 1);
+    if(res) {
+      setIsSend(true);
+    }
+    
   };
 
   const authPhoneNumber = async () => {

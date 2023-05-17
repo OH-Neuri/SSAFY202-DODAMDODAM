@@ -1,25 +1,19 @@
 import { useRouter } from "next/router";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import React, { useEffect, useState } from "react";
-import { Modal } from "@mui/material";
-import UpdateModal from "../user/updateModal";
-import {
-  useKindergarten,
-  useModifyKindergarten,
-} from "@/hooks/kindergartenHooks";
+import KinderInfo from "./kinderInfo";
 
 export default function NavBar(props: { target: string }) {
   const { target } = props;
 
-  const { data } = useKindergarten();
-  const { modifyKindergarten } = useModifyKindergarten();
-
   const [userName, setUserName] = useState<string>("");
+  const [kinderName, setKinderName] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
   const [tab, setTab] = useState<boolean>(false);
   const router = useRouter();
   const logout = () => {
-    alert("로그아웃");
+    sessionStorage.clear();
+    router.push('/');
   };
 
   useEffect(() => {
@@ -27,16 +21,11 @@ export default function NavBar(props: { target: string }) {
     if (name) {
       setUserName(name);
     }
+    const kindergarten = sessionStorage.getItem('kindergarten');
+    if (kindergarten) {
+      setKinderName(kindergarten);
+    }
   }, []);
-
-  const modify = (name: string, address: string) => {
-    const payload = {
-      name: name,
-      address: address,
-    };
-    modifyKindergarten(payload);
-    setOpen(false);
-  };
 
   return (
     <div className=" flex flex-col w-full h-screen bg-b_yellow">
@@ -71,21 +60,6 @@ export default function NavBar(props: { target: string }) {
         >
           급식 관리
         </div>
-        {/* <div className='relative bottom-[-25%] flex justify-center w-full'>
-            <div className='flex items-center justify-between pl-12 pr-6 w-[90%] bg-yellow-400/50 h-[90px] rounded-full'>
-                <div className='flex flex-col w-[90%]'>
-                    <div className='font-preM text-[20px] truncate'>{data?.name}</div>
-                    <div>{userName}원장님</div>
-                </div>
-                <div onBlur={()=>setTab(false)} tabIndex={0}>
-                    <div onClick={()=>{setTab(!tab)}} className='cursor-pointer'><MoreVertIcon /></div>
-                    {tab && 
-                    <div className='absolute top-[-70px] shadow-lg rounded bg-white w-[120px] h-[100px]'>
-                        <div onClick={()=>setOpen(true)} className='flex justify-center items-center w-full h-1/2 cursor-pointer hover:bg-stone-200/80 font-preR'>유치원 정보</div>
-                        <div onClick={logout} className='flex justify-center items-center w-full h-1/2 cursor-pointer hover:bg-stone-200/80 font-preR'>로그아웃</div>
-                    </div>
-                    }
-                </div> */}
         <div
           onClick={() => {
             router.push("/teacher");
@@ -119,8 +93,8 @@ export default function NavBar(props: { target: string }) {
       </div>
       <div className="relative bottom-[-25%] flex justify-center w-full">
         <div className="flex items-center justify-between pl-12 pr-6 w-[90%] bg-yellow-400/50 h-[90px] rounded-full">
-          <div className="flex flex-col w-[120px]">
-            <div className="font-preM text-[20px]">{data?.name}</div>
+          <div className="flex flex-col w-[90%]">
+            <div className="font-preM text-[20px]">{kinderName}</div>
             <div>{userName}원장님</div>
           </div>
           <div onBlur={() => setTab(false)} tabIndex={0}>
@@ -151,17 +125,7 @@ export default function NavBar(props: { target: string }) {
           </div>
         </div>
       </div>
-      {data && (
-        <Modal
-          className="flex justify-center items-center"
-          open={open}
-          onClose={() => setOpen(false)}
-        >
-          <div className="flex justify-center items-center outline-none">
-            <UpdateModal kinder={data} setOpen={setOpen} modify={modify} />
-          </div>
-        </Modal>
-      )}
+      <KinderInfo open={open} setOpen={setOpen} />
     </div>
   );
 }

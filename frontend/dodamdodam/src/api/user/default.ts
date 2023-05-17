@@ -1,16 +1,18 @@
 import { SignupUserType } from "@/types/userTypes";
 import { defaultAxios } from "../common";
 import { toastError } from "@/components/common/toast";
+import Cookies from 'js-cookie';
 
 export const sendAuthSMS = (phone: string, role: number) => {
+  let bool = false;
   const data = {
     phone: phone,
     role: role,
   };
   defaultAxios
     .post(`sms/user`, data)
-    .then((res) => {
-      console.log(res.data.result);
+    .then(() => {
+      bool = true;
     })
     .catch((err) => {
       if (err.response.status == 500) {
@@ -19,6 +21,7 @@ export const sendAuthSMS = (phone: string, role: number) => {
         console.log(err);
       }
     });
+    return bool;
 };
 
 export const checkAuthSMS = async (phone: string, code: string) => {
@@ -48,6 +51,7 @@ export const userSignup = async (user: SignupUserType) => {
       console.log(res.data.result);
       sessionStorage.setItem("isLogin", "true");
       sessionStorage.setItem("token", res.data.result.token);
+      Cookies.set("token", res.data.result.token);
       sessionStorage.setItem("name", res.data.result.name);
       bool = true;
     })
@@ -72,11 +76,17 @@ export const userLogin = async (id: string, pw: string, role: number) => {
     ).then((res)=>{
         console.log(res.data.result)
         if(res.data.isSuccess){
+            sessionStorage.setItem('reload', 'false')
             sessionStorage.setItem('isLogin', 'true')
             sessionStorage.setItem('token', res.data.result.loginResponseDto.token)
             sessionStorage.setItem('name', res.data.result.loginResponseDto.name)
             payload.bool = true
-            payload.kinder = res.data.result.kindergarten
+            if(res.data.result.kindergarten){
+              sessionStorage.setItem('kindergarten', res.data.result.kindergarten)
+              payload.kinder = true;
+            }else{
+              payload.kinder = false;
+            }
         }
     }).catch((err)=>{
         console.log(err)
