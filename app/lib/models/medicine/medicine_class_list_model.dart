@@ -39,23 +39,27 @@ class MedicineClassListModel {
 class MedicineClassList {
   int medicineSeq;
   String name;
-  String responseDate;
+  String photo;
+  dynamic responseDate;
 
   MedicineClassList({
     required this.medicineSeq,
     required this.name,
-    required this.responseDate,
+    required this.photo,
+    this.responseDate,
   });
 
   factory MedicineClassList.fromJson(Map<String, dynamic> json) => MedicineClassList(
     medicineSeq: json["medicineSeq"],
     name: json["name"],
     responseDate: json["responseDate"],
+    photo: json['photo']
   );
 
   Map<String, dynamic> toJson() => {
     "medicineSeq": medicineSeq,
     "name": name,
     "responseDate": responseDate,
+    "photo": photo
   };
 }

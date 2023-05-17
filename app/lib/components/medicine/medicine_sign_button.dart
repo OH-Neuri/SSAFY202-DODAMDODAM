@@ -32,6 +32,7 @@ class MedicineSignButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DeviceInfoController dc = Get.put(DeviceInfoController());
+    MedicineController mc = Get.put(MedicineController());
     return GetBuilder<MedicineController>(builder:
     (_)=>
 
@@ -54,18 +55,16 @@ class MedicineSignButton extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("금일 본 유치원/어린이집의 '이연희' 아동에 대해 ", style: TextStyle(
+                          Text("금일 본 유치원/어린이집의 아동에 대해 ", style: TextStyle(
                               fontSize: 12),),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("의뢰하신 내용대로 투약하였음을 보고합니다." , style: TextStyle(
-                              fontSize: 12),),
+                          Text("의뢰 및 투약하였음을 보고합니다." , style: TextStyle(fontSize: 12),),
                         ],
                       ),
-
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -73,10 +72,10 @@ class MedicineSignButton extends StatelessWidget {
                             width: 270,
                             height: 180,
                             margin: EdgeInsets.only(top: 15),
-                            child: PaintPage(),
                             decoration: BoxDecoration(
                               border: Border.all(style: BorderStyle.solid, color: Colors.black26),
                             ),
+                            child: PaintPage(),
                           ),
                         ],
                       ),
@@ -85,7 +84,7 @@ class MedicineSignButton extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Container(
+                            SizedBox(
                               width: 80,
                               height: 26,
                               child: ElevatedButton(
@@ -108,7 +107,7 @@ class MedicineSignButton extends StatelessWidget {
                                 },
                               ),
                             ),
-                            Container(
+                            SizedBox(
                               width: 80,
                               height: 26,
                               child: ElevatedButton(
@@ -116,20 +115,20 @@ class MedicineSignButton extends StatelessWidget {
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                                   backgroundColor:cardBtnPink,
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(0.0),
-                                  child: Text(
-                                    "보내기",
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                child: Text(
+                                  "보내기",
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w500,
                                   ),
                                 ),
                                 onPressed: () {
                                   //
-                                  if(!dc.isTeacher) MedicineService.updateMedicineInfo(symptom, pill, capacity, count, time, keep, content, dc.name, DateFormat('yyyy-MM-dd').format(DateTime.now()));
-                                  // else MedicineService.updateMedicineTime()
+                                  if(!dc.isTeacher) {
+                                    MedicineService.updateMedicineInfo(symptom, pill, capacity, count, time, keep, content, dc.name, DateFormat('yyyy-MM-dd').format(DateTime.now()));
+                                  } else {
+                                    MedicineService.updateMedicineTime(mc.medicineKidDetail.medicineSeq, DateFormat('yyyy-MM-dd hh:mm').format(DateTime.now()));
+                                  }
                                   Navigator.of(context).pop();
                                 },
                               ),
@@ -142,10 +141,10 @@ class MedicineSignButton extends StatelessWidget {
                 },
               );
             },
-            child: Text("서명하기", style: TextStyle(fontSize: 13)),
             style: ElevatedButton.styleFrom(
                 backgroundColor: cardBtnPink,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+            child: Text("서명하기", style: TextStyle(fontSize: 13)),
           ),
         )
     );
