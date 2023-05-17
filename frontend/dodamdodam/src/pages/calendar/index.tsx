@@ -34,6 +34,14 @@ export default function index() {
     isLogin();
   }, []);
 
+  useEffect(()=>{
+    const reload = sessionStorage.getItem('reload');
+    if(reload == 'false'){
+      sessionStorage.setItem('reload', 'true')
+      location.reload();
+    }
+  },[])
+
   const { registSchedule, deleteFunction } = useManageDayCalendar();
 
   // 현재 년, 월 초기에 저장.
@@ -109,6 +117,7 @@ export default function index() {
             month={day.month}
             today={singleday}
             key={singleday}
+            choiceDay={choiceDay}
             setChoiceDay={setChoiceDay}
             scheduleList={
               singleday > 0 &&
@@ -163,6 +172,42 @@ export default function index() {
   useEffect(() => {
     setModalList(typeList as scheduleSendType[]);
   }, [typeList]);
+
+  const regist = () => {
+    if (addCal.type == -1) {
+      toastError("일정 분류를 선택해주세요!");
+    } else if (addCal.content == "") {
+      toastError("일정 내용을 입력해주세요!");
+    } else if (addCal.content.length > 10) {
+      toastError("10글자 이내로 입력해주세요!");
+    } else {
+      const yyear = choiceDay.year;
+      const mmonth = choiceDay.month;
+      const dday = choiceDay.day;
+      const day = `${choiceDay.year}-${
+        choiceDay.month >= 10
+          ? choiceDay.month
+          : "0" + choiceDay.month
+      }-${
+        choiceDay.day >= 10
+          ? choiceDay.day
+          : "0" + choiceDay.day
+      }`;
+      registSchedule({
+        scheduleTypeSeq: addCal.type,
+        content: addCal.content,
+        date: day,
+        year: yyear,
+        month: mmonth,
+        day: dday,
+      });
+      setAddcal({
+        type: -1,
+        content: "",
+      });
+      setSelectValue(-1);
+    }
+  }
 
   return (
     <div className="grid grid-cols-7">
@@ -229,26 +274,16 @@ export default function index() {
 
               {/* 일정 분류 수정 */}
               <div className="flex justify-end w-full mt-[15px]">
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  className="font-preM text-[13px]"
-                  size="small"
-                  onClick={() => {
-                    setOpen2(true);
-                  }}
-                >
-                  일정 분류 수정
-                </Button>
+                <div className="font-preR text-[14px] border cursor-pointer px-4 py-2 hover:bg-stone-100" onClick={() => {setOpen2(true);}}>일정 분류 수정</div>
               </div>
 
               {/* 일정 내용 */}
-              <div className="w-full h-[400px] mt-[20px] overflow-y-scroll [&::-webkit-scrollbar]:w-[10px] [&::-webkit-scrollbar-thumb]:bg-[#D5D5D5] [&::-webkit-scrollbar-thumb]:rounded-[10px] [&::-webkit-scrollbar-track]:hidden">
+              <div className="w-full h-[360px] mt-[20px] overflow-y-scroll [&::-webkit-scrollbar]:w-[10px] [&::-webkit-scrollbar-thumb]:bg-[#D5D5D5] [&::-webkit-scrollbar-thumb]:rounded-[10px] [&::-webkit-scrollbar-track]:hidden">
                 {todayData &&
                   todayData.map((item: oneSceduleType, idx: number) => {
                     return (
                       <div
-                        className="grid grid-cols-10 text-[16px] flex items-center rounded-lg bg-[#FFE5E4] mb-[10px] p-2"
+                        className="grid grid-cols-10 text-[16px] flex items-center rounded-lg bg-[#FFE5E4] mb-[10px] py-2 px-4"
                         key={idx}
                       >
                         {/* 행사 내용 */}
@@ -274,13 +309,13 @@ export default function index() {
                   })}
               </div>
 
-              <hr className="w-full mt-[10px]" />
+              <hr className="w-full mt-[10px] h-[0.4px]" />
 
               {/* 일정 추가 */}
               <div className="flex w-full justify-start mt-[20px]">
                 <select
                   value={selectValue}
-                  className="border-2"
+                  className="border px-4 py-2 outline-none"
                   onChange={(e) => {
                     setAddcal({
                       type: parseInt(e.target.value),
@@ -305,7 +340,7 @@ export default function index() {
               </div>
 
               {/* 일정 입력 부분 */}
-              <div className="mt-[10px] w-full h-[40px]">
+              <div className="flex mt-[10px] w-full h-[40px]">
                 <input
                   maxLength={10}
                   onChange={(e) =>
@@ -313,50 +348,11 @@ export default function index() {
                   }
                   type="text"
                   value={addCal.content}
-                  className="w-full h-full border-2 border-gray-200 rounded-xl"
+                  className="w-4/5 h-[44px] px-4 py-2 bg-stone-100 outline-none"
                 />
-              </div>
-
-              {/* 일정 추가 버튼 */}
-              <div className="flex w-full justify-end mt-[10px]">
                 <div
-                  className="flex justify-center items-center w-[80px] h-[40px] rounded bg-pink-200 rounded-full cursor-pointer"
-                  onClick={() => {
-                    if (addCal.type == -1) {
-                      toastError("일정 분류를 선택해주세요!");
-                    } else if (addCal.content == "") {
-                      toastError("일정 내용을 입력해주세요!");
-                    } else if (addCal.content.length > 10) {
-                      toastError("10글자 이내로 입력해주세요!");
-                    } else {
-                      const yyear = choiceDay.year;
-                      const mmonth = choiceDay.month;
-                      const dday = choiceDay.day;
-                      const day = `${choiceDay.year}-${
-                        choiceDay.month >= 10
-                          ? choiceDay.month
-                          : "0" + choiceDay.month
-                      }-${
-                        choiceDay.day >= 10
-                          ? choiceDay.day
-                          : "0" + choiceDay.day
-                      }`;
-                      console.log(yyear, mmonth, dday, day, addCal);
-                      registSchedule({
-                        scheduleTypeSeq: addCal.type,
-                        content: addCal.content,
-                        date: day,
-                        year: yyear,
-                        month: mmonth,
-                        day: dday,
-                      });
-                      setAddcal({
-                        type: -1,
-                        content: "",
-                      });
-                      setSelectValue(-1);
-                    }
-                  }}
+                  className="flex justify-center items-center ml-2 w-[80px] h-[44px] bg-[#FFE5E4] cursor-pointer"
+                  onClick={regist}
                 >
                   일정 추가
                 </div>

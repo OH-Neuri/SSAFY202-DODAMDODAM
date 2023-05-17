@@ -15,7 +15,7 @@ export default function index() {
         <div className="flex justify-center items-center w-1/2 h-full">
           <img src="/images/user/kids.gif" className="w-4/5" />
         </div>
-        <div className="flex flex-col items-center pt-16 px-16 w-1/2 h-full bg-m_yellow rounded-r-xl">
+        <div className="flex flex-col items-center pt-[200px] px-16 w-1/2 h-full bg-m_yellow rounded-r-xl">
           <div className="font-preSB text-[26px]">
             로그인이 필요한 페이지입니다!
           </div>
@@ -24,7 +24,8 @@ export default function index() {
             onClick={() => {
               router.push("/user/login");
             }}
-            className="cursor-pointer underline "
+            className="flex items-center justify-center text-[20px] font-preSB text-m_yellow mt-10 w-[400px] h-[60px] bg-white rounded
+             cursor-pointer hover:bg-stone-100"
           >
             로그인 하러가기
           </div>

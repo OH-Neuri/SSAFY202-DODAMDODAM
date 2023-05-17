@@ -318,6 +318,7 @@ export default function index() {
                             />
                             <div
                               onClick={() => {
+                                console.log('>>>',t.classTeacherSeq);
                                 deleteTeacher(t.classTeacherSeq);
                                 toastOK("삭제되었습니다.");
                                 close();

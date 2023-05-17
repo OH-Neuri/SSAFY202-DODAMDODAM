@@ -6,10 +6,11 @@ export default function OneDay(props: {
   year: number;
   month: number;
   setChoiceDay: any;
+  choiceDay: any;
   scheduleList: oneSceduleType[] | oneFoodType | null;
   check: boolean;
 }) {
-  const { today, year, month, setChoiceDay, scheduleList, check } = props;
+  const { today, year, month, choiceDay, setChoiceDay, scheduleList, check } = props;
   const lastDate = new Date(year, month, 0).getDate();
 
   return (
@@ -20,7 +21,7 @@ export default function OneDay(props: {
       className="cursor-pointer"
     >
       {today > 0 && today <= lastDate ? (
-        <div className="border-solid border-2 border-gray-200 rounded h-[110px] m-1 overflow-hidden">
+        <div className={`border-solid border-2 ${choiceDay.year == year && choiceDay.month == month && choiceDay.day == today ? 'border-yellow-300' : 'border-gray-200'} rounded h-[110px] m-1 overflow-hidden`}>
           <div className="ml-2 mt-2 font-preM text-[12px]">{today}</div>
           {check && scheduleList ? (
             <div className="bg-b_yellow h-[20px] w-full"></div>
