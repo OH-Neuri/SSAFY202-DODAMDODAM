@@ -2,6 +2,7 @@ import 'package:app/api/setting_service.dart';
 import 'package:app/controller/deviceInfo_controller.dart';
 import 'package:app/models/code/add_class_model.dart';
 import 'package:app/models/code/add_kid_model.dart';
+import 'package:app/models/setting/sleep_mode_time_model.dart';
 import 'package:get/get.dart';
 
 class SettingController extends GetxController {
@@ -9,11 +10,13 @@ class SettingController extends GetxController {
 
   List<AddClass> classList = <AddClass>[];
   List<AddKid> kidList = <AddKid>[];
+  SleepModeTime sleepModeTime = SleepModeTime(sleepModeStart: '', sleepModeEnd: '');
 
   @override
   void onInit() {
     if(DeviceInfoController.to.isTeacher){
       setClassList();
+      setSleepTimeMode();
     }else{
       setKidList();
     }
@@ -40,4 +43,10 @@ class SettingController extends GetxController {
     kidList = [];
     update();
   }
+
+  void setSleepTimeMode() async {
+    sleepModeTime = await SettingService.getSleepModeTime();
+    update();
+  }
+
 }
