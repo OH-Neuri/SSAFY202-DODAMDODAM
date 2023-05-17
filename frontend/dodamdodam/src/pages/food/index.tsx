@@ -208,7 +208,7 @@ export default function index() {
             <div className="col-span-3 h-[700px] flex flex-col items-center rounded shadow-lg p-10">
               {/* 타이틀 */}
               <div className="text-[25px] font-preM ">
-                {choiceDay.month}/{choiceDay.day} 식단 입력하기
+                {choiceDay.month}/{choiceDay.day} 식단 정보
               </div>
 
               {/* 식단 내용 */}
