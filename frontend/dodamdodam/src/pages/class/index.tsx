@@ -94,6 +94,7 @@ export default function index() {
     registClass(data);
     setName("");
     setAgeList([]);
+    toastOK('반이 등록되었습니다.');
   };
 
   const modify = () => {
@@ -111,6 +112,7 @@ export default function index() {
       age: ageList.sort().toString(),
     };
     modifyClass(data);
+    toastOK('반이 수정되었습니다.');
     close();
   };
 

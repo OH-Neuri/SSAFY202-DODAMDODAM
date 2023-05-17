@@ -12,6 +12,7 @@ import {
 import OneFoodLine from "@/components/calendar/oneFoodLine";
 import { loginCheck } from "@/api/loginCheck";
 import router from "next/router";
+import { toastOK } from "@/components/common/toast";
 
 export default function index() {
   const isLogin = () => {
@@ -305,7 +306,8 @@ export default function index() {
                         day: choiceDay.day,
                       };
                       registFood(sendData);
-                      console.log(sendData);
+                      // console.log(sendData);
+                      toastOK('식단이 등록되었습니다.')
                     }}
                   >
                     저장하기

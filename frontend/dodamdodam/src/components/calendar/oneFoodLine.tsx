@@ -15,7 +15,7 @@ export default function OneFoodLine(props: {
         type="text"
         onChange={(e) => setFunc(e.target.value)}
         value={value}
-        className="w-[170px] h-[40px] bg-[#F5F5F5] text-[16px] mr-[20px]"
+        className="w-[170px] h-[40px] px-4 outline-none bg-[#F5F5F5] text-[16px] mr-[20px]"
       />
     </div>
   );
