@@ -65,6 +65,10 @@ class _SignupNumberState extends State<SignupNumber> {
                         height: 70,
                         child: ElevatedButton(
                             onPressed: (){
+                              if(user.phone == '') {
+                                CustomSnackBar.errorSnackbar(context, '번호를 입력해주세요.');
+                                return;
+                              }
                               setState(() {
                                 flag = false;
                                 user.phone = number;
@@ -105,6 +109,9 @@ class _SignupNumberState extends State<SignupNumber> {
                                   height: 70,
                                   child: ElevatedButton(
                                       onPressed: (){
+                                        if(user.phone == '') {
+                                          CustomSnackBar.errorSnackbar(context, '번호를 입력해주세요.');
+                                        }
                                         setState(() {
                                           user.phone = number;
                                         });
@@ -154,10 +161,6 @@ class _SignupNumberState extends State<SignupNumber> {
       Get.to(SignupId(), arguments: user);
     }else {
       CustomSnackBar.errorSnackbar(context, '인증에 실패하였습니다.');
-      setState(() {
-        number = '';
-        flag = true;
-      });
     }
   }
 }

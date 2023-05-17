@@ -6,7 +6,7 @@ import 'package:app/components/user/user_textform_field.dart';
 import 'package:app/constants.dart';
 import 'package:app/models/user/signup_user.dart';
 import 'package:app/screens/user/Signup_welcome.dart';
-import 'package:app/screens/user/signup_select.dart';
+import 'package:app/screens/user/login_select.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -25,18 +25,35 @@ Text text = Text('최소 6자 이상', style: TextStyle(color: Color(0xff797979)
 Text textCheck = Text('');
 
 class _SignupPasswordState extends State<SignupPassword> {
-  Text getPwValid() {
+  void getPwValid() {
     if(user.password.length < 6){
       setState(() {
         able1 = false;
+        text = Text('최소 6자 이상 입력해주세요.', style: TextStyle(color: Colors.red),);
       });
-      return Text('최소 6자 이상 입력해주세요.', style: TextStyle(color: Colors.red),);
+      return;
     }
     setState(() {
       able1 = true;
+      text = Text('', style: TextStyle(color: Color(0xff797979)),);
     });
-    return Text('', style: TextStyle(color: Color(0xff797979)),);
   }
+
+  void getPwCheck() {
+    if(user.password != pwCheck) {
+      setState(() {
+        able2 = false;
+        textCheck = Text('비밀번호가 일치하지 않습니다.', style: TextStyle(color: Colors.red),);
+      });
+      return;
+    }else {
+      setState(() {
+        able2 = true;
+        textCheck = Text('');
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,21 +93,18 @@ class _SignupPasswordState extends State<SignupPassword> {
                       obscureText: true,
                       onChanged: (val){
                         pwCheck = val;
+                        getPwCheck();
                       },
                     ),
                   ),
-                  pwCheck != '' ?
                   SizedBox(
                     width: double.infinity,
-                    child: pwCheck == user.password ?
-                    Text(''):
-                    Text('비밀번호가 일치하지 않습니다.', style: TextStyle(color: Colors.red)),
-                  )
-                  : Text(''),
+                    child: textCheck,
+                  ),
                 ],
               )),
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
                 child: CustomButton(
                   text: '가입하기',
                   height: 70,
@@ -107,7 +121,7 @@ class _SignupPasswordState extends State<SignupPassword> {
   }
 
   void pwAndPwCheck() async {
-    if (!able1 || user.password != pwCheck) {
+    if (!able1 || user.password != pwCheck || !able2) {
       CustomSnackBar.errorSnackbar(context, '비밀번호를 다시 확인해주세요.');
       return;
     }
@@ -117,7 +131,7 @@ class _SignupPasswordState extends State<SignupPassword> {
       Get.to(SignupWelcome());
     }else{
       CustomSnackBar.errorSnackbar(context, '회원가입에 실패했습니다.');
-      Get.to(SignupSelect());
+      Get.offAll(LoginSelect());
     }
 
   }
