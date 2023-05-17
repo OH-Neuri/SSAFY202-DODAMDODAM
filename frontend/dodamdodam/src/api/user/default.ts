@@ -48,6 +48,7 @@ export const userSignup = async (user: SignupUserType) => {
     .post(`user`, user)
     .then((res) => {
       console.log(res.data.result);
+      sessionStorage.setItem('reload', 'false')
       sessionStorage.setItem("isLogin", "true");
       sessionStorage.setItem("token", res.data.result.token);
       sessionStorage.setItem("name", res.data.result.name);

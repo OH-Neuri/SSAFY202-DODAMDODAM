@@ -269,7 +269,7 @@ export default function index() {
             <div className="col-span-3 h-[700px] flex flex-col items-center rounded shadow-lg p-10">
               {/* 타이틀 */}
               <div className="text-[25px] font-preM ">
-                {choiceDay.month}/{choiceDay.day} 일정 관리하기
+                {choiceDay.month}/{choiceDay.day} 일정 정보
               </div>
 
               {/* 일정 분류 수정 */}
