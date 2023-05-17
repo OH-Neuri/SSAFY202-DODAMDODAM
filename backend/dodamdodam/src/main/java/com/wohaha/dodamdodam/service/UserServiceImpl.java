@@ -107,7 +107,7 @@ public class UserServiceImpl implements UserService {
         Object response = result;
         switch (loginUserRequestDto.getRole()) {
             case 1: // 원장 선생님 (관리자)
-                Boolean kindergarten = userRepository.findKindergartenSeq(user.getUserSeq()) != null;
+                String kindergarten = userRepository.findKindergartenName(user.getUserSeq());
                 response = new LoginAdminResponseDto(kindergarten, result);
                 break;
 
