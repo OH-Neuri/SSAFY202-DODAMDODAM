@@ -27,7 +27,8 @@ public class NoticeRepositoryImpl implements NoticeRepositoryCustom {
                 .select(Projections.constructor(ClassKidListResponseDto.class,
                         kid.kidSeq, kid.name, kid.photo))
                 .from(kid)
-                .where(kid.classSeq.eq(classSeq))
+                .where(kid.classSeq.eq(classSeq)
+                        .and(kid.userSeq.isNotNull()))
                 .fetch();
     }
 
