@@ -1,3 +1,4 @@
+import 'package:app/components/common/title_appBar.dart';
 import 'package:app/components/medicine/medicine_sign_button.dart';
 import 'package:app/controller/deviceInfo_controller.dart';
 import 'package:app/controller/medicine_controller.dart';
@@ -29,7 +30,7 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
     return GetBuilder<MedicineController>(builder:
     (_)=>
       Scaffold(
-      appBar: AppBar(),
+      appBar: TitleAppBar(title: "투약 의뢰서"),
       body: Row(
         children: [
           Expanded(child: SizedBox()),
@@ -231,7 +232,7 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
                         ],
                       ),
                     ),
-                    Text("금일 본 유치원/어린이집의 '이연희' 아동에 대해 의뢰하신", style: TextStyle(
+                    Text("금일 본 유치원/어린이집의 아동에 대해 의뢰하신", style: TextStyle(
                         fontSize: 12,
                         color: Colors.black54
                     )),

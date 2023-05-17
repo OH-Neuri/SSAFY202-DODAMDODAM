@@ -1,4 +1,5 @@
 import 'package:app/components/common/text_form_field_custom.dart';
+import 'package:app/components/common/title_appBar.dart';
 import 'package:app/components/medicine/medicine_sign_button.dart';
 import 'package:app/components/medicine/medicine_text_form.dart';
 import 'package:app/controller/deviceInfo_controller.dart';
@@ -10,9 +11,6 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class MedicineParentRegistPage extends StatefulWidget {
-
-
-
   const MedicineParentRegistPage({
     Key? key,
 
@@ -94,9 +92,6 @@ class _MedicineParentRegistPageState extends State<MedicineParentRegistPage> {
     });
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
     DeviceInfoController dc = Get.put(DeviceInfoController());
@@ -104,56 +99,37 @@ class _MedicineParentRegistPageState extends State<MedicineParentRegistPage> {
     return GetBuilder<MedicineController>(builder:
     (_)=>
       Scaffold(
-      appBar: AppBar(),
-      body: Row(
-        children: [
-          Expanded(child: SizedBox()),
-          Flexible(
-              flex:12,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 17),
-                child: ListView(
+      appBar: TitleAppBar(title: "투약 의뢰서 작성"),
+      body: SingleChildScrollView(
+        child: Row(
+          children: [
+            Expanded(child: SizedBox()),
+            Flexible(
+                flex:12,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Text("투약 의뢰서 내용",style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w700
-                        ),)
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 15),
+                      child: Text("투약 의뢰서 내용",style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),),
                     ),
-                    Row(
-                      children: [
-                        Container(
-                          margin: EdgeInsetsDirectional.symmetric(vertical: 10),
-                          padding: EdgeInsets.fromLTRB(10, 0, 25, 0),
-                          width: 150,
-                          height: 37,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            color: cardYellow,
+                    Container(
+                      margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                      width: 150, height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: cardYellow,
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: SizedBox(
+                                width: 32, height: 32,
+                                child: CircleAvatar(backgroundImage: NetworkImage(dc.kidPhoto))),
                           ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Container(
-                                  width: 32,
-                                  height: 32,
-                                  child: CircleAvatar(backgroundImage: NetworkImage(dc.kidPhoto))),
-                              Text(dc.className ,style: TextStyle(
-                                fontSize: 12,
-                              ),textAlign: TextAlign.center,),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 3),
-                                child: Text(dc.kidName,style: TextStyle(
-                                  fontSize: 12,
-                                ),),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                          Flexible(flex: 2, child: Text("${dc.className} ${dc.kidName}" ,style: TextStyle(fontSize: 12,))),
+                        ],
+                      ),
                     ),
                     Container(    // 보란색 박스
                       width: 500,
@@ -264,10 +240,8 @@ class _MedicineParentRegistPageState extends State<MedicineParentRegistPage> {
                         ],
                       ),
                     ),
-                    Text("투약으로 인한 책임은 의뢰자가 집니다.", style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.black54
-                    ),textAlign: TextAlign.center,
+                    Center(
+                      child: Text("투약으로 인한 책임은 의뢰자가 집니다.", style: TextStyle(fontSize: 12,color: Colors.black54)),
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 30, 0, 10),
@@ -289,7 +263,7 @@ class _MedicineParentRegistPageState extends State<MedicineParentRegistPage> {
 
                     Divider(thickness: 1,height: 1,color: Colors.black26,),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 10, 5, 15),
+                      padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -300,19 +274,23 @@ class _MedicineParentRegistPageState extends State<MedicineParentRegistPage> {
                         ],
                       ),
                     ),
-                    Text("금일 본 유치원/어린이집의 '이연희' 아동에 대해 의뢰하신", style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.black54
-                    )),
-                    Text("내용대로 투약 하였음을 보고합니다.", style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.black54
-                    )),
+                    Center(
+                      child: Text("금일 본 유치원/어린이집의 '이연희' 아동에 대해 의뢰하신", style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.black54
+                      )),
+                    ),
+                    Center(
+                      child: Text("내용대로 투약 하였음을 보고합니다.", style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.black54
+                      )),
+                    ),
                   ],
-                ),
-              )),
-          Expanded(child: SizedBox())
-        ],
+                )),
+            Expanded(child: SizedBox())
+          ],
+        ),
       ),
       )
     );

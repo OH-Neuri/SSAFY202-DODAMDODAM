@@ -1,3 +1,4 @@
+import 'package:app/components/common/title_appBar.dart';
 import 'package:app/components/medicine/medicine_parent_card.dart';
 import 'package:app/constants.dart';
 import 'package:app/controller/deviceInfo_controller.dart';
@@ -21,11 +22,10 @@ class _MedicineParentPageState extends State<MedicineParentPage> {
   Widget build(BuildContext context) {
     DeviceInfoController dc = Get.put(DeviceInfoController());
     MedicineController mc = Get.put(MedicineController());
-    const title = 'Grid List';
     return GetBuilder<MedicineController>(builder:
     (_)=>
       Scaffold(
-        appBar: AppBar(automaticallyImplyLeading: true, title: const Text(title),),
+        appBar: TitleAppBar(title: "투약 의뢰서"),
       body: Stack(
           children: [
             Positioned(
@@ -39,31 +39,17 @@ class _MedicineParentPageState extends State<MedicineParentPage> {
                         child: Column(
                           children: [
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Flexible(
-                                  flex: 15,
-                                  child: Padding(
-                                      padding: EdgeInsets.symmetric(vertical: 20),
-                                      child: Text("투약 의뢰서", style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w700,
-                                      ),)
-                                  ),
-                                ),
-                                Expanded(child: SizedBox()),
-                                Flexible(
-                                  flex: 9,
-                                  child: Padding(
-                                    padding: EdgeInsets.all(0),
-                                    child: AttendaneListTimePicker(
-                                      onDateSelected: (date) {
-                                        setState(() {
-                                          _selectedDate = date;
-                                          mc.setMedicineKidMonthList(_selectedDate);
-                                        });
-                                      },
-                                    ),
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                  child: AttendaneListTimePicker(
+                                    onDateSelected: (date) {
+                                      setState(() {
+                                        _selectedDate = date;
+                                        mc.setMedicineKidMonthList(_selectedDate);
+                                      });
+                                    },
                                   ),
                                 ),
                               ],
@@ -77,7 +63,7 @@ class _MedicineParentPageState extends State<MedicineParentPage> {
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
                             children: <Widget>[
-                              Container(height: 450), // 예시로 높이 200인 빈 컨테이너 추가
+                              Container(height: 50), // 예시로 높이 200인 빈 컨테이너 추가
                               // ListView 내부에 표시되는 다른 위젯들
                             ],
                           )
@@ -89,7 +75,6 @@ class _MedicineParentPageState extends State<MedicineParentPage> {
                 ),
               ),
             ),
-            Spacer(),
             Positioned(
                 bottom: 40,
                 right: 40,

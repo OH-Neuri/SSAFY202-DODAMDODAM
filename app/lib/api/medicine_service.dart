@@ -15,22 +15,16 @@ class MedicineService {
 
   // 반별 투약 확인서 리스트 가져오기 (선생님용) - 32
   static Future<List<MedicineClassList>> getMedicineClassList(DateTime day) async {
-    // request
-    //{
-    //     "day": "2023-05-09"
-    // }
-
     try{
       DeviceInfoController c = Get.put(DeviceInfoController());
       String URL = '${url}medicine/class/${c.classSeq}';
       final data = {
-        "day" : DateFormat('yyyy-MM-dd').format(day),
+        "day" : "${day.year}-${day.month >= 10 ? day.month : '0${day.month}'}-${day.day >= 10 ? day.day : '0${day.day}'}",
       };
       final res = await http.post(
           Uri.parse(URL),
           headers: {"Content-Type" : "application/json"},
           body: jsonEncode(data)
-
       );
       if(res.statusCode == 200){
         final List<MedicineClassList> medicineClassList = medicineClassListModelFromJson(utf8.decode(res.bodyBytes)).medicineClassList;
@@ -73,16 +67,11 @@ class MedicineService {
 
   // 투약 의뢰서 리스트 (학부모용) - 34
   static Future<List<MedicineKidMonth>> getMedicineKidMonthList(DateTime day) async {
-    //request
-    //{
-    //     "day": "2023-05-09"
-    // }
-
     try{
       DeviceInfoController c = Get.put(DeviceInfoController());
-      String URL =  '${url}medicine/kidList/1';
+      String URL =  '${url}medicine/kidList/${c.kidSeq}';
       final data = {
-          "day" : "2023-05-14",
+          "day" : "${day.year}-${day.month >= 10 ? day.month : '0${day.month}'}-${day.day >= 10 ? day.day : '0${day.day}'}",
       };
 
       final response = await http.post(
@@ -115,22 +104,21 @@ class MedicineService {
     // "responseDate" :  "2024-05-12 16:00",
 
     try {
-      String URL = '${url}medicine/${medicineSeq}';
+      String URL = '${url}medicine/$medicineSeq';
       DeviceInfoController c = Get.put(DeviceInfoController());
+      MedicineController mc = Get.put(MedicineController());
 
-      final data = {
-        "responseName": c.name,
-        "responseDate": responseDate,
-      };
-      final response = await http.put(
-          Uri.parse(URL),
-          headers: {"Content-Type" : "application/json"},
-          body: jsonEncode(data)
-      );
-      if(response.statusCode == 200) {
-        // print("일정 등록 성공");
+      var req = http.MultipartRequest('PUT', Uri.parse(URL));
+      req.fields['responseName'] = c.name;
+      req.fields['responseDate'] = responseDate;
+      var res = await req.send();
+
+      if(res.statusCode == 200) {
+        mc.setMedicineKidDetail(medicineSeq);
+        mc.setMedicineClassList(DateTime.now());
+        print("일정 등록 성공");
       } else {
-        // print('일정 등록 실패!');
+        print('일정 등록 실패!');
       }
     }catch(e) {
       print(e);
@@ -163,7 +151,7 @@ class MedicineService {
        "capacity": capacity,
        "count": count,
         "time": time,
-        "keep" : "실온",
+        "keep" : keep,
         "content": content,
        "requestName": requestName,
        "requestDate": requestDate,
