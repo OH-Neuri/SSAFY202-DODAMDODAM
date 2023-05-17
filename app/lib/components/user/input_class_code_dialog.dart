@@ -1,8 +1,10 @@
 import 'package:app/api/code_service.dart';
 import 'package:app/components/common/custom_snackbar.dart';
 import 'package:app/constants.dart';
+import 'package:app/controller/root_controller.dart';
 import 'package:app/root.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class InputClassCodeDialog extends StatefulWidget {
   const InputClassCodeDialog({Key? key}) : super(key: key);
@@ -74,7 +76,8 @@ class _InputClassCodeDialogState extends State<InputClassCodeDialog> {
                   if (!mounted) return;
                   if(res) {
                     Navigator.of(context).pop();
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Root()));
+                    RootController.to.changeRootPageIndex(0);
+                    Get.offAll(Root());
                   }else{
                     Navigator.of(context).pop();
                     CustomSnackBar.errorSnackbar(context, '올바른 코드가 아닙니다.');
