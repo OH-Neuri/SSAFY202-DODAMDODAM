@@ -16,7 +16,7 @@ public interface UserRepositoryCustom {
 
   void updateUser(UpdateUserRequestDto updateUserRequestDto);
 
-  Long findKindergartenSeq(Long userSeq);
+  String findKindergartenName(Long userSeq);
 
   // 선생님시퀀스로 반정보
   LoginTeacherResponseDto findClassInfoByUserSeq(Long userSeq);

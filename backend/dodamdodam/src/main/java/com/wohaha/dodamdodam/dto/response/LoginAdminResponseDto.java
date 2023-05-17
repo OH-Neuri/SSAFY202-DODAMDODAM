@@ -8,6 +8,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class LoginAdminResponseDto {
-    private Boolean kindergarten;
+    private String kindergarten;
     private LoginResponseDto loginResponseDto;
 }

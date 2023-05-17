@@ -58,9 +58,9 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     }
 
     @Override
-    public Long findKindergartenSeq(Long userSeq) {
+    public String findKindergartenName(Long userSeq) {
         return query
-                .select(kindergarten.kindergartenSeq)
+                .select(kindergarten.name)
                 .from(kindergarten)
                 .where(kindergarten.userSeq.eq(userSeq))
                 .fetchOne();
