@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:app/api/http_header.dart';
 import 'package:app/controller/deviceInfo_controller.dart';
 import 'package:app/models/chatting/chatting_teacher_list_model.dart';
 import 'package:app/models/chatting/chatting_user_list_model.dart';
@@ -10,7 +11,7 @@ class ChattingService {
   static Future<List<SingleUser>> getChatUserList() async{
     String URL = '${url}chat/parent/${DeviceInfoController.to.classSeq}';
     try{
-      final response = await http.get(Uri.parse(URL));
+      final response = await http.get(Uri.parse(URL), headers: authGetHeaders);
       if(response.statusCode == 200){
         final List<SingleUser> userList = chattingUserListFromJson(utf8.decode(response.bodyBytes)).userList;
         return userList;
@@ -28,7 +29,7 @@ class ChattingService {
   static Future<List<SingleTeacher>> getChatTeacherList() async {
     String URL = '${url}chat/teacher/${DeviceInfoController.to.kidSeq}';
     try{
-      final response = await http.get(Uri.parse(URL));
+      final response = await http.get(Uri.parse(URL), headers: authGetHeaders);
       if(response.statusCode == 200){
         final List<SingleTeacher> teacherList = chattingTeacherListFromJson(utf8.decode(response.bodyBytes)).teacherList;
         return teacherList;
