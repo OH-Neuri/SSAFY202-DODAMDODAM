@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:app/api/http_header.dart';
 import 'package:app/controller/today_controller.dart';
 import 'package:app/models/schedule/schedule_type_model.dart';
 import 'package:http/http.dart' as http;
@@ -14,7 +15,7 @@ class ScheduleService {
     try{
       int classSeq = c.classSeq;
       String URL = '${url}class/schedule/$classSeq?year=$year&month=$month&day=$day';
-      final response = await http.get(Uri.parse(URL));
+      final response = await http.get(Uri.parse(URL), headers: authGetHeaders);
       if(response.statusCode == 200){
         final List<OneSchedule> scheduleList = sigledayScheduleFromJson(utf8.decode(response.bodyBytes)).oneSchedule;
         return scheduleList;
@@ -32,7 +33,7 @@ class ScheduleService {
   static Future<List<SingleType>> getTypeList() async {
     try{
       String URL = '${url}kindergarten/scheduleType';
-      final response = await http.get(Uri.parse(URL));
+      final response = await http.get(Uri.parse(URL), headers: authGetHeaders);
       if(response.statusCode == 200) {
         final List<SingleType> typeList = scheduleTypeModelFromJson(
             utf8.decode(response.bodyBytes)).typeList;
@@ -60,7 +61,7 @@ class ScheduleService {
       };
       final response = await http.post(
           Uri.parse(URL),
-          headers: {"Content-Type" : "application/json"},
+          headers: authPostHeaders,
           body: jsonEncode(data)
       );
       if(response.statusCode == 200) {

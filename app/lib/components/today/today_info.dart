@@ -24,15 +24,27 @@ class TodayInfo extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Row(
-                children: [
-                  Text(
-                      "${tc.now.month}/${tc.now.day} ${tc.todayWeek} ",
-                      style: TextStyle(fontSize: buttonTextSize, fontWeight: FontWeight.w600
-                      )
-                  ),
-                  Image(image: AssetImage('assets/images/common/calendar_icon.png'), height: 30)
-                ],
+              Padding(
+                padding: const EdgeInsets.only(bottom: 4.0),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Opacity(
+                          opacity: 0.9,
+                          child: Image(image: AssetImage('assets/images/common/달력.png'), height: 24)),
+                    ),
+                    Text(
+                        // "${tc.now.month}/${tc.now.day} ${tc.todayWeek} ",
+                        '오늘의 일정',
+                        style: TextStyle(
+                          fontSize: buttonTextSize,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.grey[800]
+                        )
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -42,14 +54,14 @@ class TodayInfo extends StatelessWidget {
           height: 200, width: double.infinity,
           margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderRadius: BorderRadius.all(Radius.circular(16)),
             color: lightYellow,
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.withOpacity(0.5),
                 spreadRadius: 0,
                 blurRadius: 5.0,
-                offset: Offset(0, 10), // changes position of shadow
+                offset: Offset(0, 4), // changes position of shadow
               ),
             ],
           ),

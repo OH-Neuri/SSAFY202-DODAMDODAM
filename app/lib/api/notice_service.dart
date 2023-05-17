@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:app/api/http_header.dart';
+import 'package:app/api/notify_service.dart';
 import 'package:app/controller/deviceInfo_controller.dart';
 import 'package:app/controller/notice_controller.dart';
 import 'package:app/models/notice/image_url_model.dart';
 import 'package:app/models/notice/ai_response_model.dart';
 import 'package:app/models/notice/class_kid_list_model.dart';
 import 'package:app/models/notice/notice_detail_model.dart';
+import 'package:app/models/notice/notice_regist_response_model.dart';
 import 'package:app/utils/keyword_to_text.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -79,16 +81,23 @@ class NoticeService {
       req.fields['classSeq'] = c.classSeq.toString();
       req.fields['announcement'] = announcement.toString();
       req.fields['content'] = content;
+      kids.sort();
       req.fields['kid'] = kids.join(',');
+      print(kids.join(','));
       for (var image in photos) {
         req.files.add(await http.MultipartFile.fromPath('photos', image.path));
       }
-      print(kids.toString());
       var res = await req.send();
       if (res.statusCode == 200) {
         nc.setNoticeList();
         nc.setSelectKidClear();
+        String responseString = await res.stream.bytesToString();
+        List<NotifyModel> notify = noticeRegistResponseModelFromJson(responseString).notifyModel;
+        for(NotifyModel n in notify) {
+          NotifyService.sendNotify(n);
+        }
       } else{
+        print('여기는 실패야');
         print(res.statusCode);
       }
     } catch (e) {

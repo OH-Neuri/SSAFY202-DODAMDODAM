@@ -43,7 +43,7 @@ class ChattingUserList extends StatelessWidget {
                       children: [
                         // 사진
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+                          padding: const EdgeInsets.fromLTRB(30, 5, 20, 5),
                           child: isTeacher ? CircleAvatar(
                               backgroundImage: NetworkImage(singleUser.kidPhoto)
                           ) : CircleAvatar(
@@ -52,13 +52,13 @@ class ChattingUserList extends StatelessWidget {
                         ),
                         isTeacher ? Row(
                           children: [
-                            Text('${singleUser.kidName} 부모님 ', style: TextStyle(fontSize: buttonTextSize)),
+                            Text('${singleUser.kidName} 부모님 ', style: TextStyle(fontSize: contentTextSize)),
                             (singleUser.parentSeq != null) ? Text('(${singleUser.parentName}님)', style: TextStyle(color: Colors.grey, fontSize: subContentTextSize)) : Text(' ')
                           ],
                         ) :
                             Row(
                               children: [
-                                Text('${DeviceInfoController.to.className} ${singleTeacher.teacherName} 선생님', style: TextStyle(fontSize: buttonTextSize))
+                                Text('${DeviceInfoController.to.className} ${singleTeacher.teacherName} 선생님', style: TextStyle(fontSize: contentTextSize))
                               ],
                             )
                       ],
@@ -66,7 +66,7 @@ class ChattingUserList extends StatelessWidget {
                   ),
                   // 채팅 아이콘
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+                    padding: const EdgeInsets.fromLTRB(0, 0, 30, 0),
                     child: InkWell(
                         onTap: () {
                           // 선생님: 부모님 seq == null이면 disable하게 처리.
@@ -74,7 +74,7 @@ class ChattingUserList extends StatelessWidget {
                         },
                         child: Opacity(
                           opacity: 0.5,
-                            child: Image.asset('assets/images/common/chatting_icon.png', height: 35)
+                            child: Image.asset('assets/images/common/chatting_icon.png', height: 30)
                         )
                     ),
                   )

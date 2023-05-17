@@ -1,5 +1,5 @@
 import 'package:app/components/attendance/attendance_card.dart';
-import 'package:app/components/common/CustomSnackBar.dart';
+import 'package:app/components/common/custom_snackbar.dart';
 import 'package:app/constants.dart';
 import 'package:app/controller/attendance_controller.dart';
 import 'package:app/controller/deviceInfo_controller.dart';
