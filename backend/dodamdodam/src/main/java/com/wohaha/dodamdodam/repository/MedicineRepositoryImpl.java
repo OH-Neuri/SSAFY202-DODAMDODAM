@@ -45,6 +45,7 @@ public class MedicineRepositoryImpl implements MedicineRepositoryCustom {
                 .select(Projections.constructor(MedicineClassResponseDto.class,
                         medicine.medicineSeq.as("medicineSeq"),
                         kid.name.as("name"),
+                        kid.photo,
                         Expressions.stringTemplate("TIME_FORMAT({0}, '%H:%i')", medicine.responseDate).as("responseDate")))
                 .from(medicine)
                 .innerJoin(kid).on(medicine.kidSeq.eq(kid.kidSeq))

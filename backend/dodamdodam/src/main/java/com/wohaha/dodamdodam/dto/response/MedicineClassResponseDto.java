@@ -19,5 +19,6 @@ public class MedicineClassResponseDto {
 
     private Long medicineSeq;
     private String name;
+    private String photo;
     private String responseDate;
 }
