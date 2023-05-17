@@ -65,7 +65,7 @@ class _SignupNumberState extends State<SignupNumber> {
                         height: 70,
                         child: ElevatedButton(
                             onPressed: (){
-                              if(user.phone == '') {
+                              if(number == '') {
                                 CustomSnackBar.errorSnackbar(context, '번호를 입력해주세요.');
                                 return;
                               }
@@ -109,7 +109,7 @@ class _SignupNumberState extends State<SignupNumber> {
                                   height: 70,
                                   child: ElevatedButton(
                                       onPressed: (){
-                                        if(user.phone == '') {
+                                        if(number == '') {
                                           CustomSnackBar.errorSnackbar(context, '번호를 입력해주세요.');
                                         }
                                         setState(() {

@@ -35,7 +35,13 @@ class NoticeList extends StatelessWidget {
                         children: [
                           Expanded(child: SizedBox()),
                           Flexible(flex: 12,
-                              child: Column(
+                              child:
+                              nc.noticeList.isEmpty
+                              ? Padding(
+                                padding: const EdgeInsets.only(top: 24.0),
+                                child: Text('등록된 알림장이 없습니다.'),
+                              )
+                              : Column(
                                 children: [
                                   NoticeMonthPicker(),
                                   for(NoticeListItem item in nc.noticeList)

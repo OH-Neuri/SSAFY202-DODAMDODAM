@@ -111,7 +111,7 @@ class _NoticeRegistState extends State<NoticeRegist> {
                           ],
                         ),
                         Container(
-                          height: 530,
+                          height: 520,
                           margin: EdgeInsets.fromLTRB(0, 6.0, 0, 12.0),
                           padding: EdgeInsets.fromLTRB(16, 4, 16, 16),
                           decoration: BoxDecoration(
@@ -281,7 +281,7 @@ class _NoticeRegistState extends State<NoticeRegist> {
                           ),
                         ),
                         Container(
-                          margin: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                          margin: const EdgeInsets.fromLTRB(0, 0, 0, 30),
                           width: double.infinity,
                           child: Row(
                             children: [
@@ -299,7 +299,8 @@ class _NoticeRegistState extends State<NoticeRegist> {
                                           Navigator.pop(context);
                                           },
                                           style: ElevatedButton.styleFrom(
-                                              backgroundColor: Color(0xffA2A2A2)
+                                            backgroundColor: Color(0xffA2A2A2),
+                                            foregroundColor: Colors.white
                                           ),
                                           child: Text('취소하기')
                                       )
@@ -332,7 +333,8 @@ class _NoticeRegistState extends State<NoticeRegist> {
                                             Navigator.pop(context);
                                           },
                                           style: ElevatedButton.styleFrom(
-                                              backgroundColor: darkNavy
+                                              backgroundColor: darkNavy,
+                                              foregroundColor: Colors.white
                                           ),
                                           child: Text('등록하기')
                                       )
