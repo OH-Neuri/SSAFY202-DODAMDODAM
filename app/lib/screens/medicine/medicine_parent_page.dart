@@ -20,7 +20,7 @@ class _MedicineParentPageState extends State<MedicineParentPage> {
   @override
   Widget build(BuildContext context) {
     DeviceInfoController dc = Get.put(DeviceInfoController());
-    MedicineController ac = Get.put(MedicineController());
+    MedicineController mc = Get.put(MedicineController());
     const title = 'Grid List';
     return GetBuilder<MedicineController>(builder:
     (_)=>
@@ -30,7 +30,6 @@ class _MedicineParentPageState extends State<MedicineParentPage> {
           children: [
             Positioned(
               child: SingleChildScrollView(
-
                 child: Row(
                   children: [
                     Expanded(child: SizedBox(
@@ -61,6 +60,7 @@ class _MedicineParentPageState extends State<MedicineParentPage> {
                                       onDateSelected: (date) {
                                         setState(() {
                                           _selectedDate = date;
+                                          mc.setMedicineKidMonthList(_selectedDate);
                                         });
                                       },
                                     ),
@@ -68,10 +68,10 @@ class _MedicineParentPageState extends State<MedicineParentPage> {
                                 ),
                               ],
                             ),
-                            for(int i=0; i<3; i++)
+                            for(int i=mc.medicineKidMonth.length-1; i>=0; i--)
                               Padding(
                                 padding:const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                                  child:MedicineParentCard(i: i),
+                                  child:MedicineParentCard( object:mc.medicineKidMonth[i]),
                               ),
                           ListView(
                             shrinkWrap: true,
@@ -94,7 +94,8 @@ class _MedicineParentPageState extends State<MedicineParentPage> {
                 bottom: 40,
                 right: 40,
                 child: ElevatedButton(
-                  onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => MedicineParentRegistPage()));},
+                  onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                      MedicineParentRegistPage()));},
                   style: ElevatedButton.styleFrom(
                       minimumSize: Size(80, 80),
                       backgroundColor: logoNavy,

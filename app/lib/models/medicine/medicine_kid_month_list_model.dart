@@ -31,21 +31,25 @@ class MedicineKidMonthModel {
 }
 
 class MedicineKidMonth {
+  int medicineSeq;
   DateTime requestDate;
-  DateTime responseDate;
+  dynamic responseDate;
 
   MedicineKidMonth({
+    required this.medicineSeq,
     required this.requestDate,
-    required this.responseDate,
+    this.responseDate,
   });
 
   factory MedicineKidMonth.fromJson(Map<String, dynamic> json) => MedicineKidMonth(
+      medicineSeq: json["medicineSeq"],
     requestDate: DateTime.parse(json["requestDate"]),
-    responseDate: DateTime.parse(json["responseDate"]),
+    responseDate: json["responseDate"],
   );
 
   Map<String, dynamic> toJson() => {
+    "medicineSeq":medicineSeq,
     "requestDate": requestDate.toIso8601String(),
-    "responseDate": responseDate.toIso8601String(),
+    "responseDate": responseDate,
   };
 }

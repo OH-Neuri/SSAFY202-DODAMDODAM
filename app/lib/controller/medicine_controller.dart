@@ -16,6 +16,7 @@ class MedicineController extends GetxController {
   void onInit() async{
     // 원생 리스트 가져오기
     setMedicineClassList(DateTime.now());
+    setMedicineKidMonthList(DateTime.now());
     super.onInit();
     update();
   }
@@ -30,5 +31,25 @@ class MedicineController extends GetxController {
     update();
   }
 
+  // 투약 의뢰서 리스트 (학부모용) - 34
+  void setMedicineKidMonthList(DateTime day) async {
+    try{
+      medicineKidMonth = await MedicineService.getMedicineKidMonthList(day);
+    }catch(e){
+      print(e);
+    }
+    update();
+  }
 
+  // 투약 의뢰서 리스트 (학부모용) - 34
+  Future<bool> setMedicineKidDetail(int medicineSeq) async {
+    try{
+      medicineKidDetail = await MedicineService.getMedicineDetail(medicineSeq);
+    update();
+      return true;
+    }catch(e){
+      print(e);
+      return false;
+    }
+  }
 }
