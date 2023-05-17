@@ -407,7 +407,7 @@ export default function index() {
           <div className="flex items-center w-full h-[50px] mt-[20px]">
             <input
               type="text"
-              className="w-[300px] h-[40px] bg-stone-100"
+              className="w-[300px] h-[40px] bg-stone-100 outline-none"
               onChange={(e) => setAddModal(e.target.value)}
               value={addModal}
               maxLength={5}
