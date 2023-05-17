@@ -1,10 +1,8 @@
 import 'package:app/components/attendance/attendance_card.dart';
 import 'package:app/components/common/custom_snackbar.dart';
-import 'package:app/constants.dart';
 import 'package:app/controller/attendance_controller.dart';
 import 'package:app/controller/deviceInfo_controller.dart';
 import 'package:app/models/attendance/attendance_list_model.dart';
-import 'package:app/screens/attendance/attendance_detail_parent.dart';
 import 'package:app/screens/attendance/attendance_detail_teacher.dart';
 import 'package:flutter/material.dart';
 import 'package:app/components/attendance/attendance_list_timepicker.dart';
