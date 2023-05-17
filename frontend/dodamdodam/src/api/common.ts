@@ -1,5 +1,4 @@
 import axios, { AxiosInstance } from "axios";
-import Cookies from "js-cookie";
 
 const BACKEND_URL = "https://dodamdodam.site/api/dodam/";
 const token =
