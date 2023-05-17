@@ -11,6 +11,7 @@ class SignupWelcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Row(
         children: [
           Expanded(child: SizedBox()),
