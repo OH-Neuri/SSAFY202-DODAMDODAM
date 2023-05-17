@@ -1,7 +1,6 @@
 import { SignupUserType } from "@/types/userTypes";
 import { defaultAxios } from "../common";
 import { toastError } from "@/components/common/toast";
-import Cookies from 'js-cookie';
 
 export const sendAuthSMS = (phone: string, role: number) => {
   let bool = false;
@@ -51,7 +50,6 @@ export const userSignup = async (user: SignupUserType) => {
       console.log(res.data.result);
       sessionStorage.setItem("isLogin", "true");
       sessionStorage.setItem("token", res.data.result.token);
-      Cookies.set("token", res.data.result.token);
       sessionStorage.setItem("name", res.data.result.name);
       bool = true;
     })
