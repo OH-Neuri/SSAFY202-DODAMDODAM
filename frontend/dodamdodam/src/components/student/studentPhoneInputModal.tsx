@@ -74,7 +74,7 @@ export default function studentPhoneInputModal(props: {
       >
         <Box sx={style}>
           {props.flag == 0 ? (
-            <div className="flex flex-col mt-3  items-center ">
+            <div className="flex flex-col mt-10  items-center ">
               <div className=" font-preB text-[27px]">
                 전화번호를 입력하세요
               </div>
@@ -102,7 +102,6 @@ export default function studentPhoneInputModal(props: {
                   </div>
                 </div>
                 <div className="text-center text-[14px] mt-2">
-                  000-0000-0000 형식으로 입력해주세요.
                 </div>
               </div>
             </div>
