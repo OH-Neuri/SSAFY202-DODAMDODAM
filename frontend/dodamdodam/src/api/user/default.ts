@@ -2,7 +2,7 @@ import { SignupUserType } from "@/types/userTypes";
 import { defaultAxios } from "../common";
 import { toastError } from "@/components/common/toast";
 
-export const sendAuthSMS = (phone: string, role: number) => {
+export const sendAuthSMS = async (phone: string, role: number) => {
   let bool = false;
   const data = {
     phone: phone,
