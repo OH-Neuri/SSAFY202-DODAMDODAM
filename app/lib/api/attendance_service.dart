@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:app/api/http_header.dart';
 import 'package:app/controller/attendance_controller.dart';
 import 'package:app/controller/deviceInfo_controller.dart';
 import 'package:app/models/attendance/attendance_detail_model.dart';
@@ -89,26 +90,23 @@ class AttendanceService {
     // }
     try {
      AttendacneController ac = Get.put(AttendacneController());
-      String URL = '${url}class/attendance/3';
+      String URL = '${url}class/attendance/${ac.attendacneDetail.attendanceSeq}';
       final data = {
-        "forthTimeCheck": forthTimeCheck,
-        "backTimeCheck": backTimeCheck,
+        "forthTimeCheck": forthTimeCheck.toString(),
+        "backTimeCheck": backTimeCheck.toString(),
+        "kidSeq": kidSeq
       };
       final response = await http.put(
           Uri.parse(URL),
-          headers: {"Content-Type" : "application/json"},
+          headers: authPostHeaders,
           body: jsonEncode(data)
       );
-      // print("22 통신 시작");
       if(response.statusCode == 200) {
         ac.setAttendacneDetail(kidSeq, DateFormat('yyyy-MM-dd').format(DateTime.now()));
         ac.setAttendanceList(DateTime.now());
-        // print("22 통신 성공");
       } else {
-        // print('22 통신 실패');
       }
     }catch(e) {
-      // print("22 통신 캐치");
       print(e);
     }
   }
@@ -133,16 +131,6 @@ class AttendanceService {
 
     DeviceInfoController c = Get.put(DeviceInfoController());
     try {
-      print("11111111");
-      print(c.kidSeq);
-      print(forthTime);
-      print(backTime);
-      print(backWay);
-      print(parentName);
-      print(phoneNumber);
-      print(tempParentName);
-      print(tempPhoneNumber);
-      print("222222222222");
 
       String URL = '${url}class/attendance';
       final data = {

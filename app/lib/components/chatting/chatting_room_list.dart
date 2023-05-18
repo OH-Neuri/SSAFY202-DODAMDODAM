@@ -20,7 +20,7 @@ class ChattingRoomList extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               // 쓸 객체 선언
               SingleUser singleUser = SingleUser(kidName: "", kidPhoto: "");
-              SingleTeacher singleTeacher = SingleTeacher(teacherSeq: -1, teacherName: "");
+              SingleTeacher singleTeacher = SingleTeacher(classTeacherSeq: -1, teacherName: "");
               if (isTeacher) {
                 // 채팅방 리스트로 바꾸기
                 singleUser = ChattingController.to.userList[index];

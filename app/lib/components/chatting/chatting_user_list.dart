@@ -19,7 +19,7 @@ class ChattingUserList extends StatelessWidget {
           itemCount: isTeacher ? ChattingController.to.userList.length : ChattingController.to.teacherList.length,
           itemBuilder: (BuildContext context, int index) {
             SingleUser singleUser = SingleUser(kidName: "", kidPhoto: "");
-            SingleTeacher singleTeacher = SingleTeacher(teacherSeq: -1, teacherName: "");
+            SingleTeacher singleTeacher = SingleTeacher(teacherName: "", classTeacherSeq: -1);
             if (isTeacher) {
               singleUser = ChattingController.to.userList[index];
             }
@@ -38,7 +38,7 @@ class ChattingUserList extends StatelessWidget {
                   children: [
                     // 내용
                     SizedBox(
-                      height: 50,
+                      height: 100,
                       child: Row(
                         children: [
                           // 사진
@@ -58,8 +58,15 @@ class ChattingUserList extends StatelessWidget {
                           ) :
                               Row(
                                 children: [
-                                  Text('${DeviceInfoController.to.className} ${singleTeacher.teacherName} 선생님', style: TextStyle(fontSize: contentTextSize))
-                                ],
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text('${singleTeacher.teacherName} 선생님', style: TextStyle(fontSize: contentTextSize)),
+                                      singleTeacher.sleepModeStart != null ?
+                                      Text('방해금지 시간: ${singleTeacher.sleepModeStart} ~ ${singleTeacher.sleepModeEnd}', style: TextStyle(fontSize: subContentTextSize, color: Colors.grey[500]),) : SizedBox(),
+                                    ]
+                                )],
                               )
                         ],
                       ),
