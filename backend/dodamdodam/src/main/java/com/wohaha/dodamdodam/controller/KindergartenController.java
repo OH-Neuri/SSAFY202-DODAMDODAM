@@ -410,6 +410,21 @@ public class KindergartenController {
         }
     }
 
+    @GetMapping("/food/{classSeq}")
+    public BaseResponseDto<FoodResponseDto> getFoodForApp(@PathVariable long classSeq, @RequestParam String year,
+                                                    @RequestParam String month,
+                                                    @RequestParam String day) {
+        try {
+            return new BaseResponseDto<>(manageFoodService.getFoodForApp(classSeq,year, month, day));
+        } catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw e;
+            } else {
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
     //    api/dodam/kindergarten/food/month?year={year}&month={month}
     @GetMapping("/food/month")
     public BaseResponseDto<FoodListResponseDto> getFoodList(@RequestParam String year,

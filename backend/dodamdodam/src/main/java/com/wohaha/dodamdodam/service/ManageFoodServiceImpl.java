@@ -65,6 +65,15 @@ public class ManageFoodServiceImpl implements ManageFoodService {
     }
 
     @Override
+    public FoodResponseDto getFoodForApp(long classSeq, String year, String month, String day) {
+        Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByClassSeq(classSeq)
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
+        return foodRepository.findFoodByKindergartenSeq(kindergartenSeq,
+                        Integer.valueOf(year), Integer.valueOf(month), Integer.valueOf(day))
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.FOOD_NULL_FAIl));
+    }
+
+    @Override
     public FoodListResponseDto getFoodList(String year, String month) {
         Long userSeq = ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
         Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
