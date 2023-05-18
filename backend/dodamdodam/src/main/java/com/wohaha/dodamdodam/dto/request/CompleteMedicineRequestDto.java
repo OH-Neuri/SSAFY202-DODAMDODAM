@@ -18,6 +18,7 @@ public class CompleteMedicineRequestDto {
 
     private Long medicineSeq;
     private String responseName;
+    private Long kidSeq;
     //private String responseSignUrl;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")

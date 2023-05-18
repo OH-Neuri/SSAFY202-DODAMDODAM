@@ -84,11 +84,11 @@ public class MedicineController {
 
     //투약 완료서(?) 작성
     @PutMapping("/{medicineSeq}")
-    public BaseResponseDto<Boolean> completeMedicine(@PathVariable Long medicineSeq,
+    public BaseResponseDto<NotifyResponseDto> completeMedicine(@PathVariable Long medicineSeq,
                                                      @ModelAttribute CompleteMedicineRequestDto completeMedicineRequestDto) {
         try {
             completeMedicineRequestDto.setMedicineSeq(medicineSeq);
-            boolean result = medicineService.completeMedicine(completeMedicineRequestDto);
+            NotifyResponseDto result = medicineService.completeMedicine(completeMedicineRequestDto);
             return new BaseResponseDto<>(result);
         } catch (Exception e) {
             if (e instanceof BaseException) {
