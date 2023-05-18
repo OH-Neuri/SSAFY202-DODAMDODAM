@@ -21,11 +21,10 @@ initNotification() async {
 }
 
 //2. 이 함수 원하는 곳에서 실행하면 알림 뜸
-showNotification() async {
-  print('실행할겡 나 알림임!');
+showNotification(int type, String content) async {
   var androidDetails = AndroidNotificationDetails(
-    '유니크한 알림 채널 ID',
-    '알림종류 설명',
+    '$type',
+    content,
     priority: Priority.high,
     importance: Importance.max,
     color: Color.fromARGB(255, 255, 0, 0),

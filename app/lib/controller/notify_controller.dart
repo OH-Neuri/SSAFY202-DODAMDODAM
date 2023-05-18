@@ -22,7 +22,7 @@ class NotifyController extends GetxController {
         }).listen((event) {
           // event 받으면 실행되는 부분
           var receive = notifyReceiveFromJson(event.data as String);
-          showNotification();
+          showNotification(receive.type, receive.content);
           notifyList.add(receive);
           update();
     });
