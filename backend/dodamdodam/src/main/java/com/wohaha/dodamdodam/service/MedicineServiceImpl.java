@@ -71,6 +71,7 @@ public class MedicineServiceImpl implements MedicineService{
         LocalDateTime currentDate = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         String formattedDateTime = currentDate.format(formatter);
+        long kidSeq = medicineRepository.kidSeq(completeMedicineRequestDto.getMedicineSeq());
 
 
         //알람 보냄
@@ -79,7 +80,7 @@ public class MedicineServiceImpl implements MedicineService{
         notify.setContent(formattedDateTime + " 투약 보고서가 새로 등록되었습니다. 💊");
         notify.setTypeSeq(completeMedicineRequestDto.getMedicineSeq());
         notify.setSendUserSeq(userSeq);
-        notify.setReceiveUserSeq(manageKidRepository.findParentSeqByKidSeq(completeMedicineRequestDto.getKidSeq())); //아이의 부모 seq 넣어야함
+        notify.setReceiveUserSeq(manageKidRepository.findParentSeqByKidSeq(kidSeq); //아이의 부모 seq 넣어야함
 
         return notify;
 

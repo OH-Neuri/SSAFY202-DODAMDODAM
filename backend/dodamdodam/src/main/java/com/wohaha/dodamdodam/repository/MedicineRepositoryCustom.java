@@ -15,6 +15,9 @@ public interface MedicineRepositoryCustom {
 
     void updateMedicine(CompleteMedicineRequestDto completeMedicineRequestDto);
 
+    //투약하는 아이 정보
+    long kidSeq(long medicineSeq);
+
     List<MedicineClassResponseDto> getMedicineByClassList(Long classSeq, LocalDateTime date);
 
     List<MedicineKidResponseDto> getMedicineByKidList(Long kidSeq, LocalDateTime date);

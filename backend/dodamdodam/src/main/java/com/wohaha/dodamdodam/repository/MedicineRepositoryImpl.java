@@ -36,6 +36,15 @@ public class MedicineRepositoryImpl implements MedicineRepositoryCustom {
     }
 
     @Override
+    public long kidSeq(long medicineSeq) {
+        return query
+                .select(medicine.kidSeq)
+                .from(medicine)
+                .where(medicine.medicineSeq.eq(medicineSeq))
+                .fetchOne();
+    }
+
+    @Override
     public List<MedicineClassResponseDto> getMedicineByClassList(Long classSeq, LocalDateTime date) {
 
         Timestamp startOfDate = Timestamp.valueOf(date.with(LocalTime.MIN));
