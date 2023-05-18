@@ -6,6 +6,7 @@ import 'package:app/controller/root_controller.dart';
 import 'package:app/controller/setting_controller.dart';
 import 'package:app/screens/setting/change_setting.dart';
 import 'package:app/screens/setting/privacy_page.dart';
+import 'package:app/screens/setting/sleep_mode_page.dart';
 import 'package:app/screens/user/login_select.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -144,8 +145,7 @@ class SettingMain extends StatelessWidget {
                         CustomSnackBar.errorSnackbar(context, '방해금지모드는 선생님만 이용할 수 있습니다.');
                         return;
                       }
-                      // 여기서 이동해서 사용하면 됩니당...!
-                      // for leeuh
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>SleepModePage()));
                     },
                     child: Container(
                       decoration: BoxDecoration(

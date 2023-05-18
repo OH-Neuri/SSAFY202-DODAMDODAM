@@ -52,7 +52,7 @@ class SettingService {
   // 방해 금지 설정 시간 받아오기
   static Future<SleepModeTime> getSleepModeTime() async {
     try {
-      String URL = '${url}/user/sleepMode';
+      String URL = '${url}/user/userSleepMode';
       final res = await http.get(Uri.parse(URL), headers: authGetHeaders);
       if(res.statusCode == 200){
         SleepModeTime time = sleepModeTimeModelFromJson(utf8.decode(res.bodyBytes)).sleepModeTime;
@@ -73,13 +73,14 @@ class SettingService {
         "sleepModeStart" : time.sleepModeStart,
         "sleepModeEnd" : time.sleepModeEnd
       };
-      String URL = '${url}/user/sleepMode';
+      String URL = '${url}/user/userSleepMode';
       final res = await http.put(
         Uri.parse(URL),
         headers: authPostHeaders,
         body: jsonEncode(data)
       );
       if(res.statusCode == 200) {
+        print('여기는 방해금지 시간 수정모드...');
         sc.setSleepTimeMode();
       }
     } catch(e) {
