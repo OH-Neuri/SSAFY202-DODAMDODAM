@@ -221,7 +221,7 @@ public class ClassController {
     @PostMapping("/attendance")
     public BaseResponseDto<Boolean> createAttendance(@RequestBody CreateAttendanceRequestDto createAttendanceRequestDto) {
         try {
-            System.out.println(createAttendanceRequestDto.getKidSeq());
+
             return new BaseResponseDto<>(attendanceService.createAttendance(createAttendanceRequestDto));
         }catch (Exception e) {
             e.printStackTrace();
@@ -276,7 +276,7 @@ public class ClassController {
 
 
     @PutMapping("/attendance/{attendanceSeq}")
-    public BaseResponseDto<Boolean> updateAttendanceTime(@PathVariable Long attendanceSeq, @RequestBody AttendanceTimeRequestDto attendanceTimeRequestDto) {
+    public BaseResponseDto<NotifyResponseDto> updateAttendanceTime(@PathVariable Long attendanceSeq, @RequestBody AttendanceTimeRequestDto attendanceTimeRequestDto) {
         try {
             return new BaseResponseDto<>(attendanceService.updateAttendanceTime(attendanceSeq, attendanceTimeRequestDto));
         }catch (Exception e) {
