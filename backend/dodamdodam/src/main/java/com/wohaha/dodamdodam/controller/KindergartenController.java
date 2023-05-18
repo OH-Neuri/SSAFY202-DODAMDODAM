@@ -366,7 +366,19 @@ public class KindergartenController {
         }
         return new BaseResponseDto<>(true);
     }
-
+    @GetMapping("/scheduleType")
+    public BaseResponseDto<List<ScheduleTypeResponseDto>> getScheduleTypeListForApp(@PathVariable long classSeq) {
+        try {
+            List<ScheduleTypeResponseDto> scheduleTypeList = manageScheduleService.getScheduleTypeListForApp(classSeq);
+            return new BaseResponseDto<>(scheduleTypeList);
+        } catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw e;
+            } else {
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
     @GetMapping("/scheduleType/{classSeq}")
     public BaseResponseDto<List<ScheduleTypeResponseDto>> getScheduleTypeList(@PathVariable long classSeq) {
         try {
