@@ -92,9 +92,8 @@ public class ManageScheduleServiceImpl implements ManageScheduleService {
         return true;
     }
     @Override
-    public List<ScheduleTypeResponseDto> getScheduleTypeList() {
-        Long userSeq = ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
-        Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
+    public List<ScheduleTypeResponseDto> getScheduleTypeList(long classSeq) {
+        Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByClassSeq(classSeq)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
         return scheduleTypeRepository.findScheduleTypeByKindergartenSeq(kindergartenSeq);
     }

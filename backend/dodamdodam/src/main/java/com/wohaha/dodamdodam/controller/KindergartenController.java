@@ -367,10 +367,10 @@ public class KindergartenController {
         return new BaseResponseDto<>(true);
     }
 
-    @GetMapping("/scheduleType")
-    public BaseResponseDto<List<ScheduleTypeResponseDto>> getScheduleTypeList() {
+    @GetMapping("/scheduleType/{classSeq}")
+    public BaseResponseDto<List<ScheduleTypeResponseDto>> getScheduleTypeList(@PathVariable long classSeq) {
         try {
-            List<ScheduleTypeResponseDto> scheduleTypeList = manageScheduleService.getScheduleTypeList();
+            List<ScheduleTypeResponseDto> scheduleTypeList = manageScheduleService.getScheduleTypeList(classSeq);
             return new BaseResponseDto<>(scheduleTypeList);
         } catch (Exception e) {
             if (e instanceof BaseException) {
