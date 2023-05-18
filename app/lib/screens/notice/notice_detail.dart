@@ -65,7 +65,7 @@ class NoticeDetailPage extends StatelessWidget {
                                 ),
                               ],
                             )
-                            : SizedBox()
+                            : SizedBox(height: 20,)
                           ),
                           Container(
                             width: double.infinity,

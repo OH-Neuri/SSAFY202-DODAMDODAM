@@ -83,15 +83,16 @@ class NoticeService {
       req.fields['announcement'] = announcement.toString();
       req.fields['content'] = content;
       req.fields['kid'] = kids.join(',');
-      for (File image in photos) {
-        req.files.add(await http.MultipartFile.fromPath('photos', image.path));
-      }
       for (int i = 0; i < photos.length; i++) {
         File image = photos[i];
-        List<int> bytes = await image.readAsBytes();
-        String fileName = image.path.split('/').last;
-        req.files.add(http.MultipartFile.fromBytes('photos', bytes, filename: fileName));
+        req.files.add(await http.MultipartFile.fromPath('photos', image.path));
       }
+      // for (int i = 0; i < photos.length; i++) {
+      //   File image = photos[i];
+      //   List<int> bytes = await image.readAsBytes();
+      //   String fileName = image.path.split('/').last;
+      //   req.files.add(http.MultipartFile.fromBytes('photos', bytes, filename: fileName));
+      // }
       var res = await req.send();
       if (res.statusCode == 200) {
         nc.setNoticeList();
@@ -221,6 +222,13 @@ class NoticeService {
       print(e);
       return '';
     }
+  }
 
+  static Future<String> getAutoNotice() async {
+    await Future.delayed(Duration(seconds: 5), () {
+      String text = '하하하하하하하ㅏㅎ';
+      return text;
+    });
+    return '아니...뭐 상관은 없는데...';
   }
 }
