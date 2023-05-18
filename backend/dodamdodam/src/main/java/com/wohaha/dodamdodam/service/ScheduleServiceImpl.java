@@ -34,8 +34,8 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public boolean createClassSchedule(Long classSeq, CreateScheduleRequestDto createScheduleRequestDto) {
-        Long userSeq = ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
-        Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
+
+        Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByClassSeq(classSeq)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
         ScheduleType st = scheduleTypeRepository.findById(createScheduleRequestDto.getScheduleTypeSeq())
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.SCHEDULE_TYPE_NULL_FAIL));
