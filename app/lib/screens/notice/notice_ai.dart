@@ -21,6 +21,11 @@ FocusNode inputFocus = FocusNode();
 
 class _NoticeAIState extends State<NoticeAI> {
   @override
+  void initState() {
+    super.initState();
+    keyword.clear();
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: lightNavy,

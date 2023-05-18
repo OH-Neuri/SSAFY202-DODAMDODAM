@@ -53,8 +53,8 @@ class _NoticeRegistState extends State<NoticeRegist> {
                             Padding(
                               padding: const EdgeInsets.only(top: 10),
                               child: ElevatedButton(
-                                  onPressed: (){
-                                    showDialog(context: context, builder: (context)=>
+                                  onPressed: () async {
+                                    bool res = await showDialog(context: context, builder: (context)=>
                                       AlertDialog(
                                         contentPadding: EdgeInsets.symmetric(vertical: 40, horizontal: 18),
                                         content: SizedBox(
@@ -63,9 +63,11 @@ class _NoticeRegistState extends State<NoticeRegist> {
                                           child: Column(
                                             children: [
                                               Text('알림장 자동완성 이용시'),
-                                              Text('작성중이던 글이 사라지게 됩니다.', style: TextStyle(
-                                                decoration: TextDecoration.underline
-                                              ),),
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  border: Border(bottom: BorderSide(color: Colors.grey))
+                                                ),
+                                                child: Text('작성중이던 글이 사라지게 됩니다.',)),
                                               Padding(
                                                 padding: const EdgeInsets.only(top: 16.0, bottom: 28.0),
                                                 child: Text('계속 이용하시겠습니까?'),
@@ -76,14 +78,13 @@ class _NoticeRegistState extends State<NoticeRegist> {
                                                     minimumSize: Size(double.infinity, 50)
                                                   ),
                                                   onPressed: (){
-                                                    Navigator.pop(context);
-                                                    Navigator.of(context).push(MaterialPageRoute(builder: (context)=>NoticeAI()));
+                                                    Navigator.pop(context, true);
                                                   },
                                                   child: Text('계속하기', style: TextStyle(color: Colors.white, fontSize: 16),)),
                                               Padding(
-                                                padding: const EdgeInsets.only(top: 10.0),
+                                                padding: const EdgeInsets.only(top: 20.0),
                                                 child: InkWell(
-                                                  onTap: (){Navigator.pop(context);},
+                                                  onTap: (){Navigator.pop(context, false);},
                                                   child: Text('취소', style: TextStyle(fontWeight: FontWeight.w600),),
                                                 ),
                                               )
@@ -92,8 +93,9 @@ class _NoticeRegistState extends State<NoticeRegist> {
                                         ),
                                       )
                                     );
-                                    // Navigator.push(context, MaterialPageRoute(
-                                    //     builder: (context)=>NoticeAI()));
+                                    if(res) {
+                                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>NoticeAI()));
+                                    }
                                   },
                                   style: ElevatedButton.styleFrom(
                                       backgroundColor: logoNavy,

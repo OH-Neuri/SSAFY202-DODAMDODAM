@@ -128,7 +128,8 @@ class _SelectKidModalState extends State<SelectKidModal> {
                           padding: const EdgeInsets.only(right: 3.0),
                           child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xffB5B5B5)
+                                backgroundColor: Color(0xffB5B5B5),
+                                foregroundColor: Colors.white
                               ),
                               onPressed: (){
                                 selectKidList.clear();
@@ -140,7 +141,8 @@ class _SelectKidModalState extends State<SelectKidModal> {
                           padding: const EdgeInsets.only(left: 3.0),
                           child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  backgroundColor: darkNavy
+                                  backgroundColor: darkNavy,
+                                  foregroundColor: Colors.white
                               ),
                               onPressed: (){
                                 nc.setSelectKid(selectKidList);
