@@ -15,7 +15,7 @@ export const registKindergarten = async (name: string, address: string) => {
       };
     await axios.post(`https://dodamdodam.site/api/dodam/kindergarten`, data, config
     ).then((res)=>{
-        console.log(res.data)
+        // console.log(res.data)
         sessionStorage.setItem('kindergarten', name);
         bool = true;
     }).catch((err)=>{

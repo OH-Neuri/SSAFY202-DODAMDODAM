@@ -32,7 +32,7 @@ export const checkAuthSMS = async (phone: string, code: string) => {
   await defaultAxios
     .post(`sms/user/check`, data)
     .then((res) => {
-      console.log(res.data.result);
+      // console.log(res.data.result);
       bool = true;
     })
     .catch((err) => {
@@ -47,7 +47,7 @@ export const userSignup = async (user: SignupUserType) => {
   await defaultAxios
     .post(`user`, user)
     .then((res) => {
-      console.log(res.data.result);
+      // console.log(res.data.result);
       sessionStorage.setItem('reload', 'false')
       sessionStorage.setItem("isLogin", "true");
       sessionStorage.setItem("token", res.data.result.token);
@@ -73,7 +73,7 @@ export const userLogin = async (id: string, pw: string, role: number) => {
     }
     await defaultAxios.post(`user/login`, data
     ).then((res)=>{
-        console.log(res.data.result)
+        // console.log(res.data.result)
         if(res.data.isSuccess){
             sessionStorage.setItem('reload', 'false')
             sessionStorage.setItem('isLogin', 'true')

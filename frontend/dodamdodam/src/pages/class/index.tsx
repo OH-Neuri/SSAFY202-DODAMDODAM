@@ -132,7 +132,7 @@ export default function index() {
       classSeq: selectClass.classSeq,
       className: selectClass.className,
     };
-    console.log(data);
+    // console.log(data);
     sendAddTeacherAuthCode(data);
     toastOK("인증번호가 전송되었습니다.");
     setPhone("");
@@ -320,7 +320,7 @@ export default function index() {
                             />
                             <div
                               onClick={() => {
-                                console.log('>>>',t.classTeacherSeq);
+                                // console.log('>>>',t.classTeacherSeq);
                                 deleteTeacher(t.classTeacherSeq);
                                 toastOK("삭제되었습니다.");
                                 close();

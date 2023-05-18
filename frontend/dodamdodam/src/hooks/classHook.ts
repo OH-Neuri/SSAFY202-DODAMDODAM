@@ -67,7 +67,7 @@ export const useManageClass = () => {
 
   const deleteTeacher = async (teacherSeq: number) => {
     try {
-      console.log(teacherSeq);
+      // console.log(teacherSeq);
       await eraseTeacher.mutateAsync(teacherSeq);
       queryClient.invalidateQueries(["class", "list"]);
     } catch (e) {

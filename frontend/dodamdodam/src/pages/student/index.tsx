@@ -45,7 +45,7 @@ export default function index() {
       );
       setStudentList(response.data.result);
     } catch (error) {
-      console.log("에러났습니다.");
+      // console.log("에러났습니다.");
     }
   }
 

@@ -114,7 +114,7 @@ export default function StudentModifyModal(props: {
       setGender(response.data.result.gender);
       setIsRegisterd(response.data.result.parentSeq);
     } catch (error) {
-      console.log("에러났습니다.");
+      console.log("");
     }
   }
 
@@ -144,7 +144,7 @@ export default function StudentModifyModal(props: {
       );
       setClassList(response.data.result);
     } catch (error) {
-      console.log("에러났습니다.");
+      console.log("");
     }
   }
 

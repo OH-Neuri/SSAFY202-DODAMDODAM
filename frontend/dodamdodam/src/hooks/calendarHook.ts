@@ -135,7 +135,7 @@ export const useManageCalendarType = () => {
   );
   const registScheduleType = async (data: scheduleSendType[]) => {
     try {
-      console.log(data);
+      // console.log(data);
       await regist.mutateAsync(data);
       queryClient.invalidateQueries(["calendar", "type"]);
     } catch (e) {
@@ -177,7 +177,7 @@ export const useDayFood = (year: number, month: number, day: number) =>
         })
         .catch((err) => {
           if (err.response.status == 500)
-            console.log("해당 날의 식단이 없습니다.");
+            console.log("");
           else {
             console.log(err);
           }
