@@ -93,7 +93,7 @@ public class AttendanceServiceImpl implements AttendanceService {
         }
         notify.setTypeSeq(attendacneSeq);
         notify.setSendUserSeq(userSeq);
-        notify.setReceiveUserSeq(attendanceTimeRequestDto.getKidSeq()); //아이의 부모 seq 넣어야함
+        notify.setReceiveUserSeq(kidRepository.findParentSeqByKidSeq(attendanceTimeRequestDto.getKidSeq())); //아이의 부모 seq 넣어야함
 
         return  notify;
     }
