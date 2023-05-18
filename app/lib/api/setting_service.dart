@@ -80,7 +80,6 @@ class SettingService {
         body: jsonEncode(data)
       );
       if(res.statusCode == 200) {
-        print('여기는 방해금지 시간 수정모드...');
         sc.setSleepTimeMode();
       }
     } catch(e) {

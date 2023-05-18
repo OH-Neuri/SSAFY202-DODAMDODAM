@@ -66,6 +66,7 @@ class RoundButton extends StatelessWidget {
           ),
           minimumSize: Size(double.infinity, 60),
           backgroundColor: color,
+          foregroundColor: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50),
           )

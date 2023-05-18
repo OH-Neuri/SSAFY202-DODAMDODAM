@@ -1,4 +1,4 @@
-import 'package:app/components/common/logout_app_bar.dart';
+import 'package:app/components/common/title_appBar.dart';
 import 'package:app/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:gallery_saver/gallery_saver.dart';
@@ -28,7 +28,7 @@ class _NoticeImageDetailState extends State<NoticeImageDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: lightNavy,
-      appBar: LogoutAppBar(),
+      appBar: TitleAppBar(title: '',),
       body: Row(
         children: [
           Expanded(child: SizedBox()),
@@ -68,7 +68,7 @@ class _NoticeImageDetailState extends State<NoticeImageDetail> {
                         items: imageWidgets,
                         options: CarouselOptions(
                           enlargeCenterPage: true,
-                          height: 200,
+                          height: double.infinity,
                           enableInfiniteScroll: false,
                           onPageChanged: (index, reason) {
                             setState(() {

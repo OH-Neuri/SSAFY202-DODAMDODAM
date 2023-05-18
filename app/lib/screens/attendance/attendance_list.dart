@@ -1,5 +1,6 @@
 import 'package:app/components/attendance/attendance_card.dart';
 import 'package:app/components/common/custom_snackbar.dart';
+import 'package:app/components/common/title_appBar.dart';
 import 'package:app/controller/attendance_controller.dart';
 import 'package:app/controller/deviceInfo_controller.dart';
 import 'package:app/models/attendance/attendance_list_model.dart';
@@ -30,13 +31,11 @@ class _AttendanceListState extends State<AttendanceList> {
   Widget build(BuildContext context) {
     DeviceInfoController dc = Get.put(DeviceInfoController());
     AttendacneController ac = Get.put(AttendacneController());
-    const title = 'Grid List';
     return GetBuilder<AttendacneController>(builder:
     (_) =>
      Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: true,
-          title: const Text(title),
+        appBar: TitleAppBar(
+          title: '등하원 확인서 목록',
         ),
         body: Row(
           children: [
@@ -82,7 +81,7 @@ class _AttendanceListState extends State<AttendanceList> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
-                      padding: EdgeInsets.fromLTRB(10,15,0,3),
+                      padding: EdgeInsets.fromLTRB(10,4,0,3),
                       child: Text(
                         DateFormat('yyyy년 MM월 dd일').format(_selectedDate),
                         style: TextStyle(

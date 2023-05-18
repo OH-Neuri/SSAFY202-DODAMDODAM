@@ -78,14 +78,19 @@ class NoticeService {
     try {
       String URL = '${url}class/notice';
       var req = http.MultipartRequest('POST', Uri.parse(URL));
+      req.headers['Authorization'] = 'Bearer ${c.token}';
       req.fields['classSeq'] = c.classSeq.toString();
       req.fields['announcement'] = announcement.toString();
       req.fields['content'] = content;
-      kids.sort();
       req.fields['kid'] = kids.join(',');
-      print(kids.join(','));
-      for (var image in photos) {
+      for (File image in photos) {
         req.files.add(await http.MultipartFile.fromPath('photos', image.path));
+      }
+      for (int i = 0; i < photos.length; i++) {
+        File image = photos[i];
+        List<int> bytes = await image.readAsBytes();
+        String fileName = image.path.split('/').last;
+        req.files.add(http.MultipartFile.fromBytes('photos', bytes, filename: fileName));
       }
       var res = await req.send();
       if (res.statusCode == 200) {
@@ -101,6 +106,8 @@ class NoticeService {
         print(res.statusCode);
       }
     } catch (e) {
+
+      print('아예 여기라고?');
       print(e);
     }
   }

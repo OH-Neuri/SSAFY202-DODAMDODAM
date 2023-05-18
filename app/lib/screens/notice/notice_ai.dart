@@ -1,4 +1,5 @@
-import 'package:app/components/common/logout_app_bar.dart';
+import 'package:app/components/common/custom_snackbar.dart';
+import 'package:app/components/common/title_appBar.dart';
 import 'package:app/components/notice/ai_guide_modal.dart';
 import 'package:app/components/notice/keyword_chip.dart';
 import 'package:app/constants.dart';
@@ -23,7 +24,7 @@ class _NoticeAIState extends State<NoticeAI> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: lightNavy,
-      appBar: LogoutAppBar(),
+      appBar: TitleAppBar(title: '알림장 자동완성',),
       body: Row(
         children: [
           Expanded(child: SizedBox()),
@@ -160,15 +161,17 @@ class _NoticeAIState extends State<NoticeAI> {
                     padding: const EdgeInsets.fromLTRB(0, 24, 0, 0),
                     child: ElevatedButton(
                         onPressed: (){
+                          if(keyword.isEmpty) {
+                            CustomSnackBar.errorSnackbar(context, '키워드를 입력해주세요.');
+                            return;
+                          }
                           NoticeController.to.setAiNotice(keyword);
                           Navigator.push(context, MaterialPageRoute(builder: (context) => NoticeAIResult(keywords: keyword,),));
-                          // setState(() {
-                          //   keyword = [];
-                          // });
                         },
                         style: ElevatedButton.styleFrom(
                           minimumSize: Size(double.infinity, 50),
-                          backgroundColor: darkNavy
+                          backgroundColor: darkNavy,
+                          foregroundColor: Colors.white
                         ),
                         child: Text('작성하기',style: TextStyle(fontSize: contentTextSize),)
                     ),
@@ -184,7 +187,8 @@ class _NoticeAIState extends State<NoticeAI> {
                         },
                         style: ElevatedButton.styleFrom(
                           minimumSize: Size(double.infinity, 50),
-                          backgroundColor: Color(0xffA2A2A2)
+                          backgroundColor: Color(0xffA2A2A2),
+                            foregroundColor: Colors.white
                         ),
                         child: Text('취소하기',style: TextStyle(fontSize: contentTextSize),)
                     ),

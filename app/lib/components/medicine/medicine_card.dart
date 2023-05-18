@@ -35,7 +35,7 @@ class MedicineCard extends StatelessWidget {
                       Visibility(
                         visible: data.responseDate==null,
                         replacement: Center(child: Icon(Icons.check_circle_outline_rounded,size: 25, color:cardBtnPink)),
-                        child: Center(child: Icon(Icons.check_circle_outline_rounded,size: 25, color:cardBtnGray)),
+                        child: Center(child: Icon(Icons.check_circle_outline_rounded,size: 25, color: Color(0x70000000))),
                       ),
                     ],
                   ),
