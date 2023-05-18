@@ -222,6 +222,13 @@ class NoticeService {
       print(e);
       return '';
     }
+  }
 
+  static Future<String> getAutoNotice() async {
+    await Future.delayed(Duration(seconds: 5), () {
+      String text = '하하하하하하하ㅏㅎ';
+      return text;
+    });
+    return '아니...뭐 상관은 없는데...';
   }
 }
