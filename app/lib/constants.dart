@@ -10,6 +10,7 @@ const lightYellow = Color(0xffFFE59F);
 const lightNavy = Color(0xffACB4DB);
 const mainPink = Color(0xffFFCAC8);
 const lightPink = Color(0xffFFE5E4);
+const darkPink = Color(0xffff8c8a);
 const cardYellow = Color(0xffFFF1A7);
 const cardPink = Color(0xffffE5E4);
 const cardGray = Color(0xffE7E7E7);

@@ -47,16 +47,22 @@ class _AttendaneListTimePickerState extends State<AttendaneListTimePicker> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text(
-              _selectedDate == null
-                  ? "날짜 선택"
-                  : "${_selectedDate.year}-${_selectedDate.month}-${_selectedDate.day}",
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10, 6, 8, 6),
+              child: Text(
+                _selectedDate == null
+                    ? "날짜 선택"
+                    : "${_selectedDate.year}-${_selectedDate.month}-${_selectedDate.day}",
 
-            style: TextStyle(
-              fontSize: 12
+              style: TextStyle(
+                fontSize: 12
+              ),
+              ),
             ),
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: Icon(Icons.calendar_month, color: Colors.grey[700],),
             ),
-            Icon(Icons.calendar_today),
           ],
         ),
       ),

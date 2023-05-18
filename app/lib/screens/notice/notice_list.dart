@@ -88,7 +88,7 @@ class NoticeList extends StatelessWidget {
                             MaterialPageRoute(builder: (context)=>NoticeRegist()));
                       },
                       style: ElevatedButton.styleFrom(
-                          minimumSize: Size(80, 80),
+                          minimumSize: Size(70, 70),
                           backgroundColor: logoNavy,
                           foregroundColor: Colors.white,
                           elevation: 20,
