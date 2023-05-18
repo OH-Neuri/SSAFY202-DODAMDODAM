@@ -40,6 +40,7 @@ public class NoticeRepositoryImpl implements NoticeRepositoryCustom {
                         notice.announcement))
                 .from(notice)
                 .where(notice.classSeq.eq(classSeq))
+                .orderBy(notice.createdAt.desc())
                 .fetch();
 
     }
@@ -52,6 +53,7 @@ public class NoticeRepositoryImpl implements NoticeRepositoryCustom {
                 .from(notice)
                 .join(noticeKid).on(notice.noticeSeq.eq(noticeKid.noticeSeq))
                 .where(noticeKid.kidSeq.eq(kidSeq))
+                .orderBy(notice.createdAt.desc())
                 .fetch();
 
     }
