@@ -32,8 +32,9 @@ class ScheduleService {
   // 일정 분류 받아오기
   static Future<List<SingleType>> getTypeList() async {
     try{
-      String URL = '${url}kindergarten/scheduleType';
-      final response = await http.get(Uri.parse(URL), headers: authGetHeaders);
+      int classSeq = DeviceInfoController.to.classSeq;
+      String URL = '${url}kindergarten/scheduleType/$classSeq';
+      final response = await http.get(Uri.parse(URL));
       if(response.statusCode == 200) {
         final List<SingleType> typeList = scheduleTypeModelFromJson(
             utf8.decode(response.bodyBytes)).typeList;
@@ -56,12 +57,12 @@ class ScheduleService {
       String URL = '${url}class/schedule/${c.classSeq}';
       final data = {
           "content": name,
-          "date": "${tc.choiceDay.year}-${tc.choiceDay.month}-${tc.choiceDay.day}",
+          "date": "${tc.choiceDay.year}-05-${tc.choiceDay.day}",
           "scheduleTypeSeq": choice.scheduleTypeSeq
       };
       final response = await http.post(
           Uri.parse(URL),
-          headers: authPostHeaders,
+          headers: postHeaders,
           body: jsonEncode(data)
       );
       if(response.statusCode == 200) {

@@ -78,6 +78,7 @@ class NoticeService {
     try {
       String URL = '${url}class/notice';
       var req = http.MultipartRequest('POST', Uri.parse(URL));
+      req.headers['Authorization'] = 'Bearer ${c.token}';
       req.fields['classSeq'] = c.classSeq.toString();
       req.fields['announcement'] = announcement.toString();
       req.fields['content'] = content;

@@ -1,14 +1,15 @@
 import 'dart:convert';
-import 'package:app/api/http_header.dart';
+import 'package:app/controller/deviceInfo_controller.dart';
 import 'package:http/http.dart' as http;
 import 'package:app/models/schedule/singleday_food_model.dart';
 import 'package:app/api/url_mapping.dart';
 
 class FoodService {
   static Future<OneDayFood> getOneDayFood(int year, int month, int day) async{
-    String URL = '${url}kindergarten/food?year=$year&month=$month&day=$day';
+    int classSeq = DeviceInfoController.to.classSeq;
+    String URL = '${url}kindergarten/food/$classSeq?year=$year&month=$month&day=$day';
     try{
-      final response = await http.get(Uri.parse(URL), headers: authGetHeaders);
+      final response = await http.get(Uri.parse(URL));
       if(response.statusCode == 200){
         final OneDayFood dayFood = sigledayFoodFromJson(utf8.decode(response.bodyBytes)).oneDayFood;
         return dayFood;
