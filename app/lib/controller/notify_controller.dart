@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:app/controller/deviceInfo_controller.dart';
 import 'package:app/models/chatting/notify_model.dart';
+import 'package:app/notification.dart';
 import 'package:get/get.dart';
 import 'package:flutter_client_sse/flutter_client_sse.dart';
 import 'package:http/http.dart' as http;
@@ -22,7 +23,9 @@ class NotifyController extends GetxController {
         header: {
           "Accept": "text/event-stream",
         }).listen((event) {
+          // event 받으면 실행되는 부분
           var receive = notifyReceiveFromJson(event.data as String);
+          showNotification();
           notifyList.add(receive);
           update();
     });

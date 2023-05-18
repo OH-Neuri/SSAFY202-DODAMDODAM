@@ -4,6 +4,7 @@ import 'package:app/components/today/today_food.dart';
 import 'package:app/components/today/today_info.dart';
 import 'package:app/constants.dart';
 import 'package:app/controller/deviceInfo_controller.dart';
+import 'package:app/notification.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatelessWidget {
@@ -25,6 +26,12 @@ class MainPage extends StatelessWidget {
                 flex: 12,
                 child: Column(
                   children: [
+                    InkWell(
+                      onTap: (){
+                        showNotification();
+                      },
+                      child: Text('알림오나 눌러봐!!!!'),
+                    ),
                     // 첫 인사말
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 25, 0, 10),
