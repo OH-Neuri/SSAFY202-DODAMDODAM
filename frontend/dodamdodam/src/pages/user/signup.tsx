@@ -134,7 +134,7 @@ export default function Signup() {
     };
     const res = await userSignup(user);
     if (res) {
-      console.log("회원가입 성공!");
+      // console.log("회원가입 성공!");
       router.push("/user/welcome");
     } else {
       toastError("회원가입에 실패했습니다.");
