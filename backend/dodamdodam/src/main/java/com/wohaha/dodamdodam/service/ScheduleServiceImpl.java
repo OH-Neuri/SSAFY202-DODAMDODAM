@@ -52,9 +52,10 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public List<ClassScheduleResponseDto> getDayScheduleList(Long classSeq, String year, String month, String day) {
-        Long userSeq = ((CustomAuthenticatedUser)SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
-        Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
+
+        Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByClassSeq(classSeq)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
+
         return scheduleRepository.findClassScheduleByClassSeq(kindergartenSeq, classSeq, Integer.valueOf(year), Integer.valueOf(month), Integer.valueOf(day));
     }
 

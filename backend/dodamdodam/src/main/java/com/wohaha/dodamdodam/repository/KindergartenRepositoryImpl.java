@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Optional;
 
 import static com.wohaha.dodamdodam.domain.QKindergarten.kindergarten;
+import static com.wohaha.dodamdodam.domain.QClassInfo.classInfo;
 
 public class KindergartenRepositoryImpl implements KindergartenRepositoryCustom {
     @Autowired
@@ -21,6 +22,17 @@ public class KindergartenRepositoryImpl implements KindergartenRepositoryCustom 
                     .from(kindergarten)
                     .where(kindergarten.userSeq.eq(userSeq))
                     .fetchOne()
+        );
+    }
+
+    @Override
+    public Optional<Long> findKindergartenSeqByClassSeq(Long classSeq) {
+        return Optional.ofNullable(
+                query
+                        .select(classInfo.kindergartenSeq)
+                        .from(classInfo)
+                        .where(classInfo.classSeq.eq(classSeq))
+                        .fetchOne()
         );
     }
 
