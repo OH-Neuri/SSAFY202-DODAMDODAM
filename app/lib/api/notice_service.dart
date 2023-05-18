@@ -189,7 +189,7 @@ class NoticeService {
       String url = "https://api.openai.com/v1/engines/text-davinci-003/completions";
       String text = keywordToText(keywords);
       Map<String, dynamic> data = {
-        "prompt" : "너는 유치원 선생님이야 다음과 같은 키워드들로 학부모님들에게 보내는 알림장을 작성해줘, $text 시작문구는 다음과 같아. 안녕하세요 화창한 여름날입니다.",
+        "prompt" : "나는 유치원 선생님이고, 학부모들에게 보낼 알림장을 작성할꺼야. 시작문구는 다음과 같아. [안녕하세요 화창한 여름날입니다.] 그리고, 다음과 같은 키워드들을 사용해서 이어서 작성해줘, [$text ]",
         "temperature" : 1.0,
         "max_tokens" : 1000,
         "top_p" : 1,

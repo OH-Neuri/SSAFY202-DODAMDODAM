@@ -32,21 +32,29 @@ class ChattingTeacherList {
 }
 
 class SingleTeacher {
-  int teacherSeq;
+  int classTeacherSeq;
   String teacherName;
+  dynamic sleepModeStart;
+  dynamic sleepModeEnd;
 
   SingleTeacher({
-    required this.teacherSeq,
+    required this.classTeacherSeq,
     required this.teacherName,
+    this.sleepModeEnd,
+    this.sleepModeStart
   });
 
   factory SingleTeacher.fromJson(Map<String, dynamic> json) => SingleTeacher(
-    teacherSeq: json["teacherSeq"],
+    classTeacherSeq: json["classTeacherSeq"],
     teacherName: json["teacherName"],
+    sleepModeStart: json["sleepModeStart"],
+    sleepModeEnd: json["sleepModeEnd"]
   );
 
   Map<String, dynamic> toJson() => {
-    "teacherSeq": teacherSeq,
+    "teacherSeq": classTeacherSeq,
     "teacherName": teacherName,
+    "sleepModeStart": sleepModeStart,
+    "sleepModeEnd" : sleepModeEnd
   };
 }
