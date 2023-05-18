@@ -103,7 +103,7 @@ class _AddCalendarDialogState extends State<AddCalendarDialog> {
                             padding: const EdgeInsets.only(right: 3.0),
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.grey[200],
+                                backgroundColor: Colors.grey[300],
                                 minimumSize: Size(double.infinity, 44)
                               ),
                               onPressed: (){
