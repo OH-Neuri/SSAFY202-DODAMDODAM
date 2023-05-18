@@ -26,12 +26,6 @@ class MainPage extends StatelessWidget {
                 flex: 12,
                 child: Column(
                   children: [
-                    InkWell(
-                      onTap: (){
-                        showNotification();
-                      },
-                      child: Text('알림오나 눌러봐!!!!'),
-                    ),
                     // 첫 인사말
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 25, 0, 10),

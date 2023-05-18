@@ -13,7 +13,9 @@ TimeOfDay stringToTime(String time) {
 String notiTime(DateTime time) {
   DateTime now = DateTime.now();
   if (time.year == now.year && time.month == now.month && time.day == now.day) {
-    return "${time.hour}:${time.minute}";
+    String hour = time.hour.toString().padLeft(2, '0');
+    String minute = time.minute.toString().padLeft(2, '0');
+    return "$hour:$minute";
   }
   else if (time.year != now.year) {
     return "${now.year - time.year}년 전";
