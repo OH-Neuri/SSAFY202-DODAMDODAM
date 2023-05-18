@@ -1,12 +1,13 @@
 import 'dart:io';
 import 'package:app/api/notice_service.dart';
 import 'package:app/components/common/custom_snackbar.dart';
-import 'package:app/components/common/logout_app_bar.dart';
+import 'package:app/components/common/title_appBar.dart';
 import 'package:app/components/notice/add_image_icon.dart';
 import 'package:app/components/notice/select_kid_modal.dart';
 import 'package:app/constants.dart';
 import 'package:app/controller/notice_controller.dart';
 import 'package:app/screens/notice/notice_ai.dart';
+import 'package:app/screens/notice/notice_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -36,7 +37,7 @@ class _NoticeRegistState extends State<NoticeRegist> {
         Scaffold(
           resizeToAvoidBottomInset: false,
           backgroundColor: lightNavy,
-          appBar: LogoutAppBar(),
+          appBar: TitleAppBar(title: '알림장 작성',),
           body: Row(
             children: [
               Expanded(child: SizedBox()),
@@ -321,6 +322,7 @@ class _NoticeRegistState extends State<NoticeRegist> {
                                             }
                                             if(isAnnouncement) {
                                               List<int> kidSeqs = nc.kidList.map((kid) => kid.kidSeq).toList();
+                                              print(kidSeqs);
                                               NoticeService.registNotice(1, isAnnouncement, _controller.value.text, kidSeqs, _images);
                                             }else{
                                               NoticeService.registNotice(1, isAnnouncement, _controller.value.text, nc.selectKids, _images);
@@ -330,7 +332,7 @@ class _NoticeRegistState extends State<NoticeRegist> {
                                               _images.clear();
                                             });
                                             _controller.clear();
-                                            Navigator.pop(context);
+                                            Navigator.push(context, MaterialPageRoute(builder: (context)=>NoticeList()));
                                           },
                                           style: ElevatedButton.styleFrom(
                                               backgroundColor: darkNavy,

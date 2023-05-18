@@ -1,4 +1,4 @@
-import 'package:app/components/common/logout_app_bar.dart';
+import 'package:app/components/common/title_appBar.dart';
 import 'package:app/components/notice/notice_item.dart';
 import 'package:app/components/notice/notice_item_announcement.dart';
 import 'package:app/components/notice/notice_month_picker.dart';
@@ -23,7 +23,7 @@ class NoticeList extends StatelessWidget {
       builder: (_) =>
         Scaffold(
           backgroundColor: lightNavy,
-          appBar: LogoutAppBar(),
+          appBar: TitleAppBar(title: '알림장'),
           body: Stack(
               children: [
                 Positioned(

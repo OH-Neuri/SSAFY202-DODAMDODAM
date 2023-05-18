@@ -55,7 +55,7 @@ class NoticeAIResult extends StatelessWidget {
                             padding: const EdgeInsets.only(top: 14.0, bottom: 10),
                             child: Divider(color: Colors.grey, thickness: 1, height: 1,),
                           ),
-                          Text(nc.aiNotice)
+                          Expanded(child: SingleChildScrollView(child: Text(nc.aiNotice)))
                         ],
                       )),
                   ),
@@ -64,15 +64,13 @@ class NoticeAIResult extends StatelessWidget {
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: darkNavy,
+                          foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8)
                           ),
                           minimumSize: Size(double.infinity, 50)
                         ),
                         onPressed: (){
-                          Navigator.pop(context);
-                          Navigator.pop(context);
-                          Navigator.pop(context);
                           Navigator.push(context, MaterialPageRoute(builder: (context)=>NoticeRegist(),));
                         },
                         child: Text('작성창에 반영하기')),
@@ -82,6 +80,7 @@ class NoticeAIResult extends StatelessWidget {
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Color(0xffA5A5A5),
+                            foregroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8)
                             ),

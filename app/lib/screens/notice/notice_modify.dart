@@ -1,7 +1,8 @@
 import 'dart:io';
 
 import 'package:app/api/notice_service.dart';
-import 'package:app/components/common/logout_app_bar.dart';
+import 'package:app/components/common/custom_snackbar.dart';
+import 'package:app/components/common/title_appBar.dart';
 import 'package:app/components/notice/add_image_icon.dart';
 import 'package:app/constants.dart';
 import 'package:app/controller/notice_controller.dart';
@@ -17,7 +18,6 @@ class NoticeModify extends StatefulWidget {
 }
 
 TextEditingController _controller = TextEditingController();
-String content = '';
 List<String> _images = [];
 
 class _NoticeModifyState extends State<NoticeModify> {
@@ -34,7 +34,7 @@ class _NoticeModifyState extends State<NoticeModify> {
         Scaffold(
           resizeToAvoidBottomInset: false,
           backgroundColor: lightNavy,
-          appBar: LogoutAppBar(),
+          appBar: TitleAppBar(title: '알림장 수정',),
           body: Row(
             children: [
               Expanded(child: SizedBox()),
@@ -180,11 +180,6 @@ class _NoticeModifyState extends State<NoticeModify> {
                                   children: [
                                     Expanded(
                                       child: TextField(
-                                        onChanged: (value){
-                                          setState(() {
-                                            content = value;
-                                          });
-                                        },
                                         style: TextStyle(
                                             fontSize: 12.0
                                         ),
@@ -217,7 +212,7 @@ class _NoticeModifyState extends State<NoticeModify> {
                           ),
                         ),
                         Container(
-                          margin: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                          margin: const EdgeInsets.fromLTRB(0, 10, 0, 20),
                           width: double.infinity,
                           child: Row(
                             children: [
@@ -227,7 +222,6 @@ class _NoticeModifyState extends State<NoticeModify> {
                                       height: 40,
                                       child: ElevatedButton(onPressed: (){
                                         setState(() {
-                                          content = '';
                                           _images.clear();
                                         });
                                         _controller.clear();
@@ -235,7 +229,8 @@ class _NoticeModifyState extends State<NoticeModify> {
                                         Navigator.pop(context);
                                       },
                                           style: ElevatedButton.styleFrom(
-                                              backgroundColor: Color(0xffA2A2A2)
+                                            backgroundColor: Color(0xffA2A2A2),
+                                            foregroundColor: Colors.white
                                           ),
                                           child: Text('취소하기')
                                       )
@@ -247,16 +242,20 @@ class _NoticeModifyState extends State<NoticeModify> {
                                       height: 40,
                                       child: ElevatedButton(
                                           onPressed: (){
-                                            NoticeService.modifyNotice(nc.noticeDetail.noticeSeq, content, _images);
+                                            if(_controller.value.text == '') {
+                                              CustomSnackBar.errorSnackbar(context, '내용을 입력해주세요');
+                                              return;
+                                            }
+                                            NoticeService.modifyNotice(nc.noticeDetail.noticeSeq, _controller.value.text, _images);
                                             setState(() {
-                                              content = '';
                                               _images.clear();
                                             });
                                             _controller.clear();
                                             Navigator.pop(context);
                                           },
                                           style: ElevatedButton.styleFrom(
-                                              backgroundColor: darkNavy
+                                              backgroundColor: darkNavy,
+                                              foregroundColor: Colors.white
                                           ),
                                           child: Text('수정하기')
                                       )

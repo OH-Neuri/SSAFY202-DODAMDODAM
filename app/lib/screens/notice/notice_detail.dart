@@ -1,6 +1,6 @@
 import 'package:app/api/notice_service.dart';
 import 'package:app/components/common/check_delete_modal.dart';
-import 'package:app/components/common/logout_app_bar.dart';
+import 'package:app/components/common/title_appBar.dart';
 import 'package:app/constants.dart';
 import 'package:app/controller/deviceInfo_controller.dart';
 import 'package:app/controller/notice_controller.dart';
@@ -21,7 +21,7 @@ class NoticeDetailPage extends StatelessWidget {
         builder: (_) =>
           Scaffold(
             backgroundColor: lightNavy,
-            appBar: LogoutAppBar(),
+            appBar: TitleAppBar(title: '',),
             body: Row(
               children: [
                 Expanded(child: SizedBox()),

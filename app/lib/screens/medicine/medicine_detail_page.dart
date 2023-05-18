@@ -5,7 +5,6 @@ import 'package:app/controller/medicine_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:app/constants.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:text_divider/text_divider.dart';
 import 'package:get/get.dart';
 
 class MedicineDetailPage extends StatefulWidget {
@@ -209,7 +208,7 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
                           Text(mc.medicineKidDetail.requestDate,style: TextStyle(
                             fontSize: 16
                           ),),
-                          Text(dc.name,style: TextStyle(
+                          Text(mc.medicineKidDetail.requestName,style: TextStyle(
                               fontSize: 16
                           ),),
                           Icon(Icons.check_circle_outline_rounded,size: 30, color:cardBtnPink)

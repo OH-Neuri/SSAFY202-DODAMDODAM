@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:app/api/http_header.dart';
 import 'package:app/controller/medicine_controller.dart';
-import 'package:app/controller/today_controller.dart';
 import 'package:app/models/medicine/medicine_class_list_model.dart';
 import 'package:app/models/medicine/medicine_kid_detail_model.dart';
 import 'package:app/models/medicine/medicine_kid_month_list_model.dart';
@@ -9,7 +8,6 @@ import 'package:http/http.dart' as http;
 import 'package:app/api/url_mapping.dart';
 import 'package:app/controller/deviceInfo_controller.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 class MedicineService {
 
@@ -23,15 +21,15 @@ class MedicineService {
       };
       final res = await http.post(
           Uri.parse(URL),
-          headers: {"Content-Type" : "application/json"},
+          headers: postHeaders,
           body: jsonEncode(data)
       );
       if(res.statusCode == 200){
         final List<MedicineClassList> medicineClassList = medicineClassListModelFromJson(utf8.decode(res.bodyBytes)).medicineClassList;
-        // print("32 통신 성공");
+        print("32 통신 성공");
         return medicineClassList;
       }else {
-        // print("32 통신 실패 error");
+        print("32 통신 실패 error");
         return <MedicineClassList>[];
       }
     }catch(e){
@@ -109,6 +107,7 @@ class MedicineService {
       MedicineController mc = Get.put(MedicineController());
 
       var req = http.MultipartRequest('PUT', Uri.parse(URL));
+      req.headers['Authorization'] = 'Bearer ${c.token}';
       req.fields['responseName'] = c.name;
       req.fields['responseDate'] = responseDate;
       var res = await req.send();

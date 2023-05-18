@@ -1,15 +1,11 @@
-import 'dart:ffi';
-
 import 'package:app/components/common/input_form.dart';
-import 'package:app/components/common/sign_button_custom.dart';
 import 'package:app/components/common/text_form_field_custom.dart';
-import 'package:app/components/user/user_textform_field.dart';
+import 'package:app/components/common/title_appBar.dart';
 import 'package:app/api/attendance_service.dart';
 import 'package:app/constants.dart';
 import 'package:app/controller/attendance_controller.dart';
 import 'package:app/controller/deviceInfo_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:app/components/attendance/attendance_list_timepicker.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -52,16 +48,12 @@ class _AttendanceDetailTeacherState extends State<AttendanceDetailTeacher> {
 
     DeviceInfoController dc = Get.put(DeviceInfoController());
     AttendacneController ac = Get.put(AttendacneController());
-    const title = 'Grid List';
     // late bool isInvalid = ac.attendacneDetail.parentName!=null?true:false;
     return GetBuilder<AttendacneController>(builder:
     (_)=>
           Scaffold(
             resizeToAvoidBottomInset:false,
-            appBar: AppBar(
-              automaticallyImplyLeading: true,
-              title: const Text(title),
-            ),
+            appBar: TitleAppBar(title: '등하원 확인서',),
             body: Row(children: [
               Expanded(child: SizedBox()),
               Flexible(
