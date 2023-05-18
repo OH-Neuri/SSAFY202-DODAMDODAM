@@ -246,6 +246,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.2"
+  flutter_client_sse:
+    dependency: "direct main"
+    description:
+      name: flutter_client_sse
+      sha256: "3a234480f529240401dc063a205a36ddce71b36e37f373e54ea6dd380e31bbbb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   flutter_launcher_icons:
     dependency: "direct main"
     description:
@@ -417,10 +425,10 @@ packages:
     dependency: transitive
     description:
       name: intl
-      sha256: a3715e3bc90294e971cb7dc063fbf3cd9ee0ebf8604ffeafabd9e6f16abbdbe6
+      sha256: "3bc132a9dbce73a7e4a21a17d06e1878839ffbf975568bc875c60537824b0c4d"
       url: "https://pub.dev"
     source: hosted
-    version: "0.18.0"
+    version: "0.18.1"
   js:
     dependency: transitive
     description:
@@ -806,10 +814,10 @@ packages:
     dependency: transitive
     description:
       name: test_api
-      sha256: eb6ac1540b26de412b3403a163d919ba86f6a973fe6cc50ae3541b80092fdcfb
+      sha256: daadc9baabec998b062c9091525aa95786508b1c48e9c30f1f891b8bf6ff2e64
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.1"
+    version: "0.5.2"
   text_divider:
     dependency: "direct main"
     description:
@@ -922,14 +930,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
-  web_socket_channel:
-    dependency: "direct main"
-    description:
-      name: web_socket_channel
-      sha256: d88238e5eac9a42bb43ca4e721edba3c08c6354d4a53063afaa568516217621b
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.4.0"
   win32:
     dependency: transitive
     description:
