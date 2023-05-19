@@ -11,43 +11,51 @@ class DeleteCalendarDialog extends StatelessWidget {
     return AlertDialog(
       title: Center(
         child: Text("일정 삭제",
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: buttonTextSize, color: logoNavy)
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: buttonTextSize, color: textColor)
         )
       ),
       backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-      content: Text("해당 일정을 정말로 삭제하시겠습니까?"),
-      actions: <Widget>[
-        // 취소 버튼
-        InkWell(
-          onTap: () {
-            Navigator.of(context).pop();
-          },
-          child: Container(
-            height: 30, width: 50, margin: EdgeInsets.fromLTRB(0, 0, 5, 10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.grey,
-            ),
-            child: Center(child: Text('취소')),
-          ),
+      content: Container(
+        height: 140,
+        padding: EdgeInsets.only(top: 10),
+        child: Column(
+          children: [
+            Text("삭제한 일정은 다시 복구할 수 없습니다.", style: TextStyle(fontSize: 14, color: Colors.grey[700]),),
+            Text("해당 일정을 정말로 삭제하시겠습니까?"),
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: Row(
+                children: [
+                  Expanded(child: Padding(
+                    padding: const EdgeInsets.only(right: 4.0),
+                    child: ElevatedButton(
+                        onPressed: (){
+                          Navigator.of(context).pop();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.grey[300]
+                        ),
+                        child: Text('취소')),
+                  )),
+                  Expanded(child: Padding(
+                    padding: const EdgeInsets.only(left: 4.0),
+                    child: ElevatedButton(
+                        onPressed: (){
+                          ScheduleService.deleteSchedule(scheduleSeq);
+                          Navigator.of(context).pop();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: darkYellow
+                        ),
+                        child: Text('삭제')),
+                  )),
+                ],
+              ),
+            )
+          ],
         ),
-        // 삭제 버튼
-        InkWell(
-          onTap: () {
-            ScheduleService.deleteSchedule(scheduleSeq);
-            Navigator.of(context).pop();
-          },
-          child: Container(
-            height: 30, width: 50, margin: EdgeInsets.fromLTRB(0, 0, 5, 10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.deepOrange,
-            ),
-            child: Center(child: Text('삭제')),
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

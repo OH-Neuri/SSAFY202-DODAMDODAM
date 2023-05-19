@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:app/api/http_header.dart';
 import 'package:app/controller/today_controller.dart';
 import 'package:app/models/schedule/schedule_type_model.dart';
 import 'package:http/http.dart' as http;
@@ -14,7 +15,7 @@ class ScheduleService {
     try{
       int classSeq = c.classSeq;
       String URL = '${url}class/schedule/$classSeq?year=$year&month=$month&day=$day';
-      final response = await http.get(Uri.parse(URL));
+      final response = await http.get(Uri.parse(URL), headers: authGetHeaders);
       if(response.statusCode == 200){
         final List<OneSchedule> scheduleList = sigledayScheduleFromJson(utf8.decode(response.bodyBytes)).oneSchedule;
         return scheduleList;
@@ -31,7 +32,8 @@ class ScheduleService {
   // 일정 분류 받아오기
   static Future<List<SingleType>> getTypeList() async {
     try{
-      String URL = '${url}kindergarten/scheduleType';
+      int classSeq = DeviceInfoController.to.classSeq;
+      String URL = '${url}kindergarten/scheduleType/$classSeq';
       final response = await http.get(Uri.parse(URL));
       if(response.statusCode == 200) {
         final List<SingleType> typeList = scheduleTypeModelFromJson(
@@ -55,12 +57,12 @@ class ScheduleService {
       String URL = '${url}class/schedule/${c.classSeq}';
       final data = {
           "content": name,
-          "date": "${tc.choiceDay.year}-${tc.choiceDay.month}-${tc.choiceDay.day}",
+          "date": "${tc.choiceDay.year}-05-${tc.choiceDay.day}",
           "scheduleTypeSeq": choice.scheduleTypeSeq
       };
       final response = await http.post(
           Uri.parse(URL),
-          headers: {"Content-Type" : "application/json"},
+          headers: postHeaders,
           body: jsonEncode(data)
       );
       if(response.statusCode == 200) {

@@ -52,7 +52,7 @@ class OneLineSchedule extends StatelessWidget {
                           }
                       );
                     },
-                      child: Icon(Icons.delete)
+                      child: Icon(Icons.delete, color: Color(0x50000000),)
                   )
                       : SizedBox()
                 ],

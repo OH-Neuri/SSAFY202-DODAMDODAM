@@ -30,11 +30,11 @@ class _MainIconButtonState extends State<MainIconButton> {
     dynamic link;
     switch (widget.title) {
       case '알림장':
-        icon = Image.asset('assets/images/common/notebook_icon.png');
+        icon = Image.asset('assets/images/common/노트.png');
         link = NoticeList();
         break;
       case '등하원 확인서':
-        icon = Image.asset('assets/images/common/goback_icon.png');
+        icon = Image.asset('assets/images/common/어린이집.png');
         // 선생님이면?
         if (isTeacher) {
           link = AttendanceList();
@@ -45,7 +45,7 @@ class _MainIconButtonState extends State<MainIconButton> {
         }
         break;
       case '투약 의뢰서':
-        icon = Image.asset('assets/images/common/medicine_icon.png');
+        icon = Image.asset('assets/images/common/약.png');
         // 선생님이면?
         if (isTeacher) {
           link = MedicineTeacherPage();
@@ -68,16 +68,16 @@ class _MainIconButtonState extends State<MainIconButton> {
       },
       child: Container(
         height: 100, width: double.infinity,
-        margin: EdgeInsets.symmetric(horizontal: 10),
+        margin: EdgeInsets.symmetric(horizontal: 6),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 0,
+              color: Colors.grey.withOpacity(0.4),
+              spreadRadius: 1,
               blurRadius: 5.0,
-              offset: Offset(0, 10),
+              offset: Offset(0, 4),
             ),
           ],
         ),
@@ -89,7 +89,7 @@ class _MainIconButtonState extends State<MainIconButton> {
                 child: icon
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+              padding: const EdgeInsets.fromLTRB(0, 6, 0, 0),
               child: Text(widget.title),
             ),
           ],

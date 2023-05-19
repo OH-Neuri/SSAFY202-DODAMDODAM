@@ -1,5 +1,5 @@
 import 'package:app/api/user_service.dart';
-import 'package:app/components/common/CustomSnackBar.dart';
+import 'package:app/components/common/custom_snackbar.dart';
 import 'package:app/components/common/custom_button.dart';
 import 'package:app/components/user/user_textform_field.dart';
 import 'package:app/constants.dart';
@@ -29,55 +29,64 @@ class _LoginTeacherState extends State<LoginTeacher> {
             Expanded(child: SizedBox()),
             Flexible(
               flex: 12,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 100,
-                  ),
-                  Container(
-                    margin : EdgeInsets.only(bottom: 60),
-                    child: Text('교사로 로그인하기', style: TextStyle(
-                        fontSize: titleTextSize,
-                        fontWeight: FontWeight.w700
-                    ),),
-                  ),
-                  Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                    child: UserTextFormField(
-                      hint: '아이디를 입력하세요',
-                      obscureText: false,
-                      onChanged: (val){
-                        setState((){
-                          id = val;
-                        });
-                      },),
-                  ),
-                  Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                    child: UserTextFormField(
-                      hint: '비밀번호를 입력하세요',
-                      obscureText: true,
-                      onChanged: (val){
-                        setState(() {
-                          pw = val;
-                        });
-                      },),
-                  ),
-                  CustomButton(text: '로그인하기', height: 70, onPressed: (){login();},),
-                  Padding(padding: EdgeInsets.fromLTRB(0, 40, 0, 10),
-                    child: Text('아직 회원이 아니신가요?', style: TextStyle(fontSize: contentTextSize),),
-                  ),
-                  TextButton(
-                    onPressed: (){Get.to(SignupSelect());},
-                    style: ButtonStyle(
-                        overlayColor: MaterialStateProperty.all(Colors.white)
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(
+                      height: 100,
                     ),
-                    child: Text('회원가입 하러가기', style: TextStyle(
-                        color: textColor,
-                        fontSize: contentTextSize,
-                        decoration: TextDecoration.underline,
-                        fontWeight: FontWeight.w700
-                    ),),
-                  )
-                ],
+                    Container(
+                      width: double.infinity,
+                      alignment: Alignment.center,
+                      margin : EdgeInsets.only(bottom: 60),
+                      child: Text('교사로 로그인하기', style: TextStyle(
+                          fontSize: titleTextSize,
+                          fontWeight: FontWeight.w700
+                      ),),
+                    ),
+                    Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                      child: UserTextFormField(
+                        hint: '아이디를 입력하세요',
+                        obscureText: false,
+                        onChanged: (val){
+                          setState((){
+                            id = val;
+                          });
+                        },),
+                    ),
+                    Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                      child: UserTextFormField(
+                        hint: '비밀번호를 입력하세요',
+                        obscureText: true,
+                        onChanged: (val){
+                          setState(() {
+                            pw = val;
+                          });
+                        },),
+                    ),
+                    CustomButton(text: '로그인하기', height: 70, onPressed: (){login();},),
+                    Container(
+                      width: double.infinity,
+                      alignment: Alignment.center,
+                      child: Padding(padding: EdgeInsets.fromLTRB(0, 40, 0, 10),
+                        child: Text('아직 회원이 아니신가요?', style: TextStyle(fontSize: contentTextSize),),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: (){Get.to(SignupSelect());},
+                      style: ButtonStyle(
+                          overlayColor: MaterialStateProperty.all(Colors.white)
+                      ),
+                      child: Text('회원가입 하러가기', style: TextStyle(
+                          color: textColor,
+                          fontSize: contentTextSize,
+                          decoration: TextDecoration.underline,
+                          fontWeight: FontWeight.w700
+                      ),),
+                    )
+                  ],
+                ),
               ),
             ),
             Expanded(child: SizedBox()),

@@ -1,10 +1,11 @@
+import 'package:app/models/medicine/medicine_class_list_model.dart';
 import 'package:flutter/material.dart';
 import 'package:app/constants.dart';
 
 class MedicineCard extends StatelessWidget {
-  final name = "";
+  final MedicineClassList data;
   const MedicineCard({
-    super.key,
+    super.key, required this.data,
   });
 
   @override
@@ -16,37 +17,40 @@ class MedicineCard extends StatelessWidget {
       elevation: 4.0, //그림자 깊이
       color: cardYellow,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 12, 20, 0),
+        padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(Icons.circle,size: 70, color:Colors.white),
-              Text("이연희",style: TextStyle(
-                fontSize: 18
-              )),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 7,horizontal: 5),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("투약 여부 :"),
-                        Icon(Icons.check_circle_outline_rounded,size: 27, color:TextYellow),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children:[
-                            Text("완료 시간 :"),
-                            Text("18:00"),
-                          ]
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                child: CircleAvatar(backgroundImage: NetworkImage(data.photo), ),
+              ),
+              Text(data.name,style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+              Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("투약 여부 :",style: TextStyle(fontSize: 12)),
+                      Visibility(
+                        visible: data.responseDate==null,
+                        replacement: Center(child: Icon(Icons.check_circle_outline_rounded,size: 25, color:cardBtnPink)),
+                        child: Center(child: Icon(Icons.check_circle_outline_rounded,size: 25, color: Color(0x70000000))),
                       ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 2),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children:[
+                          Text("완료 시간 :",style: TextStyle(fontSize: 12)),
+                          data.responseDate != null ?
+                          Text(data.responseDate): SizedBox()
+                        ]
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ]),
       ),

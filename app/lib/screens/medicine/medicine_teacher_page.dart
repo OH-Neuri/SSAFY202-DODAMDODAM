@@ -1,6 +1,10 @@
 import 'package:app/components/attendance/attendance_card.dart';
 import 'package:app/components/attendance/attendance_list_timepicker.dart';
+import 'package:app/components/common/title_appBar.dart';
 import 'package:app/components/medicine/medicine_card.dart';
+import 'package:app/controller/deviceInfo_controller.dart';
+import 'package:app/controller/medicine_controller.dart';
+import 'package:app/screens/medicine/medicine_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,18 +19,14 @@ class _MedicineTeacherPageState extends State<MedicineTeacherPage> {
   late DateTime _selectedDate = DateTime.now();
   String? _selectedChild;
 
-  final List<String> _children = [    '오하늘',    '김나현',    '이연희',  ];
-
   @override
   Widget build(BuildContext context) {
-    const title = 'Grid List';
-    return MaterialApp(
-      title: title,
-      home: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: true,
-          title: const Text(title),
-        ),
+    DeviceInfoController dc = Get.put(DeviceInfoController());
+    MedicineController mc = Get.put(MedicineController());
+    return GetBuilder<MedicineController>(builder:
+        (_)=>
+      Scaffold(
+        appBar: TitleAppBar(title: "투약 의뢰서"),
         body: Row(
           children: [
             Expanded(child: SizedBox()),
@@ -37,63 +37,36 @@ class _MedicineTeacherPageState extends State<MedicineTeacherPage> {
                 child: Column(
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Flexible(
-                          flex: 15,
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 20),
-                            child: Text("투약 의뢰서", style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.w700,
-                            ),)
-                          ),
-                        ),
-                        Expanded(child: SizedBox()),
-                        Flexible(
-                          flex: 9,
-                          child: Padding(
-                            padding: EdgeInsets.all(0),
-                            child: AttendaneListTimePicker(
-                              onDateSelected: (date) {
-                                setState(() {
-                                  _selectedDate = date;
-                                });
-                              },
-                            ),
-                          ),
+                        AttendaneListTimePicker(
+                          onDateSelected: (date) {
+                            setState(() {
+                              _selectedDate = date;
+                              mc.setMedicineKidMonthList(_selectedDate);
+                            });
+                          },
                         ),
                       ],
                     ),
                     // Set the text alignment to left for 'Attendance List'
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding: EdgeInsets.fromLTRB(10,10,0,3),
-                        child: Text(
-                          '2023년 8월 13일',
-                          style: TextStyle(
-                            fontSize: 17, fontWeight: FontWeight.w300,
-                          ),
-
-                        ),
-                      ),
-                    ),
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsets.fromLTRB(8, 13, 8, 13),
+                        padding: EdgeInsets.fromLTRB(20, 10, 20, 13),
                         child: GridView.count(
                           crossAxisCount: 2,
-                          mainAxisSpacing: 23.0,
-                          crossAxisSpacing: 21.0,
-                          children: List.generate(30, (index) {
+                          mainAxisSpacing: 15.0,
+                          crossAxisSpacing: 15.0,
+                          children: List.generate(mc.medicineClassList.length, (index) {
                             return Center(
                                 child: GestureDetector(
                                   onTap:(){
-                                    // Get.toNamed('/medicine/teacher/detail')
-                                     Navigator.push(context, MaterialPageRoute(builder: (context) => MedicineTeacherPage()));
+                                    mc.setMedicineKidDetail(mc.medicineClassList[index].medicineSeq);
+                                     Navigator.push(context, MaterialPageRoute(builder: (context) => MedicineDetailPage(
+                                       kidClassName: DeviceInfoController.to.className, kidName: mc.medicineClassList[index].name, kidPhoto: mc.medicineClassList[index].photo,
+                                     )));
                                   },
-                                  child: MedicineCard(),
+                                  child: MedicineCard(data: mc.medicineClassList[index]),
                                 ));
                           }),
                         ),
@@ -106,7 +79,7 @@ class _MedicineTeacherPageState extends State<MedicineTeacherPage> {
             Expanded(child: SizedBox()),
           ],
         ),
-      ),
+      )
     );
   }
 }

@@ -39,7 +39,7 @@ class _AttendaneListTimePickerState extends State<AttendaneListTimePicker> {
     return InkWell(
       onTap: () => _selectDate(context),
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+        padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey),
           borderRadius: BorderRadius.circular(30),
@@ -47,13 +47,22 @@ class _AttendaneListTimePickerState extends State<AttendaneListTimePicker> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text(
-              _selectedDate == null
-                  ? "날짜 선택"
-                  : "${_selectedDate.year}-${_selectedDate.month}-${_selectedDate.day}",
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10, 6, 8, 6),
+              child: Text(
+                _selectedDate == null
+                    ? "날짜 선택"
+                    : "${_selectedDate.year}-${_selectedDate.month}-${_selectedDate.day}",
 
+              style: TextStyle(
+                fontSize: 12
+              ),
+              ),
             ),
-            Icon(Icons.calendar_today),
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: Icon(Icons.calendar_month, color: Colors.grey[700],),
+            ),
           ],
         ),
       ),

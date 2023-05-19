@@ -3,6 +3,8 @@ import 'package:app/components/common/title_appBar.dart';
 import 'package:app/components/today/today_food.dart';
 import 'package:app/components/today/today_info.dart';
 import 'package:app/constants.dart';
+import 'package:app/controller/deviceInfo_controller.dart';
+import 'package:app/notification.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatelessWidget {
@@ -33,19 +35,25 @@ class MainPage extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 8),
                             child: SizedBox(
-                              width: 50, height: 50,
+                              width: 50,
+                              height: 50,
                               child: CircleAvatar(
-                                  backgroundImage: AssetImage('assets/images/sleepingCat.png')
-                              ),
+                                  backgroundImage: AssetImage(
+                                      'assets/images/sleepingCat.png')),
                             ),
                           ),
-                          Text('융융이맘님, ', style: TextStyle(fontWeight: FontWeight.w700, fontSize: subTitleTextSize)),
-                          Text('안녕하세요!', style: TextStyle(fontSize: subTitleTextSize))
+                          Text('융융이맘님, ',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: subTitleTextSize)),
+                          Text('안녕하세요!',
+                              style: TextStyle(fontSize: subTitleTextSize))
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: 150,
+                    Container(
+                      // height: 120,
+                      margin: EdgeInsets.only(top: 14, bottom: 34),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         // 알림장, 등/하원 확인서, 투약 의뢰서

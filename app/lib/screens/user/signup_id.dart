@@ -1,4 +1,5 @@
-import 'package:app/components/common/CustomSnackBar.dart';
+import 'package:app/api/user_service.dart';
+import 'package:app/components/common/custom_snackbar.dart';
 import 'package:app/components/common/custom_button.dart';
 import 'package:app/components/user/signup_step.dart';
 import 'package:app/components/user/user_textform_field.dart';
@@ -18,27 +19,36 @@ class SignupId extends StatefulWidget {
 SignupUserModel user = Get.arguments;
 bool able = false;
 Text none = Text('영문 또는 영문,숫자 조합 6~12 자리', style: TextStyle(color: Color(0xff797979)),);
-Text duplication = Text('${user.id}는 사용할 수 없는 아이디입니다.', style: TextStyle(color: Colors.red),);
 Text text = none;
 
 
 class _SignupIdState extends State<SignupId> {
-  Text getIdValid(String id) {
+  Future<void> getIdValid(String id) async {
     if(id.length < 6){
       setState(() {
         able = false;
+        text = Text('영문 또는 영문,숫자 조합 6~12 자리를 입력해주세요.', style: TextStyle(color: Colors.red),);
       });
-      return Text('영문 또는 영문,숫자 조합 6~12 자리를 입력해주세요.', style: TextStyle(color: Colors.red),);
+      return;
     }else if (id.length > 12){
       setState(() {
         able = false;
+        text = Text('영문 또는 영문,숫자 조합 6~12 자리를 입력해주세요.', style: TextStyle(color: Colors.red),);
       });
-      return Text('영문 또는 영문,숫자 조합 6~12 자리를 입력해주세요.', style: TextStyle(color: Colors.red),);
+      return;
     }
-    setState(() {
-      able = true;
-    });
-    return Text('$id는 사용할 수 있는 아이디입니다.', style: TextStyle(color: Color(0xff797979)),);
+    final res = await UserService.idDuplicationCheck(id);
+    if(res) {
+      setState(() {
+        able = true;
+        text = Text('$id는 사용할 수 있는 아이디입니다.', style: TextStyle(color: Color(0xff797979)),);
+      });
+    }else{
+      setState(() {
+        able = false;
+        text = Text('$id는 사용할 수 없는 아이디입니다.', style: TextStyle(color: Colors.red),);
+      });
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -66,7 +76,7 @@ class _SignupIdState extends State<SignupId> {
                         onChanged: (val){
                         setState(() {
                           user.id = val;
-                          text = getIdValid(val);
+                          getIdValid(val);
                         });
                       },),
                     ),

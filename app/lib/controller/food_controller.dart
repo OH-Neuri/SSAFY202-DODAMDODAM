@@ -21,7 +21,7 @@ class FoodController extends GetxController {
     now = DateTime.now();
     choiceDay = DateTime.now();
     food = await FoodService.getOneDayFood(now.year, now.month, now.day);
-    todayFood = todayFood;
+    todayFood = food;
     todayWeek = getDayOfWeek(now.year, now.month, now.day);
     dayWeek = todayWeek;
     super.onInit();

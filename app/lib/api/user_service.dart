@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:app/api/http_header.dart';
 import 'package:app/api/url_mapping.dart';
 import 'package:app/controller/deviceInfo_controller.dart';
+import 'package:app/models/user/id_duplication_check_model.dart';
 import 'package:app/models/user/login_parent_model.dart';
 import 'package:app/models/user/login_result.dart';
 import 'package:app/models/user/login_teacher_model.dart';
@@ -124,6 +125,24 @@ class UserService {
         return false;
       }
     } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  // id 중복 체크
+  static Future<bool> idDuplicationCheck(String id) async {
+    try {
+      String URL = '${url}user/check/$id';
+      final res = await http.get(Uri.parse(URL));
+      if(res.statusCode == 200) {
+        bool result = idDuplicationCheckModelFromJson(utf8.decode(res.bodyBytes)).result;
+        return !result;
+      }else{
+        print(res.statusCode);
+        return false;
+      }
+    } catch(e) {
       print(e);
       return false;
     }
