@@ -1,0 +1,19 @@
+version: "3.7"
+
+services:
+  spring-eureka:
+    container_name: spring-eureka
+    build: ./eureka
+    ports:
+      - "8761:8761"
+    volumes:
+      - /eureka:/image
+    restart: on-failure
+  spring-gateway:
+    container_name: spring-gateway
+    build: ./gateway
+    ports:
+      - "9000:9000"
+    volumes:
+      - "/gateway:/image"
+    restart: on-failure
