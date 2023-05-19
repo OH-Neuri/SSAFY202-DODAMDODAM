@@ -9,7 +9,9 @@ export type ClassType = {
 export type ClassTeacherType = {
     [index: string] : number | string,
     classTeacherSeq : number,
-    teacherName : string
+    teacherName : string,
+    sleepModeStart : any,
+    sleepModeEnd : any
 }
 
 export type RegistClassType = {

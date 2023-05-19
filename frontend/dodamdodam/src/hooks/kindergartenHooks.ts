@@ -9,7 +9,7 @@ export const useKindergarten = () => useQuery<KindergartenInfoType>({
     return res.data.result
   }).catch((err)=>{
     console.log(err)
-  })
+  }),
 })
 
 export const useModifyKindergarten = () => {

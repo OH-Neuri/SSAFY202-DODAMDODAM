@@ -14,7 +14,7 @@ export const studentInit : student = {
   kidSeq: 0,
   photo: '',
   kidName: '',
-  birth: '',
+  birth: '2012-05-14',
   gender: '',
   classSeq: 0,
   className: '',

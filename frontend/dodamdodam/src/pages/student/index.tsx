@@ -7,11 +7,23 @@ import StudentRegisterModal from "@/components/student/studentRegisterModal";
 import PageHeader from "@/components/common/pageHeader";
 import StudentModifyModal from "@/components/student/studentModifyModal";
 import axios from "axios";
+import { authAxios } from "@/api/common";
+import { loginCheck } from "@/api/loginCheck";
+import router from "next/router";
 
 export default function index() {
+  const isLogin = () => {
+    if (loginCheck() == false) {
+      router.push("/error");
+    }
+  };
+  useEffect(() => {
+    isLogin();
+  }, []);
+
   const [openRe, setOpenRe] = useState<boolean>(false);
   const [openMo, setOpenMo] = useState<boolean>(false);
-  const [studentIdx, setStudentIdx] = useState<number>(1);
+  const [studentIdx, setStudentIdx] = useState<number>(-1);
   const [studentList, setStudentList] = useState<student[] | any>([]);
 
   // 아이 등록 모달 컨트롤 함수 +Re
@@ -28,12 +40,12 @@ export default function index() {
   // 원생 리스트 가져오기
   async function fetchStudentList() {
     try {
-      const response = await axios.get(
+      const response = await authAxios.get(
         `https://dodamdodam.site/api/dodam/kindergarten/kid`
       );
       setStudentList(response.data.result);
     } catch (error) {
-      console.log("에러났습니다.");
+      // console.log("에러났습니다.");
     }
   }
 

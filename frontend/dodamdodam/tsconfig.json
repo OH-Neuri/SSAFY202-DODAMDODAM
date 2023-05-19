@@ -6,6 +6,7 @@
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
+    "types": ["@mui/material", "@emotion/react", "@emotion/styled"],
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
