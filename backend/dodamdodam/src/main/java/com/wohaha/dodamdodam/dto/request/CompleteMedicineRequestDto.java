@@ -18,8 +18,8 @@ public class CompleteMedicineRequestDto {
 
     private Long medicineSeq;
     private String responseName;
-    private MultipartFile responseSign;
-    private String responseSignUrl;
+    private Long kidSeq;
+    //private String responseSignUrl;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime responseDate;

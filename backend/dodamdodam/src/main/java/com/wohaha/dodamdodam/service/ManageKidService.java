@@ -2,6 +2,7 @@ package com.wohaha.dodamdodam.service;
 
 import com.wohaha.dodamdodam.dto.request.CreateKidRequestDto;
 import com.wohaha.dodamdodam.dto.request.UpdateKidRequestDto;
+import com.wohaha.dodamdodam.dto.response.KidParentResponseDto;
 import com.wohaha.dodamdodam.dto.response.KidResponseDto;
 
 import java.util.List;
@@ -22,4 +23,6 @@ public interface ManageKidService {
 
     //아이에게 학부모 등록
     boolean createParentKid(Long userSeq, Long kidSeq);
+
+    List<KidParentResponseDto> getKidParentList(Long classSeq);
 }

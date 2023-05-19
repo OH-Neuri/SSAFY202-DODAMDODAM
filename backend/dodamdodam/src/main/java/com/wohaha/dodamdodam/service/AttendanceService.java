@@ -4,18 +4,19 @@ import com.wohaha.dodamdodam.dto.request.AttendanceRequestDto;
 import com.wohaha.dodamdodam.dto.request.AttendanceTimeRequestDto;
 import com.wohaha.dodamdodam.dto.request.CreateAttendanceRequestDto;
 import com.wohaha.dodamdodam.dto.response.AttendanceDetailResponseDto;
-import com.wohaha.dodamdodam.dto.response.AttendanceFormResponseDto;
+import com.wohaha.dodamdodam.dto.response.AttendanceInfoResponseDto;
 import com.wohaha.dodamdodam.dto.response.AttendanceListResponseDto;
+import com.wohaha.dodamdodam.dto.response.NotifyResponseDto;
 
 import java.util.List;
 
 public interface AttendanceService {
-    boolean createAttendance(CreateAttendanceRequestDto createAttendanceRequestDto, String uploadUrl);
+    boolean createAttendance(CreateAttendanceRequestDto createAttendanceRequestDto);
     List<AttendanceListResponseDto> getAttendanceList(AttendanceRequestDto classAttendanceRequestDto);
 
     AttendanceDetailResponseDto getAttendanceDetail(Long attendanceSeq);
 
-    AttendanceFormResponseDto getAttendanceForm(AttendanceRequestDto kidAttendanceRequestDto);
+    AttendanceInfoResponseDto getAttendanceInfo(AttendanceRequestDto kidAttendanceRequestDto);
 
-    boolean updateAttendanceTime(Long attendanceSeq, AttendanceTimeRequestDto attendanceTimeRequestDto);
+    NotifyResponseDto updateAttendanceTime(Long attendanceSeq, AttendanceTimeRequestDto attendanceTimeRequestDto);
 }

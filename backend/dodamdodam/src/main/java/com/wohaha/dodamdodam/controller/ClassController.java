@@ -83,7 +83,7 @@ public class ClassController {
 
     // 알림장 관리
     @PostMapping("/notice")
-    public BaseResponseDto<?> createNotice(@ModelAttribute CreateNoticeRequestDto createNoticeRequestDto){
+    public BaseResponseDto<List<NotifyResponseDto>> createNotice(@ModelAttribute CreateNoticeRequestDto createNoticeRequestDto){
         try{
             List<String> uploadUrl = null;
             //이미지 s3 업로드 후 링크 가져오기
@@ -96,7 +96,7 @@ public class ClassController {
             }
             //db 저장
             Long noticeSeq = noticeService.createNotice(createNoticeRequestDto);
-            boolean result = noticeService.createNoticeKidAndPhoto(noticeSeq,createNoticeRequestDto.getKid(),uploadUrl);
+            List<NotifyResponseDto> result = noticeService.createNoticeKidAndPhoto(noticeSeq,createNoticeRequestDto.getKid(),uploadUrl);
             return new BaseResponseDto(result);
         }catch (Exception e){
             if(e instanceof BaseException){
@@ -219,15 +219,10 @@ public class ClassController {
 
     // 출석부
     @PostMapping("/attendance")
-    public BaseResponseDto<Boolean> createAttendance(@ModelAttribute CreateAttendanceRequestDto createAttendanceRequestDto) {
+    public BaseResponseDto<Boolean> createAttendance(@RequestBody CreateAttendanceRequestDto createAttendanceRequestDto) {
         try {
-            createAttendanceRequestDto.toString();
-            String uploadUrl = null;
-            //이미지 s3 업로드 후 링크 가져오기
-            if(!createAttendanceRequestDto.getSign().isEmpty()) {
-                uploadUrl = s3UploadService.upload(createAttendanceRequestDto.getSign(), "attendanceSign");
-            }
-            return new BaseResponseDto<>(attendanceService.createAttendance(createAttendanceRequestDto, uploadUrl));
+
+            return new BaseResponseDto<>(attendanceService.createAttendance(createAttendanceRequestDto));
         }catch (Exception e) {
             e.printStackTrace();
             if (e instanceof BaseException) {
@@ -238,7 +233,7 @@ public class ClassController {
         }
     }
 
-    @GetMapping("/attendance/list")
+    @PostMapping("/attendance/list")
     public BaseResponseDto<List<AttendanceListResponseDto>> getKidAttendanceList(@RequestBody AttendanceRequestDto classAttendanceRequestDto) {
         try {
             return new BaseResponseDto<>(attendanceService.getAttendanceList(classAttendanceRequestDto));
@@ -251,11 +246,24 @@ public class ClassController {
             }
         }
     }
+//    @PostMapping("/attendance/form")
+//    public BaseResponseDto<AttendanceInfoResponseDto> getKidAttendanceForm(@RequestBody AttendanceRequestDto kidAttendanceRequestDto) {
+//        try {
+//            return new BaseResponseDto<>(attendanceService.getAttendanceInfo(kidAttendanceRequestDto));
+//        }catch (Exception e) {
+//            e.printStackTrace();
+//            if (e instanceof BaseException) {
+//                throw e;
+//            } else {
+//                throw new BaseException(BaseResponseStatus.FAIL);
+//            }
+//        }
+//    }
 
-    @GetMapping("/attendance/{attendanceSeq}")
-    public BaseResponseDto<AttendanceDetailResponseDto> getKidAttendanceDetail(@PathVariable Long attendanceSeq) {
+    @PostMapping("/attendance/info")
+    public BaseResponseDto<AttendanceInfoResponseDto> getKidAttendanceDetail(@RequestBody AttendanceRequestDto kidAttendanceRequestDto) {
         try {
-            return new BaseResponseDto<>(attendanceService.getAttendanceDetail(attendanceSeq));
+            return new BaseResponseDto<>(attendanceService.getAttendanceInfo(kidAttendanceRequestDto));
         }catch (Exception e) {
             e.printStackTrace();
             if (e instanceof BaseException) {
@@ -266,22 +274,9 @@ public class ClassController {
         }
     }
 
-    @GetMapping("/attendance/form")
-    public BaseResponseDto<AttendanceFormResponseDto> getKidAttendanceForm(@RequestBody AttendanceRequestDto kidAttendanceRequestDto) {
-        try {
-            return new BaseResponseDto<>(attendanceService.getAttendanceForm(kidAttendanceRequestDto));
-        }catch (Exception e) {
-            e.printStackTrace();
-            if (e instanceof BaseException) {
-                throw e;
-            } else {
-                throw new BaseException(BaseResponseStatus.FAIL);
-            }
-        }
-    }
 
     @PutMapping("/attendance/{attendanceSeq}")
-    public BaseResponseDto<Boolean> updateAttendanceTime(@PathVariable Long attendanceSeq, @RequestBody AttendanceTimeRequestDto attendanceTimeRequestDto) {
+    public BaseResponseDto<NotifyResponseDto> updateAttendanceTime(@PathVariable Long attendanceSeq, @RequestBody AttendanceTimeRequestDto attendanceTimeRequestDto) {
         try {
             return new BaseResponseDto<>(attendanceService.updateAttendanceTime(attendanceSeq, attendanceTimeRequestDto));
         }catch (Exception e) {

@@ -4,21 +4,28 @@ import com.wohaha.dodamdodam.domain.Notice;
 import com.wohaha.dodamdodam.domain.NoticeKid;
 import com.wohaha.dodamdodam.domain.NoticePhoto;
 import com.wohaha.dodamdodam.dto.request.CreateNoticeRequestDto;
-import com.wohaha.dodamdodam.dto.request.UpdateKidRequestDto;
 import com.wohaha.dodamdodam.dto.request.UpdateNoticeRequestDto;
 import com.wohaha.dodamdodam.dto.response.ClassKidListResponseDto;
 import com.wohaha.dodamdodam.dto.response.ClassNoticeResponseDto;
+import com.wohaha.dodamdodam.dto.response.NotifyResponseDto;
+import com.wohaha.dodamdodam.exception.BaseException;
+import com.wohaha.dodamdodam.exception.BaseResponseStatus;
+import com.wohaha.dodamdodam.repository.ManageKidRepository;
 import com.wohaha.dodamdodam.repository.NoticeKidRepository;
 import com.wohaha.dodamdodam.repository.NoticePhotoRepository;
 import com.wohaha.dodamdodam.repository.NoticeRepository;
+import com.wohaha.dodamdodam.security.CustomAuthenticatedUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import static com.wohaha.dodamdodam.domain.QKid.kid;
 
 @Service
 @Transactional
@@ -31,6 +38,9 @@ public class NoticeServiceImpl implements NoticeService{
 
     @Autowired
     private NoticePhotoRepository noticePhotoRepository;
+
+    @Autowired
+    private ManageKidRepository manageKidRepository;
 
 
     @Override
@@ -51,14 +61,35 @@ public class NoticeServiceImpl implements NoticeService{
     }
 
     @Override
-    public boolean createNoticeKidAndPhoto(long noticeSeq, List<Long> kids, List<String> uploadUrls) {
+    public List<NotifyResponseDto> createNoticeKidAndPhoto(long noticeSeq, String kids, List<String> uploadUrls) {
+        //알림보낼 리스트
+        List<NotifyResponseDto> notifyList = new ArrayList<>();
+        LocalDate currentDate = LocalDate.now(); //알림에 들어갈 내용
+
+        // 알림에 들어갈 선생님 seq
+        Long userSeq = ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
+
+        List<Long> kidList = Arrays.stream(kids.split(","))
+                .map(Long::parseLong)
+                .collect(Collectors.toList());
+
+
         //아이 저장
-        for(Long kid : kids){
+        for(Long kid : kidList){
+            //db 저장
             NoticeKid noticeKid = NoticeKid.builder()
                     .noticeSeq(noticeSeq)
                     .kidSeq(kid)
                     .build();
             noticeKidRepository.save(noticeKid);
+            //알람 보냄
+            NotifyResponseDto notify = new NotifyResponseDto();
+            notify.setType(1); //알림장은 1
+            notify.setContent(currentDate + "일 알림장이 등록되었습니다.😍");
+            notify.setTypeSeq(noticeSeq);
+            notify.setSendUserSeq(userSeq);
+            notify.setReceiveUserSeq(manageKidRepository.findParentSeqByKidSeq(kid)); //아이의 부모 seq 넣어야함
+            notifyList.add(notify);
         }
         //사진 저장
         if(uploadUrls != null) {
@@ -71,7 +102,7 @@ public class NoticeServiceImpl implements NoticeService{
             }
         }
 
-        return true;
+        return notifyList;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.wohaha.dodamdodam.repository;
 
 import com.wohaha.dodamdodam.domain.User;
+import com.wohaha.dodamdodam.dto.request.SleepModeRequestDto;
 import com.wohaha.dodamdodam.dto.request.UpdateUserRequestDto;
 import com.wohaha.dodamdodam.dto.response.LoginParentResponseDto;
 import com.wohaha.dodamdodam.dto.response.LoginTeacherResponseDto;
@@ -15,14 +16,18 @@ public interface UserRepositoryCustom {
 
   void updateUser(UpdateUserRequestDto updateUserRequestDto);
 
-  Long findKindergartenSeq(Long userSeq);
+  String findKindergartenName(Long userSeq);
 
   // 선생님시퀀스로 반정보
-  void findClassInfoByUserSeq(LoginTeacherResponseDto loginTeacherResponseDto, Long userSeq);
+  LoginTeacherResponseDto findClassInfoByUserSeq(Long userSeq);
 
   // 부모시퀀스로 아이정보, 아이의반정보
-  void findKidInfoByUserSeq(LoginParentResponseDto loginParentResponseDto, Long userSeq);
+  LoginParentResponseDto findKidInfoByUserSeq(Long userSeq);
 
   int findUserIdCntByUserId(String id);
+
+  Optional<SleepModeRequestDto> findSleepMode(Long userSeq);
+
+  Long updateSleepMode(SleepModeRequestDto sleepModeRequestDto, Long userSeq);
 
 }

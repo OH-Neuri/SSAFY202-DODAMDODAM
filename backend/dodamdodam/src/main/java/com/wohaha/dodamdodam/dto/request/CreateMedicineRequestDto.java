@@ -21,8 +21,6 @@ public class CreateMedicineRequestDto {
     private String keep;
     private String content;
     private String requestName;
-    private MultipartFile requestSign;
-
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date requestDate;
 

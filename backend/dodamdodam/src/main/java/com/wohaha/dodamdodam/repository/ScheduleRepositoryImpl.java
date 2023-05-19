@@ -21,6 +21,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepositoryCustom {
                 .selectDistinct(schedule.date.dayOfMonth())
                 .from(schedule)
                 .where(schedule.kindergartenSeq.eq(kindergartenSeq)
+                        .and(schedule.classSeq.isNull())
                         .and(schedule.date.month().eq(Integer.valueOf(month)))
                         .and(schedule.date.year().eq(Integer.valueOf(year))))
                 .fetch();
@@ -31,7 +32,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepositoryCustom {
         return query
                 .select(
                         Projections.constructor(ScheduleResponseDto.class,
-                                schedule.scheduleSeq, schedule.content, scheduleType.name))
+                                schedule.scheduleSeq, scheduleType.name, schedule.content))
                 .from(schedule)
                 .join(schedule.scheduleType, scheduleType)
                 .where(schedule.kindergartenSeq.eq(kindergartenSeq)

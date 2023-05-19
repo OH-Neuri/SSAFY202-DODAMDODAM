@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "tbl_user")
@@ -37,11 +38,17 @@ public class User {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @Column(name = "sleep_mode_start")
+    private LocalTime sleepModeStart;
+
+    @Column(name = "sleep_mode_end")
+    private LocalTime sleepModeEnd;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "created_at")
     private Timestamp createdAt;
 
-    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "updated_at")
     private Timestamp updatedAt;
 

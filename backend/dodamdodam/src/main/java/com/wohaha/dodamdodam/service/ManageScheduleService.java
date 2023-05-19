@@ -19,7 +19,8 @@ public interface ManageScheduleService {
 
     // 일정분류 관리
     boolean createScheduleType(String content);
-    List<ScheduleTypeResponseDto> getScheduleTypeList();
+    List<ScheduleTypeResponseDto> getScheduleTypeListForApp();
+    List<ScheduleTypeResponseDto> getScheduleTypeList(long classSeq);
     boolean updateScheduleType(ScheduleTypeRequestDto scheduleTypeRequestDto);
     boolean deleteScheduleType(Long scheduleTypeSeq);
 

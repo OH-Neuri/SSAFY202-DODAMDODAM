@@ -1,9 +1,11 @@
 package com.wohaha.dodamdodam.repository;
 
 import com.querydsl.core.Tuple;
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.wohaha.dodamdodam.domain.User;
+import com.wohaha.dodamdodam.dto.request.SleepModeRequestDto;
 import com.wohaha.dodamdodam.dto.request.UpdateUserRequestDto;
 import com.wohaha.dodamdodam.dto.response.LoginParentResponseDto;
 import com.wohaha.dodamdodam.dto.response.LoginTeacherResponseDto;
@@ -56,40 +58,35 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     }
 
     @Override
-    public Long findKindergartenSeq(Long userSeq) {
+    public String findKindergartenName(Long userSeq) {
         return query
-                .select(kindergarten.kindergartenSeq)
+                .select(kindergarten.name)
                 .from(kindergarten)
                 .where(kindergarten.userSeq.eq(userSeq))
                 .fetchOne();
     }
 
     @Override
-    public void findClassInfoByUserSeq(LoginTeacherResponseDto loginTeacherResponseDto, Long userSeq) {
+    public LoginTeacherResponseDto findClassInfoByUserSeq(Long userSeq) {
         Tuple tuple = query
                 .select(classTeacher.classSeq, classInfo.name)
                 .from(classTeacher).join(classInfo).on(classTeacher.classSeq.eq(classInfo.classSeq))
                 .where(classTeacher.userSeq.eq(userSeq))
                 .fetchFirst();
-        if (tuple == null) return;
-        loginTeacherResponseDto.setClassSeq(tuple.get(classTeacher.classSeq));
-        loginTeacherResponseDto.setClassName(tuple.get(classInfo.name));
+        if (tuple == null) return new LoginTeacherResponseDto();
+        return new LoginTeacherResponseDto(tuple.get(classTeacher.classSeq), tuple.get(classInfo.name));
     }
 
 
     @Override
-    public void findKidInfoByUserSeq(LoginParentResponseDto loginParentResponseDto, Long userSeq) {
+    public LoginParentResponseDto findKidInfoByUserSeq(Long userSeq) {
         Tuple tuple = query
                 .select(kid.kidSeq, kid.name, kid.photo, kid.classSeq, classInfo.name)
                 .from(kid).join(classInfo).on(kid.classSeq.eq(classInfo.classSeq))
                 .where(kid.userSeq.eq(userSeq))
                 .fetchFirst();
-        if (tuple == null) return;
-        loginParentResponseDto.setKidSeq(tuple.get(kid.kidSeq));
-        loginParentResponseDto.setKidName(tuple.get(kid.name));
-        loginParentResponseDto.setKidPhoto(tuple.get(kid.photo));
-        loginParentResponseDto.setClassSeq(tuple.get(kid.classSeq));
-        loginParentResponseDto.setClassName(tuple.get(classInfo.name));
+        if (tuple == null) return new LoginParentResponseDto();
+        return new LoginParentResponseDto(tuple.get(kid.kidSeq), tuple.get(kid.name), tuple.get(kid.photo), tuple.get(kid.classSeq), tuple.get(classInfo.name));
     }
 
     @Override
@@ -98,6 +95,24 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
                 .selectFrom(user)
                 .where(user.id.eq(id))
                 .fetch().size();
+    }
+
+    @Override
+    public Optional<SleepModeRequestDto> findSleepMode(Long userSeq) {
+        return Optional.ofNullable(
+                query
+                        .select(Projections.constructor(SleepModeRequestDto.class, user.sleepModeStart, user.sleepModeEnd))
+                        .from(user).where(user.userSeq.eq(userSeq)).fetchOne()
+        );
+    }
+
+    @Override
+    public Long updateSleepMode(SleepModeRequestDto sleepModeRequestDto, Long userSeq) {
+        return query.update(user)
+                .set(user.sleepModeStart, sleepModeRequestDto.getSleepModeStart())
+                .set(user.sleepModeEnd, sleepModeRequestDto.getSleepModeEnd())
+                .where(user.userSeq.eq(userSeq))
+                .execute();
     }
 
 //    @Override

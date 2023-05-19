@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface ScheduleService {
     boolean createClassSchedule(Long classSeq, CreateScheduleRequestDto createScheduleRequestDto);
+
     List<ClassScheduleResponseDto> getDayScheduleList(Long classSeq, String year, String month, String day);
 
     ClassScheduleListResponseDto getMonthScheduleList(Long classSeq, String year, String month);

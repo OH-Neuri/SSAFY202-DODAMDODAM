@@ -51,6 +51,8 @@ public enum BaseResponseStatus {
 
   //User 관련
   UNREGISTERED_USER(HttpStatus.INTERNAL_SERVER_ERROR, 4050, "존재하지 않는 유저입니다."),
+  UNPERMISSION_ROLE(HttpStatus.INTERNAL_SERVER_ERROR, 4051, "해당 권한으로 요청할 수 없는 요청입니다."),
+  UNREGISTERED_SLEEPMODE_TIME(HttpStatus.INTERNAL_SERVER_ERROR, 4052, "방해금지 모드 시간이 등록되지 않은 유저입니다"),
 
   //Kid 관련
   UNREGISTERED_KID(HttpStatus.INTERNAL_SERVER_ERROR, 4060, "존재하지 않는 아이입니다."),

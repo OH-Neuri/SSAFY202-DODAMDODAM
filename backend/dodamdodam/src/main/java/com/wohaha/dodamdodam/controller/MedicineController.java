@@ -23,13 +23,57 @@ public class MedicineController {
     //투약의뢰서 작성
     @PostMapping("/kid/{kidSeq}")
     public BaseResponseDto<Boolean> createMedicine(@PathVariable Long kidSeq,
-                                                   @ModelAttribute CreateMedicineRequestDto createMedicineRequestDto) {
+                                                   @RequestBody CreateMedicineRequestDto createMedicineRequestDto) {
         try {
             createMedicineRequestDto.setKidSeq(kidSeq);
             boolean result = medicineService.createMedicine(createMedicineRequestDto);
             return new BaseResponseDto<>(result);
         } catch (Exception e) {
-            e.printStackTrace();
+            if (e instanceof BaseException) {
+                throw e;
+            } else {
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
+
+    //투약 의뢰서 조회
+    @GetMapping("/{medicineSeq}")
+    public BaseResponseDto<MedicineInfoResponseDto> getMedicine(@PathVariable Long medicineSeq) {
+        try {
+            return new BaseResponseDto<>(medicineService.getMedicine(medicineSeq));
+        } catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw e;
+            } else {
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
+    //(선생님)  학생들 투약 의뢰서 조회
+    @PostMapping("/class/{classSeq}")
+    public BaseResponseDto<List<MedicineClassResponseDto>> getMedicineByClass(@PathVariable Long classSeq,
+                                                                              @RequestBody MedicineRequestDto medicineRequestDto) {
+        try {
+            return new BaseResponseDto<>(medicineService.getMedicineByClass(classSeq, medicineRequestDto));
+        } catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw e;
+            } else {
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
+    //(학부모) 자식 의뢰서 리스트
+    @PostMapping("/kidList/{kidSeq}")
+    public BaseResponseDto<List<MedicineKidResponseDto>> getMedicineByKid(@PathVariable Long kidSeq,
+                                                                          @RequestBody MedicineRequestDto medicineRequestDto) {
+        try {
+            return new BaseResponseDto<>(medicineService.getMedicineByKid(kidSeq, medicineRequestDto));
+        } catch (Exception e) {
             if (e instanceof BaseException) {
                 throw e;
             } else {
@@ -40,14 +84,13 @@ public class MedicineController {
 
     //투약 완료서(?) 작성
     @PutMapping("/{medicineSeq}")
-    public BaseResponseDto<Boolean> completeMedicine(@PathVariable Long medicineSeq,
+    public BaseResponseDto<NotifyResponseDto> completeMedicine(@PathVariable Long medicineSeq,
                                                      @ModelAttribute CompleteMedicineRequestDto completeMedicineRequestDto) {
         try {
             completeMedicineRequestDto.setMedicineSeq(medicineSeq);
-            boolean result = medicineService.completeMedicine(completeMedicineRequestDto);
+            NotifyResponseDto result = medicineService.completeMedicine(completeMedicineRequestDto);
             return new BaseResponseDto<>(result);
         } catch (Exception e) {
-            e.printStackTrace();
             if (e instanceof BaseException) {
                 throw e;
             } else {
@@ -55,52 +98,4 @@ public class MedicineController {
             }
         }
     }
-
-    //투약 의뢰서 조회
-    @GetMapping("/{medicineSeq}")
-    public BaseResponseDto<Medicine> getMedicine(@PathVariable Long medicineSeq) {
-        try {
-            return new BaseResponseDto<>(medicineService.getMedicine(medicineSeq));
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (e instanceof BaseException) {
-                throw e;
-            } else {
-                throw new BaseException(BaseResponseStatus.FAIL);
-            }
-        }
-    }
-
-    //(선생님)  학생들 투약 의뢰서 조회
-    @GetMapping("/class/{classSeq}")
-    public BaseResponseDto<List<MedicineClassResponseDto>> getMedicineByClass(@PathVariable Long classSeq,
-                                                                              @RequestBody MedicineRequestDto medicineRequestDto) {
-        try {
-            return new BaseResponseDto<>(medicineService.getMedicineByClass(classSeq, medicineRequestDto));
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (e instanceof BaseException) {
-                throw e;
-            } else {
-                throw new BaseException(BaseResponseStatus.FAIL);
-            }
-        }
-    }
-
-    //(학부모) 자식 의뢰서 리스트
-    @GetMapping("/kid/{kidSeq}")
-    public BaseResponseDto<List<MedicineKidResponseDto>> getMedicineByKid(@PathVariable Long kidSeq,
-                                                                          @RequestBody MedicineRequestDto medicineRequestDto) {
-        try {
-            return new BaseResponseDto<>(medicineService.getMedicineByKid(kidSeq, medicineRequestDto));
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (e instanceof BaseException) {
-                throw e;
-            } else {
-                throw new BaseException(BaseResponseStatus.FAIL);
-            }
-        }
-    }
-
 }

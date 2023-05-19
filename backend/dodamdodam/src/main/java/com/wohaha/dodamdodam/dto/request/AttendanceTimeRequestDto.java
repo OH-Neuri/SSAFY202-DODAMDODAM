@@ -8,4 +8,5 @@ import java.sql.Time;
 public class AttendanceTimeRequestDto {
     private Time forthTimeCheck;
     private Time backTimeCheck;
+    private long kidSeq;
 }

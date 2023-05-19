@@ -12,7 +12,9 @@ import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.repository.KindergartenRepository;
 import com.wohaha.dodamdodam.repository.ScheduleRepository;
 import com.wohaha.dodamdodam.repository.ScheduleTypeRepository;
+import com.wohaha.dodamdodam.security.CustomAuthenticatedUser;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +30,7 @@ public class ManageScheduleServiceImpl implements ManageScheduleService {
 
     @Override
     public boolean createSchedule(CreateScheduleRequestDto createScheduleRequestDto) {
-        Long userSeq = 1L; // 원장선생님 시퀀스 토큰에서 가져옴
+        Long userSeq = ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
         Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
         ScheduleType st = scheduleTypeRepository.findById(createScheduleRequestDto.getScheduleTypeSeq())
@@ -45,7 +47,7 @@ public class ManageScheduleServiceImpl implements ManageScheduleService {
 
     @Override
     public KindergartenScheduleListResponseDto getMonthScheduleList(String year, String month) {
-        Long userSeq = 1L; // 원장선생님 시퀀스 토큰에서 가져옴
+        Long userSeq = ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
         Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
         KindergartenScheduleListResponseDto kindergartenScheduleListResponseDto = new KindergartenScheduleListResponseDto(year, month);
@@ -65,8 +67,7 @@ public class ManageScheduleServiceImpl implements ManageScheduleService {
 
     @Override
     public List<ScheduleResponseDto> getDayScheduleList(String year, String month, String day) {
-        // 구현
-        Long userSeq = 1L; // 원장선생님 시퀀스 토큰에서 가져옴
+        Long userSeq = ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
         Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
         return scheduleRepository.findScheduleListByKindergartenSeq(kindergartenSeq, Integer.valueOf(year), Integer.valueOf(month), Integer.valueOf(day));
@@ -80,21 +81,28 @@ public class ManageScheduleServiceImpl implements ManageScheduleService {
 
     @Override
     public boolean createScheduleType(String content) {
-        Long userSeq = 1L; // 원장선생님 시퀀스 토큰에서 가져옴
+        Long userSeq = ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
         Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
         ScheduleType scheduleType = ScheduleType.builder()
                 .kindergartenSeq(kindergartenSeq)
                 .name(content)
                 .build();
-        System.out.println(scheduleType.toString());
         scheduleTypeRepository.save(scheduleType);
         return true;
     }
+
     @Override
-    public List<ScheduleTypeResponseDto> getScheduleTypeList() {
-        Long userSeq = 1L; // 원장선생님 시퀀스 토큰에서 가져옴
+    public List<ScheduleTypeResponseDto> getScheduleTypeListForApp() {
+        Long userSeq = ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
         Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByUserSeq(userSeq)
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
+        return scheduleTypeRepository.findScheduleTypeByKindergartenSeq(kindergartenSeq);
+    }
+
+    @Override
+    public List<ScheduleTypeResponseDto> getScheduleTypeList(long classSeq) {
+        Long kindergartenSeq = kindergartenRepository.findKindergartenSeqByClassSeq(classSeq)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.UNREGISTERED_KINDERGARTEN));
         return scheduleTypeRepository.findScheduleTypeByKindergartenSeq(kindergartenSeq);
     }

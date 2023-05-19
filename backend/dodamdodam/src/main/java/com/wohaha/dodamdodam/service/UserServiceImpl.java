@@ -5,6 +5,7 @@ import com.wohaha.dodamdodam.domain.User;
 import com.wohaha.dodamdodam.dto.BaseResponseDto;
 import com.wohaha.dodamdodam.dto.request.LoginUserRequestDto;
 import com.wohaha.dodamdodam.dto.request.RegisterUserRequestDto;
+import com.wohaha.dodamdodam.dto.request.SleepModeRequestDto;
 import com.wohaha.dodamdodam.dto.request.UpdateUserRequestDto;
 import com.wohaha.dodamdodam.dto.response.*;
 import com.wohaha.dodamdodam.exception.BaseException;
@@ -12,9 +13,11 @@ import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.repository.ClassTeacherRepository;
 import com.wohaha.dodamdodam.repository.ManageKidRepository;
 import com.wohaha.dodamdodam.repository.UserRepository;
+import com.wohaha.dodamdodam.security.CustomAuthenticatedUser;
 import com.wohaha.dodamdodam.util.EncodeUtils;
 import com.wohaha.dodamdodam.util.JwtTokenUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -69,6 +72,7 @@ public class UserServiceImpl implements UserService {
                 .id(user.getId())
                 .name(user.getName())
                 .role(user.getRole())
+                .phone(user.getPhoneNumber())
                 .token(jwtTokenInfo.getAccessToken())
                 .build();
 
@@ -96,29 +100,30 @@ public class UserServiceImpl implements UserService {
                 .name(user.getName())
                 .id(user.getId())
                 .role(user.getRole())
+                .phone(user.getPhoneNumber())
                 .token(jwtTokenInfo.getAccessToken())
                 .build();
 
         Object response = result;
         switch (loginUserRequestDto.getRole()) {
             case 1: // 원장 선생님 (관리자)
-                Boolean kindergarten = userRepository.findKindergartenSeq(user.getUserSeq()) != null;
+                String kindergarten = userRepository.findKindergartenName(user.getUserSeq());
                 response = new LoginAdminResponseDto(kindergarten, result);
                 break;
 
             case 2: // 선생님
-                LoginTeacherResponseDto loginTeacherResponseDto = new LoginTeacherResponseDto(result);
-                userRepository.findClassInfoByUserSeq(loginTeacherResponseDto, user.getUserSeq());
+                LoginTeacherResponseDto loginTeacherResponseDto = userRepository.findClassInfoByUserSeq(user.getUserSeq());
+                loginTeacherResponseDto.setLoginResponseDto(result);
                 response = loginTeacherResponseDto;
                 break;
             case 3: // 부모님
-                LoginParentResponseDto loginParentResponseDto = new LoginParentResponseDto(result);
-                userRepository.findKidInfoByUserSeq(loginParentResponseDto, user.getUserSeq());
+                LoginParentResponseDto loginParentResponseDto = userRepository.findKidInfoByUserSeq(user.getUserSeq());
+                loginParentResponseDto.setLoginResponseDto(result);
                 response = loginParentResponseDto;
                 break;
         }
 
-        return (response instanceof LoginResponseDto) ? new BaseException(BaseResponseStatus.WRONG_ROLE) : new BaseResponseDto<>(response);
+        return (response instanceof LoginResponseDto) ? new BaseException(BaseResponseStatus.WRONG_ROLE) : response;
     }
 
     @Override
@@ -148,17 +153,28 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<ClassInfoResponseDto> getTeacherClassList() {
-        Long userSeq = 1L;
-//                ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
+        Long userSeq = ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
         return classTeacherRepository.findClassListByUserSeq(userSeq);
     }
 
     @Override
     public List<KidInfoResponseDto> getParentKidList() {
-        Long userSeq = 18L;
-//                ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
+        Long userSeq = ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
         return kidRepository.findKidListByUserSeq(userSeq);
     }
+
+    @Override
+    public SleepModeRequestDto getSleepMode() {
+        Long userSeq = ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
+        return userRepository.findSleepMode(userSeq).orElseThrow(() -> new BaseException(UNREGISTERED_SLEEPMODE_TIME));
+    }
+
+    @Override
+    public Boolean updateSleepMode(SleepModeRequestDto sleepModeRequestDto) {
+        Long userSeq = ((CustomAuthenticatedUser) SecurityContextHolder.getContext().getAuthentication()).getUserSeq();
+        return userRepository.updateSleepMode(sleepModeRequestDto, userSeq) > 0;
+    }
+
 
 
 }

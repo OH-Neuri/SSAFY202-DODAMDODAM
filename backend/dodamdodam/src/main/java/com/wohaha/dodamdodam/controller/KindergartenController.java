@@ -9,9 +9,7 @@ import com.wohaha.dodamdodam.exception.BaseException;
 import com.wohaha.dodamdodam.exception.BaseResponseStatus;
 import com.wohaha.dodamdodam.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -99,7 +97,7 @@ public class KindergartenController {
     public BaseResponseDto<?> createKid(@ModelAttribute CreateKidRequestDto createKidRequestDto) {
         try {
 
-            String uploadUrl = null;
+            String uploadUrl = "https://dodamdodam.s3.ap-northeast-2.amazonaws.com/kidProfile/%EA%B8%B0%EB%B3%B8+%EC%95%84%EA%B8%B0+%EC%82%AC%EC%A7%84.png";
             //이미지 s3 업로드 후 링크 가져오기
             if (!createKidRequestDto.getPhoto().isEmpty()) {
                 uploadUrl = s3UploadService.upload(createKidRequestDto.getPhoto(), "kidProfile");
@@ -109,6 +107,7 @@ public class KindergartenController {
 
             return new BaseResponseDto<>(result);
         } catch (Exception e) {
+            e.printStackTrace();
             if (e instanceof BaseException) {
                 throw e;
             } else {
@@ -123,6 +122,7 @@ public class KindergartenController {
         try {
             return new BaseResponseDto<>(manageKidService.kidList());
         } catch (Exception e) {
+            e.printStackTrace();
             if (e instanceof BaseException) {
                 throw e;
             } else {
@@ -364,11 +364,23 @@ public class KindergartenController {
         }
         return new BaseResponseDto<>(true);
     }
-
     @GetMapping("/scheduleType")
-    public BaseResponseDto<List<ScheduleTypeResponseDto>> getScheduleTypeList() {
+    public BaseResponseDto<List<ScheduleTypeResponseDto>> getScheduleTypeListForApp() {
         try {
-            List<ScheduleTypeResponseDto> scheduleTypeList = manageScheduleService.getScheduleTypeList();
+            List<ScheduleTypeResponseDto> scheduleTypeList = manageScheduleService.getScheduleTypeListForApp();
+            return new BaseResponseDto<>(scheduleTypeList);
+        } catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw e;
+            } else {
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+    @GetMapping("/scheduleType/{classSeq}")
+    public BaseResponseDto<List<ScheduleTypeResponseDto>> getScheduleTypeList(@PathVariable long classSeq) {
+        try {
+            List<ScheduleTypeResponseDto> scheduleTypeList = manageScheduleService.getScheduleTypeList(classSeq);
             return new BaseResponseDto<>(scheduleTypeList);
         } catch (Exception e) {
             if (e instanceof BaseException) {
@@ -399,6 +411,21 @@ public class KindergartenController {
                                                     @RequestParam String day) {
         try {
             return new BaseResponseDto<>(manageFoodService.getFood(year, month, day));
+        } catch (Exception e) {
+            if (e instanceof BaseException) {
+                throw e;
+            } else {
+                throw new BaseException(BaseResponseStatus.FAIL);
+            }
+        }
+    }
+
+    @GetMapping("/food/{classSeq}")
+    public BaseResponseDto<FoodResponseDto> getFoodForApp(@PathVariable long classSeq, @RequestParam String year,
+                                                    @RequestParam String month,
+                                                    @RequestParam String day) {
+        try {
+            return new BaseResponseDto<>(manageFoodService.getFoodForApp(classSeq,year, month, day));
         } catch (Exception e) {
             if (e instanceof BaseException) {
                 throw e;
