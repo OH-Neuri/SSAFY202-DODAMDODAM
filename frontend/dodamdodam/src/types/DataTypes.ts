@@ -1,16 +1,45 @@
 export type student = {
-    [index: string]: string | number;
-    image: string;
-    name: string;
-    birth: string;
-    gender: string;
-    class: string;
+  [index: string]: string | number;
+  kidSeq: number;
+  photo: string;
+  kidName: string;
+  birth: string;
+  gender: string;
+  classSeq: number;
+  className: string;
+  parentSeq: number;
 };
 
+export const studentInit : student = {
+  kidSeq: 0,
+  photo: '',
+  kidName: '',
+  birth: '2012-05-14',
+  gender: '',
+  classSeq: 0,
+  className: '',
+  parentSeq: 0,
+}
+
+export type classList = {
+  [index: string]: string | number;
+  classSeq: number;
+  className: string;
+  age: string;
+  teacherInfo : any
+}
+
 export type teacher = {
-    [index: string]: string | number;
-    name: string;
-    class: string;
+  [index: string]: string | number;
+  name: string;
+  class: string;
+};
+
+export type teacherList = {
+  [index: string]: string | number;
+  teacherName: string,
+  className: string,
+  teacherSeq: number,
 }
 
 export type KindergartenType = {

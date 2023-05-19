@@ -5,41 +5,99 @@ import {
   Modal,
   Select,
   SelectChangeEvent,
-  TextField,
 } from "@mui/material";
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FormControl from "@mui/material/FormControl";
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { classList } from "@/types/DataTypes";
+import axios from "axios";
 
 export default function StudentRegisterModal(props: {
   open: boolean;
   handleOpen: any;
   handleClose: any;
 }) {
-
-
   const { open, handleClose } = props;
   const [group, setGroup] = React.useState<string>("");
   const [name, setName] = React.useState<string>("");
   const [imageSrc, setImageSrc]: any = useState("images/student/boy.png");
+  const [selectedImg, setSelectedImg] = useState<File | null>(null);
   const [gender, setGender] = useState<string>("");
   const [startDate, setStartDate] = useState(new Date());
-  const groupName = ["햇살반", "새싹반", "나무반", "구름반"];
-  const genders = ["여자", "남자"];
+  const [classList, setClassList] = useState<classList[]>([]);
 
-
-
+  // 반 저장하기
   const handleChangeGroup = (event: SelectChangeEvent) => {
     setGroup(event.target.value);
   };
 
+  // 성별 저장하기
   const handleChangeGender = (event: SelectChangeEvent) => {
     setGender(event.target.value);
   };
-  
+
+  // 아이 등록하기
+  async function getRegisterKidInfo() {
+    const changeDate = new Date(startDate);
+    const year = changeDate.getFullYear();
+    const month = changeDate.getMonth() + 1;
+    const date = changeDate.getDate();
+    const resultDate = `${year}-${month >= 10 ? month : "0" + month}-${
+      date >= 10 ? date : "0" + date
+    }`;
+    try {
+      var formData = new FormData();
+      formData.append("kidName", name);
+      formData.append("birth", resultDate);
+      if (!selectedImg) {
+        formData.append("photo", new Blob());
+      } else {
+        formData.append("photo", selectedImg);
+      }
+      formData.append("gender", gender);
+      formData.append("classSeq", group.toString());
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
+      const response = await axios.post(
+        "https://dodamdodam.site/api/dodam/kindergarten/kid",
+        formData,
+        config
+      );
+      location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const token =
+    typeof window !== "undefined" ? sessionStorage.getItem("token") : null;
+
+  // 반 이름 가져오기
+  async function getClassName() {
+    try {
+      const config = {
+        headers: {
+          Authorization: "Bearer " + token || "",
+        },
+      };
+      const response = await axios.get(
+        `https://dodamdodam.site/api/dodam/kindergarten/class`,
+        config
+      );
+      setClassList(response.data.result);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getClassName();
+  }, [props]);
 
   // 모달 스타일
   const style = {
@@ -54,10 +112,11 @@ export default function StudentRegisterModal(props: {
     p: 3,
   };
 
-  // 파일 업로드
+  // 사진 수정 후 미리보기 작업
   const onUpload = (e: any) => {
     const file = e.target.files[0];
     const reader = new FileReader();
+    setSelectedImg(file);
     reader.readAsDataURL(file);
 
     return new Promise<void>((resolve) => {
@@ -67,8 +126,6 @@ export default function StudentRegisterModal(props: {
       };
     });
   };
-
-
 
   return (
     <div>
@@ -108,7 +165,7 @@ export default function StudentRegisterModal(props: {
               </div>
             </div>
             <div className="pt-[30px] w-[340px]">
-              <div className="ml-[10px]" >이름</div>
+              <div className="ml-[10px]">이름</div>
               <input
                 className="outline-none border border-gray-300 w-[345px] h-[40px] rounded-lg px-4"
                 type="text"
@@ -119,31 +176,26 @@ export default function StudentRegisterModal(props: {
               <div>
                 <div className="ml-[5px]">생년월일</div>
                 <div className="mt-[3px]  w-[150px] h-[60px]">
-                  <DatePicker 
+                  <DatePicker
                     className="outline-none w-[160px] mt-[4px] h-[42px] text-[20px] border-[1.5px] border-gray-300 pl-[17px] rounded-lg"
                     selected={startDate}
-                    onChange={(date:any) => setStartDate(date)}
+                    onChange={(date: any) => setStartDate(date)}
                     dateFormat="yyyy-MM-dd"
-                />
+                  />
                 </div>
               </div>
               <div>
                 <div className="ml-[37px] "> 성별 </div>
                 <div className="ml-[23px]">
-                  <FormControl  sx={{ m: 1, minWidth: 160 }} size="small">
+                  <FormControl sx={{ m: 1, minWidth: 160 }} size="small">
                     <InputLabel htmlFor="grouped-select"></InputLabel>
                     <Select
                       id="grouped-select"
                       value={gender}
                       onChange={handleChangeGender}
                     >
-                      {genders.map((v, i) => {
-                        return (
-                          <MenuItem key={i} value={v}>
-                            {v}
-                          </MenuItem>
-                        );
-                      })}
+                      <MenuItem value="F">여자</MenuItem>
+                      <MenuItem value="M">남자</MenuItem>
                     </Select>
                   </FormControl>
                 </div>
@@ -151,7 +203,7 @@ export default function StudentRegisterModal(props: {
             </div>
             <div className="w-[350px] pt-[17px]">
               <div className="ml-[10px]">반</div>
-              <div >
+              <div>
                 <FormControl sx={{ m: 1, minWidth: 340 }} size="small">
                   <InputLabel htmlFor="grouped-select"></InputLabel>
                   <Select
@@ -159,10 +211,10 @@ export default function StudentRegisterModal(props: {
                     value={group}
                     onChange={handleChangeGroup}
                   >
-                    {groupName.map((v, i) => {
+                    {classList.map((v, i) => {
                       return (
-                        <MenuItem key={i} value={v}>
-                          {v}
+                        <MenuItem key={i} value={v.classSeq}>
+                          {v.className}
                         </MenuItem>
                       );
                     })}
@@ -171,7 +223,10 @@ export default function StudentRegisterModal(props: {
               </div>
             </div>
             <div
-              onClick={handleClose}
+              onClick={() => {
+                handleClose();
+                getRegisterKidInfo();
+              }}
               className="cursor-pointer hover:bg-[#BF9831] flex justify-center items-center text-[20px] font-preM ml-3 w-[340px] h-[55px] bg-[#FFCD4A] rounded-lg mt-11"
             >
               등록하기
