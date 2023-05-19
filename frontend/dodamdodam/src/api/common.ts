@@ -1,17 +1,28 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance } from "axios";
 
-const BACKEND_URL = 'https://dodamdodam.site/api/dodam/';
-const token = typeof window !== 'undefined' ? sessionStorage.getItem('token') : null;
+const BACKEND_URL = "https://dodamdodam.site/api/dodam/";
+const token =
+  typeof window !== "undefined" ? sessionStorage.getItem("token") : '';
 
 // 로그인 후 사용할 axios (-> 토큰이 필요한 경우)
 export const authAxios: AxiosInstance = axios.create({
   baseURL: `${BACKEND_URL}`,
   headers: {
-    Authorization: 'Bearer ' + token || '',
+    Authorization: "Bearer " + token || "",
   },
 });
 
-// 주석 취소하면 에러남.... 왜...?
+// 서버 사이드 렌더링 용,..?
+export const authAxiosSSR = (token : string) => {
+  return axios.create({
+    baseURL: `${BACKEND_URL}`,
+    headers: {
+      Authorization: "Bearer " + token || "",
+    },
+  })
+}
+
+// 주석 취소하면 CORS 에러남.... 왜...?
 // authAxios.defaults.withCredentials = true;
 
 // 로그인이 필요없는 axios
@@ -50,9 +61,7 @@ export const defaultAxios: AxiosInstance = axios.create({
 //     });
 // };
 
-
 export const logout = () => {
-  localStorage.removeItem('token');
-  window.location.href = '/user/login';
+  localStorage.removeItem("token");
+  window.location.href = "/user/login";
 };
-

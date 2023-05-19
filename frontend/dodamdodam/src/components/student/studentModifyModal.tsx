@@ -17,6 +17,7 @@ import FormControl from "@mui/material/FormControl";
 import axios from "axios";
 import { useQuery } from "react-query";
 import StudentPhoneInputModal from "./studentPhoneInputModal";
+import { headers } from "next/dist/client/components/headers";
 
 export default function StudentModifyModal(props: {
   idx: number;
@@ -30,7 +31,7 @@ export default function StudentModifyModal(props: {
   const [name, setName] = useState<string>("");
   const [photo, setPhoto] = useState<any>("");
   const [gender, setGender] = useState<string>("");
-  const [startDate, setStartDate] = useState(new Date("2023-05-4"));
+  const [startDate, setStartDate] = useState<Date>(new Date());
   const [student, setStudent] = useState<student>(studentInit);
   const [classList, setClassList] = useState<classList[]>([]);
   const [selectedImg, setSelectedImg] = useState<File | null>(null);
@@ -39,6 +40,9 @@ export default function StudentModifyModal(props: {
   const [flag, setFlag] = useState<number>(0);
   const handleOpenPh = () => setOpenPh(true);
   const handleClosePh = () => setOpenPh(false);
+
+  const token =
+    typeof window !== "undefined" ? sessionStorage.getItem("token") : null;
 
   // 반 변경 저장
   const handleChangeGroup = (event: SelectChangeEvent) => {
@@ -81,6 +85,7 @@ export default function StudentModifyModal(props: {
       const config = {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: "Bearer " + token || "",
         },
       };
       const response = axios.put(
@@ -102,8 +107,14 @@ export default function StudentModifyModal(props: {
         `https://dodamdodam.site/api/dodam/kindergarten/kidInfo/${kidSeq}`
       );
       setStudent(response.data.result);
+      setName(response.data.result.kidName);
+      setStartDate(new Date(`${response.data.result.birth}`));
+      setPhoto(response.data.result.photo);
+      setGroup(response.data.result.className);
+      setGender(response.data.result.gender);
+      setIsRegisterd(response.data.result.parentSeq);
     } catch (error) {
-      console.log("에러났습니다.");
+      console.log("");
     }
   }
 
@@ -111,39 +122,38 @@ export default function StudentModifyModal(props: {
   async function deleteKid(idx: number) {
     const kidSeq = idx;
     try {
-      const response = await axios.delete(
+      await axios.delete(
         `https://dodamdodam.site/api/dodam/kindergarten/kid/${kidSeq}`
       );
-      console.log(`원생삭제 :>>>>>>>>>>>`);
-      console.log(response.data.result);
+        location.reload();
     } catch (error) {
-      console.log(
-        "원생 삭제에서 에러났습니다.???????????????????????????????????//"
-      );
     }
   }
 
   // 반 이름 가져오기
   async function getClassName() {
     try {
+      const config = {
+        headers: {
+          Authorization: "Bearer " + token || "",
+        },
+      };
       const response = await axios.get(
-        `https://dodamdodam.site/api/dodam/kindergarten/class`
+        `https://dodamdodam.site/api/dodam/kindergarten/class`,
+        config
       );
       setClassList(response.data.result);
     } catch (error) {
-      console.log("에러났습니다.");
+      console.log("");
     }
   }
 
   useEffect(() => {
+    if(props.idx == -1){
+      return;
+    }
     fetchKid(props.idx);
     getClassName();
-    setName(student.kidName);
-    setStartDate(new Date(`${student.birth}`));
-    setPhoto(student.photo);
-    setGroup(student.className);
-    setGender(student.gender);
-    setIsRegisterd(student.parentSeq);
     // setIsRegiseterd()
   }, [props]);
 
@@ -238,7 +248,9 @@ export default function StudentModifyModal(props: {
                     <DatePicker
                       className="outline-none w-[160px] mt-[4px] h-[42px] text-[18px] border-[1.5px] border-gray-300 pl-[17px] rounded-lg"
                       selected={startDate}
-                      onChange={(date: any) => setStartDate(date)}
+                      // selected={new Date()}
+                      onChange={(date: Date) => setStartDate(date)}
+                      // onChange={(date: Date) => console.log(new Date(date).getDay())}
                       dateFormat="yyyy-MM-dd"
                     />
                   </div>
