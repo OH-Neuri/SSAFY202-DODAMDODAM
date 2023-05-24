@@ -31,7 +31,7 @@ class NotifyController extends GetxController {
   }
 
   void readAlarm(String noSeq, int uSeq, int index) async {
-    String Url = "http://114.199.131.131:9998/notify";
+    // String Url = "http://localhost:9998/notify";
     try {
       await http.put(
           Uri.parse(Url),
