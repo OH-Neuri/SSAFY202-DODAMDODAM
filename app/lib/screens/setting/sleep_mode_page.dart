@@ -46,17 +46,17 @@ class _SleepModePageState extends State<SleepModePage> {
                               ],
                             ),
                             Switch(
-                                value: sc.sleepModeTime.sleepModeStart == null ? false : true,
-                                onChanged: (value){
-                                  setState(() {
-                                    isOn = value;
-                                  });
-                                  if(value) {
-                                    SettingService.modifySleepModeTime(SleepModeTime(sleepModeStart: '00:00:00', sleepModeEnd: '00:00:00'));
-                                  }else{
-                                    SettingService.modifySleepModeTime(SleepModeTime(sleepModeStart: '', sleepModeEnd: ''));
-                                  }
-                                },
+                              value: sc.sleepModeTime.sleepModeStart == null ? false : true,
+                              onChanged: (value){
+                                setState(() {
+                                  isOn = value;
+                                });
+                                if(value) {
+                                  SettingService.modifySleepModeTime(SleepModeTime(sleepModeStart: '00:00:00', sleepModeEnd: '00:00:00'));
+                                }else{
+                                  SettingService.modifySleepModeTime(SleepModeTime(sleepModeStart: '', sleepModeEnd: ''));
+                                }
+                              },
                               inactiveTrackColor: Colors.grey[400],
                               activeColor: darkYellow,
                             )
@@ -64,12 +64,12 @@ class _SleepModePageState extends State<SleepModePage> {
                         ),
                       ),
                       Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.only(left: 4, top: 6),
-                        child: Text('설정해둔 시간에는 알림이 오지 않습니다.', style: TextStyle(color: Colors.grey[700]),)
+                          width: double.infinity,
+                          padding: EdgeInsets.only(left: 4, top: 6),
+                          child: Text('설정해둔 시간에는 알림이 오지 않습니다.', style: TextStyle(color: Colors.grey[700]),)
                       ),
                       sc.sleepModeTime.sleepModeStart != null
-                      ? SizedBox(
+                          ? SizedBox(
                         width: double.infinity,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,13 +79,13 @@ class _SleepModePageState extends State<SleepModePage> {
                               child: Text('시작 시간', style: TextStyle(fontWeight: FontWeight.w600, fontSize: contentTextSize),),
                             ),
                             InkWell(
-                              onTap: () async {
-                                final time = await showTimePickerDialog(startTime);
-                                if(time != ''){
-                                  SettingService.modifySleepModeTime(SleepModeTime(sleepModeStart: time, sleepModeEnd: sc.sleepModeTime.sleepModeEnd));
-                                }
-                              },
-                              child: TimePickerButton(time: sc.sleepModeTime.sleepModeStart)
+                                onTap: () async {
+                                  final time = await showTimePickerDialog(startTime);
+                                  if(time != ''){
+                                    SettingService.modifySleepModeTime(SleepModeTime(sleepModeStart: time, sleepModeEnd: sc.sleepModeTime.sleepModeEnd));
+                                  }
+                                },
+                                child: TimePickerButton(time: sc.sleepModeTime.sleepModeStart)
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 20.0),
@@ -98,12 +98,12 @@ class _SleepModePageState extends State<SleepModePage> {
                                     SettingService.modifySleepModeTime(SleepModeTime(sleepModeStart: sc.sleepModeTime.sleepModeStart, sleepModeEnd: time));
                                   }
                                 },
-                              child: TimePickerButton(time: sc.sleepModeTime.sleepModeEnd)
+                                child: TimePickerButton(time: sc.sleepModeTime.sleepModeEnd)
                             ),
                           ],
                         ),
                       )
-                      : SizedBox(),
+                          : SizedBox(),
                     ],
                   )
               ),
@@ -161,9 +161,9 @@ class TimePickerButton extends StatelessWidget {
             ),
             margin: EdgeInsets.all(10),
             child: Center(child: Text(time[1], style: TextStyle(
-              fontSize: titleTextSize,
-              fontWeight: FontWeight.w700,
-              color: Colors.grey[700]
+                fontSize: titleTextSize,
+                fontWeight: FontWeight.w700,
+                color: Colors.grey[700]
             ),),),),
         ),
         Text(':', style: TextStyle(fontSize: titleTextSize, color: Colors.grey[500]),),

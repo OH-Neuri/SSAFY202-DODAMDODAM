@@ -33,21 +33,33 @@ class MainPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                            child: SizedBox(
-                              width: 50,
-                              height: 50,
-                              child: CircleAvatar(
-                                  backgroundImage: AssetImage(
-                                      'assets/images/sleepingCat.png')),
-                            ),
+                              padding: const EdgeInsets.symmetric(horizontal: 8),
+                              child: SizedBox(
+                                width: 50, height: 50,
+                                child: DeviceInfoController.to.isTeacher?
+                                CircleAvatar(
+                                    backgroundImage: AssetImage('assets/images/common/flower_icon.png')
+                                ) :
+                                CircleAvatar(
+                                    backgroundImage: NetworkImage(DeviceInfoController.to.kidPhoto)
+                                ),
+                              )
                           ),
-                          Text('융융이맘님, ',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: subTitleTextSize)),
-                          Text('안녕하세요!',
-                              style: TextStyle(fontSize: subTitleTextSize))
+                          DeviceInfoController.to.isTeacher ?
+                          // 선생일 때
+                          Row(
+                            children: [
+                              Text('${DeviceInfoController.to.className} 선생님, ', style: TextStyle(fontWeight: FontWeight.w700, fontSize: subTitleTextSize)),
+                              Text('안녕하세요!', style: TextStyle(fontSize: subTitleTextSize))
+                            ],
+                          )
+                              :
+                          Row(
+                            children: [
+                              Text('${DeviceInfoController.to.kidName} 학부모님, ', style: TextStyle(fontWeight: FontWeight.w700, fontSize: subTitleTextSize)),
+                              Text('안녕하세요!', style: TextStyle(fontSize: subTitleTextSize))
+                            ],
+                          )
                         ],
                       ),
                     ),

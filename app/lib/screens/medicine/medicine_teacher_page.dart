@@ -25,61 +25,61 @@ class _MedicineTeacherPageState extends State<MedicineTeacherPage> {
     MedicineController mc = Get.put(MedicineController());
     return GetBuilder<MedicineController>(builder:
         (_)=>
-      Scaffold(
-        appBar: TitleAppBar(title: "투약 의뢰서"),
-        body: Row(
-          children: [
-            Expanded(child: SizedBox()),
-            Flexible(
-              flex: 12,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        AttendaneListTimePicker(
-                          onDateSelected: (date) {
-                            setState(() {
-                              _selectedDate = date;
-                              mc.setMedicineKidMonthList(_selectedDate);
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                    // Set the text alignment to left for 'Attendance List'
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.fromLTRB(20, 10, 20, 13),
-                        child: GridView.count(
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 15.0,
-                          crossAxisSpacing: 15.0,
-                          children: List.generate(mc.medicineClassList.length, (index) {
-                            return Center(
-                                child: GestureDetector(
-                                  onTap:(){
-                                    mc.setMedicineKidDetail(mc.medicineClassList[index].medicineSeq);
-                                     Navigator.push(context, MaterialPageRoute(builder: (context) => MedicineDetailPage(
-                                       kidClassName: DeviceInfoController.to.className, kidName: mc.medicineClassList[index].name, kidPhoto: mc.medicineClassList[index].photo,
-                                     )));
-                                  },
-                                  child: MedicineCard(data: mc.medicineClassList[index]),
-                                ));
-                          }),
+        Scaffold(
+          appBar: TitleAppBar(title: "투약 의뢰서"),
+          body: Row(
+            children: [
+              Expanded(child: SizedBox()),
+              Flexible(
+                flex: 12,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          AttendaneListTimePicker(
+                            onDateSelected: (date) {
+                              setState(() {
+                                _selectedDate = date;
+                                mc.setMedicineKidMonthList(_selectedDate);
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                      // Set the text alignment to left for 'Attendance List'
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(20, 10, 20, 13),
+                          child: GridView.count(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 15.0,
+                            crossAxisSpacing: 15.0,
+                            children: List.generate(mc.medicineClassList.length, (index) {
+                              return Center(
+                                  child: GestureDetector(
+                                    onTap:(){
+                                      mc.setMedicineKidDetail(mc.medicineClassList[index].medicineSeq);
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => MedicineDetailPage(
+                                        kidClassName: DeviceInfoController.to.className, kidName: mc.medicineClassList[index].name, kidPhoto: mc.medicineClassList[index].photo,
+                                      )));
+                                    },
+                                    child: MedicineCard(data: mc.medicineClassList[index]),
+                                  ));
+                            }),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Expanded(child: SizedBox()),
-          ],
-        ),
-      )
+              Expanded(child: SizedBox()),
+            ],
+          ),
+        )
     );
   }
 }

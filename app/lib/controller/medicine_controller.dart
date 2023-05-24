@@ -45,7 +45,7 @@ class MedicineController extends GetxController {
   Future<bool> setMedicineKidDetail(int medicineSeq) async {
     try{
       medicineKidDetail = await MedicineService.getMedicineDetail(medicineSeq);
-    update();
+      update();
       return true;
     }catch(e){
       print(e);

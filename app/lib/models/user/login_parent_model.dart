@@ -33,11 +33,11 @@ class LoginParentModel {
 }
 
 class LoginParent {
-  int? kidSeq;
-  String? kidName;
-  String? kidPhoto;
-  int? classSeq;
-  String? className;
+  int kidSeq;
+  String kidName;
+  String kidPhoto;
+  int classSeq;
+  String className;
   LoginUser loginResponseDto;
 
   LoginParent({

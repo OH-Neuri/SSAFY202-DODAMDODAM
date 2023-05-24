@@ -11,7 +11,7 @@ class KeywordChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 40,
-      padding: EdgeInsets.fromLTRB(16, 4, 0, 4),
+      padding: EdgeInsets.fromLTRB(10, 3, 6, 3),
       decoration: BoxDecoration(
           border: Border.all(color: textColor, width: 1),
           borderRadius: BorderRadius.circular(50)
@@ -20,17 +20,15 @@ class KeywordChip extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(text),
-          TextButton(
-              onPressed: onPressed,
-              style: ButtonStyle(
-                shape: MaterialStateProperty.all(CircleBorder(eccentricity: 0)),
-                padding: MaterialStateProperty.all(EdgeInsets.zero),
-                overlayColor: MaterialStateProperty.all(Colors.white),
-                backgroundColor: MaterialStateProperty.all(Colors.white),
-              ),
-              child: Icon(Icons.close, color: Colors.redAccent,)
-          )
+          Padding(
+            padding: const EdgeInsets.only(right: 4.0),
+            child: Text(text, style: TextStyle(fontSize: 12),),
+          ),
+          InkWell(
+            onTap: onPressed,
+            overlayColor: MaterialStateProperty.all(Colors.white),
+            child: Icon(Icons.close, color: Color(0x80ff0000),),
+          ),
         ],
       ),
     );

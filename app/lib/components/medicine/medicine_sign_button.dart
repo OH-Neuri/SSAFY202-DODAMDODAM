@@ -34,12 +34,12 @@ class MedicineSignButton extends StatelessWidget {
     DeviceInfoController dc = Get.put(DeviceInfoController());
     MedicineController mc = Get.put(MedicineController());
     return GetBuilder<MedicineController>(builder:
-    (_)=>
+        (_)=>
 
         Container(
           margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
           height: 26,
-          width: 80,
+          width: 90,
           child: ElevatedButton(
             onPressed: () {
               showDialog(
@@ -48,7 +48,7 @@ class MedicineSignButton extends StatelessWidget {
                   return AlertDialog(
                     title: Center(child: Text("서명하기",style:TextStyle(
                         fontSize:18,
-                        color: Colors.black87,
+                        color: Colors.white,
                         fontWeight: FontWeight.w700
                     ) )),
                     actions: <Widget>[

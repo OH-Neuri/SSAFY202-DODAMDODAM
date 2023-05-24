@@ -74,15 +74,15 @@ class _SignupIdState extends State<SignupId> {
                         hint: '아이디',
                         obscureText: false,
                         onChanged: (val){
-                        setState(() {
-                          user.id = val;
-                          getIdValid(val);
-                        });
-                      },),
+                          setState(() {
+                            user.id = val;
+                            getIdValid(val);
+                          });
+                        },),
                     ),
                     SizedBox(
-                        width: double.infinity,
-                        child: text,
+                      width: double.infinity,
+                      child: text,
                     ),
                     Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
                       child: UserTextFormField(

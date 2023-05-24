@@ -27,13 +27,13 @@ class ChattingUserList extends StatelessWidget {
               singleTeacher = ChattingController.to.teacherList[index];
             }
             return Container(
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(color: Colors.grey, width: 0.5)
-                )
-              ),
-              height: 80,
-              child: Row(
+                decoration: BoxDecoration(
+                    border: Border(
+                        bottom: BorderSide(color: Colors.grey, width: 0.5)
+                    )
+                ),
+                height: 80,
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     // 내용
@@ -56,18 +56,18 @@ class ChattingUserList extends StatelessWidget {
                               (singleUser.parentSeq != null) ? Text('(${singleUser.parentName}님)', style: TextStyle(color: Colors.grey, fontSize: subContentTextSize)) : Text(' ')
                             ],
                           ) :
-                              Row(
-                                children: [
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text('${singleTeacher.teacherName} 선생님', style: TextStyle(fontSize: contentTextSize)),
-                                      singleTeacher.sleepModeStart != null ?
-                                      Text('방해금지 시간: ${singleTeacher.sleepModeStart} ~ ${singleTeacher.sleepModeEnd}', style: TextStyle(fontSize: subContentTextSize, color: Colors.grey[500]),) : SizedBox(),
-                                    ]
-                                )],
-                              )
+                          Row(
+                            children: [
+                              Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('${singleTeacher.teacherName} 선생님', style: TextStyle(fontSize: contentTextSize)),
+                                    singleTeacher.sleepModeStart != null ?
+                                    Text('방해금지 시간: ${singleTeacher.sleepModeStart} ~ ${singleTeacher.sleepModeEnd}', style: TextStyle(fontSize: subContentTextSize, color: Colors.grey[500]),) : SizedBox(),
+                                  ]
+                              )],
+                          )
                         ],
                       ),
                     ),
@@ -80,14 +80,14 @@ class ChattingUserList extends StatelessWidget {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => ChattingDetail()));
                           },
                           child: Opacity(
-                            opacity: 0.5,
+                              opacity: 0.5,
                               child: Image.asset('assets/images/common/chatting_icon.png', height: 30)
                           )
                       ),
                     )
                   ],
                 )
-              );
+            );
           }
       ),
     );

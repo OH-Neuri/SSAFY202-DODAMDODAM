@@ -35,9 +35,9 @@ class SignButtonCustom extends StatelessWidget {
             builder: (BuildContext context) {
               return AlertDialog(
                 title: Center(child: Text("서명하기",style:TextStyle(
-                  fontSize:18,
-                  color: Colors.black87,
-                  fontWeight: FontWeight.w600
+                    fontSize:18,
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w600
                 ) )),
                 actions: <Widget>[
                   Row(
@@ -96,7 +96,7 @@ class SignButtonCustom extends StatelessWidget {
                               ),
                               onPressed: () {
                                 AttendanceService.registAttendance(
-                                  forthTime,backTime,backWay,parentName,phoneNumber,tempParentName,tempPhoneNumber
+                                    forthTime,backTime,backWay,parentName,phoneNumber,tempParentName,tempPhoneNumber
                                 );
                                 Navigator.of(context).pop();
                               },
@@ -112,9 +112,9 @@ class SignButtonCustom extends StatelessWidget {
           );
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: darkPink,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-          minimumSize: Size(100, 30)
+            backgroundColor: darkPink,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+            minimumSize: Size(100, 30)
         ),
         child: Text(
           "서명하기",

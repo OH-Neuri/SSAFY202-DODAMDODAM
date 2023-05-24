@@ -43,15 +43,15 @@ class OneLineSchedule extends StatelessWidget {
                   Text(content),
                   isTeacher ?
                   InkWell(
-                    onTap: () {
-                      showDialog(
-                          context: context,
-                          barrierDismissible: true,
-                          builder: (BuildContext context) {
-                            return DeleteCalendarDialog(scheduleSeq: scheduleSeq);
-                          }
-                      );
-                    },
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            barrierDismissible: true,
+                            builder: (BuildContext context) {
+                              return DeleteCalendarDialog(scheduleSeq: scheduleSeq);
+                            }
+                        );
+                      },
                       child: Icon(Icons.delete, color: Color(0x50000000),)
                   )
                       : SizedBox()

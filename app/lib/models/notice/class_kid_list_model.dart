@@ -33,12 +33,12 @@ class ClassKidListModel {
 class ClassKid {
   int kidSeq;
   String name;
-  String? photo;
+  String photo;
 
   ClassKid({
     required this.kidSeq,
     required this.name,
-    this.photo,
+    required this.photo,
   });
 
   factory ClassKid.fromJson(Map<String, dynamic> json) => ClassKid(

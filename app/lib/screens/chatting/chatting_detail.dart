@@ -12,8 +12,8 @@ class _ChattingDetailState extends State<ChattingDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: TitleAppBar(title: "채팅 상세 페이지"),
-        body: Text("채팅 상세페이지이다."),
+      appBar: TitleAppBar(title: "채팅 상세 페이지"),
+      body: Text("채팅 상세페이지이다."),
     );
   }
 }

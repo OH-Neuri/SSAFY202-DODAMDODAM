@@ -18,153 +18,104 @@ class NoticeDetailPage extends StatelessWidget {
     DeviceInfoController dc = Get.put(DeviceInfoController());
     NoticeController nc = Get.put(NoticeController());
     return GetBuilder<NoticeController>(
-        builder: (_) => Scaffold(
+        builder: (_) =>
+            Scaffold(
               backgroundColor: lightNavy,
-              appBar: TitleAppBar(
-                title: '',
-              ),
+              appBar: TitleAppBar(title: '',),
               body: Row(
                 children: [
                   Expanded(child: SizedBox()),
-                  Flexible(
-                      flex: 12,
+                  Flexible(flex: 12,
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
                             Padding(
                                 padding: const EdgeInsets.fromLTRB(0, 6, 2, 6),
-                                child: dc.isTeacher
-                                    ? Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          InkWell(
-                                            onTap: () {
-                                              Navigator.of(context)
-                                                  .push(MaterialPageRoute(
-                                                builder: (context) =>
-                                                    NoticeModify(),
-                                              ));
-                                            },
-                                            overlayColor:
-                                                MaterialStateProperty.all(
-                                                    darkNavy),
-                                            borderRadius:
-                                                BorderRadius.circular(50),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Icon(
-                                                Icons.create_outlined,
-                                                color: logoNavy,
-                                              ),
-                                            ),
-                                          ),
-                                          InkWell(
-                                            onTap: () {
-                                              checkDelete(context, () {
-                                                NoticeService.deleteNotice(
-                                                    nc.noticeDetail.noticeSeq);
-                                                nc.setNoticeList();
-                                                Navigator.pop(context);
-                                              });
-                                            },
-                                            overlayColor:
-                                                MaterialStateProperty.all(
-                                                    darkNavy),
-                                            borderRadius:
-                                                BorderRadius.circular(50),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Icon(
-                                                Icons.delete_outlined,
-                                                color: logoNavy,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                    : SizedBox(
-                                        height: 20,
-                                      )),
+                                child: dc.isTeacher ?
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    InkWell(
+                                      onTap: (){
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(builder: (context) => NoticeModify(),)
+                                        );
+                                      },
+                                      overlayColor: MaterialStateProperty.all(darkNavy),
+                                      borderRadius: BorderRadius.circular(50),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Icon(Icons.create_outlined, color: logoNavy,),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: (){
+                                        checkDelete(context, (){
+                                          NoticeService.deleteNotice(nc.noticeDetail.noticeSeq);
+                                          nc.setNoticeList();
+                                          Navigator.pop(context);
+                                        });
+                                      },
+                                      overlayColor: MaterialStateProperty.all(darkNavy),
+                                      borderRadius: BorderRadius.circular(50),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Icon(Icons.delete_outlined, color: logoNavy,),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                                    : SizedBox(height: 20,)
+                            ),
                             Container(
                               width: double.infinity,
                               padding: EdgeInsets.all(24),
                               margin: EdgeInsets.only(bottom: 20),
                               decoration: BoxDecoration(
                                   color: Colors.white,
-                                  borderRadius: BorderRadius.circular(20)),
+                                  borderRadius: BorderRadius.circular(20)
+                              ),
                               child: Column(
                                 children: [
                                   Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(nc.noticeDetail.date),
-                                      nc.noticeDetail.announcement
-                                          ? Text(
-                                              '전체 공지',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w600),
-                                            )
-                                          : Text(
-                                              kidLengthToText(
-                                                  nc.noticeDetail.kid),
-                                              style:
-                                                  TextStyle(color: Colors.grey),
-                                            )
+                                      nc.noticeDetail.announcement ?
+                                      Text('전체 공지', style: TextStyle(fontWeight: FontWeight.w600),) :
+                                      Text(
+                                        kidLengthToText(nc.noticeDetail.kid),
+                                        style: TextStyle(color: Colors.grey),)
                                     ],
                                   ),
                                   Padding(
-                                    padding:
-                                        EdgeInsets.only(top: 10, bottom: 20),
-                                    child: Divider(
-                                        color: Colors.grey,
-                                        height: 1,
-                                        thickness: 1),
+                                    padding: EdgeInsets.only(top: 10, bottom: 20),
+                                    child: Divider(color: Colors.grey, height: 1, thickness: 1),
                                   ),
                                   nc.noticeDetail.photo.isEmpty
                                       ? SizedBox()
                                       : SizedBox(
-                                          width: double.infinity,
-                                          height: 120,
-                                          child: GridView(
-                                            gridDelegate:
-                                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisCount: 3,
-                                              crossAxisSpacing: 5,
-                                            ),
-                                            children: [
-                                              for (int i = 0;
-                                                  i <
-                                                      nc.noticeDetail.photo
-                                                          .length;
-                                                  i++)
-                                                InkWell(
-                                                    onTap: () {
-                                                      Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  NoticeImageDetail(
-                                                                      images: nc
-                                                                          .noticeDetail
-                                                                          .photo,
-                                                                      index:
-                                                                          i)));
-                                                    },
-                                                    child: Image.network(
-                                                      nc.noticeDetail.photo[i],
-                                                      fit: BoxFit.cover,
-                                                    )),
-                                            ],
+                                    width: double.infinity,
+                                    height: 120,
+                                    child: GridView(gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 3,
+                                      crossAxisSpacing: 5,
+                                    ),
+                                      children: [
+                                        for(int i=0; i<nc.noticeDetail.photo.length; i++)
+                                          InkWell(
+                                              onTap: (){Navigator.push(context, MaterialPageRoute(
+                                                  builder: (context)=> NoticeImageDetail(images: nc.noticeDetail.photo, index: i)
+                                              )
+                                              );},
+                                              child: Image.network(nc.noticeDetail.photo[i], fit: BoxFit.cover,)
                                           ),
-                                        ),
+                                      ],
+                                    ),
+                                  ),
                                   Container(
                                     width: double.infinity,
-                                    padding:
-                                        const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                                     child: Text(nc.noticeDetail.content),
                                   )
                                 ],
@@ -172,10 +123,12 @@ class NoticeDetailPage extends StatelessWidget {
                             )
                           ],
                         ),
-                      )),
+                      )
+                  ),
                   Expanded(child: SizedBox()),
                 ],
               ),
-            ));
+            )
+    );
   }
 }

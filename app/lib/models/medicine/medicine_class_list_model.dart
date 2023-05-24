@@ -50,10 +50,10 @@ class MedicineClassList {
   });
 
   factory MedicineClassList.fromJson(Map<String, dynamic> json) => MedicineClassList(
-    medicineSeq: json["medicineSeq"],
-    name: json["name"],
-    responseDate: json["responseDate"],
-    photo: json['photo']
+      medicineSeq: json["medicineSeq"],
+      name: json["name"],
+      responseDate: json["responseDate"],
+      photo: json['photo']
   );
 
   Map<String, dynamic> toJson() => {

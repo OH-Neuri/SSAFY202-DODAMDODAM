@@ -8,9 +8,9 @@ class OneLineFood extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: menu != null ?
-          Text(menu, style: TextStyle(fontSize: contentTextSize)) :
-          SizedBox()
+        child: menu != null ?
+        Text(menu, style: TextStyle(fontSize: contentTextSize)) :
+        SizedBox()
     );
   }
 }

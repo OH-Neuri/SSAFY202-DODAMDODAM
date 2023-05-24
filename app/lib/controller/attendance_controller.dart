@@ -23,12 +23,12 @@ class AttendacneController extends GetxController {
 
   // 해당 날짜 등하원 리스트 가져오기
   void setAttendanceList(DateTime day) async {
-   try{
-     attendaceList = await AttendanceService.getAttendanceList(day);
-   }catch(e){
-     print(e);
-   }
-   update();
+    try{
+      attendaceList = await AttendanceService.getAttendanceList(day);
+    }catch(e){
+      print(e);
+    }
+    update();
   }
 
   // 해당 날짜의 원생 등하원 내용 가져오기

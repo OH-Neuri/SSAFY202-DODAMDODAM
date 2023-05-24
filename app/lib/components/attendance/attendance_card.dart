@@ -34,16 +34,16 @@ class AttendanceCard extends StatelessWidget {
                       backgroundImage: NetworkImage(kid.photo),
                     ),
                   ),
-                 Container(
-                      width: 50, height: 40,
-                   child: Column(
-                     crossAxisAlignment: CrossAxisAlignment.center,
-                     mainAxisAlignment: MainAxisAlignment.center,
-                     children: [
-                       Text(kid.name, style: TextStyle(fontSize: 13)),
-                     ],
-                   ),
-                 )
+                  Container(
+                    width: 50, height: 40,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(kid.name, style: TextStyle(fontSize: 13)),
+                      ],
+                    ),
+                  )
                 ],
               ),
               Padding(

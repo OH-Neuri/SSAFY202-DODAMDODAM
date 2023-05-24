@@ -62,16 +62,16 @@ class RootController extends GetxController {
     }
   }
 
-  // 화살표랑 타이틀 처리를 위한 것. 나중에 숫자로 바꿔서
-  // 동적으로 이름 또한 지정해줘야 할 것 같음
-  // 지금은 notice에만.
-  // void setCategoryPage(bool ck) {
-  //   isCategoryPageOpen(ck);
-  // }
+// 화살표랑 타이틀 처리를 위한 것. 나중에 숫자로 바꿔서
+// 동적으로 이름 또한 지정해줘야 할 것 같음
+// 지금은 notice에만.
+// void setCategoryPage(bool ck) {
+//   isCategoryPageOpen(ck);
+// }
 
-  // // 뒤로가기 버튼에 이벤트 달아줌
-  // void back() {
-  //   setCategoryPage(false);
-  //   onWillPop();
-  // }
+// // 뒤로가기 버튼에 이벤트 달아줌
+// void back() {
+//   setCategoryPage(false);
+//   onWillPop();
+// }
 }

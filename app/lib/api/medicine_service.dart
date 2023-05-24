@@ -69,13 +69,13 @@ class MedicineService {
       DeviceInfoController c = Get.put(DeviceInfoController());
       String URL =  '${url}medicine/kidList/${c.kidSeq}';
       final data = {
-          "day" : "${day.year}-${day.month >= 10 ? day.month : '0${day.month}'}-${day.day >= 10 ? day.day : '0${day.day}'}",
+        "day" : "${day.year}-${day.month >= 10 ? day.month : '0${day.month}'}-${day.day >= 10 ? day.day : '0${day.day}'}",
       };
 
       final response = await http.post(
-        Uri.parse(URL),
-        headers: postHeaders,
-        body:jsonEncode(data)
+          Uri.parse(URL),
+          headers: postHeaders,
+          body:jsonEncode(data)
       );
 
       if (response.statusCode == 200) {
@@ -145,20 +145,20 @@ class MedicineService {
       String URL = '${url}medicine/kid/${c.kidSeq}';
 
       final data = {
-       "symptom": symptom,
-       "pill": pill,
-       "capacity": capacity,
-       "count": count,
+        "symptom": symptom,
+        "pill": pill,
+        "capacity": capacity,
+        "count": count,
         "time": time,
         "keep" : keep,
         "content": content,
-       "requestName": requestName,
-       "requestDate": requestDate,
+        "requestName": requestName,
+        "requestDate": requestDate,
       };
       final response = await http.post(
-        Uri.parse(URL),
-        headers: {"Content-Type" : "application/json"},
-        body:jsonEncode(data)
+          Uri.parse(URL),
+          headers: {"Content-Type" : "application/json"},
+          body:jsonEncode(data)
       );
       // print("36 통신 시작");
       if(response.statusCode==200){

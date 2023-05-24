@@ -97,202 +97,202 @@ class _MedicineParentRegistPageState extends State<MedicineParentRegistPage> {
     DeviceInfoController dc = Get.put(DeviceInfoController());
     MedicineController ac = Get.put(MedicineController());
     return GetBuilder<MedicineController>(builder:
-    (_)=>
-      Scaffold(
-      appBar: TitleAppBar(title: "투약 의뢰서 작성"),
-      body: SingleChildScrollView(
-        child: Row(
-          children: [
-            Expanded(child: SizedBox()),
-            Flexible(
-                flex:12,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 15),
-                      child: Text("투약 의뢰서 내용",style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                      width: 150, height: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: cardYellow,
-                      ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: SizedBox(
-                                width: 32, height: 32,
-                                child: CircleAvatar(backgroundImage: NetworkImage(dc.kidPhoto))),
+        (_)=>
+        Scaffold(
+          appBar: TitleAppBar(title: "투약 의뢰서 작성"),
+          body: SingleChildScrollView(
+            child: Row(
+              children: [
+                Expanded(child: SizedBox()),
+                Flexible(
+                    flex:12,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 10, 0, 15),
+                          child: Text("투약 의뢰서 내용",style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),),
+                        ),
+                        Container(
+                          margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                          width: 150, height: 50,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: cardYellow,
                           ),
-                          Flexible(flex: 2, child: Text("${dc.className} ${dc.kidName}" ,style: TextStyle(fontSize: 12,))),
-                        ],
-                      ),
-                    ),
-                    Container(    // 보란색 박스
-                      width: 500,
-                      height: 250,
-                      margin: EdgeInsets.only(bottom: 10),
-                      padding: EdgeInsets.symmetric(vertical: 10 ,horizontal: 30),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: lightNavy,
-                      ),
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 8),
-                            child: Row(
-                              children: [
-                                Text("증상 : ", style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                ),),
-                                Expanded(child:
-                                  MedicineTextForm(updateText: _updateSymptom, hint:"ex) 열나요")
-                                )
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 8),
-                            child: Row(
-                              children: [
-                                Text("종류 : ", style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                ),),
-                                Expanded(child:
-                                MedicineTextForm(updateText:_updatePill , hint:"ex) 알약")
-                                )
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 8),
-                            child: Row(
-                              children: [
-                                Text("용량 : ", style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                ),),
-                                Expanded(child:
-                                MedicineTextForm(updateText:_updateCapacity, hint:"ex) 개별 한 봉지 모두")
-                                )
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 8),
-                            child: Row(
-                              children: [
-                                Text("횟수 : ", style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                ),),
-                                Expanded(child:
-                                MedicineTextForm(updateText:_updateCount, hint:"ex) 1회")
-                                )
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 8),
-                            child: Row(
-                              children: [
-                                Text("시간 : ", style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                ),),
-                                Expanded(child:
-                                MedicineTextForm(updateText:_updateTime,hint:"ex) 식후 30분")
-                                )
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 8),
-                            child: Row(
-                              children: [
-                                Text("보관 : ", style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                ),),
-                                Expanded(child:
-                                MedicineTextForm(updateText: _updateKeep, hint:"ex) 실온 보관")
-                                )
-                              ],
-                            ),
-                          ),
-                          Row(
+                          child: Row(
                             children: [
-                              Text("비고 : ", style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                              ),),
                               Expanded(
-                                  child: MedicineTextForm(updateText:_updateContent , hint:"ex) 연희는 딸기사탕 없으면 약 안먹어요")
-                              )
+                                child: SizedBox(
+                                    width: 32, height: 32,
+                                    child: CircleAvatar(backgroundImage: NetworkImage(dc.kidPhoto))),
+                              ),
+                              Flexible(flex: 2, child: Text("${dc.className} ${dc.kidName}" ,style: TextStyle(fontSize: 12,))),
                             ],
                           ),
-                        ],
-                      ),
-                    ),
-                    Center(
-                      child: Text("투약으로 인한 책임은 의뢰자가 집니다.", style: TextStyle(fontSize: 12,color: Colors.black54)),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 30, 0, 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(DateFormat('yyyy.MM.dd').format(DateTime.now()),style: TextStyle(
-                              fontSize: 16
-                          ),),
-                          Text(dc.name,style: TextStyle(
-                              fontSize: 16
-                          ),),
-                          MedicineSignButton(
-                            symptom : symptom, pill : pill , capacity : capacity, count: count,
-                            time : time, keep : keep, content: content),
-                        ],
-                      ),
-                    ),
+                        ),
+                        Container(    // 보란색 박스
+                          width: 500,
+                          height: 250,
+                          margin: EdgeInsets.only(bottom: 10),
+                          padding: EdgeInsets.symmetric(vertical: 10 ,horizontal: 30),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: lightNavy,
+                          ),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 8),
+                                child: Row(
+                                  children: [
+                                    Text("증상 : ", style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                    ),),
+                                    Expanded(child:
+                                    MedicineTextForm(updateText: _updateSymptom, hint:"ex) 열나요")
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 8),
+                                child: Row(
+                                  children: [
+                                    Text("종류 : ", style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                    ),),
+                                    Expanded(child:
+                                    MedicineTextForm(updateText:_updatePill , hint:"ex) 알약")
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 8),
+                                child: Row(
+                                  children: [
+                                    Text("용량 : ", style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                    ),),
+                                    Expanded(child:
+                                    MedicineTextForm(updateText:_updateCapacity, hint:"ex) 개별 한 봉지 모두")
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 8),
+                                child: Row(
+                                  children: [
+                                    Text("횟수 : ", style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                    ),),
+                                    Expanded(child:
+                                    MedicineTextForm(updateText:_updateCount, hint:"ex) 1회")
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 8),
+                                child: Row(
+                                  children: [
+                                    Text("시간 : ", style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                    ),),
+                                    Expanded(child:
+                                    MedicineTextForm(updateText:_updateTime,hint:"ex) 식후 30분")
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 8),
+                                child: Row(
+                                  children: [
+                                    Text("보관 : ", style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                    ),),
+                                    Expanded(child:
+                                    MedicineTextForm(updateText: _updateKeep, hint:"ex) 실온 보관")
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  Text("비고 : ", style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                  ),),
+                                  Expanded(
+                                      child: MedicineTextForm(updateText:_updateContent , hint:"ex) 연희는 딸기사탕 없으면 약 안먹어요")
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        Center(
+                          child: Text("투약으로 인한 책임은 의뢰자가 집니다.", style: TextStyle(fontSize: 12,color: Colors.black54)),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 30, 0, 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Text(DateFormat('yyyy.MM.dd').format(DateTime.now()),style: TextStyle(
+                                  fontSize: 16
+                              ),),
+                              Text(dc.name,style: TextStyle(
+                                  fontSize: 16
+                              ),),
+                              MedicineSignButton(
+                                  symptom : symptom, pill : pill , capacity : capacity, count: count,
+                                  time : time, keep : keep, content: content),
+                            ],
+                          ),
+                        ),
 
-                    Divider(thickness: 1,height: 1,color: Colors.black26,),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("투약 보고서 내용",style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w700
-                          ),),
-                        ],
-                      ),
-                    ),
-                    Center(
-                      child: Text("금일 본 유치원/어린이집의 '이연희' 아동에 대해 의뢰하신", style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.black54
-                      )),
-                    ),
-                    Center(
-                      child: Text("내용대로 투약 하였음을 보고합니다.", style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.black54
-                      )),
-                    ),
-                  ],
-                )),
-            Expanded(child: SizedBox())
-          ],
-        ),
-      ),
-      )
+                        Divider(thickness: 1,height: 1,color: Colors.black26,),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("투약 보고서 내용",style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w700
+                              ),),
+                            ],
+                          ),
+                        ),
+                        Center(
+                          child: Text("금일 본 유치원/어린이집의 '이연희' 아동에 대해 의뢰하신", style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.black54
+                          )),
+                        ),
+                        Center(
+                          child: Text("내용대로 투약 하였음을 보고합니다.", style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.black54
+                          )),
+                        ),
+                      ],
+                    )),
+                Expanded(child: SizedBox())
+              ],
+            ),
+          ),
+        )
     );
   }
 }

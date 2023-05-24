@@ -42,7 +42,7 @@ class MedicineKidMonth {
   });
 
   factory MedicineKidMonth.fromJson(Map<String, dynamic> json) => MedicineKidMonth(
-      medicineSeq: json["medicineSeq"],
+    medicineSeq: json["medicineSeq"],
     requestDate: DateTime.parse(json["requestDate"]),
     responseDate: json["responseDate"],
   );

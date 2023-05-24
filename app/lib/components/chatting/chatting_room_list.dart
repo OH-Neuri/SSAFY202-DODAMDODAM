@@ -33,7 +33,7 @@ class ChattingRoomList extends StatelessWidget {
               // 화면단
               return Container(
                 decoration: BoxDecoration(
-                  border: Border(bottom: BorderSide(color: Colors.grey, width: 0.5))
+                    border: Border(bottom: BorderSide(color: Colors.grey, width: 0.5))
                 ),
                 height: 100,
                 child: Row(

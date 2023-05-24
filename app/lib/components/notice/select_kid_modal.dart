@@ -57,16 +57,16 @@ class _SelectKidModalState extends State<SelectKidModal> {
                                 padding: const EdgeInsets.only(right: 10),
                                 child:
                                 selectKidList.length == nc.kidList.length
-                                ? Icon(Icons.check_box, size: 14,)
-                                : Icon(Icons.check_box_outline_blank, size: 14,)
+                                    ? Icon(Icons.check_box, size: 14,)
+                                    : Icon(Icons.check_box_outline_blank, size: 14,)
                             ),
                             Text('전체 선택', style: TextStyle(fontSize: 14),)
                           ],
                         ),
                       ),
                       Text('총 ${selectKidList.length}명', style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey
+                          fontSize: 14,
+                          color: Colors.grey
                       ),)
                     ],
                   ),
@@ -128,8 +128,8 @@ class _SelectKidModalState extends State<SelectKidModal> {
                           padding: const EdgeInsets.only(right: 3.0),
                           child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xffB5B5B5),
-                                foregroundColor: Colors.white
+                                  backgroundColor: Color(0xffB5B5B5),
+                                  foregroundColor: Colors.white
                               ),
                               onPressed: (){
                                 selectKidList.clear();
@@ -159,7 +159,7 @@ class _SelectKidModalState extends State<SelectKidModal> {
                 ],
               )
           ),
-      )
+        )
     );
   }
 }

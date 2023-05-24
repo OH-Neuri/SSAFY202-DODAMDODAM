@@ -1,7 +1,11 @@
+import 'package:app/api/chatting_service.dart';
+import 'package:app/controller/deviceInfo_controller.dart';
+import 'package:app/models/chatting/chatting_teacher_list_model.dart';
+import 'package:app/models/chatting/chatting_user_list_model.dart';
 import 'package:get/get.dart';
 
-class CalendarTypeController extends GetxController {
-  static CalendarTypeController get to => Get.find();
+class ChattingController extends GetxController {
+  static ChattingController get to => Get.find();
 
   // 채팅 메인 사이트에서
   // 사용자 목록 -> false, 채팅 리스트 -> true
@@ -13,7 +17,8 @@ class CalendarTypeController extends GetxController {
   void onInit() async {
     if (DeviceInfoController.to.isTeacher) {
       userList = await ChattingService.getChatUserList();
-    } else {
+    }
+    else {
       teacherList = await ChattingService.getChatTeacherList();
     }
     super.onInit();
@@ -24,4 +29,5 @@ class CalendarTypeController extends GetxController {
     isChattingList = value;
     update();
   }
+
 }

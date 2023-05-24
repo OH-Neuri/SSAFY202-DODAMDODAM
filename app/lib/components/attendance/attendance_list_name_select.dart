@@ -15,8 +15,8 @@ class _SelectableNamesState extends State<AttendanceListNameSelect> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
-        border:Border.all(color:Colors.grey)
+          borderRadius: BorderRadius.circular(30),
+          border:Border.all(color:Colors.grey)
       ),
       padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
       child: DropdownButton<String>(

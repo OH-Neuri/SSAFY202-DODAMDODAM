@@ -59,20 +59,20 @@ class RoundButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          textStyle: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w500,
-            fontSize: contentTextSize
-          ),
-          minimumSize: Size(double.infinity, 60),
-          backgroundColor: color,
-          foregroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(50),
-          )
+            textStyle: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w500,
+                fontSize: contentTextSize
+            ),
+            minimumSize: Size(double.infinity, 60),
+            backgroundColor: color,
+            foregroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50),
+            )
         ),
         child: Text(text, style: TextStyle(
-          fontWeight: FontWeight.w500
+            fontWeight: FontWeight.w500
         ),)
     );
   }

@@ -68,28 +68,28 @@ class AttendanceService {
           headers: {"Content-Type" : "application/json"},
           body: jsonEncode(data)
       );
-        if(response.statusCode==200){
-          final AttendanceDetail attendanceDetail = attendanceDetailModelFromJson(utf8.decode(response.bodyBytes)).attendanceDetail;
-          return attendanceDetail;
-        }else{
-          return AttendanceDetail(name: "", photo: "", forthTime: "", backTime: "", forthTimeCheck: "", parentName: "", phoneNumber: "");
-        }
-      }catch(e){
+      if(response.statusCode==200){
+        final AttendanceDetail attendanceDetail = attendanceDetailModelFromJson(utf8.decode(response.bodyBytes)).attendanceDetail;
+        return attendanceDetail;
+      }else{
         return AttendanceDetail(name: "", photo: "", forthTime: "", backTime: "", forthTimeCheck: "", parentName: "", phoneNumber: "");
-        print(e);
       }
+    }catch(e){
+      return AttendanceDetail(name: "", photo: "", forthTime: "", backTime: "", forthTimeCheck: "", parentName: "", phoneNumber: "");
+      print(e);
+    }
   }
 
   // 등하원 시간 입력(선생님용) - 22
 
-   static Future<void> updateAttendanceTime(int attendanceSeq, String? forthTimeCheck, String? backTimeCheck, int kidSeq) async {
+  static Future<void> updateAttendanceTime(int attendanceSeq, String? forthTimeCheck, String? backTimeCheck, int kidSeq) async {
     // request
     //{
     //     "forthTimeCheck" : "08:33:00",
     //     "backTimeCheck" : null
     // }
     try {
-     AttendacneController ac = Get.put(AttendacneController());
+      AttendacneController ac = Get.put(AttendacneController());
       String URL = '${url}class/attendance/${ac.attendacneDetail.attendanceSeq}';
       final data = {
         "forthTimeCheck": forthTimeCheck.toString(),

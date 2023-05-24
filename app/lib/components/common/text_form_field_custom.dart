@@ -29,13 +29,13 @@ class TextFormFieldCustom extends StatelessWidget {
     }
 
     return Container(
-     height: 37,
+      height: 37,
       child: TextFormField(
         keyboardType: TextInputType.text,
         textInputAction: TextInputAction.next,
         onChanged: (onChanged){
           updateText(onChanged);
-          },
+        },
         obscureText: obscureText,
         enabled: enabled,
         decoration: InputDecoration(

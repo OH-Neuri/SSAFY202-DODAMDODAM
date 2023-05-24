@@ -34,8 +34,8 @@ class SettingService {
     try {
       String URL = '${url}user/kid';
       final res = await http.get(
-        Uri.parse(URL),
-        headers: authGetHeaders
+          Uri.parse(URL),
+          headers: authGetHeaders
       );
       if(res.statusCode == 200) {
         List<AddKid> kidList = kidListModelFromJson(utf8.decode(res.bodyBytes)).kidList;
@@ -75,9 +75,9 @@ class SettingService {
       };
       String URL = '${url}/user/userSleepMode';
       final res = await http.put(
-        Uri.parse(URL),
-        headers: authPostHeaders,
-        body: jsonEncode(data)
+          Uri.parse(URL),
+          headers: authPostHeaders,
+          body: jsonEncode(data)
       );
       if(res.statusCode == 200) {
         sc.setSleepTimeMode();

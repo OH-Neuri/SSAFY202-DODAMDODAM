@@ -6,7 +6,7 @@ class PaintPage extends StatefulWidget {
 }
 
 class _PaintPageState extends State<PaintPage> {
- List<Offset> _points = <Offset>[];
+  List<Offset> _points = <Offset>[];
 
   @override
   Widget build(BuildContext context) {

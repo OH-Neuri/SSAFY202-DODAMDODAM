@@ -93,10 +93,10 @@ class CalendarInfo extends StatelessWidget {
                             itemBuilder: (BuildContext context, int index) {
                               OneSchedule oneschedule = tc.scheduleList[index];
                               return oneschedule.classSeq == null ?
-                                OneLineSchedule(isClass: true, isTeacher: false, type: oneschedule.type, content: oneschedule.content, scheduleSeq: -1,)
+                              OneLineSchedule(isClass: true, isTeacher: false, type: oneschedule.type, content: oneschedule.content, scheduleSeq: -1,)
                                   : (DeviceInfoController.to.isTeacher ?
-                                OneLineSchedule(isClass: false, isTeacher: true, type: oneschedule.type, content: oneschedule.content, scheduleSeq: oneschedule.scheduleSeq,) :
-                                OneLineSchedule(isClass: false, isTeacher: false, type: oneschedule.type, content: oneschedule.content, scheduleSeq: -1)
+                              OneLineSchedule(isClass: false, isTeacher: true, type: oneschedule.type, content: oneschedule.content, scheduleSeq: oneschedule.scheduleSeq,) :
+                              OneLineSchedule(isClass: false, isTeacher: false, type: oneschedule.type, content: oneschedule.content, scheduleSeq: -1)
                               );
                             }
                         ),

@@ -56,9 +56,9 @@ class ScheduleService {
       TodayController tc = Get.put(TodayController());
       String URL = '${url}class/schedule/${c.classSeq}';
       final data = {
-          "content": name,
-          "date": "${tc.choiceDay.year}-05-${tc.choiceDay.day}",
-          "scheduleTypeSeq": choice.scheduleTypeSeq
+        "content": name,
+        "date": "${tc.choiceDay.year}-05-${tc.choiceDay.day}",
+        "scheduleTypeSeq": choice.scheduleTypeSeq
       };
       final response = await http.post(
           Uri.parse(URL),

@@ -19,7 +19,7 @@ class MedicineCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),

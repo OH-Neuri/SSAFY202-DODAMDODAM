@@ -10,9 +10,9 @@ class DeleteCalendarDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Center(
-        child: Text("일정 삭제",
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: buttonTextSize, color: textColor)
-        )
+          child: Text("일정 삭제",
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: buttonTextSize, color: textColor)
+          )
       ),
       backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
@@ -34,7 +34,7 @@ class DeleteCalendarDialog extends StatelessWidget {
                           Navigator.of(context).pop();
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.grey[300]
+                            backgroundColor: Colors.grey[300]
                         ),
                         child: Text('취소')),
                   )),
@@ -46,7 +46,7 @@ class DeleteCalendarDialog extends StatelessWidget {
                           Navigator.of(context).pop();
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: darkYellow
+                            backgroundColor: darkYellow
                         ),
                         child: Text('삭제')),
                   )),

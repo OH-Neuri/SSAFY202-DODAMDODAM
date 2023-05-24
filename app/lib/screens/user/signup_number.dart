@@ -75,59 +75,59 @@ class _SignupNumberState extends State<SignupNumber> {
                               });
                               UserService.sendAuthPhone(user.phone, user.role);
                               CustomSnackBar.alertSnackbar(context, '인증번호를 전송했습니다.');
-                              },
+                            },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: darkNavy,
-                              foregroundColor: Colors.white,
-                              minimumSize: Size(50, double.infinity)
+                                backgroundColor: darkNavy,
+                                foregroundColor: Colors.white,
+                                minimumSize: Size(50, double.infinity)
                             ),
                             child: Text('인증번호 받기')
                         ),
                       )
                           :
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                            child: Column(
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.fromLTRB(10, 0, 0, 6),
-                                  width: double.infinity,
-                                  child: SignupTimer()
-                                ),
-                                UserTextFormField(
-                                    hint: '인증번호',
-                                    onChanged: (val){
-                                      setState(() {
-                                        code = val;
-                                      });
-                                    },
-                                    obscureText: false
-                                ),
-                                Container(
-                                  padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
-                                  width: double.infinity,
-                                  height: 70,
-                                  child: ElevatedButton(
-                                      onPressed: (){
-                                        if(number == '') {
-                                          CustomSnackBar.errorSnackbar(context, '번호를 입력해주세요.');
-                                        }
-                                        setState(() {
-                                          user.phone = number;
-                                        });
-                                        UserService.sendAuthPhone(user.phone, user.role);
-                                        },
-                                      style: ElevatedButton.styleFrom(
-                                          backgroundColor: darkNavy,
-                                          foregroundColor: Colors.white,
-                                          minimumSize: Size(50, double.infinity)
-                                      ),
-                                      child: Text('인증번호 다시 전송하기')
-                                  ),
-                                )
-                              ],
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                        child: Column(
+                          children: [
+                            Container(
+                                padding: EdgeInsets.fromLTRB(10, 0, 0, 6),
+                                width: double.infinity,
+                                child: SignupTimer()
                             ),
-                          )
+                            UserTextFormField(
+                                hint: '인증번호',
+                                onChanged: (val){
+                                  setState(() {
+                                    code = val;
+                                  });
+                                },
+                                obscureText: false
+                            ),
+                            Container(
+                              padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                              width: double.infinity,
+                              height: 70,
+                              child: ElevatedButton(
+                                  onPressed: (){
+                                    if(number == '') {
+                                      CustomSnackBar.errorSnackbar(context, '번호를 입력해주세요.');
+                                    }
+                                    setState(() {
+                                      user.phone = number;
+                                    });
+                                    UserService.sendAuthPhone(user.phone, user.role);
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: darkNavy,
+                                      foregroundColor: Colors.white,
+                                      minimumSize: Size(50, double.infinity)
+                                  ),
+                                  child: Text('인증번호 다시 전송하기')
+                              ),
+                            )
+                          ],
+                        ),
+                      )
                     ],
                   ),
                 ),
@@ -135,9 +135,9 @@ class _SignupNumberState extends State<SignupNumber> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
                 child: CustomButton(text: '다음', height: 70,
-                  onPressed: (){
-                    phoneCheck();
-                  }),
+                    onPressed: (){
+                      phoneCheck();
+                    }),
               ),
             ],
           )),

@@ -10,9 +10,9 @@ class NotifyService {
     try {
       String URL = '${baseUrl}notify';
       final res = await http.post(
-        Uri.parse(URL),
-        headers: postHeaders,
-        body: jsonEncode(notify.toJson())
+          Uri.parse(URL),
+          headers: postHeaders,
+          body: jsonEncode(notify.toJson())
       );
       if (res.statusCode == 200) {
         print('알림성공');

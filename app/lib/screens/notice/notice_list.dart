@@ -20,90 +20,89 @@ class NoticeList extends StatelessWidget {
     DeviceInfoController dc = Get.put(DeviceInfoController());
     NoticeController nc = Get.put(NoticeController());
     return GetBuilder<NoticeController>(
-      builder: (_) => Scaffold(
-        backgroundColor: lightNavy,
-        appBar: TitleAppBar(title: '알림장'),
-        body: Stack(children: [
-          Positioned(
-            child: SizedBox(
-              width: double.infinity,
-              height: double.infinity,
-              child: SingleChildScrollView(
-                child: Row(
-                  children: [
-                    Expanded(child: SizedBox()),
-                    Flexible(
-                        flex: 12,
-                        child: nc.noticeList.isEmpty
-                            ? Padding(
-                                padding: const EdgeInsets.only(top: 24.0),
-                                child: Text('등록된 알림장이 없습니다.'),
-                              )
-                            : Column(
-                                children: [
-                                  NoticeMonthPicker(),
-                                  for (NoticeListItem item in nc.noticeList)
-                                    item.announcement
-                                        ? NoticeItemAnnouncement(
-                                            date: item.date,
-                                            content: item.content,
-                                            photo: item.photo,
-                                            onPressed: () {
-                                              nc.setNoticeDetail(
-                                                  item.noticeSeq);
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          NoticeDetailPage()));
-                                            },
-                                          )
-                                        : NoticeItem(
-                                            date: item.date,
-                                            kids: kidLengthToText(item.kid),
-                                            content: item.content,
-                                            photo: item.photo,
-                                            onPressed: () {
-                                              nc.setNoticeDetail(
-                                                  item.noticeSeq);
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          NoticeDetailPage()));
-                                            },
-                                          ),
-                                ],
-                              )),
-                    Expanded(child: SizedBox()),
-                  ],
-                ),
-              ),
+      builder: (_) =>
+          Scaffold(
+            backgroundColor: lightNavy,
+            appBar: TitleAppBar(title: '알림장'),
+            body: Stack(
+                children: [
+                  Positioned(
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: double.infinity,
+                      child: SingleChildScrollView(
+                        child: Row(
+                          children: [
+                            Expanded(child: SizedBox()),
+                            Flexible(flex: 12,
+                                child:
+                                nc.noticeList.isEmpty
+                                    ? Padding(
+                                  padding: const EdgeInsets.only(top: 24.0),
+                                  child: Text('등록된 알림장이 없습니다.'),
+                                )
+                                    : Column(
+                                  children: [
+                                    NoticeMonthPicker(),
+                                    for(NoticeListItem item in nc.noticeList)
+                                      item.announcement ?
+                                      NoticeItemAnnouncement(
+                                        date: item.date,
+                                        content: item.content,
+                                        photo: item.photo,
+                                        onPressed: () {
+                                          nc.setNoticeDetail(item.noticeSeq);
+                                          Navigator.push(context, MaterialPageRoute(builder:
+                                              (context) => NoticeDetailPage()
+                                          ));
+                                        },
+                                      ):
+                                      NoticeItem(
+                                        date: item.date,
+                                        kids: kidLengthToText(item.kid),
+                                        content: item.content,
+                                        photo: item.photo,
+                                        onPressed: () {
+                                          nc.setNoticeDetail(item.noticeSeq);
+                                          Navigator.push(context, MaterialPageRoute(builder:
+                                              (context) => NoticeDetailPage()
+                                          ));
+                                        },
+                                      ),
+                                  ],
+                                )
+                            ),
+                            Expanded(child: SizedBox()),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  dc.isTeacher ?
+                  Positioned(
+                      bottom: 20,
+                      right: 30,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context)=>NoticeRegist()));
+                        },
+                        style: ElevatedButton.styleFrom(
+                            minimumSize: Size(70, 70),
+                            backgroundColor: logoNavy,
+                            foregroundColor: Colors.white,
+                            elevation: 20,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(100)
+                            )
+                        ),
+                        child: Icon(Icons.create),
+                      )
+                  ) :
+                  SizedBox()
+                ]
             ),
           ),
-          dc.isTeacher
-              ? Positioned(
-                  bottom: 20,
-                  right: 30,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => NoticeRegist()));
-                    },
-                    style: ElevatedButton.styleFrom(
-                        minimumSize: Size(70, 70),
-                        backgroundColor: logoNavy,
-                        foregroundColor: Colors.white,
-                        elevation: 20,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(100))),
-                    child: Icon(Icons.create),
-                  ))
-              : SizedBox()
-        ]),
-      ),
     );
   }
 }

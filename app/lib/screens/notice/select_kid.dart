@@ -46,104 +46,104 @@ class _SelectKidState extends State<SelectKid> {
                 children: [
                   Expanded(
                     child: Container(
-                      margin: EdgeInsets.fromLTRB(0, 40.0, 0, 20.0),
-                      padding: EdgeInsets.symmetric(vertical: 40),
-                      decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20)
-                      ),
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 16.0),
-                            child: Text('원아 선택', style: TextStyle(
-                              fontSize: titleTextSize,
-                              fontWeight: FontWeight.w700
-                            ),),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 30),
-                            child: TextButton(
-                              onPressed: (){
-                                setState(() {
-                                  if(kidSeqs.length == kids.length) {
-                                    kidSeqs = [];
-                                  }else {
-                                    List<int> newList = kids.map((kid) {return kid.kidSeq;}).toList();
-                                    kidSeqs = newList;
-                                  }
-                                });
-                              },
-                              style: ButtonStyle(
-                                overlayColor: MaterialStateProperty.all(Colors.white),
-                                backgroundColor: MaterialStateProperty.all(Colors.white),
-                                foregroundColor: MaterialStateProperty.all(textColor)
-                              ),
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 10),
-                                    child:
-                                      kidSeqs.length == kids.length ?
-                                      Icon(Icons.check_box)
-                                      :
-                                      Icon(Icons.check_box_outline_blank)
-                                  ),
-                                  Text('전체 선택')
-                                ],
-                              ),
+                        margin: EdgeInsets.fromLTRB(0, 40.0, 0, 20.0),
+                        padding: EdgeInsets.symmetric(vertical: 40),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20)
+                        ),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 16.0),
+                              child: Text('원아 선택', style: TextStyle(
+                                  fontSize: titleTextSize,
+                                  fontWeight: FontWeight.w700
+                              ),),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10, bottom: 20),
-                            child: Divider(color: Colors.grey, height: 1, thickness: 1,),
-                          ),
-                          Expanded(
-                            child: SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                for(Kid kid in kids)
-                                  InkWell(
-                                    onTap: (){
-                                      setState(() {
-                                        if(kidSeqs.contains(kid.kidSeq)){
-                                          kidSeqs.remove(kid.kidSeq);
-                                        }else{
-                                          kidSeqs.add(kid.kidSeq);
-                                        }
-                                      });
-                                    },
-                                    child: Container(
-                                      height: 70,
-                                      padding: EdgeInsets.fromLTRB(40, 10, 50, 10),
-                                      decoration: BoxDecoration(
-                                        color: kidSeqs.contains(kid.kidSeq) ? Color(0x40D5D5D5) : null
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          SizedBox(
-                                            width: 50,
-                                            height: 50,
-                                            child: CircleAvatar(
-                                                radius: 200,
-                                                backgroundImage: AssetImage(kid.photo)
-                                            ),
-                                          ),
-                                          Text(kid.name, style: TextStyle(
-                                            fontSize: contentTextSize,
-                                            fontWeight: FontWeight.w400
-                                          ),)
-                                        ],
-                                      ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 30),
+                              child: TextButton(
+                                onPressed: (){
+                                  setState(() {
+                                    if(kidSeqs.length == kids.length) {
+                                      kidSeqs = [];
+                                    }else {
+                                      List<int> newList = kids.map((kid) {return kid.kidSeq;}).toList();
+                                      kidSeqs = newList;
+                                    }
+                                  });
+                                },
+                                style: ButtonStyle(
+                                    overlayColor: MaterialStateProperty.all(Colors.white),
+                                    backgroundColor: MaterialStateProperty.all(Colors.white),
+                                    foregroundColor: MaterialStateProperty.all(textColor)
+                                ),
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                        padding: const EdgeInsets.only(right: 10),
+                                        child:
+                                        kidSeqs.length == kids.length ?
+                                        Icon(Icons.check_box)
+                                            :
+                                        Icon(Icons.check_box_outline_blank)
                                     ),
-                                  ),
-                                ],
+                                    Text('전체 선택')
+                                  ],
+                                ),
                               ),
                             ),
-                          )
-                        ],
-                      )
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10, bottom: 20),
+                              child: Divider(color: Colors.grey, height: 1, thickness: 1,),
+                            ),
+                            Expanded(
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    for(Kid kid in kids)
+                                      InkWell(
+                                        onTap: (){
+                                          setState(() {
+                                            if(kidSeqs.contains(kid.kidSeq)){
+                                              kidSeqs.remove(kid.kidSeq);
+                                            }else{
+                                              kidSeqs.add(kid.kidSeq);
+                                            }
+                                          });
+                                        },
+                                        child: Container(
+                                          height: 70,
+                                          padding: EdgeInsets.fromLTRB(40, 10, 50, 10),
+                                          decoration: BoxDecoration(
+                                              color: kidSeqs.contains(kid.kidSeq) ? Color(0x40D5D5D5) : null
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              SizedBox(
+                                                width: 50,
+                                                height: 50,
+                                                child: CircleAvatar(
+                                                    radius: 200,
+                                                    backgroundImage: AssetImage(kid.photo)
+                                                ),
+                                              ),
+                                              Text(kid.name, style: TextStyle(
+                                                  fontSize: contentTextSize,
+                                                  fontWeight: FontWeight.w400
+                                              ),)
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                              ),
+                            )
+                          ],
+                        )
                     ),
                   ),
                   Padding(
@@ -151,9 +151,9 @@ class _SelectKidState extends State<SelectKid> {
                     child: ElevatedButton(
                         onPressed: (){},
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: darkNavy,
-                          foregroundColor: Colors.white,
-                          minimumSize: Size(double.infinity, 60)
+                            backgroundColor: darkNavy,
+                            foregroundColor: Colors.white,
+                            minimumSize: Size(double.infinity, 60)
                         ),
                         child: Text('선택하기')
                     ),

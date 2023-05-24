@@ -45,10 +45,10 @@ class SingleTeacher {
   });
 
   factory SingleTeacher.fromJson(Map<String, dynamic> json) => SingleTeacher(
-    classTeacherSeq: json["classTeacherSeq"],
-    teacherName: json["teacherName"],
-    sleepModeStart: json["sleepModeStart"],
-    sleepModeEnd: json["sleepModeEnd"]
+      classTeacherSeq: json["classTeacherSeq"],
+      teacherName: json["teacherName"],
+      sleepModeStart: json["sleepModeStart"],
+      sleepModeEnd: json["sleepModeEnd"]
   );
 
   Map<String, dynamic> toJson() => {

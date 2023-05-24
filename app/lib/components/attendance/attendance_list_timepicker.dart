@@ -54,9 +54,9 @@ class _AttendaneListTimePickerState extends State<AttendaneListTimePicker> {
                     ? "날짜 선택"
                     : "${_selectedDate.year}-${_selectedDate.month}-${_selectedDate.day}",
 
-              style: TextStyle(
-                fontSize: 12
-              ),
+                style: TextStyle(
+                    fontSize: 12
+                ),
               ),
             ),
             Padding(

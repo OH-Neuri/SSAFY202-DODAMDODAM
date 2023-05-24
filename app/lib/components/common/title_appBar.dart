@@ -15,7 +15,7 @@ class TitleAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: bottomYellow,
       elevation: 0,
       title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),

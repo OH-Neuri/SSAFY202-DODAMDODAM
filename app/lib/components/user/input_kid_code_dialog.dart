@@ -18,7 +18,7 @@ class _InputClassCodeDialogState extends State<InputKidCodeDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20)
+          borderRadius: BorderRadius.circular(20)
       ),
       contentPadding: EdgeInsets.zero,
       content: Container(
@@ -47,27 +47,27 @@ class _InputClassCodeDialogState extends State<InputKidCodeDialog> {
                 decoration: InputDecoration(
                   hintText: 'ex) 123456',
                   hintStyle: TextStyle(
-                    color: Colors.grey,
-                    fontWeight: FontWeight.w300
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w300
                   ),
                   filled: true,
                   fillColor: Color(0x50D5D5D5),
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide.none
+                      borderSide: BorderSide.none
                   ),
                   border: UnderlineInputBorder(
-                    borderSide: BorderSide.none
+                      borderSide: BorderSide.none
                   ),
                 ),cursorColor: Colors.grey,
               ),
             ),
             FilledButton(
                 style: FilledButton.styleFrom(
-                  backgroundColor: darkYellow,
-                  minimumSize: Size(double.infinity, 62),
-                  shape: ContinuousRectangleBorder(
-                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30))
-                  )
+                    backgroundColor: darkYellow,
+                    minimumSize: Size(double.infinity, 66),
+                    shape: ContinuousRectangleBorder(
+                        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30))
+                    )
                 ),
                 onPressed: () async {
                   final res = await CodeService.authKidCode(code);

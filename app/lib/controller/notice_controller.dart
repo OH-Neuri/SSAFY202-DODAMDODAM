@@ -55,8 +55,7 @@ class NoticeController extends GetxController {
   void setAiNotice(List<String> keywords) async {
     setIsLoading(true);
     try {
-      // aiNotice = await NoticeService.generateNotice(keywords);
-      aiNotice = await NoticeService.getAutoNotice();
+      aiNotice = await NoticeService.generateNotice(keywords);
       setIsLoading(false);
     }catch(e) {
       print(e);
