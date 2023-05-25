@@ -7,6 +7,7 @@
 <br>
 <br>
 <br>
+<br>
 
 # 💛 프로젝트 소개
 <br>
@@ -17,6 +18,7 @@ SSAFY 8기 2학기 자율 프로젝트
 
 총 6명 (프론트 3 / 백 3)
 
+<br>
 <br>
 <br>
 <br>
@@ -41,6 +43,7 @@ SSAFY 8기 2학기 자율 프로젝트
 [웹사이트 바로가기](https://dodamdodam.site)
 
 
+<br>
 <br>
 <br>
 <br>
@@ -106,6 +109,7 @@ SSAFY 8기 2학기 자율 프로젝트
 <br>
 <br>
 <br>
+<br>
 
 # 💛 개발 환경
 <br />
@@ -142,7 +146,18 @@ SSAFY 8기 2학기 자율 프로젝트
 ![s3](https://img.shields.io/badge/-S3-red)
 ![EC2](https://img.shields.io/badge/-EC2-orange)
 
+<br>
+<br>
+<br>
+<br>
 
+# 💛 팀원 소개
+<br />
+
+|BE|BE|BE|FE|FE|FE|
+|:--:|:--:|:--:|:--:|:--:|:--:|
+|![김소정](https://github.com/wohaha-dodamdodam/dodamdodam/assets/107095081/c349e7a3-d69e-46d2-baf6-3a844b37b1cc)|![윤수희](https://github.com/wohaha-dodamdodam/dodamdodam/assets/107095081/25f9569e-c4fc-4e96-a088-0bb9813ad156)|![김지현](https://github.com/wohaha-dodamdodam/dodamdodam/assets/107095081/d0f421cb-0690-442f-8da6-6c85b88b8593)|![이연희](https://github.com/wohaha-dodamdodam/dodamdodam/assets/107095081/7f703951-e40d-46b7-a6b0-2bdc59ddc7be)|![김나현](https://github.com/wohaha-dodamdodam/dodamdodam/assets/107095081/d3a0219b-f180-40e4-95e2-1a7bb9ebeaf4)|![오하늘2](https://github.com/wohaha-dodamdodam/dodamdodam/assets/107095081/452f466e-5ded-463f-b700-69662add0ffe)|
+|[김소정](https://github.com/ssosojeong)|[윤수희](https://github.com/YunSuHee)|[김지현](https://github.com/jihyuno0o)|[이연희](https://github.com/sweaterman)|[김나현](https://github.com/nahyun2kim)|[오하늘](https://github.com/OH-Neuri)|
 
 
 
