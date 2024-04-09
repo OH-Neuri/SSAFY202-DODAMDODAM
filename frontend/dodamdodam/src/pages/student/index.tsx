@@ -12,6 +12,7 @@ import { loginCheck } from "@/api/loginCheck";
 import router from "next/router";
 
 export default function index() {
+  // 로그인 확인
   const isLogin = () => {
     if (loginCheck() == false) {
       router.push("/error");
@@ -45,7 +46,6 @@ export default function index() {
       );
       setStudentList(response.data.result);
     } catch (error) {
-      // console.log("에러났습니다.");
     }
   }
 
@@ -61,7 +61,6 @@ export default function index() {
       <div className="col-span-1"></div>
       <div className="col-span-6 pl-20 pt-4">
         <PageHeader name={"원생 목록"}></PageHeader>
-        {/* 원생 카드 */}
         <div className=" grid grid-cols-6 gap-1 w-[1500px] h-[100px] mt-[100px] ml-10">
           {studentList.map((v: any, i: any) => {
             return (
@@ -71,32 +70,29 @@ export default function index() {
                     handleOpenMo(v.kidSeq);
                   }}
                 >
-                  <StudentCard key={i} student={v}></StudentCard>
+                  <StudentCard key={i} student={v} />
                 </div>
               </div>
             );
           })}
-          {/* 원생 등록 카드 */}
           <div
             onClick={() => handleOpenRe()}
             className=" cursor-pointer flex justify-center items-center hover:bg-gray-200 w-[200px] h-[250px] rounded-3xl border-1 border-gray-200 bg-gray-100  "
           >
             <Image
-              className="opacity-40 "
+              className="opacity-40"
               src="/images/user/add.png"
-              alt=""
+              alt="Register Image"
               width={105}
               height={105}
             />
           </div>
-          {/* 아이 등록 모달 */}
           <StudentRegisterModal
             open={openRe}
             handleOpen={handleOpenRe}
             handleClose={handleCloseRe}
           ></StudentRegisterModal>
-          {/* 아이 수정 모달 */}
-          <div className="">
+          <div>
             <StudentModifyModal
               idx={studentIdx}
               open={openMo}
